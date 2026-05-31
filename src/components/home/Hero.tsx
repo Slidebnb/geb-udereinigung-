@@ -21,10 +21,10 @@ const defaultHero: Required<HeroData> = {
   h1: 'Professionelle',
   h2: 'Gebäudereinigung',
   h3: '& Hausmeister',
-  subtitle: 'Sauberkeit auf höchstem Niveau – für Büros, Wohnhäuser und Gewerbe in Neuwied, Koblenz & Bendorf. Zuverlässig, gründlich, fair.',
+  subtitle: 'Gebäudereinigung für Hausverwaltungen, Gewerbe & Wohnanlagen in Neuwied, Koblenz und Bendorf. Zuverlässige Reinigung, feste Ansprechpartner und transparente Festpreise – ohne ständiges Hinterhertelefonieren.',
   stats: [
-    { val: '500+', label: 'zufriedene Kunden' },
-    { val: '15+',  label: 'Jahre Erfahrung' },
+    { val: '100+', label: 'zufriedene Kunden' },
+    { val: '3+',   label: 'Jahre Erfahrung' },
     { val: '4.9★', label: 'Google Bewertung' },
   ],
   services: [

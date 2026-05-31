@@ -11,12 +11,36 @@ export const metadata: Metadata = {
 };
 
 const projects = [
-  { title: 'Büroreinigung Verwaltungsgebäude', location: 'Neuwied',    category: 'Büroreinigung',        image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80', desc: 'Tägliche Unterhaltsreinigung von 2.400 m² Bürofläche für ein regionales Unternehmen.' },
-  { title: 'Treppenhausreinigung Wohnanlage',  location: 'Koblenz',    category: 'Treppenhausreinigung', image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80', desc: 'Wöchentliche Treppenhausreinigung für eine Wohnanlage mit 36 Einheiten.' },
-  { title: 'Bauendreinigung Neubau',           location: 'Bendorf',    category: 'Baureinigung',         image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80', desc: 'Bezugsfertige Bauendreinigung eines neu errichteten Ärztehauses.' },
-  { title: 'Glasfassade Geschäftshaus',        location: 'Koblenz',    category: 'Glasreinigung',        image: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80', desc: 'Quartalsweise Reinigung einer 750 m² großen Glasfassade per Osmose-Technik.' },
-  { title: 'Winterdienst Gewerbepark',         location: 'Neuwied',    category: 'Winterdienst',         image: 'https://images.unsplash.com/photo-1418985991508-e47386d96a71?auto=format&fit=crop&w=800&q=80', desc: 'Räum- und Streudienst für einen Gewerbepark inkl. lückenloser Dokumentation.' },
-  { title: 'Grünpflege Wohnquartier',          location: 'Andernach',  category: 'Gartenarbeiten',       image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80', desc: 'Ganzjährige Grünpflege und Außenanlagenbetreuung für ein Wohnquartier.' },
+  {
+    title: 'Büroreinigung Verwaltungsgebäude', location: 'Neuwied', category: 'Büroreinigung',
+    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
+    desc: 'Verwaltungsgebäude in Neuwied, 2.400 m² Bürofläche, tägliche Unterhaltsreinigung. Leistungsumfang: Schreibtische und Arbeitsbereiche, Sanitäranlagen, Küchen- und Sozialräume, Böden und Eingangsbereiche. Feste Reinigungsmannschaft, Protokoll auf Anfrage.',
+  },
+  {
+    title: 'Treppenhausreinigung Wohnanlage', location: 'Koblenz', category: 'Treppenhausreinigung',
+    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80',
+    desc: 'Wohnanlage mit 36 Einheiten in Koblenz, wöchentliche Treppenhausreinigung. Leistungsumfang: Eingangsbereich und Briefkastenanlage, Treppenabsätze und Handläufe, Aufzug innen, Kellerzugänge, Spinnwebenkontrolle. Reinigungsprotokoll im Objekt.',
+  },
+  {
+    title: 'Bauendreinigung Neubau-Ärztehaus', location: 'Bendorf', category: 'Baureinigung',
+    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80',
+    desc: 'Neu errichtetes Ärztehaus in Bendorf, bezugsfertige Bauendreinigung. Leistungsumfang: Bauschutt- und Grobschmutzbeseitigung, Fenster- und Glasreinigung, Bodenreinigung und -pflege aller Praxisflächen, Sanitärdesinfektion, Übergabeprotokoll.',
+  },
+  {
+    title: 'Glasfassade Geschäftshaus', location: 'Koblenz', category: 'Glasreinigung',
+    image: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
+    desc: 'Fünfstöckiges Geschäftshaus in Koblenz, 750 m² Glasfassade, quartalsweise Reinigung. Methode: Osmose-Reinwasser-Technik für streifenfreies Ergebnis auch ohne Leitern. Inklusive Schaufenster und Glasdachelemente.',
+  },
+  {
+    title: 'Winterdienst Gewerbepark', location: 'Neuwied', category: 'Winterdienst',
+    image: 'https://images.unsplash.com/photo-1418985991508-e47386d96a71?auto=format&fit=crop&w=800&q=80',
+    desc: 'Gewerbepark in Neuwied, Räum- und Streudienst für Zufahrten, Parkplätze und Gehwege. Bereitschaft ab 4 Uhr morgens, auch an Wochenenden und Feiertagen. Lückenlose Einsatzdokumentation zum Haftungsschutz des Eigentümers.',
+  },
+  {
+    title: 'Grünpflege Wohnquartier', location: 'Andernach', category: 'Gartenarbeiten',
+    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
+    desc: 'Wohnquartier in Andernach, ganzjährige Außenanlagenbetreuung. Leistungsumfang: Rasenmähen und Kantenschnitt, Heckenpflege, Laubbeseitigung im Herbst, Beetpflege, Sperrmüll- und Grünschnittentsorgung. Fester Ansprechpartner für die Hausverwaltung.',
+  },
 ];
 
 export default async function ReferenzenPage() {

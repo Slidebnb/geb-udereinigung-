@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Impressum',
-  description: 'Impressum und Anbieterkennzeichnung der Huwa Gebäudereinigung & Hausmeisterdienste gemäß § 5 TMG.',
+  description: 'Impressum und Anbieterkennzeichnung der Huwa Gebäudereinigung & Hausmeisterdienste.',
   robots: { index: false, follow: true },
   alternates: { canonical: `${siteConfig.url}/impressum` },
 };
@@ -22,9 +22,10 @@ export default function ImpressumPage() {
       <section className="section-padding">
         <div className="container mx-auto max-w-3xl prose-content space-y-6">
           <div>
-            <h2 className="text-primary mb-2">Angaben gemäß § 5 TMG</h2>
+            <h2 className="text-primary mb-2">Angaben gemäß § 5 DDG</h2>
             <p className="text-gray-600">
               {siteConfig.legalName}<br />
+              Inhaber: Hasan Hüseyin Ünal<br />
               {siteConfig.address.street}<br />
               {siteConfig.address.zip} {siteConfig.address.city}<br />
               Deutschland
@@ -49,16 +50,9 @@ export default function ImpressumPage() {
           </div>
 
           <div>
-            <h2 className="text-primary mb-2">Umsatzsteuer-ID</h2>
-            <p className="text-gray-600">
-              Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br />
-              <span className="italic text-gray-400">wird ergänzt</span>
-            </p>
-          </div>
-
-          <div>
             <h2 className="text-primary mb-2">Redaktionell verantwortlich</h2>
             <p className="text-gray-600">
+              Hasan Hüseyin Ünal<br />
               {siteConfig.address.street}, {siteConfig.address.zip} {siteConfig.address.city}
             </p>
           </div>
@@ -83,7 +77,7 @@ export default function ImpressumPage() {
           <div>
             <h2 className="text-primary mb-2">Haftung für Inhalte</h2>
             <p className="text-gray-600">
-              Als Diensteanbieter sind wir gemäß § 7 Abs.1 TMG für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
+              Als Diensteanbieter sind wir für eigene Inhalte auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.
             </p>
           </div>
 

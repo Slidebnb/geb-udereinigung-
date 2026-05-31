@@ -39,7 +39,7 @@ export const siteConfig = {
     'Lahnstein',
     'Boppard',
   ],
-  foundingYear: 2009,
+  foundingYear: 2023,
 };
 
 export type SiteConfig = typeof siteConfig;

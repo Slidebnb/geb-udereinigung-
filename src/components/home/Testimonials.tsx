@@ -55,7 +55,7 @@ export default function Testimonials() {
           <div className="flex items-center justify-center gap-3">
             <span className="text-yellow-400 text-2xl tracking-tight">★★★★★</span>
             <span className="font-black text-dark text-xl">4.9</span>
-            <span className="text-gray-400">/5 · 127+ Google Bewertungen</span>
+            <span className="text-gray-400">/5 · Google Bewertungen</span>
           </div>
         </div>
 

@@ -15,8 +15,8 @@ export interface WhyUsData {
 
 const defaultWhyUs: Required<WhyUsData> = {
   stats: [
-    { val: 500, suffix: '+', label: 'Zufriedene Kunden' },
-    { val: 15,  suffix: '+', label: 'Jahre Erfahrung' },
+    { val: 100, suffix: '+', label: 'Zufriedene Kunden' },
+    { val: 3,   suffix: '+', label: 'Jahre Erfahrung' },
     { val: 10,  suffix: '',  label: 'Leistungsbereiche' },
     { val: 100, suffix: '%', label: 'Weiterempfehlung' },
   ],

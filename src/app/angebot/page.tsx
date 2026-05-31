@@ -73,8 +73,16 @@ export default function AngebotPage() {
           <Breadcrumb items={[{ label: 'Angebot anfragen' }]} dark />
           <div className="mt-8 max-w-2xl">
             <div className="section-label mb-4">Angebot anfragen</div>
-            <h1 className="text-white mb-4">Kostenloses Angebot <span className="gradient-text">anfordern</span></h1>
-            <p className="text-slate-300 text-lg">In 3 einfachen Schritten zu Ihrem persönlichen Angebot. Antwort garantiert innerhalb von 24 Stunden.</p>
+            <h1 className="text-white mb-4">Kostenloses Angebot für <span className="gradient-text">Ihr Objekt</span></h1>
+            <p className="text-slate-300 text-lg mb-6">Beschreiben Sie kurz Ihr Objekt. Wir prüfen Aufwand, Reinigungsintervall und Besonderheiten – und melden uns persönlich mit einer realistischen Einschätzung.</p>
+            <div className="flex flex-wrap gap-4">
+              {['Antwort in 24 Stunden', 'Kostenlose Objektbesichtigung', 'Transparentes Festpreisangebot', 'Für Hausverwaltungen, Gewerbe & Wohnanlagen'].map(item => (
+                <div key={item} className="flex items-center gap-2 text-slate-300/80 text-sm">
+                  <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                  {item}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

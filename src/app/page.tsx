@@ -39,7 +39,7 @@ const localBusinessSchema = {
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '07:00', closes: '18:00' },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday'], opens: '08:00', closes: '14:00' },
   ],
-  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '127', bestRating: '5' },
+  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '100', bestRating: '5' },
   priceRange: '€€',
   areaServed: siteConfig.serviceAreas,
   sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
