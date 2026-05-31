@@ -14,8 +14,8 @@ export default function CTABanner() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.cta-content', {
-        opacity: 0, y: 30, duration: 0.8,
-        scrollTrigger: { trigger: ref.current, start: 'top 80%' },
+        y: 30, duration: 0.8,
+        scrollTrigger: { trigger: ref.current, start: 'top 80%', once: true },
       });
     }, ref);
     return () => ctx.revert();

@@ -23,12 +23,12 @@ export default function Testimonials() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.testimonial-title', {
-        opacity: 0, y: 30, duration: 0.7,
-        scrollTrigger: { trigger: '.testimonial-title', start: 'top 85%' },
+        y: 30, duration: 0.7,
+        scrollTrigger: { trigger: '.testimonial-title', start: 'top 85%', once: true },
       });
       gsap.from('.testimonial-card', {
-        opacity: 0, y: 40, scale: 0.97, duration: 0.6, stagger: 0.12,
-        scrollTrigger: { trigger: cardsRef.current, start: 'top 80%' },
+        y: 40, scale: 0.97, duration: 0.6, stagger: 0.12,
+        scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', once: true },
       });
     }, sectionRef);
     return () => ctx.revert();

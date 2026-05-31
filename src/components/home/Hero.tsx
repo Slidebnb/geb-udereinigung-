@@ -1,12 +1,10 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { siteConfig } from '@/lib/site';
-
-const HeroCanvas = dynamic(() => import('./HeroCanvas'), { ssr: false });
+import HeroBg from './HeroCanvas';
 
 export default function Hero() {
   const headlineRef = useRef<HTMLDivElement>(null);
@@ -26,8 +24,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: 'radial-gradient(ellipse at 60% 40%, #112B4A 0%, #050D1A 65%)' }}>
-      {/* Three.js WebGL Background */}
-      <HeroCanvas />
+      <HeroBg />
 
       {/* Gradient overlay bottom */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-10" />

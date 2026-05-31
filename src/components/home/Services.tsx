@@ -28,12 +28,12 @@ export default function Services() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from(titleRef.current, {
-        opacity: 0, y: 40, duration: 0.8,
-        scrollTrigger: { trigger: titleRef.current, start: 'top 85%' },
+        y: 40, duration: 0.8,
+        scrollTrigger: { trigger: titleRef.current, start: 'top 85%', once: true },
       });
       gsap.from('.service-card', {
-        opacity: 0, y: 50, scale: 0.95, duration: 0.6, stagger: 0.07,
-        scrollTrigger: { trigger: gridRef.current, start: 'top 80%' },
+        y: 50, scale: 0.97, duration: 0.5, stagger: 0.06,
+        scrollTrigger: { trigger: gridRef.current, start: 'top 80%', once: true },
       });
     }, sectionRef);
     return () => ctx.revert();

@@ -31,20 +31,22 @@ export default function WhyUs() {
       stats.forEach((s, i) => {
         const el = document.querySelector(`.stat-val-${i}`);
         if (!el) return;
-        const obj = { val: 0 };
-        gsap.to(obj, {
+        const obj = { val: s.val };
+        el.textContent = s.val + s.suffix;
+        gsap.fromTo(obj, { val: 0 }, {
           val: s.val, duration: 2, ease: 'power2.out', snap: { val: 1 },
           scrollTrigger: { trigger: statsRef.current, start: 'top 80%', once: true },
+          onStart() { obj.val = 0; },
           onUpdate() { el.textContent = Math.round(obj.val) + s.suffix; },
         });
       });
       gsap.from('.why-card', {
-        opacity: 0, y: 40, duration: 0.6, stagger: 0.1,
-        scrollTrigger: { trigger: '.why-grid', start: 'top 80%' },
+        y: 40, duration: 0.6, stagger: 0.1,
+        scrollTrigger: { trigger: '.why-grid', start: 'top 80%', once: true },
       });
       gsap.from('.why-title', {
-        opacity: 0, y: 30, duration: 0.7,
-        scrollTrigger: { trigger: '.why-title', start: 'top 85%' },
+        y: 30, duration: 0.7,
+        scrollTrigger: { trigger: '.why-title', start: 'top 85%', once: true },
       });
     }, sectionRef);
     return () => ctx.revert();
@@ -57,7 +59,7 @@ export default function WhyUs() {
         <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-24">
           {stats.map((s, i) => (
             <div key={s.label} className="card-glass rounded-2xl p-8 text-center hover:scale-[1.04] transition-all duration-300 cursor-default">
-              <div className={`text-5xl font-black ${s.color} mb-2 stat-val-${i}`}>0{s.suffix}</div>
+              <div className={`text-5xl font-black ${s.color} mb-2 stat-val-${i}`}>{s.val}{s.suffix}</div>
               <div className="text-blue-200/70 text-sm font-medium">{s.label}</div>
             </div>
           ))}
