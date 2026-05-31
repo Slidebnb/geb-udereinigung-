@@ -50,6 +50,14 @@ export default function ImpressumPage() {
           </div>
 
           <div>
+            <h2 className="text-primary mb-2">Umsatzsteuer-ID</h2>
+            <p className="text-gray-600">
+              Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br />
+              32/074/56310
+            </p>
+          </div>
+
+          <div>
             <h2 className="text-primary mb-2">Redaktionell verantwortlich</h2>
             <p className="text-gray-600">
               Hasan Hüseyin Ünal<br />
