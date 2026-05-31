@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String              @id @default(cuid())
+  email     String              @unique
+  name      String?
+  password  String
+  role      String              @default("admin")
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  protocols CleaningProtocol[]
+}
+
+model CleaningProtocol {
+  id         String   @id @default(cuid())
+  customerId String
+  customer   User     @relation(fields: [customerId], references: [id])
+  date       DateTime
+  type       String
+  location   String
+  duration   String?
+  staff      String?
+  notes      String?
+  status     String   @default("abgeschlossen")
+  tasks      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model ContactRequest {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  status    String   @default("neu") // neu | gelesen | bearbeitet
+  mailSent  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model QuoteRequest {
+  id           String   @id @default(cuid())
+  name         String
+  email        String
+  phone        String?
+  company      String?
+  service      String
+  area         String?
+  frequency    String?
+  estimatedMin Int?
+  estimatedMax Int?
+  message      String?
+  status       String   @default("neu") // neu | gelesen | bearbeitet
+  mailSent     Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model BlogPost {
+  id             String   @id @default(cuid())
+  title          String
+  slug           String   @unique
+  excerpt        String
+  content        String
+  coverImage     String?
+  author         String   @default("Huwa Team")
+  category       String   @default("Reinigung")
+  metaTitle      String?
+  metaDesc       String?
+  published      Boolean  @default(true)
+  publishedAt    DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  aiGenerated    Boolean  @default(false)
+  aiPrompt       String?
+  targetKeyword  String?
+  targetCity     String?
+  targetService  String?
+  contentStatus  String   @default("draft")
+}
+
+model SocialPost {
+  id          String    @id @default(cuid())
+  platform    String
+  type        String
+  status      String    @default("draft")
+  caption     String
+  hashtags    String?
+  imageUrl    String?
+  mediaUrls   String?
+  scheduledAt DateTime?
+  publishedAt DateTime?
+  externalId  String?
+  error       String?
+  blogPostId  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model SocialAccount {
+  id             String    @id @default(cuid())
+  platform       String
+  accountId      String
+  username       String?
+  accessToken    String
+  tokenExpiresAt DateTime?
+  status         String    @default("connected")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String?
+  company   String?
+  content   String
+  rating    Int      @default(5)
+  location  String?
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model NewsletterSubscriber {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}

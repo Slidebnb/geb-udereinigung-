@@ -1,0 +1,43 @@
+import type { Metadata } from 'next';
+import ServicePage from '@/components/shared/ServicePage';
+import { siteConfig } from '@/lib/site';
+import { getServiceBySlug } from '@/lib/services';
+
+const s = getServiceBySlug('winterdienst')!;
+
+export const metadata: Metadata = {
+  title: s.metaTitle,
+  description: s.metaDescription,
+  alternates: { canonical: `${siteConfig.url}/leistungen/winterdienst` },
+};
+
+export default function WinterdienstPage() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Winterdienst Neuwied',
+    provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
+    description: 'Zuverlässiger Winterdienst in Neuwied – Räumen, Streuen und Dokumentieren für Ihren Haftungsschutz.',
+    areaServed: siteConfig.serviceAreas,
+    serviceType: 'Winterdienst',
+  };
+  return (
+    <ServicePage
+      icon="❄️"
+      title={s.title}
+      subtitle={s.heroDescription}
+      description={s.intro}
+      benefits={s.benefits}
+      features={s.features.map(f => ({ title: f.title, desc: f.description }))}
+      faq={s.faqs.map(f => ({ q: f.question, a: f.answer }))}
+      breadcrumb={s.shortTitle}
+      schema={schema}
+      cityLinks={[
+        { href: '/winterdienst-anmeldung-2025', label: '❄️ Für Saison 2025/2026 anmelden →' },
+        { href: '/winterdienst-neuwied', label: 'Winterdienst Neuwied' },
+        { href: '/winterdienst-koblenz', label: 'Winterdienst Koblenz' },
+        { href: '/winterdienst-bendorf', label: 'Winterdienst Bendorf' },
+      ]}
+    />
+  );
+}
