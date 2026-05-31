@@ -32,6 +32,11 @@ export default function GartenarbeitenPage() {
       faq={s.faqs.map(f => ({ q: f.question, a: f.answer }))}
       breadcrumb={s.shortTitle}
       schema={schema}
+      cityLinks={[
+        { href: '/angebot', label: 'Kostenloses Angebot anfragen' },
+        { href: '/hausmeisterservice-neuwied', label: 'Hausmeisterservice Neuwied' },
+        { href: '/hausmeisterservice-koblenz', label: 'Hausmeisterservice Koblenz' },
+      ]}
     />
   );
 }

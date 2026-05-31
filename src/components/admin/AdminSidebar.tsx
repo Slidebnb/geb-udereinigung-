@@ -8,6 +8,9 @@ const nav = [
   { href: '/admin/homepage', label: 'Startseite', icon: '🏠' },
   { href: '/admin/anfragen', label: 'Anfragen', icon: '📬' },
   { href: '/admin/blog', label: 'Blog', icon: '✍️' },
+  { href: '/admin/blog/ki-erstellen', label: 'KI Blog', icon: '🤖' },
+  { href: '/admin/blog/themenplaner', label: 'Themenplaner', icon: '📋' },
+  { href: '/admin/social', label: 'Social Media', icon: '📸' },
   { href: '/admin/testimonials', label: 'Bewertungen', icon: '⭐' },
   { href: '/admin/einstellungen', label: 'Einstellungen', icon: '⚙️' },
 ];
@@ -28,6 +31,7 @@ export default function AdminSidebar() {
             className={`flex items-center gap-3 px-5 py-3 text-sm font-medium transition-colors ${
               pathname === item.href ? 'bg-blue-800 text-accent' : 'text-blue-200 hover:text-white hover:bg-blue-800/50'
             }`}
+            aria-current={pathname === item.href ? 'page' : undefined}
           >
             <span>{item.icon}</span>
             {item.label}
