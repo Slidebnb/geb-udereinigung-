@@ -1,15 +1,11 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { siteConfig } from '@/lib/site';
 import Hero from '@/components/home/Hero';
 import Services from '@/components/home/Services';
 import WhyUs from '@/components/home/WhyUs';
 import Testimonials from '@/components/home/Testimonials';
-import PriceCalculator from '@/components/home/PriceCalculator';
 import CTABanner from '@/components/home/CTABanner';
-import BeforeAfterSlider from '@/components/features/BeforeAfterSlider';
-import AvailabilityCalendar from '@/components/features/AvailabilityCalendar';
-import Newsletter from '@/components/features/Newsletter';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
@@ -50,115 +46,56 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
       <Hero />
       <Services />
-
-      {/* Stats banner */}
-      <section className="py-12 bg-primary-50 border-y border-primary-100">
-        <div className="container mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { val: '500+', label: 'Zufriedene Kunden' },
-            { val: '15+', label: 'Jahre Erfahrung' },
-            { val: '10', label: 'Leistungsbereiche' },
-            { val: '100%', label: 'Qualitätsgarantie' },
-          ].map(({ val, label }) => (
-            <div key={label}>
-              <div className="text-3xl md:text-4xl font-bold text-primary">{val}</div>
-              <div className="text-gray-600 mt-1">{label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       <WhyUs />
-      <PriceCalculator />
       <Testimonials />
 
       {/* Service areas */}
       <section className="section-padding bg-white">
         <div className="container mx-auto text-center">
-          <h2 className="mb-4">Unser Einzugsgebiet</h2>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Wir sind im gesamten Rheinland aktiv und bedienen Kunden in folgenden Städten und der Umgebung:
+          <div className="section-label mx-auto w-fit">Einzugsgebiet</div>
+          <h2 className="mt-4 mb-3">Wir kommen zu Ihnen –<br /><span className="gradient-text">regional & zuverlässig</span></h2>
+          <p className="text-gray-500 max-w-xl mx-auto mb-10 text-lg">
+            Im gesamten Raum Neuwied, Koblenz und Bendorf sowie umliegenden Gemeinden.
           </p>
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
             {siteConfig.serviceAreas.map(city => (
-              <span key={city} className="badge bg-primary-50 text-primary text-base px-4 py-2">
-                📍 {city}
+              <span key={city} className="flex items-center gap-1.5 bg-primary/5 border border-primary/15 text-primary font-semibold px-4 py-2 rounded-full text-sm">
+                <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                {city}
               </span>
             ))}
           </div>
-          <p className="text-gray-500 text-sm mt-4">Nicht dabei? Kontaktieren Sie uns – wir kommen auch zu Ihnen!</p>
-          <Link href="/kontakt" className="mt-6 inline-block btn-primary">Anfrage stellen</Link>
+          <p className="text-gray-400 text-sm mb-6">Nicht dabei? Wir kommen auch zu Ihnen!</p>
+          <Link href="/kontakt" className="btn-primary inline-flex">Anfrage stellen</Link>
         </div>
       </section>
 
       {/* Blog preview */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding" style={{ background: '#F8FAFC' }}>
         <div className="container mx-auto">
-          <div className="flex justify-between items-end mb-8">
+          <div className="flex justify-between items-end mb-12">
             <div>
-              <span className="badge bg-primary-50 text-primary mb-2">Ratgeber</span>
-              <h2>Tipps & Wissenswertes</h2>
+              <div className="section-label">Ratgeber</div>
+              <h2 className="mt-3">Tipps &{' '}<span className="gradient-text">Wissenswertes</span></h2>
             </div>
-            <Link href="/blog" className="btn-secondary hidden sm:flex">Alle Artikel</Link>
+            <Link href="/blog" className="btn-outline hidden sm:inline-flex">Alle Artikel</Link>
           </div>
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-5">
             {[
               { title: 'Büroreinigung: Warum Sauberkeit am Arbeitsplatz entscheidend ist', slug: 'professionelle-bueroeinigung-sauberkeit-am-arbeitsplatz', cat: 'Büroreinigung', date: '2024-11-10' },
               { title: 'Winterdienst: Was Eigentümer und Vermieter wissen müssen', slug: 'winterdienst-2024-2025-pflichten-eigentuemer-vermieter', cat: 'Winterdienst', date: '2024-10-20' },
               { title: 'Grundreinigung vs. Unterhaltsreinigung: Was ist der Unterschied?', slug: 'grundreinigung-vs-unterhaltsreinigung-unterschiede', cat: 'Reinigungswissen', date: '2024-09-15' },
             ].map(post => (
-              <Link key={post.slug} href={`/blog/${post.slug}`} className="card p-6 group">
-                <span className="badge bg-primary-50 text-primary text-xs mb-3">{post.cat}</span>
-                <h3 className="text-base font-bold text-gray-800 mb-3 group-hover:text-primary transition-colors line-clamp-2">{post.title}</h3>
+              <Link key={post.slug} href={`/blog/${post.slug}`} className="card p-6 group hover:border-primary/30 transition-all duration-200">
+                <span className="inline-block bg-primary/8 text-primary text-xs font-semibold px-3 py-1 rounded-full mb-4">{post.cat}</span>
+                <h3 className="text-base font-bold text-dark mb-3 group-hover:text-primary transition-colors line-clamp-2">{post.title}</h3>
                 <div className="text-xs text-gray-400">{new Date(post.date).toLocaleDateString('de-DE', { year: 'numeric', month: 'long', day: 'numeric' })}</div>
               </Link>
             ))}
           </div>
           <div className="mt-6 text-center sm:hidden">
-            <Link href="/blog" className="btn-secondary">Alle Artikel</Link>
+            <Link href="/blog" className="btn-outline">Alle Artikel</Link>
           </div>
-        </div>
-      </section>
-
-      {/* Before / After gallery */}
-      <section className="section-padding bg-white">
-        <div className="container mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="badge bg-primary-50 text-primary mb-3">Vorher / Nachher</span>
-            <h2 className="mb-4">Sehen Sie den Unterschied</h2>
-            <p className="text-gray-600">Ziehen Sie den Regler und überzeugen Sie sich von der Qualität unserer Reinigung.</p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <BeforeAfterSlider
-              alt="Bodenreinigung Vorher Nachher"
-              beforeImage="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800&q=30&blur=8"
-              afterImage="https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?auto=format&fit=crop&w=800&q=80"
-            />
-            <BeforeAfterSlider
-              alt="Glasreinigung Vorher Nachher"
-              beforeImage="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=30&sat=-80"
-              afterImage="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Availability calendar */}
-      <section className="section-padding bg-gray-50">
-        <div className="container mx-auto">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <span className="badge bg-primary-50 text-primary mb-3">Verfügbarkeit</span>
-            <h2 className="mb-3">Wunschtermin prüfen</h2>
-            <p className="text-gray-600">Wählen Sie Ihren Wunschtermin und fragen Sie ihn direkt unverbindlich an.</p>
-          </div>
-          <AvailabilityCalendar />
-        </div>
-      </section>
-
-      {/* Newsletter */}
-      <section className="section-padding bg-white">
-        <div className="container mx-auto">
-          <Newsletter />
         </div>
       </section>
 

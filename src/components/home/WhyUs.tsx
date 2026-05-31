@@ -1,49 +1,102 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
+
+const stats = [
+  { val: 500, suffix: '+', label: 'Zufriedene Kunden',  color: 'text-primary' },
+  { val: 15,  suffix: '+', label: 'Jahre Erfahrung',    color: 'text-green' },
+  { val: 10,  suffix: '',  label: 'Leistungsbereiche',  color: 'text-primary' },
+  { val: 100, suffix: '%', label: 'Weiterempfehlung',   color: 'text-green' },
+];
+
+const reasons = [
+  { icon: '⏰', title: 'Pünktlich & Zuverlässig',    desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
+  { icon: '🏆', title: 'Höchste Qualität',            desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
+  { icon: '💰', title: 'Faire Festpreise',             desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
+  { icon: '🌍', title: 'Regional verwurzelt',         desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
+  { icon: '📞', title: 'Direkter Ansprechpartner',    desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
+  { icon: '🔒', title: 'Vollversichert & Seriös',     desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
+];
+
 export default function WhyUs() {
-  const reasons = [
-    { icon: '🏆', title: 'Über 15 Jahre Erfahrung', desc: 'Seit 2009 vertrauen uns Unternehmen, Hausverwaltungen und Privatpersonen in ganz NRW.' },
-    { icon: '✅', title: 'Geprüfte Fachkräfte', desc: 'Alle unsere Mitarbeiter sind geschult, zuverlässig und nach DGUV-Standards ausgebildet.' },
-    { icon: '📋', title: 'Maßgeschneiderte Angebote', desc: 'Kein Pauschalpreis – wir erstellen individuelle Angebote auf Ihre Bedürfnisse und Ihr Budget.' },
-    { icon: '⏰', title: 'Pünktlich & Zuverlässig', desc: 'Wir halten Termine ein. Immer. Unsere Kunden können sich auf uns verlassen.' },
-    { icon: '🌱', title: 'Umweltfreundlich', desc: 'Wir verwenden ökologische Reinigungsmittel, die sowohl effektiv als auch umweltschonend sind.' },
-    { icon: '📞', title: '24/7 Erreichbar', desc: 'Bei Notfällen sind wir rund um die Uhr für Sie da – auch am Wochenende und an Feiertagen.' },
-  ];
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const statsRef   = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      stats.forEach((s, i) => {
+        const el = document.querySelector(`.stat-val-${i}`);
+        if (!el) return;
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: s.val, duration: 2, ease: 'power2.out', snap: { val: 1 },
+          scrollTrigger: { trigger: statsRef.current, start: 'top 80%', once: true },
+          onUpdate() { el.textContent = Math.round(obj.val) + s.suffix; },
+        });
+      });
+      gsap.from('.why-card', {
+        opacity: 0, y: 40, duration: 0.6, stagger: 0.1,
+        scrollTrigger: { trigger: '.why-grid', start: 'top 80%' },
+      });
+      gsap.from('.why-title', {
+        opacity: 0, y: 30, duration: 0.7,
+        scrollTrigger: { trigger: '.why-title', start: 'top 85%' },
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <section className="section-padding bg-white">
+    <section ref={sectionRef} className="section-padding" style={{ background: 'radial-gradient(ellipse at 30% 60%, #0D2137 0%, #050D1A 100%)' }}>
       <div className="container mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <span className="badge bg-accent-50 text-accent-600 mb-4">Warum Huwa?</span>
-            <h2 className="mb-4">Ihr Partner für professionelle Sauberkeit</h2>
-            <p className="text-gray-600 mb-8 leading-relaxed">
-              Bei Huwa stehen Qualität, Zuverlässigkeit und Kundenzufriedenheit an erster Stelle. Wir sind nicht nur ein Reinigungsunternehmen – wir sind Ihr langfristiger Partner für gepflegte Immobilien.
-            </p>
-
-            <div className="space-y-4">
-              {[
-                'Versichert und haftpflichtversichert',
-                'Flexible Verträge – monatlich kündbar',
-                'Kostenlose Erstbesichtigung und Beratung',
-                'Eigenes Personal – kein Outsourcing',
-                'Regelmäßige Qualitätskontrollen',
-              ].map(item => (
-                <div key={item} className="flex items-center gap-3 text-gray-700">
-                  <svg className="w-5 h-5 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
-                  {item}
-                </div>
-              ))}
+        {/* Animated stats */}
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-24">
+          {stats.map((s, i) => (
+            <div key={s.label} className="card-glass rounded-2xl p-8 text-center hover:scale-[1.04] transition-all duration-300 cursor-default">
+              <div className={`text-5xl font-black ${s.color} mb-2 stat-val-${i}`}>0{s.suffix}</div>
+              <div className="text-blue-200/70 text-sm font-medium">{s.label}</div>
             </div>
-          </div>
+          ))}
+        </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {reasons.map(r => (
-              <div key={r.title} className="bg-gray-50 rounded-2xl p-5 hover:bg-primary-50 transition-colors group">
-                <div className="text-3xl mb-3">{r.icon}</div>
-                <h4 className="font-bold text-gray-800 mb-2 group-hover:text-primary transition-colors">{r.title}</h4>
-                <p className="text-sm text-gray-600 leading-relaxed">{r.desc}</p>
+        {/* Section title */}
+        <div className="why-title text-center mb-16">
+          <div className="section-label-dark mx-auto w-fit">Warum Huwa?</div>
+          <h2 className="text-white mb-4">
+            Der Unterschied, den Sie{' '}
+            <span className="gradient-text">spüren werden</span>
+          </h2>
+          <p className="text-blue-200/70 max-w-xl mx-auto text-lg">
+            Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.
+          </p>
+        </div>
+
+        {/* Reasons */}
+        <div className="why-grid grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {reasons.map((r) => (
+            <div key={r.title} className="why-card card-glass rounded-2xl p-7 group hover:border-primary/40 transition-all duration-300">
+              <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition-transform duration-300">
+                {r.icon}
               </div>
-            ))}
-          </div>
+              <h4 className="text-white font-bold mb-3">{r.title}</h4>
+              <p className="text-blue-200/70 text-sm leading-relaxed">{r.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Certifications */}
+        <div className="mt-16 divider-gradient mb-10" />
+        <div className="flex flex-wrap justify-center gap-8">
+          {['DGUV Ausgebildet', 'Betriebshaftpflicht', 'Innungsmitglied', 'DSGVO Konform', 'Geprüfte Qualität'].map(cert => (
+            <div key={cert} className="flex items-center gap-2 text-blue-200/60 text-sm font-semibold">
+              <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+              {cert}
+            </div>
+          ))}
         </div>
       </div>
     </section>

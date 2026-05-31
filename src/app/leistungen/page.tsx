@@ -4,50 +4,60 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import CTABanner from '@/components/home/CTABanner';
 
 export const metadata: Metadata = {
-  title: 'Alle Leistungen | Gebäudereinigung & Hausmeisterdienste',
-  description: 'Entdecken Sie alle Reinigungsleistungen von Huwa: Büroreinigung, Glasreinigung, Grundreinigung, Hausmeisterdienste, Winterdienst und mehr. Jetzt Angebot anfragen!',
+  title: 'Alle Leistungen | Huwa Gebäudereinigung & Hausmeisterdienste',
+  description: 'Entdecken Sie alle Reinigungsleistungen von Huwa: Büroreinigung, Glasreinigung, Grundreinigung, Hausmeisterdienste, Winterdienst und mehr – in Neuwied, Koblenz & Bendorf.',
 };
 
 const services = [
-  { icon: '🏢', title: 'Gebäudereinigung', desc: 'Professionelle Reinigung von Bürogebäuden, Wohnhäusern und Gewerbeimmobilien – innen und außen. Wir sorgen für ein sauberes und einladendes Erscheinungsbild Ihrer Immobilie.', href: '/leistungen/gebaeudereinigung', highlights: ['Außenfassaden', 'Eingangsbereiche', 'Tiefgaragen', 'Keller & Lager'] },
-  { icon: '💼', title: 'Büroreinigung', desc: 'Saubere Büros fördern Produktivität, reduzieren Krankheitstage und hinterlassen bei Besuchern einen professionellen Eindruck. Täglich, wöchentlich oder nach Bedarf.', href: '/leistungen/bueroeinigung', highlights: ['Schreibtische & Oberflächen', 'Sanitäranlagen', 'Küchenbereiche', 'Bodenreinigung'] },
-  { icon: '🏗️', title: 'Treppenhausreinigung', desc: 'Gepflegte Treppenhäuser und Gemeinschaftsflächen steigern den Wert Ihrer Immobilie und sorgen für ein angenehmes Wohnklima. Regelmäßige Reinigung nach Plan.', href: '/leistungen/treppenhausreinigung', highlights: ['Treppen & Absätze', 'Briefkastenanlage', 'Gemeinschaftsräume', 'Klingelanlage'] },
-  { icon: '🪟', title: 'Glasreinigung', desc: 'Streifenfreie, glänzende Fenster und Glasflächen durch professionelle Technik. Wir reinigen Fenster in jeder Höhe – auch Schaufenster und Glasfassaden.', href: '/leistungen/glasreinigung', highlights: ['Fenster innen & außen', 'Schaufenster', 'Glasdächer', 'Wintergärten'] },
-  { icon: '✨', title: 'Grundreinigung', desc: 'Intensive Tiefenreinigung für einen makellosen Neustart. Ideal nach Einzug, vor Auszug oder nach langer Vernachlässigung. Wir reinigen bis in den letzten Winkel.', href: '/leistungen/grundreinigung', highlights: ['Komplette Tiefenreinigung', 'Bodenaufbereitung', 'Sanitärdesinfektion', 'Küchengründlichkeit'] },
-  { icon: '🔄', title: 'Unterhaltsreinigung', desc: 'Regelmäßige Reinigung nach individuellem Plan. Wir kommen täglich, wöchentlich oder zweiwöchentlich – je nach Bedarf und Budget.', href: '/leistungen/unterhaltsreinigung', highlights: ['Flexible Intervalle', 'Gleichbleibendes Team', 'Protokollierte Reinigung', 'Qualitätskontrolle'] },
-  { icon: '🔨', title: 'Baureinigung', desc: 'Nach Baumaßnahmen, Renovierungen oder Umbauten sorgen wir für eine fachgerechte Baufein- und Grobreinigung – damit Ihr Objekt bezugsfertig ist.', href: '/leistungen/baureinigung', highlights: ['Grobreinigung', 'Feinreinigung', 'Glasreinigung nach Bau', 'Bauschutt-Entsorgung'] },
-  { icon: '🔧', title: 'Hausmeisterdienste', desc: 'Von kleinen Reparaturen bis zur vollständigen Objektbetreuung – Ihr Hausmeister auf Abruf. Schnell, zuverlässig und kostengünstig.', href: '/leistungen/hausmeisterdienste', highlights: ['Kleine Reparaturen', 'Glühbirnenwechsel', 'Müllentsorgung', 'Objektinspektion'] },
-  { icon: '❄️', title: 'Winterdienst', desc: 'Wir übernehmen Ihre gesetzliche Räum- und Streupflicht. Zuverlässig auch früh morgens, am Wochenende und an Feiertagen.', href: '/leistungen/winterdienst', highlights: ['Schneeräumung', 'Streuen & Sichern', 'Dokumentation', 'Haftungsschutz'] },
-  { icon: '🌿', title: 'Gartenarbeiten', desc: 'Professionelle Gartenpflege das ganze Jahr – Rasenmähen, Heckenschnitt, Laubbeseitigung und mehr. Ihr Garten bleibt immer gepflegt.', href: '/leistungen/gartenarbeiten', highlights: ['Rasenpflege', 'Heckenschnitt', 'Laubentsorgung', 'Beetpflege'] },
+  { icon: '🏢', title: 'Gebäudereinigung',    desc: 'Professionelle Reinigung von Bürogebäuden, Wohnhäusern und Gewerbeimmobilien – innen und außen.', href: '/leistungen/gebaeudereinigung',    highlights: ['Außenfassaden', 'Eingangsbereiche', 'Tiefgaragen', 'Keller & Lager'],        accent: true },
+  { icon: '💼', title: 'Büroreinigung',        desc: 'Saubere Büros fördern Produktivität und hinterlassen bei Besuchern einen professionellen Eindruck.',   href: '/leistungen/bueroeinigung',         highlights: ['Schreibtische', 'Sanitäranlagen', 'Küchenbereiche', 'Bodenreinigung'],       accent: false },
+  { icon: '🏠', title: 'Treppenhausreinigung', desc: 'Gepflegte Treppenhäuser und Gemeinschaftsflächen steigern den Wert und das Wohnklima Ihrer Immobilie.', href: '/leistungen/treppenhausreinigung',  highlights: ['Treppen & Absätze', 'Briefkastenanlage', 'Gemeinschaftsräume', 'Klingeln'], accent: true },
+  { icon: '🪟', title: 'Glasreinigung',        desc: 'Streifenfreie, glänzende Fenster und Glasflächen – auch Schaufenster und Glasfassaden in jeder Höhe.', href: '/leistungen/glasreinigung',         highlights: ['Fenster innen & außen', 'Schaufenster', 'Glasdächer', 'Wintergärten'],     accent: false },
+  { icon: '✨', title: 'Grundreinigung',       desc: 'Intensive Tiefenreinigung für einen makellosen Neustart – ideal nach Einzug, Auszug oder Renovierung.', href: '/leistungen/grundreinigung',        highlights: ['Tiefenreinigung', 'Bodenaufbereitung', 'Sanitärdesinfektion', 'Küche'],    accent: true },
+  { icon: '🔄', title: 'Unterhaltsreinigung',  desc: 'Regelmäßige Reinigung nach individuellem Plan – täglich, wöchentlich oder zweiwöchentlich.',           href: '/leistungen/unterhaltsreinigung',   highlights: ['Flexible Intervalle', 'Gleichbleibendes Team', 'Protokolle', 'Kontrolle'],  accent: false },
+  { icon: '🏗️', title: 'Baureinigung',        desc: 'Fachgerechte Baugrob- und Baufeinreinigung – damit Ihr Objekt nach dem Bau bezugsfertig übergeben wird.', href: '/leistungen/baureinigung',        highlights: ['Grobreinigung', 'Feinreinigung', 'Glasreinigung', 'Entsorgung'],           accent: true },
+  { icon: '🔧', title: 'Hausmeisterdienste',   desc: 'Von kleinen Reparaturen bis zur vollständigen Objektbetreuung – schnell, zuverlässig und günstig.',     href: '/leistungen/hausmeisterdienste',    highlights: ['Reparaturen', 'Glühbirnen', 'Müllentsorgung', 'Inspektion'],               accent: false },
+  { icon: '❄️', title: 'Winterdienst',        desc: 'Wir übernehmen Ihre Räum- und Streupflicht – zuverlässig auch früh morgens, am Wochenende und Feiertagen.', href: '/leistungen/winterdienst',       highlights: ['Schneeräumung', 'Streuen & Sichern', 'Dokumentation', 'Haftungsschutz'], accent: true },
+  { icon: '🌿', title: 'Gartenarbeiten',      desc: 'Professionelle Gartenpflege das ganze Jahr – Rasenmähen, Heckenschnitt, Laubbeseitigung und mehr.',     href: '/leistungen/gartenarbeiten',        highlights: ['Rasenpflege', 'Heckenschnitt', 'Laubentsorgung', 'Beetpflege'],           accent: false },
 ];
 
 export default function LeistungenPage() {
   return (
     <>
-      <section className="bg-primary-50 border-b border-primary-100 py-8">
-        <div className="container mx-auto">
-          <Breadcrumb items={[{ label: 'Leistungen' }]} />
-          <h1 className="mt-4 mb-2">Unsere Leistungen</h1>
-          <p className="text-gray-600 max-w-2xl">Professionelle Gebäudereinigung und Hausmeisterdienste in Düsseldorf und dem Rheinland – alles aus einer Hand.</p>
+      {/* Hero */}
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 50%, #0D2137 0%, #050D1A 100%)' }}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(75,184,245,0.07)_0%,transparent_60%)] pointer-events-none" />
+        <div className="container mx-auto relative z-10">
+          <Breadcrumb items={[{ label: 'Leistungen' }]} dark />
+          <div className="mt-8 max-w-3xl">
+            <div className="section-label-dark mb-4">Unsere Leistungen</div>
+            <h1 className="text-white mb-4">Alles aus einer Hand –<br /><span className="gradient-text">10 Leistungsbereiche</span></h1>
+            <p className="text-blue-200/70 text-lg md:text-xl leading-relaxed">
+              Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice. Ihr verlässlicher Partner in Neuwied, Koblenz und Bendorf.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="section-padding">
-        <div className="container mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Services grid */}
+      <section className="section-padding bg-white">
+        <div className="container mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {services.map(s => (
-            <div key={s.href} className="card p-6 flex flex-col">
-              <div className="text-4xl mb-4">{s.icon}</div>
-              <h2 className="text-xl mb-3">{s.title}</h2>
-              <p className="text-gray-600 text-sm leading-relaxed mb-4 flex-1">{s.desc}</p>
-              <ul className="space-y-1.5 mb-5">
+            <div key={s.href} className={`card flex flex-col p-7 hover:border-${s.accent ? 'primary' : 'green'}/30 transition-all duration-200 group`}>
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl mb-5 transition-transform duration-300 group-hover:scale-110 ${s.accent ? 'bg-primary/8' : 'bg-green/8'}`}>
+                {s.icon}
+              </div>
+              <h2 className={`text-lg font-bold text-dark mb-3 transition-colors ${s.accent ? 'group-hover:text-primary' : 'group-hover:text-green'}`}>{s.title}</h2>
+              <p className="text-gray-500 text-sm leading-relaxed mb-5 flex-1">{s.desc}</p>
+              <ul className="space-y-2 mb-6">
                 {s.highlights.map(h => (
-                  <li key={h} className="flex items-center gap-2 text-sm text-gray-700">
-                    <svg className="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                  <li key={h} className="flex items-center gap-2 text-sm text-gray-600">
+                    <svg className={`w-4 h-4 flex-shrink-0 ${s.accent ? 'text-primary' : 'text-green'}`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
                     {h}
                   </li>
                 ))}
               </ul>
-              <Link href={s.href} className="btn-primary justify-center">Details ansehen</Link>
+              <Link href={s.href} className={`btn-outline justify-center text-sm py-2.5 ${s.accent ? '' : 'border-green/30 text-green hover:bg-green hover:border-green hover:text-white'}`}>Details ansehen</Link>
             </div>
           ))}
         </div>

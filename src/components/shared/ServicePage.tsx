@@ -21,69 +21,85 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       {/* Hero */}
-      <section className="bg-primary text-white py-16 md:py-20">
-        <div className="container mx-auto">
-          <Breadcrumb items={[{ label: 'Leistungen', href: '/leistungen' }, { label: breadcrumb }]} />
-          <div className="mt-6 max-w-3xl">
-            <div className="text-5xl mb-4">{icon}</div>
-            <h1 className="text-white mb-3">{title}</h1>
-            <p className="text-blue-200 text-lg leading-relaxed">{subtitle}</p>
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 50%, #0D2137 0%, #050D1A 100%)' }}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(75,184,245,0.07)_0%,transparent_60%)] pointer-events-none" />
+        <div className="container mx-auto relative z-10">
+          <Breadcrumb items={[{ label: 'Leistungen', href: '/leistungen' }, { label: breadcrumb }]} dark />
+          <div className="mt-8 max-w-3xl">
+            <div className="text-6xl mb-5">{icon}</div>
+            <h1 className="text-white mb-4 leading-tight">{title}</h1>
+            <p className="text-blue-200/70 text-lg md:text-xl leading-relaxed">{subtitle}</p>
+            <div className="flex flex-wrap gap-4 mt-8">
+              <Link href="/angebot" className="btn-primary px-8 py-3.5">Kostenloses Angebot</Link>
+              <a href={`tel:${siteConfig.phone}`} className="btn-white px-8 py-3.5">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+                {siteConfig.phone}
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Main content */}
-      <section className="section-padding">
+      <section className="section-padding bg-white">
         <div className="container mx-auto grid lg:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
-            <h2 className="mb-4">Was beinhaltet unsere {title}?</h2>
-            <div className="prose prose-gray max-w-none">
+            <h2 className="mb-6">Was beinhaltet unsere {title}?</h2>
+            <div className="space-y-4 text-gray-600 leading-relaxed">
               {description.split('\n\n').map((para, i) => (
-                <p key={i} className="text-gray-600 leading-relaxed mb-4">{para}</p>
+                <p key={i}>{para}</p>
               ))}
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4 mt-8">
+            <div className="grid sm:grid-cols-2 gap-4 mt-10">
               {features.map(f => (
-                <div key={f.title} className="bg-gray-50 rounded-xl p-4">
-                  <h4 className="font-bold text-gray-800 mb-1">{f.title}</h4>
-                  <p className="text-sm text-gray-600">{f.desc}</p>
+                <div key={f.title} className="card p-5 hover:border-primary/30 transition-all duration-200">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-2 h-2 rounded-full bg-gradient-brand flex-shrink-0" />
+                    <h4 className="font-bold text-dark text-sm">{f.title}</h4>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-5">
+            {/* Benefits */}
             <div className="card p-6">
-              <h3 className="mb-4">Ihre Vorteile</h3>
+              <h3 className="mb-5 text-lg">Ihre Vorteile</h3>
               <ul className="space-y-3">
                 {benefits.map(b => (
-                  <li key={b} className="flex items-start gap-2.5 text-sm text-gray-700">
-                    <svg className="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
+                  <li key={b} className="flex items-start gap-3 text-sm text-gray-700">
+                    <svg className="w-5 h-5 text-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/></svg>
                     {b}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="bg-primary rounded-xl p-6 text-white">
-              <h3 className="text-white mb-3">Kostenloses Angebot</h3>
-              <p className="text-blue-200 text-sm mb-4">Fordern Sie jetzt Ihr individuelles Angebot an – wir melden uns innerhalb von 24 Stunden.</p>
-              <Link href="/angebot" className="btn-primary w-full justify-center">Angebot anfragen</Link>
-              <a href={`tel:${siteConfig.phone}`} className="mt-3 flex items-center justify-center gap-2 text-blue-200 hover:text-accent text-sm transition-colors">
+            {/* CTA box */}
+            <div className="rounded-2xl p-6 text-white" style={{ background: 'radial-gradient(ellipse at 30% 40%, #112B4A 0%, #050D1A 100%)' }}>
+              <h3 className="text-white mb-2 text-lg">Kostenloses Angebot</h3>
+              <p className="text-blue-200/60 text-sm mb-5">Individuelle Kalkulation – transparent, fair, ohne versteckte Kosten.</p>
+              <Link href="/angebot" className="btn-primary w-full justify-center py-3">Angebot anfragen</Link>
+              <a href={`tel:${siteConfig.phone}`} className="mt-3 flex items-center justify-center gap-2 text-blue-300/60 hover:text-primary text-sm transition-colors">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
                 {siteConfig.phone}
               </a>
             </div>
 
-            <div className="card p-6 border border-accent-100">
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-accent text-xl">★★★★★</span>
-                <span className="font-bold">4.9 / 5</span>
+            {/* Review */}
+            <div className="card p-6">
+              <div className="flex items-center gap-1.5 mb-3">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                ))}
+                <span className="font-bold text-dark text-sm ml-1">4.9 / 5</span>
               </div>
-              <p className="text-sm text-gray-600 italic">"Absolut zufrieden! Pünktlich, gründlich und zu einem fairen Preis. Klare Empfehlung!"</p>
-              <p className="text-xs text-gray-400 mt-2">— Kundin aus Düsseldorf, Google</p>
+              <p className="text-sm text-gray-600 italic leading-relaxed">„Absolut zufrieden! Pünktlich, gründlich und zu einem fairen Festpreis. Immer wieder gerne!"</p>
+              <p className="text-xs text-gray-400 mt-2">— Kundin aus Neuwied, Google</p>
             </div>
           </div>
         </div>
@@ -91,22 +107,22 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
 
       {/* FAQ */}
       {faq.length > 0 && (
-        <section className="section-padding bg-gray-50">
+        <section className="section-padding" style={{ background: '#F8FAFC' }}>
           <div className="container mx-auto max-w-3xl">
-            <h2 className="mb-8 text-center">Häufige Fragen zur {title}</h2>
+            <h2 className="mb-10 text-center">Häufige Fragen zur {title}</h2>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
               '@context': 'https://schema.org',
               '@type': 'FAQPage',
               mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
             }) }} />
-            <div className="space-y-4">
+            <div className="space-y-3">
               {faq.map(f => (
-                <details key={f.q} className="card p-5 group">
-                  <summary className="font-semibold text-gray-800 cursor-pointer list-none flex justify-between items-center">
-                    {f.q}
-                    <svg className="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform shrink-0 ml-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
+                <details key={f.q} className="card p-5 group cursor-pointer">
+                  <summary className="font-semibold text-dark cursor-pointer list-none flex justify-between items-center gap-4">
+                    <span>{f.q}</span>
+                    <svg className="w-5 h-5 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
                   </summary>
-                  <p className="mt-3 text-gray-600 text-sm leading-relaxed">{f.a}</p>
+                  <p className="mt-4 text-gray-600 text-sm leading-relaxed">{f.a}</p>
                 </details>
               ))}
             </div>

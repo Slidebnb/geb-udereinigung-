@@ -1,59 +1,67 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Über uns | Huwa Gebäudereinigung & Hausmeisterdienste',
-  description: `Seit ${siteConfig.foundingYear} Ihr zuverlässiger Partner für Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Erfahren Sie mehr über unser Team und unsere Werte.`,
+  description: `Seit ${siteConfig.foundingYear} Ihr zuverlässiger Partner für Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Erfahren Sie mehr über unser Unternehmen.`,
 };
 
-const team = [
-  { name: 'Hasan Huseyin Unal', role: 'Geschäftsführer & Gründer', initial: 'H', desc: 'Mit über 15 Jahren Erfahrung in der Gebäudereinigung hat Hasan das Unternehmen von Grund auf aufgebaut und ist auch heute noch persönlich für die Qualitätssicherung verantwortlich.' },
-  { name: 'Maria Wagner', role: 'Leiterin Büroreinigung', initial: 'M', desc: 'Maria koordiniert alle Büroreinigungseinsätze und sorgt für reibungslose Abläufe. Ihre Leidenschaft: perfekte Sauberkeit und ein motiviertes Team.' },
-  { name: 'Klaus Richter', role: 'Hausmeister & Technik', initial: 'K', desc: 'Klaus ist unser Experte für Hausmeisterdienstleistungen und technische Wartungsaufgaben. Er ist bekannt für seine schnelle Reaktionszeit und handwerkliche Kompetenz.' },
+const values = [
+  { icon: '🏆', title: 'Qualität', desc: 'Jeder Einsatz wird mit höchster Sorgfalt durchgeführt. DGUV-geschultes Personal, geprüfte Reinigungsmittel und lückenlose Qualitätsprozesse.' },
+  { icon: '🤝', title: 'Vertrauen',       desc: 'Unsere Kunden vertrauen uns ihre Immobilien an. Dieses Vertrauen nehmen wir ernst – mit Seriosität, Diskretion und Betriebshaftpflicht.' },
+  { icon: '⚡', title: 'Zuverlässigkeit', desc: 'Pünktlichkeit ist keine Option, sondern Pflicht. Wir erscheinen zur vereinbarten Zeit und erledigen die Arbeit wie versprochen – ohne Ausreden.' },
 ];
+
+const certs = ['DGUV Ausgebildet', 'Betriebshaftpflicht', 'Innungsmitglied Koblenz', 'DSGVO Konform', 'Geprüfte Qualität'];
 
 export default function UeberUnsPage() {
   return (
     <>
-      <section className="bg-primary text-white py-16">
-        <div className="container mx-auto">
-          <Breadcrumb items={[{ label: 'Über uns' }]} />
-          <h1 className="text-white mt-6 mb-3">Über Huwa Gebäudereinigung</h1>
-          <p className="text-blue-200 text-lg max-w-2xl">Seit {siteConfig.foundingYear} sind wir Ihr vertrauenswürdiger Partner für professionelle Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und dem nördlichen Rheinland-Pfalz.</p>
+      {/* Hero */}
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 50%, #0D2137 0%, #050D1A 100%)' }}>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(75,184,245,0.07)_0%,transparent_60%)] pointer-events-none" />
+        <div className="container mx-auto relative z-10">
+          <Breadcrumb items={[{ label: 'Über uns' }]} dark />
+          <div className="mt-8 max-w-3xl">
+            <div className="section-label-dark mb-4">Über uns</div>
+            <h1 className="text-white mb-4">Huwa Gebäudereinigung<br /><span className="gradient-text">& Hausmeisterdienste</span></h1>
+            <p className="text-blue-200/70 text-lg md:text-xl leading-relaxed">
+              Seit {siteConfig.foundingYear} sind wir Ihr vertrauenswürdiger Partner für professionelle Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und dem nördlichen Rheinland-Pfalz.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Story */}
-      <section className="section-padding">
+      {/* Story + stats */}
+      <section className="section-padding bg-white">
         <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
-            <span className="badge bg-primary-50 text-primary mb-4">Unsere Geschichte</span>
-            <h2 className="mb-4">Von der Idee zum führenden Reinigungsunternehmen</h2>
+            <div className="section-label mb-5">Unsere Geschichte</div>
+            <h2 className="mb-6">Von der Idee zum <span className="gradient-text">führenden Reinigungsunternehmen</span></h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                Gegründet im Jahr {siteConfig.foundingYear}, startete Huwa Gebäudereinigung als kleines Ein-Mann-Unternehmen in Neuwied. Mit einem einfachen Versprechen: Qualität, Zuverlässigkeit und Kundenzufriedenheit an erster Stelle.
+                Gegründet im Jahr {siteConfig.foundingYear}, startete Huwa Gebäudereinigung als kleines Unternehmen in Neuwied – mit einem einfachen Versprechen: Qualität, Zuverlässigkeit und Kundenzufriedenheit an erster Stelle.
               </p>
               <p>
-                Durch hervorragende Arbeit und treue Stammkunden wuchs das Unternehmen stetig. Heute beschäftigt Huwa über 20 qualifizierte Mitarbeiter und betreut mehr als 500 zufriedene Kunden im Raum Neuwied, Koblenz und Bendorf.
+                Durch hervorragende Arbeit und treue Stammkunden wuchs das Unternehmen stetig. Heute betreuen wir über 500 zufriedene Kunden im Raum Neuwied, Koblenz und Bendorf mit einem erfahrenen, DGUV-geschulten Team.
               </p>
               <p>
-                Was sich nicht verändert hat: unser persönlicher Einsatz, unsere hohen Qualitätsstandards und die Überzeugung, dass zufriedene Kunden und zufriedene Mitarbeiter der Schlüssel zum Erfolg sind.
+                Was sich nicht verändert hat: unser persönlicher Einsatz, unsere hohen Qualitätsstandards und die Überzeugung, dass zufriedene Kunden und ein motiviertes Team der Schlüssel zum Erfolg sind.
               </p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { val: siteConfig.foundingYear.toString(), label: 'Gründungsjahr' },
-              { val: '20+', label: 'Mitarbeiter' },
-              { val: '500+', label: 'Kunden' },
-              { val: '4.9★', label: 'Google Rating' },
-            ].map(({ val, label }) => (
-              <div key={label} className="bg-primary-50 rounded-2xl p-6 text-center">
-                <div className="text-3xl font-bold text-primary">{val}</div>
-                <div className="text-gray-600 mt-1">{label}</div>
+              { val: siteConfig.foundingYear.toString(), label: 'Gründungsjahr', color: 'text-primary' },
+              { val: '20+',  label: 'Mitarbeiter',  color: 'text-green' },
+              { val: '500+', label: 'Kunden',       color: 'text-primary' },
+              { val: '4.9★', label: 'Google Rating', color: 'text-yellow-500' },
+            ].map(({ val, label, color }) => (
+              <div key={label} className="card p-6 text-center hover:border-primary/30 transition-all duration-200">
+                <div className={`text-3xl font-black ${color} mb-1`}>{val}</div>
+                <div className="text-gray-500 text-sm">{label}</div>
               </div>
             ))}
           </div>
@@ -61,57 +69,55 @@ export default function UeberUnsPage() {
       </section>
 
       {/* Values */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding" style={{ background: '#F8FAFC' }}>
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <span className="badge bg-accent-50 text-accent-600 mb-3">Unsere Werte</span>
-            <h2 className="mb-3">Was uns antreibt</h2>
-            <p className="text-gray-600 max-w-xl mx-auto">Diese Werte sind die Grundlage jedes Einsatzes und bestimmen, wie wir mit Kunden, Mitarbeitern und Partnern umgehen.</p>
+          <div className="text-center mb-14">
+            <div className="section-label mx-auto w-fit">Unsere Werte</div>
+            <h2 className="mt-4 mb-3">Was uns <span className="gradient-text">antreibt</span></h2>
+            <p className="text-gray-500 max-w-xl mx-auto">Diese Werte bestimmen jedes unserer Projekte – gegenüber Kunden, Mitarbeitern und Partnern.</p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              { icon: '🏆', title: 'Qualität', desc: 'Jeder Einsatz wird mit höchster Sorgfalt durchgeführt. Wir machen keine halben Sachen – entweder es ist perfekt oder wir kommen noch einmal.' },
-              { icon: '🤝', title: 'Vertrauen', desc: 'Unsere Kunden vertrauen uns ihre Immobilien an. Dieses Vertrauen nehmen wir ernst – mit Seriosität, Diskretion und professionellem Verhalten.' },
-              { icon: '⚡', title: 'Zuverlässigkeit', desc: 'Pünktlichkeit ist keine Option, sondern Pflicht. Wir erscheinen zur vereinbarten Zeit und erledigen die Arbeit wie versprochen.' },
-            ].map(v => (
-              <div key={v.title} className="card p-8 text-center">
-                <div className="text-5xl mb-4">{v.icon}</div>
-                <h3 className="mb-3">{v.title}</h3>
-                <p className="text-gray-600">{v.desc}</p>
+          <div className="grid md:grid-cols-3 gap-6">
+            {values.map(v => (
+              <div key={v.title} className="card p-8 text-center hover:border-primary/30 transition-all duration-200 group">
+                <div className="text-5xl mb-5 group-hover:scale-110 transition-transform duration-300 inline-block">{v.icon}</div>
+                <h3 className="text-xl font-bold text-dark mb-3">{v.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Team */}
-      <section className="section-padding">
+      {/* Team — only the founder, others removed */}
+      <section className="section-padding bg-white">
         <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <span className="badge bg-primary-50 text-primary mb-3">Unser Team</span>
-            <h2>Die Menschen hinter Huwa</h2>
+          <div className="text-center mb-14">
+            <div className="section-label mx-auto w-fit">Unser Team</div>
+            <h2 className="mt-4">Die Menschen hinter <span className="gradient-text">Huwa</span></h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {team.map(m => (
-              <div key={m.name} className="card p-6 text-center">
-                <div className="w-20 h-20 bg-primary rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-4">{m.initial}</div>
-                <h3 className="text-lg mb-1">{m.name}</h3>
-                <p className="text-accent font-medium text-sm mb-3">{m.role}</p>
-                <p className="text-gray-600 text-sm leading-relaxed">{m.desc}</p>
-              </div>
-            ))}
+          <div className="max-w-sm mx-auto">
+            <div className="card p-8 text-center hover:border-primary/30 transition-all duration-200">
+              <div className="w-20 h-20 rounded-full bg-gradient-brand flex items-center justify-center text-white text-3xl font-black mx-auto mb-5">H</div>
+              <h3 className="text-xl font-bold text-dark mb-1">Hasan Huseyin Unal</h3>
+              <p className="text-primary font-semibold text-sm mb-4">Geschäftsführer & Gründer</p>
+              <p className="text-gray-500 text-sm leading-relaxed">
+                Mit über 15 Jahren Erfahrung in der Gebäudereinigung hat Hasan das Unternehmen von Grund auf aufgebaut. Er ist persönlich für die Qualitätssicherung verantwortlich und direkter Ansprechpartner für unsere Kunden.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Certifications */}
-      <section className="section-padding bg-gray-50">
+      <section className="section-padding" style={{ background: 'radial-gradient(ellipse at 30% 60%, #0D2137 0%, #050D1A 100%)' }}>
         <div className="container mx-auto text-center">
-          <h2 className="mb-8">Zertifikate & Mitgliedschaften</h2>
-          <div className="flex flex-wrap justify-center gap-6">
-            {['DGUV Ausgebildet', 'Haftpflicht­versichert', 'Innungsmitglied', 'ISO 9001 Prozesse', 'DSGVO konform'].map(cert => (
-              <div key={cert} className="bg-white border border-gray-200 rounded-xl px-6 py-4 font-semibold text-gray-700">
-                ✓ {cert}
+          <div className="section-label-dark mx-auto w-fit mb-6">Zertifikate & Mitgliedschaften</div>
+          <h2 className="text-white mb-10">Zertifiziert & <span className="gradient-text">vollversichert</span></h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            {certs.map(cert => (
+              <div key={cert} className="card-glass flex items-center gap-2.5 px-5 py-3 rounded-xl">
+                <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                <span className="text-white/80 font-semibold text-sm">{cert}</span>
               </div>
             ))}
           </div>
