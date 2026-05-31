@@ -25,7 +25,7 @@ export default function ImpressumPage() {
             <h2 className="text-primary mb-2">Angaben gemäß § 5 DDG</h2>
             <p className="text-gray-600">
               {siteConfig.legalName}<br />
-              Inhaber: Hasan Hüseyin Ünal<br />
+              Inhaber: Familie Huwa<br />
               {siteConfig.address.street}<br />
               {siteConfig.address.zip} {siteConfig.address.city}<br />
               Deutschland
@@ -60,7 +60,7 @@ export default function ImpressumPage() {
           <div>
             <h2 className="text-primary mb-2">Redaktionell verantwortlich</h2>
             <p className="text-gray-600">
-              Hasan Hüseyin Ünal<br />
+              Familie Huwa<br />
               {siteConfig.address.street}, {siteConfig.address.zip} {siteConfig.address.city}
             </p>
           </div>

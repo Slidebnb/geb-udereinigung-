@@ -32,6 +32,11 @@ export default function GrundreinigungPage() {
       faq={s.faqs.map(f => ({ q: f.question, a: f.answer }))}
       breadcrumb={s.shortTitle}
       schema={schema}
+      cityLinks={[
+        { href: '/angebot', label: 'Kostenloses Angebot anfragen' },
+        { href: '/bueroeinigung-neuwied', label: 'Büroreinigung Neuwied' },
+        { href: '/bueroeinigung-koblenz', label: 'Büroreinigung Koblenz' },
+      ]}
     />
   );
 }

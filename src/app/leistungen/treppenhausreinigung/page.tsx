@@ -32,6 +32,11 @@ export default function TreppenhausreinigungPage() {
       faq={s.faqs.map(f => ({ q: f.question, a: f.answer }))}
       breadcrumb={s.shortTitle}
       schema={schema}
+      cityLinks={[
+        { href: '/treppenhausreinigung-neuwied', label: 'Treppenhausreinigung Neuwied' },
+        { href: '/treppenhausreinigung-koblenz', label: 'Treppenhausreinigung Koblenz' },
+        { href: '/treppenhausreinigung-bendorf', label: 'Treppenhausreinigung Bendorf' },
+      ]}
     />
   );
 }

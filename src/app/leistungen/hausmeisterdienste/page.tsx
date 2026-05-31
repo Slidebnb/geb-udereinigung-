@@ -32,6 +32,11 @@ export default function HausmeisterdiensteePage() {
       faq={s.faqs.map(f => ({ q: f.question, a: f.answer }))}
       breadcrumb={s.shortTitle}
       schema={schema}
+      cityLinks={[
+        { href: '/hausmeisterservice-neuwied', label: 'Hausmeisterservice Neuwied' },
+        { href: '/hausmeisterservice-koblenz', label: 'Hausmeisterservice Koblenz' },
+        { href: '/hausmeisterservice-bendorf', label: 'Hausmeisterservice Bendorf' },
+      ]}
     />
   );
 }

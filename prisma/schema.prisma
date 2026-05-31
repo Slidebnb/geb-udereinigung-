@@ -49,20 +49,56 @@ model QuoteRequest {
 }
 
 model BlogPost {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  excerpt     String
-  content     String
-  coverImage  String?
-  author      String   @default("Huwa Team")
-  category    String   @default("Reinigung")
-  metaTitle   String?
-  metaDesc    String?
-  published   Boolean  @default(true)
-  publishedAt DateTime @default(now())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(cuid())
+  title          String
+  slug           String   @unique
+  excerpt        String
+  content        String
+  coverImage     String?
+  author         String   @default("Huwa Team")
+  category       String   @default("Reinigung")
+  metaTitle      String?
+  metaDesc       String?
+  published      Boolean  @default(true)
+  publishedAt    DateTime @default(now())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  aiGenerated    Boolean  @default(false)
+  aiPrompt       String?
+  targetKeyword  String?
+  targetCity     String?
+  targetService  String?
+  contentStatus  String   @default("draft")
+}
+
+model SocialPost {
+  id          String    @id @default(cuid())
+  platform    String
+  type        String
+  status      String    @default("draft")
+  caption     String
+  hashtags    String?
+  imageUrl    String?
+  mediaUrls   String?
+  scheduledAt DateTime?
+  publishedAt DateTime?
+  externalId  String?
+  error       String?
+  blogPostId  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model SocialAccount {
+  id             String    @id @default(cuid())
+  platform       String
+  accountId      String
+  username       String?
+  accessToken    String
+  tokenExpiresAt DateTime?
+  status         String    @default("connected")
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 }
 
 model Testimonial {

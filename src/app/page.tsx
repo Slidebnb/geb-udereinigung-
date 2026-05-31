@@ -15,6 +15,7 @@ import type { CTAData } from '@/components/home/CTABanner';
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
   description: siteConfig.description,
+  alternates: { canonical: siteConfig.url },
 };
 
 const localBusinessSchema = {
@@ -66,6 +67,33 @@ export default async function HomePage() {
       <Services data={servicesData} />
       <WhyUs data={whyUsData} />
       <Testimonials />
+
+      {/* Beliebte Leistungen in Ihrer Nähe */}
+      <section className="section-padding bg-slate-50">
+        <div className="container mx-auto">
+          <div className="text-center mb-10">
+            <div className="section-label mx-auto w-fit">Ihr Einzugsgebiet</div>
+            <h2 className="mt-4">Beliebte Leistungen <span className="gradient-text">in Ihrer Nähe</span></h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {[
+              { href: '/gebaudereinigung-neuwied',       label: 'Gebäudereinigung Neuwied',       sub: 'Wohnanlagen & Gewerbe' },
+              { href: '/gebaudereinigung-koblenz',       label: 'Gebäudereinigung Koblenz',       sub: 'Büros & Hausverwaltungen' },
+              { href: '/treppenhausreinigung-neuwied',   label: 'Treppenhausreinigung Neuwied',   sub: 'Für WEGs & Vermieter' },
+              { href: '/treppenhausreinigung-koblenz',   label: 'Treppenhausreinigung Koblenz',   sub: 'Regelmäßig & zuverlässig' },
+              { href: '/bueroeinigung-koblenz',          label: 'Büroreinigung Koblenz',          sub: 'Praxen, Kanzleien & Büros' },
+              { href: '/bueroeinigung-neuwied',          label: 'Büroreinigung Neuwied',          sub: 'Täglich oder wöchentlich' },
+              { href: '/hausmeisterservice-neuwied',     label: 'Hausmeisterservice Neuwied',     sub: 'Rundum-Betreuung' },
+              { href: '/winterdienst-neuwied',           label: 'Winterdienst Neuwied',           sub: 'Räum- & Streudienst' },
+            ].map(item => (
+              <Link key={item.href} href={item.href} className="card p-5 hover:border-primary/30 hover:shadow-md transition-all group">
+                <div className="font-bold text-dark text-sm group-hover:text-primary transition-colors mb-1">{item.label}</div>
+                <div className="text-xs text-gray-500">{item.sub}</div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Service areas */}
       <section className="section-padding bg-white">

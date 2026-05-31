@@ -26,7 +26,34 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: siteConfig.name, description: siteConfig.description },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-  alternates: { canonical: siteConfig.url },
+  // Kein globales canonical – jede Seite definiert ihr eigenes via alternates.canonical
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': `${siteConfig.url}/#organization`,
+  name: siteConfig.name,
+  url: siteConfig.url,
+  logo: `${siteConfig.url}/logo.png`,
+  telephone: siteConfig.phone,
+  email: siteConfig.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.address.street,
+    postalCode: siteConfig.address.zip,
+    addressLocality: siteConfig.address.city,
+    addressCountry: siteConfig.address.country,
+  },
+};
+
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteConfig.url}/#website`,
+  url: siteConfig.url,
+  name: siteConfig.name,
+  inLanguage: 'de-DE',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -34,6 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="de" className={inter.variable}>
       <body className="flex flex-col min-h-screen">
         <Header />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />

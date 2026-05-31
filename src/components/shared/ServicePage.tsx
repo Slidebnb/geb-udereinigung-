@@ -13,9 +13,10 @@ interface ServicePageProps {
   faq: { q: string; a: string }[];
   breadcrumb: string;
   schema: object;
+  cityLinks?: { href: string; label: string }[];
 }
 
-export default function ServicePage({ icon, title, subtitle, description, benefits, features, faq, breadcrumb, schema }: ServicePageProps) {
+export default function ServicePage({ icon, title, subtitle, description, benefits, features, faq, breadcrumb, schema, cityLinks }: ServicePageProps) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -123,6 +124,22 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
                   </summary>
                   <p className="mt-4 text-gray-600 text-sm leading-relaxed">{f.a}</p>
                 </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {cityLinks && cityLinks.length > 0 && (
+        <section className="section-padding bg-white border-t border-slate-100">
+          <div className="container mx-auto">
+            <h3 className="text-lg font-bold text-dark mb-5">Regionale Verfügbarkeit</h3>
+            <div className="flex flex-wrap gap-3">
+              {cityLinks.map(link => (
+                <a key={link.href} href={link.href} className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/15 text-primary text-sm font-semibold rounded-full hover:bg-primary/10 transition-colors">
+                  <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                  {link.label}
+                </a>
               ))}
             </div>
           </div>

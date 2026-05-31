@@ -32,6 +32,11 @@ export default function BueroeinigungPage() {
       faq={s.faqs.map(f => ({ q: f.question, a: f.answer }))}
       breadcrumb={s.shortTitle}
       schema={schema}
+      cityLinks={[
+        { href: '/bueroeinigung-neuwied', label: 'Büroreinigung Neuwied' },
+        { href: '/bueroeinigung-koblenz', label: 'Büroreinigung Koblenz' },
+        { href: '/bueroeinigung-bendorf', label: 'Büroreinigung Bendorf' },
+      ]}
     />
   );
 }

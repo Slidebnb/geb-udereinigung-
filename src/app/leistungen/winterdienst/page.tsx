@@ -32,6 +32,11 @@ export default function WinterdienstPage() {
       faq={s.faqs.map(f => ({ q: f.question, a: f.answer }))}
       breadcrumb={s.shortTitle}
       schema={schema}
+      cityLinks={[
+        { href: '/winterdienst-neuwied', label: 'Winterdienst Neuwied' },
+        { href: '/winterdienst-koblenz', label: 'Winterdienst Koblenz' },
+        { href: '/winterdienst-bendorf', label: 'Winterdienst Bendorf' },
+      ]}
     />
   );
 }
