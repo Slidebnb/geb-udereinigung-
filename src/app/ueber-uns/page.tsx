@@ -20,14 +20,13 @@ export default function UeberUnsPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 50%, #0D2137 0%, #050D1A 100%)' }}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(75,184,245,0.07)_0%,transparent_60%)] pointer-events-none" />
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
           <Breadcrumb items={[{ label: 'Über uns' }]} dark />
           <div className="mt-8 max-w-3xl">
-            <div className="section-label-dark mb-4">Über uns</div>
+            <div className="section-label mb-4">Über uns</div>
             <h1 className="text-white mb-4">Huwa Gebäudereinigung<br /><span className="gradient-text">& Hausmeisterdienste</span></h1>
-            <p className="text-blue-200/70 text-lg md:text-xl leading-relaxed">
+            <p className="text-slate-300 text-lg md:text-xl leading-relaxed">
               Seit {siteConfig.foundingYear} sind wir Ihr vertrauenswürdiger Partner für professionelle Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und dem nördlichen Rheinland-Pfalz.
             </p>
           </div>
@@ -109,13 +108,13 @@ export default function UeberUnsPage() {
       </section>
 
       {/* Certifications */}
-      <section className="section-padding" style={{ background: 'radial-gradient(ellipse at 30% 60%, #0D2137 0%, #050D1A 100%)' }}>
+      <section className="section-padding" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto text-center">
-          <div className="section-label-dark mx-auto w-fit mb-6">Zertifikate & Mitgliedschaften</div>
+          <div className="section-label mx-auto w-fit mb-6">Zertifikate & Mitgliedschaften</div>
           <h2 className="text-white mb-10">Zertifiziert & <span className="gradient-text">vollversichert</span></h2>
           <div className="flex flex-wrap justify-center gap-4">
             {certs.map(cert => (
-              <div key={cert} className="card-glass flex items-center gap-2.5 px-5 py-3 rounded-xl">
+              <div key={cert} className="bg-white/8 border border-white/15 flex items-center gap-2.5 px-5 py-3 rounded-xl">
                 <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
                 <span className="text-white/80 font-semibold text-sm">{cert}</span>
               </div>

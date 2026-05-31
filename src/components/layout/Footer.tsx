@@ -12,7 +12,7 @@ export default async function Footer() {
   const hoursSat  = settings.opening_hours_sat || 'Sa 08:00–14:00 Uhr';
 
   return (
-    <footer style={{ background: 'linear-gradient(180deg, #080F1C 0%, #050D1A 100%)' }}>
+    <footer style={{ background: 'linear-gradient(180deg, #0C2340 0%, #091B33 100%)' }}>
       {/* Main grid */}
       <div className="container mx-auto pt-16 pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}

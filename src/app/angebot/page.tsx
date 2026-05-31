@@ -53,13 +53,13 @@ export default function AngebotPage() {
 
   if (sent) {
     return (
-      <section className="section-padding" style={{ background: 'radial-gradient(ellipse at 50% 50%, #0A1F0E 0%, #050D1A 100%)' }}>
+      <section className="section-padding" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto max-w-lg text-center py-20">
-          <div className="w-20 h-20 rounded-full bg-green/20 flex items-center justify-center mx-auto mb-6">
+          <div className="w-20 h-20 rounded-full bg-green/20 border border-green/30 flex items-center justify-center mx-auto mb-6">
             <svg className="w-10 h-10 text-green" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
           </div>
           <h1 className="text-white mb-4">Anfrage erfolgreich gesendet!</h1>
-          <p className="text-blue-200/60 mb-8">Vielen Dank für Ihr Interesse. Wir melden uns innerhalb von 24 Stunden mit Ihrem persönlichen Angebot.</p>
+          <p className="text-slate-300 mb-8">Vielen Dank für Ihr Interesse. Wir melden uns innerhalb von 24 Stunden mit Ihrem persönlichen Angebot.</p>
           <a href="/" className="btn-primary">Zurück zur Startseite</a>
         </div>
       </section>
@@ -68,14 +68,13 @@ export default function AngebotPage() {
 
   return (
     <>
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 50%, #0D2137 0%, #050D1A 100%)' }}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(75,184,245,0.07)_0%,transparent_60%)] pointer-events-none" />
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
           <Breadcrumb items={[{ label: 'Angebot anfragen' }]} dark />
           <div className="mt-8 max-w-2xl">
-            <div className="section-label-dark mb-4">Angebot anfragen</div>
+            <div className="section-label mb-4">Angebot anfragen</div>
             <h1 className="text-white mb-4">Kostenloses Angebot <span className="gradient-text">anfordern</span></h1>
-            <p className="text-blue-200/70 text-lg">In 3 einfachen Schritten zu Ihrem persönlichen Angebot. Antwort garantiert innerhalb von 24 Stunden.</p>
+            <p className="text-slate-300 text-lg">In 3 einfachen Schritten zu Ihrem persönlichen Angebot. Antwort garantiert innerhalb von 24 Stunden.</p>
           </div>
         </div>
       </section>

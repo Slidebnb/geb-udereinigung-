@@ -22,17 +22,13 @@ export default function CTABanner() {
   }, []);
 
   return (
-    <section ref={ref} className="section-padding relative overflow-hidden" style={{ background: 'radial-gradient(ellipse at 50% 50%, #112B4A 0%, #050D1A 100%)' }}>
-      {/* Decorative blobs */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-green/10 rounded-full blur-3xl pointer-events-none" />
-
+    <section ref={ref} className="section-padding relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
       <div className="cta-content relative z-10 container mx-auto text-center">
-        <div className="section-label-dark mx-auto w-fit mb-6">Jetzt starten</div>
+        <div className="section-label mx-auto w-fit mb-6">Jetzt starten</div>
         <h2 className="text-white mb-4 max-w-3xl mx-auto">
           Bereit für <span className="gradient-text">makellose Sauberkeit</span>?
         </h2>
-        <p className="text-blue-200/70 text-lg mb-10 max-w-xl mx-auto">
+        <p className="text-slate-300 text-lg mb-10 max-w-xl mx-auto">
           Fordern Sie Ihr kostenloses Angebot an – wir melden uns innerhalb von 24 Stunden persönlich bei Ihnen.
         </p>
 
@@ -49,7 +45,7 @@ export default function CTABanner() {
 
         <div className="flex flex-wrap justify-center gap-8">
           {['Antwort in 24 h', 'Kostenlose Beratung', 'Festpreisgarantie', 'Vollversichert'].map(item => (
-            <div key={item} className="flex items-center gap-2 text-blue-200/60 text-sm font-medium">
+            <div key={item} className="flex items-center gap-2 text-slate-300/70 text-sm font-medium">
               <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
               {item}
             </div>

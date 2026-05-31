@@ -33,14 +33,13 @@ export default async function ReferenzenPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 50%, #0D2137 0%, #050D1A 100%)' }}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(75,184,245,0.07)_0%,transparent_60%)] pointer-events-none" />
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
           <Breadcrumb items={[{ label: 'Referenzen' }]} dark />
           <div className="mt-8 max-w-3xl">
-            <div className="section-label-dark mb-4">Referenzen</div>
+            <div className="section-label mb-4">Referenzen</div>
             <h1 className="text-white mb-4">Projekte, auf die wir<br /><span className="gradient-text">stolz sind</span></h1>
-            <p className="text-blue-200/70 text-lg">Über 500 Kunden in Neuwied, Koblenz und Bendorf vertrauen auf Huwa. Hier finden Sie eine Auswahl unserer abgeschlossenen Projekte.</p>
+            <p className="text-slate-300 text-lg">Über 500 Kunden in Neuwied, Koblenz und Bendorf vertrauen auf Huwa. Hier finden Sie eine Auswahl unserer abgeschlossenen Projekte.</p>
           </div>
         </div>
       </section>

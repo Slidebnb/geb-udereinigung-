@@ -25,14 +25,13 @@ export default function LeistungenPage() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 50%, #0D2137 0%, #050D1A 100%)' }}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(75,184,245,0.07)_0%,transparent_60%)] pointer-events-none" />
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
           <Breadcrumb items={[{ label: 'Leistungen' }]} dark />
           <div className="mt-8 max-w-3xl">
-            <div className="section-label-dark mb-4">Unsere Leistungen</div>
+            <div className="section-label mb-4">Unsere Leistungen</div>
             <h1 className="text-white mb-4">Alles aus einer Hand –<br /><span className="gradient-text">10 Leistungsbereiche</span></h1>
-            <p className="text-blue-200/70 text-lg md:text-xl leading-relaxed">
+            <p className="text-slate-300 text-lg md:text-xl leading-relaxed">
               Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice. Ihr verlässlicher Partner in Neuwied, Koblenz und Bendorf.
             </p>
           </div>

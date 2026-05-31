@@ -21,14 +21,13 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
       {/* Hero */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'radial-gradient(ellipse at 30% 50%, #0D2137 0%, #050D1A 100%)' }}>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(75,184,245,0.07)_0%,transparent_60%)] pointer-events-none" />
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
           <Breadcrumb items={[{ label: 'Leistungen', href: '/leistungen' }, { label: breadcrumb }]} dark />
           <div className="mt-8 max-w-3xl">
             <div className="text-6xl mb-5">{icon}</div>
             <h1 className="text-white mb-4 leading-tight">{title}</h1>
-            <p className="text-blue-200/70 text-lg md:text-xl leading-relaxed">{subtitle}</p>
+            <p className="text-slate-300 text-lg md:text-xl leading-relaxed">{subtitle}</p>
             <div className="flex flex-wrap gap-4 mt-8">
               <Link href="/angebot" className="btn-primary px-8 py-3.5">Kostenloses Angebot</Link>
               <a href={`tel:${siteConfig.phone}`} className="btn-white px-8 py-3.5">
@@ -80,9 +79,9 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
             </div>
 
             {/* CTA box */}
-            <div className="rounded-2xl p-6 text-white" style={{ background: 'radial-gradient(ellipse at 30% 40%, #112B4A 0%, #050D1A 100%)' }}>
+            <div className="rounded-2xl p-6 text-white" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
               <h3 className="text-white mb-2 text-lg">Kostenloses Angebot</h3>
-              <p className="text-blue-200/60 text-sm mb-5">Individuelle Kalkulation – transparent, fair, ohne versteckte Kosten.</p>
+              <p className="text-slate-300/80 text-sm mb-5">Individuelle Kalkulation – transparent, fair, ohne versteckte Kosten.</p>
               <Link href="/angebot" className="btn-primary w-full justify-center py-3">Angebot anfragen</Link>
               <a href={`tel:${siteConfig.phone}`} className="mt-3 flex items-center justify-center gap-2 text-blue-300/60 hover:text-primary text-sm transition-colors">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>

@@ -53,26 +53,26 @@ export default function WhyUs() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-padding" style={{ background: 'radial-gradient(ellipse at 30% 60%, #0D2137 0%, #050D1A 100%)' }}>
+    <section ref={sectionRef} className="section-padding bg-slate-50">
       <div className="container mx-auto">
         {/* Animated stats */}
-        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-24">
+        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-20">
           {stats.map((s, i) => (
-            <div key={s.label} className="card-glass rounded-2xl p-8 text-center hover:scale-[1.04] transition-all duration-300 cursor-default">
+            <div key={s.label} className="card rounded-2xl p-8 text-center cursor-default">
               <div className={`text-5xl font-black ${s.color} mb-2 stat-val-${i}`}>{s.val}{s.suffix}</div>
-              <div className="text-blue-200/70 text-sm font-medium">{s.label}</div>
+              <div className="text-slate-500 text-sm font-medium">{s.label}</div>
             </div>
           ))}
         </div>
 
         {/* Section title */}
         <div className="why-title text-center mb-16">
-          <div className="section-label-dark mx-auto w-fit">Warum Huwa?</div>
-          <h2 className="text-white mb-4">
+          <div className="section-label mx-auto w-fit">Warum Huwa?</div>
+          <h2 className="mb-4">
             Der Unterschied, den Sie{' '}
             <span className="gradient-text">spüren werden</span>
           </h2>
-          <p className="text-blue-200/70 max-w-xl mx-auto text-lg">
+          <p className="text-slate-500 max-w-xl mx-auto text-lg">
             Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.
           </p>
         </div>
@@ -80,12 +80,12 @@ export default function WhyUs() {
         {/* Reasons */}
         <div className="why-grid grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {reasons.map((r) => (
-            <div key={r.title} className="why-card card-glass rounded-2xl p-7 group hover:border-primary/40 transition-all duration-300">
-              <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition-transform duration-300">
+            <div key={r.title} className="why-card card rounded-2xl p-7 group hover:border-primary/30 transition-all duration-300">
+              <div className="w-14 h-14 bg-primary/8 border border-primary/10 rounded-2xl flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition-transform duration-300">
                 {r.icon}
               </div>
-              <h4 className="text-white font-bold mb-3">{r.title}</h4>
-              <p className="text-blue-200/70 text-sm leading-relaxed">{r.desc}</p>
+              <h4 className="text-slate-800 font-bold mb-3">{r.title}</h4>
+              <p className="text-slate-500 text-sm leading-relaxed">{r.desc}</p>
             </div>
           ))}
         </div>
@@ -94,7 +94,7 @@ export default function WhyUs() {
         <div className="mt-16 divider-gradient mb-10" />
         <div className="flex flex-wrap justify-center gap-8">
           {['DGUV Ausgebildet', 'Betriebshaftpflicht', 'Innungsmitglied', 'DSGVO Konform', 'Geprüfte Qualität'].map(cert => (
-            <div key={cert} className="flex items-center gap-2 text-blue-200/60 text-sm font-semibold">
+            <div key={cert} className="flex items-center gap-2 text-slate-400 text-sm font-semibold">
               <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
               {cert}
             </div>

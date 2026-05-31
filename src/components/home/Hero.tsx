@@ -15,48 +15,42 @@ export default function Hero() {
 
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.from(badgeRef.current,    { opacity: 0, y: 20, duration: 0.6 })
-      .from(headlineRef.current, { opacity: 0, y: 40, duration: 0.8 }, '-=0.3')
-      .from(subRef.current,      { opacity: 0, y: 30, duration: 0.7 }, '-=0.5')
-      .from(ctaRef.current,      { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
-      .from(statsRef.current,    { opacity: 0, y: 20, duration: 0.6 }, '-=0.3');
+    tl.from(badgeRef.current,    { opacity: 0, y: 15, duration: 0.5 })
+      .from(headlineRef.current, { opacity: 0, y: 30, duration: 0.7 }, '-=0.2')
+      .from(subRef.current,      { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
+      .from(ctaRef.current,      { opacity: 0, y: 15, duration: 0.5 }, '-=0.3')
+      .from(statsRef.current,    { opacity: 0, y: 15, duration: 0.5 }, '-=0.2');
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden" style={{ background: 'radial-gradient(ellipse at 60% 40%, #112B4A 0%, #050D1A 65%)' }}>
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
       <HeroBg />
 
-      {/* Gradient overlay bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent z-10" />
+      {/* Bottom fade to white */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent z-10" />
 
       {/* Content */}
       <div className="relative z-20 container mx-auto py-24 md:py-32 grid lg:grid-cols-2 gap-16 items-center">
         <div>
           {/* Badge */}
-          <div ref={badgeRef} className="inline-flex items-center gap-2 bg-primary/15 border border-primary/30 text-primary px-5 py-2 rounded-full text-sm font-semibold mb-8 backdrop-blur-sm">
-            <span className="w-2 h-2 rounded-full bg-green animate-pulse" />
+          <div ref={badgeRef} className="inline-flex items-center gap-2 border border-white/20 text-white/80 px-4 py-1.5 rounded-full text-sm font-medium mb-7">
+            <span className="w-1.5 h-1.5 rounded-full bg-green" />
             Seit {siteConfig.foundingYear} – Ihr Partner in {siteConfig.address.city}
           </div>
 
           {/* Headline */}
           <div ref={headlineRef}>
-            <h1 className="text-white mb-2 leading-[1.1]">
-              Professionelle
-            </h1>
-            <h1 className="gradient-text mb-2 leading-[1.1]">
-              Gebäudereinigung
-            </h1>
-            <h1 className="text-white leading-[1.1]">
-              & Hausmeister
-            </h1>
+            <h1 className="text-white mb-1 leading-[1.1]">Professionelle</h1>
+            <h1 className="gradient-text mb-1 leading-[1.1]">Gebäudereinigung</h1>
+            <h1 className="text-white leading-[1.1]">& Hausmeister</h1>
           </div>
 
-          <p ref={subRef} className="text-blue-200/80 text-lg md:text-xl mt-6 mb-10 leading-relaxed max-w-lg">
+          <p ref={subRef} className="text-slate-300 text-lg mt-6 mb-10 leading-relaxed max-w-lg">
             Sauberkeit auf höchstem Niveau – für Büros, Wohnhäuser und Gewerbe in Neuwied, Koblenz & Bendorf. Zuverlässig, gründlich, fair.
           </p>
 
           {/* CTAs */}
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 mb-14">
+          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-3 mb-14">
             <Link href="/angebot" className="btn-primary text-base px-8 py-4 text-center">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
               Kostenloses Angebot
@@ -68,43 +62,53 @@ export default function Hero() {
           </div>
 
           {/* Stats */}
-          <div ref={statsRef} className="grid grid-cols-3 gap-4">
+          <div ref={statsRef} className="flex flex-wrap gap-6">
             {[
-              { val: '500+', label: 'Kunden', color: 'text-primary' },
-              { val: '15+',  label: 'Jahre Erfahrung', color: 'text-green' },
-              { val: '4.9★', label: 'Google', color: 'text-yellow-400' },
-            ].map(({ val, label, color }) => (
-              <div key={label} className="card-glass rounded-2xl p-4 text-center">
-                <div className={`text-2xl md:text-3xl font-black ${color}`}>{val}</div>
-                <div className="text-blue-200/70 text-xs mt-1">{label}</div>
+              { val: '500+', label: 'zufriedene Kunden' },
+              { val: '15+',  label: 'Jahre Erfahrung' },
+              { val: '4.9★', label: 'Google Bewertung' },
+            ].map(({ val, label }) => (
+              <div key={label} className="flex flex-col">
+                <span className="text-2xl font-black text-white">{val}</span>
+                <span className="text-slate-400 text-xs mt-0.5">{label}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right: feature cards */}
-        <div className="hidden lg:grid grid-cols-2 gap-4">
-          {[
-            { icon: '🏢', title: 'Gebäudereinigung', desc: 'Innen & Außen', color: 'from-primary/20 to-primary/5' },
-            { icon: '🪟', title: 'Glasreinigung',    desc: 'Kristallklar',  color: 'from-green/20 to-green/5' },
-            { icon: '🏗️', title: 'Baureinigung',     desc: 'Endreinigung', color: 'from-primary/20 to-primary/5' },
-            { icon: '🔧', title: 'Hausmeister',      desc: 'Alles aus einer Hand', color: 'from-green/20 to-green/5' },
-            { icon: '❄️', title: 'Winterdienst',     desc: 'Räumen & Streuen', color: 'from-primary/20 to-primary/5' },
-            { icon: '🌿', title: 'Gartenarbeiten',   desc: 'Pflege & Gestaltung', color: 'from-green/20 to-green/5' },
-          ].map(({ icon, title, desc, color }) => (
-            <div key={title} className={`card-glass bg-gradient-to-br ${color} p-5 hover:scale-[1.04] cursor-default group`}>
-              <div className="text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">{icon}</div>
-              <div className="text-white font-semibold">{title}</div>
-              <div className="text-blue-300/60 text-sm mt-0.5">{desc}</div>
+        {/* Right: service list */}
+        <div className="hidden lg:block">
+          <div className="bg-white/8 border border-white/12 rounded-2xl p-8">
+            <p className="text-slate-300 text-sm font-semibold uppercase tracking-wider mb-6">Unsere Leistungen</p>
+            <div className="grid grid-cols-2 gap-3">
+              {[
+                { icon: '🏢', title: 'Gebäudereinigung' },
+                { icon: '💼', title: 'Büroreinigung' },
+                { icon: '🪟', title: 'Glasreinigung' },
+                { icon: '🏠', title: 'Treppenhausreinigung' },
+                { icon: '🏗️', title: 'Baureinigung' },
+                { icon: '🔧', title: 'Hausmeisterdienste' },
+                { icon: '❄️', title: 'Winterdienst' },
+                { icon: '🌿', title: 'Gartenarbeiten' },
+              ].map(({ icon, title }) => (
+                <div key={title} className="flex items-center gap-2.5 text-slate-300 text-sm">
+                  <span className="text-lg">{icon}</span>
+                  {title}
+                </div>
+              ))}
             </div>
-          ))}
+            <div className="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
+              <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+              <span className="text-slate-300 text-sm">Kostenlose Beratung & Festpreisangebot</span>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 text-blue-300/50 text-xs animate-float">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 text-slate-400/60 text-xs">
         <span>Scrollen</span>
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" /></svg>
       </div>
     </section>
   );
