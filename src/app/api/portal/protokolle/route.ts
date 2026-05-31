@@ -5,10 +5,10 @@ import { NextResponse } from 'next/server';
 
 export async function GET() {
   const session = await getServerSession(authOptions);
-  if (!session || (session.user as any).role !== 'kunde') {
+  if (!session || session.user.role !== 'kunde') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  const userId = (session.user as any).id as string;
+  const userId = session.user.id;
   const protocols = await prisma.cleaningProtocol.findMany({
     where: { customerId: userId },
     orderBy: { date: 'desc' },

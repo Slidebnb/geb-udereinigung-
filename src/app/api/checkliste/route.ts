@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { sendNotificationMail } from '@/lib/mail';
+import { sendNotificationMail, sendDirectMail } from '@/lib/mail';
 import { siteConfig } from '@/lib/site';
 
 const checklisteSchema = z.object({
@@ -34,7 +34,8 @@ export async function POST(request: Request) {
     });
 
     // Send confirmation to user
-    await sendNotificationMail({
+    await sendDirectMail({
+      to: email,
       subject: 'Ihre kostenlose Haustechnik-Checkliste von Huwa',
       html: `
         <div style="font-family: Arial; color: #1a2e4a;">
@@ -55,7 +56,6 @@ export async function POST(request: Request) {
           </p>
         </div>
       `,
-      replyTo: email,
     });
 
     // Send admin notification
@@ -70,14 +70,11 @@ export async function POST(request: Request) {
       </div>
     `;
 
-    const adminTo = process.env.CONTACT_EMAIL;
-    if (adminTo) {
-      await sendNotificationMail({
-        subject: `Checklisten-Download: ${name} (${email})`,
-        html: adminHtml,
-        replyTo: email,
-      });
-    }
+    await sendNotificationMail({
+      subject: `Checklisten-Download: ${name} (${email})`,
+      html: adminHtml,
+      replyTo: email,
+    });
 
     return NextResponse.json({ ok: true });
   } catch (error) {

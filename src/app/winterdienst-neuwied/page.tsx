@@ -101,9 +101,14 @@ export default function WinterdienstNeuwied() {
             <p className="text-slate-600 leading-relaxed mb-6">
               Alle Einsätze werden mit Uhrzeit, Datum und verwendetem Streumittel dokumentiert. Dieses Protokoll erhalten Sie auf Wunsch monatlich und dient als rechtssicherer Nachweis.
             </p>
-            <Link href="/leistungen/winterdienst" className="btn-outline inline-flex">
-              Zur Leistungsseite Winterdienst
-            </Link>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/leistungen/winterdienst" className="btn-outline inline-flex">
+                Zur Leistungsseite Winterdienst
+              </Link>
+              <Link href="/winterdienst-anmeldung-2025" className="btn-primary inline-flex">
+                ❄️ Für Saison 2025/2026 anmelden →
+              </Link>
+            </div>
           </div>
           <div className="space-y-4">
             {faqs.map(item => (

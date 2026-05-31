@@ -15,7 +15,7 @@ async function getPortalData(userId: string) {
 
 export default async function PortalDashboardPage() {
   const session = await getServerSession(authOptions);
-  const userId = (session?.user as any)?.id as string;
+  const userId = session?.user?.id as string;
   const { protocols } = await getPortalData(userId);
 
   const latestProtocol = protocols[0];

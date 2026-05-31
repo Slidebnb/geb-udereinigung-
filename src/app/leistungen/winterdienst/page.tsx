@@ -33,6 +33,7 @@ export default function WinterdienstPage() {
       breadcrumb={s.shortTitle}
       schema={schema}
       cityLinks={[
+        { href: '/winterdienst-anmeldung-2025', label: '❄️ Für Saison 2025/2026 anmelden →' },
         { href: '/winterdienst-neuwied', label: 'Winterdienst Neuwied' },
         { href: '/winterdienst-koblenz', label: 'Winterdienst Koblenz' },
         { href: '/winterdienst-bendorf', label: 'Winterdienst Bendorf' },

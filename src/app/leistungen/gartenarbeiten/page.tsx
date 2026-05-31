@@ -33,6 +33,7 @@ export default function GartenarbeitenPage() {
       breadcrumb={s.shortTitle}
       schema={schema}
       cityLinks={[
+        { href: '/gartenpflege', label: '🌿 Leistungen auswählen und Angebot anfragen →' },
         { href: '/angebot', label: 'Kostenloses Angebot anfragen' },
         { href: '/hausmeisterservice-neuwied', label: 'Hausmeisterservice Neuwied' },
         { href: '/hausmeisterservice-koblenz', label: 'Hausmeisterservice Koblenz' },

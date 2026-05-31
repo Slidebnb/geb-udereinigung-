@@ -6,6 +6,10 @@ interface MailOptions {
   replyTo?: string;
 }
 
+interface DirectMailOptions extends MailOptions {
+  to: string;
+}
+
 function getTransport() {
   const host = process.env.SMTP_HOST;
   const port = Number(process.env.SMTP_PORT || 587);
@@ -44,6 +48,28 @@ export async function sendNotificationMail({ subject, html, replyTo }: MailOptio
     return true;
   } catch (error) {
     console.error('[mail] Fehler beim Senden der Benachrichtigung:', error);
+    return false;
+  }
+}
+
+/**
+ * Sendet eine E-Mail direkt an eine angegebene Empfängeradresse.
+ * Nützlich für Bestätigungs-Mails an Nutzer.
+ */
+export async function sendDirectMail({ to, subject, html, replyTo }: DirectMailOptions): Promise<boolean> {
+  const transport = getTransport();
+  const from = process.env.SMTP_FROM || process.env.SMTP_USER;
+
+  if (!transport || !from) {
+    console.info('[mail] SMTP nicht konfiguriert – Direktmail wird nur protokolliert:', subject);
+    return false;
+  }
+
+  try {
+    await transport.sendMail({ from, to, subject, html, replyTo });
+    return true;
+  } catch (error) {
+    console.error('[mail] Fehler beim Senden der Direktmail:', error);
     return false;
   }
 }

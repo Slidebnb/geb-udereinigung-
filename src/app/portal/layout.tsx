@@ -10,7 +10,7 @@ export const metadata = {
 export default async function PortalLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession(authOptions);
 
-  if (!session || (session.user as any).role !== 'kunde') {
+  if (!session || session.user.role !== 'kunde') {
     redirect('/portal/login');
   }
 
