@@ -6,7 +6,7 @@ import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Über uns | Huwa Gebäudereinigung & Hausmeisterdienste',
-  description: `Seit ${siteConfig.foundingYear} Ihr zuverlässiger Partner für Gebäudereinigung und Hausmeisterdienste in Düsseldorf. Erfahren Sie mehr über unser Team und unsere Werte.`,
+  description: `Seit ${siteConfig.foundingYear} Ihr zuverlässiger Partner für Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Erfahren Sie mehr über unser Team und unsere Werte.`,
 };
 
 const team = [
@@ -22,7 +22,7 @@ export default function UeberUnsPage() {
         <div className="container mx-auto">
           <Breadcrumb items={[{ label: 'Über uns' }]} />
           <h1 className="text-white mt-6 mb-3">Über Huwa Gebäudereinigung</h1>
-          <p className="text-blue-200 text-lg max-w-2xl">Seit {siteConfig.foundingYear} sind wir Ihr vertrauenswürdiger Partner für professionelle Gebäudereinigung und Hausmeisterdienste in Düsseldorf und dem Rheinland.</p>
+          <p className="text-blue-200 text-lg max-w-2xl">Seit {siteConfig.foundingYear} sind wir Ihr vertrauenswürdiger Partner für professionelle Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und dem nördlichen Rheinland-Pfalz.</p>
         </div>
       </section>
 
@@ -34,10 +34,10 @@ export default function UeberUnsPage() {
             <h2 className="mb-4">Von der Idee zum führenden Reinigungsunternehmen</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                Gegründet im Jahr {siteConfig.foundingYear} von Hasan Huseyin Unal, startete Huwa Gebäudereinigung als kleines Ein-Mann-Unternehmen in Düsseldorf. Mit einem einfachen Versprechen: Qualität, Zuverlässigkeit und Kundenzufriedenheit an erster Stelle.
+                Gegründet im Jahr {siteConfig.foundingYear}, startete Huwa Gebäudereinigung als kleines Ein-Mann-Unternehmen in Neuwied. Mit einem einfachen Versprechen: Qualität, Zuverlässigkeit und Kundenzufriedenheit an erster Stelle.
               </p>
               <p>
-                Durch hervorragende Arbeit und treue Stammkunden wuchs das Unternehmen stetig. Heute beschäftigt Huwa über 20 qualifizierte Mitarbeiter und betreut mehr als 500 zufriedene Kunden im gesamten Rheinland.
+                Durch hervorragende Arbeit und treue Stammkunden wuchs das Unternehmen stetig. Heute beschäftigt Huwa über 20 qualifizierte Mitarbeiter und betreut mehr als 500 zufriedene Kunden im Raum Neuwied, Koblenz und Bendorf.
               </p>
               <p>
                 Was sich nicht verändert hat: unser persönlicher Einsatz, unsere hohen Qualitätsstandards und die Überzeugung, dass zufriedene Kunden und zufriedene Mitarbeiter der Schlüssel zum Erfolg sind.

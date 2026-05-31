@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 import { siteConfig } from '@/lib/site';
 import type { SiteSettings } from '@/lib/get-settings';
@@ -65,7 +64,8 @@ export default function Header({ settings = {} }: HeaderProps) {
       <nav className="container mx-auto flex items-center justify-between py-4">
         <Link href="/" className="flex items-center gap-3">
           {logoUrl ? (
-            <Image src={logoUrl} alt={companyName} width={40} height={40} className="w-10 h-10 object-contain rounded-lg" />
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={logoUrl} alt={companyName} className="w-10 h-10 object-contain rounded-lg" />
           ) : (
             <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
               <svg className="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>

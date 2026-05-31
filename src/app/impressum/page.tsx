@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Impressum',
-  description: 'Impressum und Anbieterkennzeichnung der Huwa Gebäudereinigung & Hausmeisterdienste GmbH gemäß § 5 TMG.',
+  description: 'Impressum und Anbieterkennzeichnung der Huwa Gebäudereinigung & Hausmeisterdienste gemäß § 5 TMG.',
   robots: { index: false, follow: true },
   alternates: { canonical: `${siteConfig.url}/impressum` },
 };
@@ -32,32 +32,10 @@ export default function ImpressumPage() {
           </div>
 
           <div>
-            <h2 className="text-primary mb-2">Vertreten durch</h2>
-            <p className="text-gray-600">Geschäftsführer: Hubert Wagner</p>
-          </div>
-
-          <div>
             <h2 className="text-primary mb-2">Kontakt</h2>
             <p className="text-gray-600">
-              Telefon: {siteConfig.phone}<br />
-              E-Mail: {siteConfig.email}
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-primary mb-2">Registereintrag</h2>
-            <p className="text-gray-600">
-              Eintragung im Handelsregister.<br />
-              Registergericht: Amtsgericht Düsseldorf<br />
-              Registernummer: HRB 123456
-            </p>
-          </div>
-
-          <div>
-            <h2 className="text-primary mb-2">Umsatzsteuer-ID</h2>
-            <p className="text-gray-600">
-              Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br />
-              DE 123456789
+              Telefon: <a href={`tel:${siteConfig.phone}`} className="text-primary hover:underline">{siteConfig.phone}</a><br />
+              E-Mail: <a href={`mailto:${siteConfig.email}`} className="text-primary hover:underline">{siteConfig.email}</a>
             </p>
           </div>
 
@@ -65,15 +43,22 @@ export default function ImpressumPage() {
             <h2 className="text-primary mb-2">Berufsbezeichnung und berufsrechtliche Regelungen</h2>
             <p className="text-gray-600">
               Berufsbezeichnung: Gebäudereiniger-Handwerk<br />
-              Zuständige Kammer: Handwerkskammer Düsseldorf<br />
+              Zuständige Kammer: Handwerkskammer Koblenz<br />
               Verliehen in: Bundesrepublik Deutschland
+            </p>
+          </div>
+
+          <div>
+            <h2 className="text-primary mb-2">Umsatzsteuer-ID</h2>
+            <p className="text-gray-600">
+              Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz:<br />
+              <span className="italic text-gray-400">wird ergänzt</span>
             </p>
           </div>
 
           <div>
             <h2 className="text-primary mb-2">Redaktionell verantwortlich</h2>
             <p className="text-gray-600">
-              Hubert Wagner<br />
               {siteConfig.address.street}, {siteConfig.address.zip} {siteConfig.address.city}
             </p>
           </div>
@@ -89,7 +74,7 @@ export default function ImpressumPage() {
           </div>
 
           <div>
-            <h2 className="text-primary mb-2">Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+            <h2 className="text-primary mb-2">Verbraucherstreitbeilegung</h2>
             <p className="text-gray-600">
               Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.
             </p>
@@ -103,22 +88,11 @@ export default function ImpressumPage() {
           </div>
 
           <div>
-            <h2 className="text-primary mb-2">Haftung für Links</h2>
-            <p className="text-gray-600">
-              Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.
-            </p>
-          </div>
-
-          <div>
             <h2 className="text-primary mb-2">Urheberrecht</h2>
             <p className="text-gray-600">
               Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers.
             </p>
           </div>
-
-          <p className="text-sm text-gray-400 pt-4">
-            Hinweis: Dieses Impressum enthält Musterangaben und muss vor Veröffentlichung mit den tatsächlichen Unternehmensdaten ergänzt werden.
-          </p>
         </div>
       </section>
     </>

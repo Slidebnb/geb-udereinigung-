@@ -12,7 +12,7 @@ import Newsletter from '@/components/features/Newsletter';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: `${siteConfig.name} | Professionelle Gebäudereinigung in Düsseldorf`,
+  title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
   description: siteConfig.description,
 };
 

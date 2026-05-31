@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
 import { siteConfig } from '@/lib/site';
 
 export default function EinstellungenPage() {
@@ -138,7 +137,8 @@ export default function EinstellungenPage() {
           <div className="flex items-center gap-6">
             <div className="w-24 h-24 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center bg-gray-50 overflow-hidden">
               {logoPreview ? (
-                <Image src={logoPreview} alt="Logo" width={96} height={96} className="object-contain w-full h-full p-1" />
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={logoPreview} alt="Logo" className="object-contain w-full h-full p-1" />
               ) : (
                 <svg className="w-10 h-10 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
               )}
