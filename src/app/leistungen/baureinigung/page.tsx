@@ -3,8 +3,9 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Baureinigung Düsseldorf | Baufeinreinigung nach Renovierung | Huwa',
-  description: 'Professionelle Baureinigung in Düsseldorf. Grobreinigung und Feinreinigung nach Bau- und Renovierungsarbeiten. Schnell und gründlich für die Übergabe.',
+  title: 'Baureinigung Neuwied | Baufeinreinigung nach Renovierung | Huwa',
+  description: 'Professionelle Baureinigung in Neuwied. Grobreinigung und Feinreinigung nach Bau- und Renovierungsarbeiten. Schnell und gründlich für die Übergabe.',
+  alternates: { canonical: `${siteConfig.url}/leistungen/baureinigung` },
 };
 
 export default function BaureinigungPage() {
@@ -46,9 +47,10 @@ Das Ergebnis: Ihr Objekt ist ready für die Übergabe oder den Einzug – ohne S
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Baureinigung Düsseldorf',
+        name: 'Baureinigung Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Professionelle Baureinigung nach Baumaßnahmen und Renovierungen in Düsseldorf.',
+        description: 'Professionelle Baureinigung nach Baumaßnahmen und Renovierungen in Neuwied.',
+  
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Baureinigung',
       }}

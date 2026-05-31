@@ -3,8 +3,9 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Hausmeisterdienste Düsseldorf | Ihr Hausmeister auf Abruf | Huwa',
-  description: 'Professionelle Hausmeisterdienste in Düsseldorf. Reparaturen, Objektbetreuung, Müllentsorgung, Grünpflege – alles aus einer Hand. Jetzt anfragen!',
+  title: 'Hausmeisterdienste Neuwied | Ihr Hausmeister auf Abruf | Huwa',
+  description: 'Professionelle Hausmeisterdienste in Neuwied. Reparaturen, Objektbetreuung, Müllentsorgung, Grünpflege – alles aus einer Hand. Jetzt anfragen!',
+  alternates: { canonical: `${siteConfig.url}/leistungen/hausmeisterdienste` },
 };
 
 export default function HausmeisterdiensteePage() {
@@ -13,7 +14,7 @@ export default function HausmeisterdiensteePage() {
       icon="🔧"
       title="Hausmeisterdienste"
       breadcrumb="Hausmeisterdienste"
-      subtitle="Ihr professioneller Hausmeister auf Abruf in Düsseldorf. Von der kleinen Reparatur bis zur vollständigen Objektbetreuung – schnell, zuverlässig und kompetent."
+      subtitle="Ihr professioneller Hausmeister auf Abruf in Neuwied. Von der kleinen Reparatur bis zur vollständigen Objektbetreuung – schnell, zuverlässig und kompetent."
       description={`Ein guter Hausmeister ist für die Verwaltung von Immobilien unverzichtbar. Er sorgt für das reibungslose Funktionieren aller technischen Einrichtungen, kümmert sich um die Sauberkeit der Außenanlagen und ist bei Störungen und Notfällen der erste Ansprechpartner.
 
 Huwa Hausmeisterdienste bieten Ihnen einen professionellen Rundum-Service für Ihre Immobilie. Wir übernehmen alle anfallenden Aufgaben eines klassischen Hausmeisters: technische Wartung, Grünpflege, Winterdienst, Müllentsorgung, kleine Reparaturen und vieles mehr – ohne dass Sie einen Vollzeit-Hausmeister beschäftigen müssen.
@@ -46,9 +47,10 @@ Unser Hausmeisterservice ist besonders für Hausverwaltungen, Wohnungseigentüme
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Hausmeisterdienste Düsseldorf',
+        name: 'Hausmeisterdienste Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Professionelle Hausmeisterdienste und Objektbetreuung in Düsseldorf.',
+        description: 'Professionelle Hausmeisterdienste und Objektbetreuung in Neuwied.',
+  
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Hausmeisterdienste',
       }}

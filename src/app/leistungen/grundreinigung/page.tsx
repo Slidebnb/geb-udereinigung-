@@ -3,8 +3,9 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Grundreinigung Düsseldorf | Tiefenreinigung | Huwa',
-  description: 'Professionelle Grundreinigung in Düsseldorf. Intensive Tiefenreinigung für Wohnungen, Büros und Gewerberäume. Bei Einzug, Auszug oder nach Renovierung. Angebot anfordern!',
+  title: 'Grundreinigung Neuwied | Tiefenreinigung | Huwa',
+  description: 'Professionelle Grundreinigung in Neuwied. Intensive Tiefenreinigung für Wohnungen, Büros und Gewerberäume. Bei Einzug, Auszug oder nach Renovierung. Angebot anfordern!',
+  alternates: { canonical: `${siteConfig.url}/leistungen/grundreinigung` },
 };
 
 export default function GrundreinigungPage() {
@@ -47,9 +48,10 @@ Die Grundreinigung eignet sich besonders bei Einzug in eine neue Wohnung oder ei
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Grundreinigung Düsseldorf',
+        name: 'Grundreinigung Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Professionelle Grundreinigung und Tiefenreinigung in Düsseldorf für Wohnungen, Büros und Gewerberäume.',
+        description: 'Professionelle Grundreinigung und Tiefenreinigung in Neuwied für Wohnungen, Büros und Gewerberäume.',
+  
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Grundreinigung',
       }}

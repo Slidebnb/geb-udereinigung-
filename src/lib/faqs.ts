@@ -9,7 +9,7 @@ export const faqs: FAQ[] = [
     category: 'Allgemein',
     question: 'In welchen Regionen sind Sie tätig?',
     answer:
-      'Wir sind in Düsseldorf und im gesamten Umkreis tätig, unter anderem in Köln, Neuss, Duisburg, Essen, Wuppertal, Krefeld und Mönchengladbach. Sprechen Sie uns gern an, wenn Ihr Standort nicht aufgeführt ist.',
+      'Wir sind im Raum Neuwied, Koblenz und Bendorf sowie in den umliegenden Gemeinden tätig – unter anderem in Andernach, Mayen, Lahnstein, Bad Neuenahr-Ahrweiler und Boppard. Sprechen Sie uns gern an, wenn Ihr Standort nicht aufgeführt ist.',
   },
   {
     category: 'Allgemein',

@@ -3,8 +3,9 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Gartenarbeiten Düsseldorf | Professionelle Gartenpflege | Huwa',
-  description: 'Professionelle Gartenarbeiten in Düsseldorf. Rasenmähen, Heckenschnitt, Laubentsorgung und mehr. Ganzjährige Gartenpflege vom Profi. Jetzt anfragen!',
+  title: 'Gartenarbeiten Neuwied | Professionelle Gartenpflege | Huwa',
+  description: 'Professionelle Gartenarbeiten in Neuwied. Rasenmähen, Heckenschnitt, Laubentsorgung und mehr. Ganzjährige Gartenpflege vom Profi. Jetzt anfragen!',
+  alternates: { canonical: `${siteConfig.url}/leistungen/gartenarbeiten` },
 };
 
 export default function GartenarbeitenPage() {
@@ -46,9 +47,10 @@ Besonders gefragt sind unsere Jahresverträge für regelmäßige Gartenpflege: S
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Gartenarbeiten Düsseldorf',
+        name: 'Gartenarbeiten Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Professionelle Gartenarbeiten und Gartenpflege in Düsseldorf und NRW.',
+        description: 'Professionelle Gartenarbeiten und Gartenpflege in Neuwied und Rheinland-Pfalz.',
+  
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Gartenarbeiten',
       }}

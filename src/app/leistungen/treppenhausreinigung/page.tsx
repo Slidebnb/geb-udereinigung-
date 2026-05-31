@@ -3,8 +3,9 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Treppenhausreinigung Düsseldorf | Regelmäßig & Gründlich | Huwa',
-  description: 'Professionelle Treppenhausreinigung in Düsseldorf. Zuverlässige Reinigung von Treppenhäusern, Fluren und Gemeinschaftsflächen. Jetzt Angebot anfragen!',
+  title: 'Treppenhausreinigung Neuwied | Regelmäßig & Gründlich | Huwa',
+  description: 'Professionelle Treppenhausreinigung in Neuwied. Zuverlässige Reinigung von Treppenhäusern, Fluren und Gemeinschaftsflächen. Jetzt Angebot anfragen!',
+  alternates: { canonical: `${siteConfig.url}/leistungen/treppenhausreinigung` },
 };
 
 export default function TreppenhausreinigungPage() {
@@ -45,9 +46,10 @@ Neben dem eigentlichen Treppenhaus reinigen wir auch alle angrenzenden Gemeinsch
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Treppenhausreinigung Düsseldorf',
+        name: 'Treppenhausreinigung Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Professionelle Treppenhausreinigung für Mehrfamilienhäuser und Bürogebäude in Düsseldorf.',
+        description: 'Professionelle Treppenhausreinigung für Mehrfamilienhäuser und Bürogebäude in Neuwied.',
+  
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Treppenhausreinigung',
       }}

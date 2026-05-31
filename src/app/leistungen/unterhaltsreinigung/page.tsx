@@ -3,8 +3,9 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Unterhaltsreinigung Düsseldorf | Regelmäßige Reinigung | Huwa',
-  description: 'Professionelle Unterhaltsreinigung in Düsseldorf. Regelmäßige Reinigung nach Plan für Büros, Praxen und Gewerberäume. Jetzt Angebot anfragen!',
+  title: 'Unterhaltsreinigung Neuwied | Regelmäßige Reinigung | Huwa',
+  description: 'Professionelle Unterhaltsreinigung in Neuwied. Regelmäßige Reinigung nach Plan für Büros, Praxen und Gewerberäume. Jetzt Angebot anfragen!',
+  alternates: { canonical: `${siteConfig.url}/leistungen/unterhaltsreinigung` },
 };
 
 export default function UnterhaltsreinigungPage() {
@@ -46,9 +47,10 @@ Huwa bietet Unterhaltsreinigung für alle Arten von Objekten: Büros und Praxen,
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Unterhaltsreinigung Düsseldorf',
+        name: 'Unterhaltsreinigung Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Regelmäßige Unterhaltsreinigung für Büros, Praxen und Gewerberäume in Düsseldorf.',
+        description: 'Regelmäßige Unterhaltsreinigung für Büros, Praxen und Gewerberäume in Neuwied.',
+  
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Unterhaltsreinigung',
       }}

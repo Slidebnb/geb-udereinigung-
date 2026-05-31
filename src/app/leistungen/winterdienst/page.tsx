@@ -3,8 +3,9 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Winterdienst Düsseldorf | Räumen & Streuen | Huwa',
-  description: 'Zuverlässiger Winterdienst in Düsseldorf. Räum- und Streupflicht übernehmen lassen. Haftungsschutz für Eigentümer und Vermieter. Jetzt anfragen!',
+  title: 'Winterdienst Neuwied | Räumen & Streuen | Huwa',
+  description: 'Zuverlässiger Winterdienst in Neuwied. Räum- und Streupflicht übernehmen lassen. Haftungsschutz für Eigentümer und Vermieter. Jetzt anfragen!',
+  alternates: { canonical: `${siteConfig.url}/leistungen/winterdienst` },
 };
 
 export default function WinterdienstPage() {
@@ -47,9 +48,10 @@ Unser Winterdienst deckt alle relevanten Bereiche ab: Gehwege, Zufahrten, Parkpl
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Winterdienst Düsseldorf',
+        name: 'Winterdienst Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Zuverlässiger Winterdienst in Düsseldorf – Räumen, Streuen und Dokumentieren für Ihren Haftungsschutz.',
+        description: 'Zuverlässiger Winterdienst in Neuwied – Räumen, Streuen und Dokumentieren für Ihren Haftungsschutz.',
+  
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Winterdienst',
       }}

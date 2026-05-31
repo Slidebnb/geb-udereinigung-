@@ -3,8 +3,8 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Gebäudereinigung Düsseldorf | Professionell & Zuverlässig | Huwa',
-  description: 'Professionelle Gebäudereinigung in Düsseldorf und NRW. Außenfassaden, Eingangsbereiche, Tiefgaragen – alles aus einer Hand. Kostenlos anfragen!',
+  title: 'Gebäudereinigung Neuwied | Professionell & Zuverlässig | Huwa',
+  description: 'Professionelle Gebäudereinigung in Neuwied und Rheinland-Pfalz. Außenfassaden, Eingangsbereiche, Tiefgaragen – alles aus einer Hand. Kostenlos anfragen!',
   alternates: { canonical: `${siteConfig.url}/leistungen/gebaeudereinigung` },
 };
 
@@ -14,7 +14,7 @@ export default function GebaeudereinigungPage() {
       icon="🏢"
       title="Gebäudereinigung"
       breadcrumb="Gebäudereinigung"
-      subtitle="Professionelle Reinigung von Bürogebäuden, Wohnhäusern und Gewerbeimmobilien in Düsseldorf und NRW – zuverlässig, gründlich und zu fairen Preisen."
+      subtitle="Professionelle Reinigung von Bürogebäuden, Wohnhäusern und Gewerbeimmobilien in Neuwied und Rheinland-Pfalz – zuverlässig, gründlich und zu fairen Preisen."
       description={`Gebäudereinigung ist weit mehr als das bloße Entfernen von sichtbarem Schmutz. Professionelle Gebäudereinigung schützt Ihre Immobilie, verlängert die Lebensdauer von Oberflächen und sorgt für ein einladendes Erscheinungsbild, das bei Mitarbeitern, Kunden und Besuchern einen positiven Eindruck hinterlässt.
 
 Huwa Gebäudereinigung bietet maßgeschneiderte Reinigungslösungen für Bürogebäude, Wohnhäuser, Einkaufszentren, Industriehallen und jede Art von Gewerbeimmobilie. Mit moderner Ausrüstung, zertifizierten Reinigungsmitteln und geschultem Personal garantieren wir höchste Reinigungsqualität.
@@ -48,9 +48,9 @@ Unsere Gebäudereinigung umfasst alle Bereiche Ihres Objektes: von der Außenfas
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Gebäudereinigung Düsseldorf',
+        name: 'Gebäudereinigung Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Professionelle Gebäudereinigung für Bürogebäude, Wohnhäuser und Gewerbeimmobilien in Düsseldorf und NRW.',
+        description: 'Professionelle Gebäudereinigung für Bürogebäude, Wohnhäuser und Gewerbeimmobilien in Neuwied und Rheinland-Pfalz.',
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Gebäudereinigung',
       }}

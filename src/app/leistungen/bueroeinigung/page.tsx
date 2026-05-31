@@ -3,8 +3,8 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Büroreinigung Düsseldorf | Täglich & Zuverlässig | Huwa',
-  description: 'Professionelle Büroreinigung in Düsseldorf. Tägliche oder wöchentliche Reinigung für saubere, hygienische Arbeitsplätze. Jetzt kostenlos anfragen!',
+  title: 'Büroreinigung Neuwied | Täglich & Zuverlässig | Huwa',
+  description: 'Professionelle Büroreinigung in Neuwied. Tägliche oder wöchentliche Reinigung für saubere, hygienische Arbeitsplätze. Jetzt kostenlos anfragen!',
   alternates: { canonical: `${siteConfig.url}/leistungen/bueroeinigung` },
 };
 
@@ -14,7 +14,7 @@ export default function BueroeinigungPage() {
       icon="💼"
       title="Büroreinigung"
       breadcrumb="Büroreinigung"
-      subtitle="Professionelle Büroreinigung für saubere, hygienische Arbeitsplätze in Düsseldorf. Mehr Produktivität, weniger Krankenstand – alles aus einer Hand."
+      subtitle="Professionelle Büroreinigung für saubere, hygienische Arbeitsplätze in Neuwied. Mehr Produktivität, weniger Krankenstand – alles aus einer Hand."
       description={`Ein sauberes Büro ist die Grundlage für produktives Arbeiten. Studien belegen, dass Mitarbeiter in einer hygienischen Umgebung produktiver sind, sich wohler fühlen und seltener krank werden. Gleichzeitig hinterlässt ein gepflegtes Büro bei Kunden und Geschäftspartnern einen professionellen Eindruck.
 
 Huwa Büroreinigung bietet maßgeschneiderte Reinigungspakete für Büros jeder Größe – vom kleinen Büro mit 3 Mitarbeitern bis zum Großraumbüro mit 200 Arbeitsplätzen. Wir reinigen außerhalb Ihrer Arbeitszeiten, damit Ihr Betrieb nicht gestört wird.
@@ -48,9 +48,9 @@ Unser erfahrenes Team reinigt alle Bereiche Ihres Büros: Büroräume, Besprechu
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Büroreinigung Düsseldorf',
+        name: 'Büroreinigung Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Professionelle Büroreinigung für saubere, hygienische Arbeitsplätze in Düsseldorf und NRW.',
+        description: 'Professionelle Büroreinigung für saubere, hygienische Arbeitsplätze in Neuwied und Rheinland-Pfalz.',
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Büroreinigung',
       }}

@@ -3,8 +3,9 @@ import ServicePage from '@/components/shared/ServicePage';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Glasreinigung Düsseldorf | Streifenfrei & Professionell | Huwa',
-  description: 'Professionelle Glasreinigung in Düsseldorf. Fenster, Schaufenster, Glasfassaden – streifenfrei und glänzend. Jetzt Angebot anfragen!',
+  title: 'Glasreinigung Neuwied | Streifenfrei & Professionell | Huwa',
+  description: 'Professionelle Glasreinigung in Neuwied. Fenster, Schaufenster, Glasfassaden – streifenfrei und glänzend. Jetzt Angebot anfragen!',
+  alternates: { canonical: `${siteConfig.url}/leistungen/glasreinigung` },
 };
 
 export default function GlasreinigungPage() {
@@ -45,9 +46,10 @@ Huwa reinigt Glasflächen aller Art: Bürofenster, Schaufenster, Glasdächer, Wi
       schema={{
         '@context': 'https://schema.org',
         '@type': 'Service',
-        name: 'Glasreinigung Düsseldorf',
+        name: 'Glasreinigung Neuwied',
         provider: { '@type': 'LocalBusiness', name: siteConfig.name, url: siteConfig.url },
-        description: 'Professionelle Glasreinigung für Fenster, Schaufenster und Glasfassaden in Düsseldorf und NRW.',
+        description: 'Professionelle Glasreinigung für Fenster, Schaufenster und Glasfassaden in Neuwied und Rheinland-Pfalz.',
+  
         areaServed: siteConfig.serviceAreas,
         serviceType: 'Glasreinigung',
       }}
