@@ -4,23 +4,57 @@
 <meta charset="UTF-8">
 <title>Haustechnik-Checkliste | Huwa Gebäudedienste</title>
 <style>
+  * { box-sizing: border-box; }
   body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; color: #1a2e4a; }
-  .logo { color: #0C2340; font-size: 20px; font-weight: bold; margin-bottom: 8px; }
-  .logo span { color: #4BB8F5; }
-  h1 { color: #0C2340; font-size: 24px; margin-bottom: 4px; }
-  .subtitle { color: #666; font-size: 14px; margin-bottom: 32px; }
-  .category { background: #0C2340; color: white; padding: 8px 16px; border-radius: 6px; font-weight: bold; margin-top: 24px; margin-bottom: 12px; font-size: 14px; }
+  .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 3px solid #0C2340; }
+  .logo-block { display: flex; align-items: center; gap: 14px; }
+  .logo-icon { width: 52px; height: 52px; background: #0C2340; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo-text { font-size: 22px; font-weight: 800; color: #0C2340; letter-spacing: -0.5px; line-height: 1.1; }
+  .logo-text span { color: #4BB8F5; }
+  .logo-sub { font-size: 10px; color: #666; font-weight: normal; letter-spacing: 0.5px; text-transform: uppercase; }
+  .doc-info { text-align: right; font-size: 11px; color: #888; }
+  h1 { color: #0C2340; font-size: 22px; margin: 0 0 4px; }
+  .subtitle { color: #666; font-size: 13px; margin-bottom: 28px; }
+  .category { background: #0C2340; color: white; padding: 8px 16px; border-radius: 6px; font-weight: bold; margin-top: 24px; margin-bottom: 12px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
   .item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 1px solid #eee; }
   .checkbox { width: 18px; height: 18px; border: 2px solid #0C2340; border-radius: 3px; flex-shrink: 0; margin-top: 2px; }
   .item-text { flex: 1; }
-  .item-title { font-weight: bold; font-size: 14px; }
-  .item-desc { font-size: 12px; color: #666; margin-top: 2px; }
-  .footer { margin-top: 48px; padding-top: 16px; border-top: 2px solid #0C2340; font-size: 12px; color: #666; }
-  @media print { body { padding: 20px; } }
+  .item-title { font-weight: bold; font-size: 13px; }
+  .item-desc { font-size: 11px; color: #666; margin-top: 2px; }
+  .footer { margin-top: 40px; padding-top: 16px; border-top: 2px solid #0C2340; font-size: 11px; color: #666; display: flex; align-items: flex-start; gap: 12px; }
+  .footer-logo { width: 36px; height: 36px; background: #0C2340; border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  @media print {
+    body { padding: 20px; }
+    .no-print { display: none; }
+  }
 </style>
 </head>
 <body>
-<div class="logo">Huwa <span>Gebäudedienste</span></div>
+
+<!-- Header with Logo -->
+<div class="header">
+  <div class="logo-block">
+    <div class="logo-icon">
+      <!-- Huwa Logo SVG -->
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="6" fill="#0C2340"/>
+        <path d="M6 8h4v7h6V8h4v16h-4v-6h-6v6H6V8z" fill="#4BB8F5"/>
+        <path d="M22 8h1.5l2.5 5 2.5-5H30v16h-3.5v-8l-2 4h-1l-2-4v8H18V8h4z" fill="white" opacity="0.85"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text">Huwa <span>Gebäudedienste</span></div>
+      <div class="logo-sub">Gebäudereinigung & Hausmeisterdienste</div>
+    </div>
+  </div>
+  <div class="doc-info">
+    Dokument erstellt: 2025<br>
+    www.huwa-gebaeudedienste.de
+  </div>
+</div>
+
+<h1>12-Punkte Haustechnik-Checkliste</h1>
+<p class="subtitle">Für Hausverwaltungen und Eigentümergemeinschaften | Stand 2025</p>
 <h1>12-Punkte Haustechnik-Checkliste</h1>
 <p class="subtitle">Für Hausverwaltungen und Eigentümergemeinschaften | Stand 2025</p>
 
@@ -129,9 +163,16 @@
 </div>
 
 <div class="footer">
-  <strong>Huwa Gebäudereinigung & Hausmeisterdienste</strong> | Mittelweg 24, 56566 Neuwied<br>
-  Tel: 02601 9131820 | info@huwa-gebaeudedienste.de | www.huwa-gebaeudedienste.de<br><br>
-  <em>Diese Checkliste dient als erste Orientierung und ersetzt keine Fachinspektion. Für Hausmeisterservice, Gebäudereinigung und Winterdienst stehen wir gerne zur Verfügung.</em>
+  <div class="footer-logo">
+    <svg width="22" height="22" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 8h4v7h6V8h4v16h-4v-6h-6v6H6V8z" fill="#4BB8F5"/>
+    </svg>
+  </div>
+  <div>
+    <strong>Huwa Gebäudereinigung & Hausmeisterdienste</strong> | Mittelweg 24, 56566 Neuwied<br>
+    Tel: 02601 9131820 | info@huwa-gebaeudedienste.de | www.huwa-gebaeudedienste.de<br><br>
+    <em>Diese Checkliste dient als erste Orientierung und ersetzt keine Fachinspektion. Für Hausmeisterservice, Gebäudereinigung und Winterdienst stehen wir gerne zur Verfügung.</em>
+  </div>
 </div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 interface Protocol {
   id: string;
@@ -59,13 +60,7 @@ export default function PortalProtokollePage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-[#0C2340]">Meine Reinigungsprotokolle</h1>
-        <button
-          onClick={() => window.print()}
-          className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-200 rounded-xl text-sm font-medium text-gray-700 hover:border-[#4BB8F5] hover:text-[#4BB8F5] transition-colors print:hidden"
-        >
-          <span>🖨️</span> Drucken
-        </button>
+        <h1 className="text-xl sm:text-2xl font-bold text-[#0C2340]">Meine Reinigungsprotokolle</h1>
       </div>
 
       {/* Filter */}
@@ -113,13 +108,13 @@ export default function PortalProtokollePage() {
       ) : (
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
           {/* Table header */}
-          <div className="hidden md:grid grid-cols-[1fr_1.5fr_1.5fr_0.8fr_0.8fr_1.2fr] gap-4 px-6 py-3 bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">
+          <div className="hidden md:grid grid-cols-[1fr_1.5fr_1.5fr_0.8fr_0.8fr_1.4fr] gap-4 px-6 py-3 bg-gray-50 border-b border-gray-100 text-xs font-semibold text-gray-500 uppercase tracking-wide">
             <div>Datum</div>
             <div>Leistung</div>
             <div>Standort</div>
             <div>Dauer</div>
             <div>Status</div>
-            <div></div>
+            <div>Aktionen</div>
           </div>
 
           <div className="divide-y divide-gray-100">
@@ -129,25 +124,41 @@ export default function PortalProtokollePage() {
 
               return (
                 <div key={p.id}>
-                  <div
-                    className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr_1.5fr_0.8fr_0.8fr_1.2fr] gap-2 md:gap-4 px-6 py-4 cursor-pointer hover:bg-gray-50 transition-colors"
-                    onClick={() => setOpenId(isOpen ? null : p.id)}
-                  >
-                    <div className="text-sm text-gray-800 font-medium">
-                      {new Date(p.date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                  <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr_1.5fr_0.8fr_0.8fr_1.4fr] gap-2 md:gap-4 px-6 py-4">
+                    <div
+                      className="col-span-1 md:col-span-5 grid grid-cols-1 md:grid-cols-[1fr_1.5fr_1.5fr_0.8fr_0.8fr] gap-2 md:gap-4 cursor-pointer"
+                      onClick={() => setOpenId(isOpen ? null : p.id)}
+                    >
+                      <div className="text-sm text-gray-800 font-medium">
+                        {new Date(p.date).toLocaleDateString('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' })}
+                      </div>
+                      <div className="text-sm text-gray-700">{p.type}</div>
+                      <div className="text-sm text-gray-600 truncate">{p.location}</div>
+                      <div className="text-sm text-gray-600">{p.duration || '–'}</div>
+                      <div>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">
+                          {p.status}
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-sm text-gray-700">{p.type}</div>
-                    <div className="text-sm text-gray-600 truncate">{p.location}</div>
-                    <div className="text-sm text-gray-600">{p.duration || '–'}</div>
-                    <div>
-                      <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-medium">
-                        {p.status}
-                      </span>
-                    </div>
-                    <div className="text-right">
-                      <span className="text-xs text-[#4BB8F5] font-medium">
-                        {isOpen ? '▲ Schliessen' : '▼ Details'}
-                      </span>
+                    {/* Aktionen */}
+                    <div className="flex items-center gap-2 md:justify-end">
+                      <Link
+                        href={`/portal/protokolle/${p.id}`}
+                        className="flex items-center gap-1.5 text-xs font-medium text-[#0C2340] bg-[#0C2340]/6 hover:bg-[#0C2340] hover:text-white px-3 py-1.5 rounded-lg transition-colors"
+                        title="Als PDF herunterladen"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        PDF
+                      </Link>
+                      <button
+                        onClick={() => setOpenId(isOpen ? null : p.id)}
+                        className="text-xs text-[#4BB8F5] font-medium px-2 py-1.5 hover:underline"
+                      >
+                        {isOpen ? '▲' : '▼'}
+                      </button>
                     </div>
                   </div>
 
