@@ -161,6 +161,18 @@ export default function HausmeisterserviceNeuwied() {
         </div>
       </section>
 
+      {/* Lead Magnet */}
+      <section className="py-12 bg-primary/5 border-y border-primary/10">
+        <div className="container mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div>
+            <div className="text-xs font-semibold text-primary uppercase tracking-wider mb-1">Kostenloser Download</div>
+            <h3 className="text-lg font-bold text-dark">12-Punkte Haustechnik-Checkliste für Hausverwaltungen</h3>
+            <p className="text-gray-500 text-sm mt-1">Was muss wann geprüft werden? Jetzt kostenlos herunterladen.</p>
+          </div>
+          <Link href="/checkliste" className="btn-primary whitespace-nowrap shrink-0">Kostenlos herunterladen →</Link>
+        </div>
+      </section>
+
       <CTABanner />
     </>
   );

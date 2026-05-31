@@ -7,6 +7,7 @@ const nav = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
   { href: '/admin/homepage', label: 'Startseite', icon: '🏠' },
   { href: '/admin/anfragen', label: 'Anfragen', icon: '📬' },
+  { href: '/admin/kunden', label: 'Kunden', icon: '👥' },
   { href: '/admin/blog', label: 'Blog', icon: '✍️' },
   { href: '/admin/blog/ki-erstellen', label: 'KI Blog', icon: '🤖' },
   { href: '/admin/blog/themenplaner', label: 'Themenplaner', icon: '📋' },
