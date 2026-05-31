@@ -1,11 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site';
+import { getSettings } from '@/lib/get-settings';
 import Hero from '@/components/home/Hero';
 import Services from '@/components/home/Services';
 import WhyUs from '@/components/home/WhyUs';
 import Testimonials from '@/components/home/Testimonials';
 import CTABanner from '@/components/home/CTABanner';
+import type { HeroData } from '@/components/home/Hero';
+import type { ServicesData } from '@/components/home/Services';
+import type { WhyUsData } from '@/components/home/WhyUs';
+import type { CTAData } from '@/components/home/CTABanner';
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
@@ -40,13 +45,26 @@ const localBusinessSchema = {
   sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
 };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const settings = await getSettings();
+
+  function parseSection<T>(key: string): Partial<T> {
+    const raw = settings[key];
+    if (!raw) return {};
+    try { return JSON.parse(raw) as Partial<T>; } catch { return {}; }
+  }
+
+  const heroData     = parseSection<HeroData>('hp_hero');
+  const servicesData = parseSection<ServicesData>('hp_services');
+  const whyUsData    = parseSection<WhyUsData>('hp_whyus');
+  const ctaData      = parseSection<CTAData>('hp_cta');
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
-      <Hero />
-      <Services />
-      <WhyUs />
+      <Hero data={heroData} />
+      <Services data={servicesData} />
+      <WhyUs data={whyUsData} />
       <Testimonials />
 
       {/* Service areas */}
@@ -99,7 +117,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <CTABanner />
+      <CTABanner data={ctaData} />
     </>
   );
 }
