@@ -8,7 +8,22 @@ import { siteConfig } from '@/lib/site';
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function CTABanner() {
+export interface CTAData {
+  headline?: string;
+  headline_gradient?: string;
+  subtitle?: string;
+  benefits?: string[];
+}
+
+const defaultCTA: Required<CTAData> = {
+  headline: 'Bereit für',
+  headline_gradient: 'makellose Sauberkeit',
+  subtitle: 'Fordern Sie Ihr kostenloses Angebot an – wir melden uns innerhalb von 24 Stunden persönlich bei Ihnen.',
+  benefits: ['Antwort in 24 h', 'Kostenlose Beratung', 'Festpreisgarantie', 'Vollversichert'],
+};
+
+export default function CTABanner({ data }: { data?: CTAData }) {
+  const d = { ...defaultCTA, ...data };
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -26,10 +41,10 @@ export default function CTABanner() {
       <div className="cta-content relative z-10 container mx-auto text-center">
         <div className="section-label mx-auto w-fit mb-6">Jetzt starten</div>
         <h2 className="text-white mb-4 max-w-3xl mx-auto">
-          Bereit für <span className="gradient-text">makellose Sauberkeit</span>?
+          {d.headline} <span className="gradient-text">{d.headline_gradient}</span>?
         </h2>
         <p className="text-slate-300 text-lg mb-10 max-w-xl mx-auto">
-          Fordern Sie Ihr kostenloses Angebot an – wir melden uns innerhalb von 24 Stunden persönlich bei Ihnen.
+          {d.subtitle}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -44,7 +59,7 @@ export default function CTABanner() {
         </div>
 
         <div className="flex flex-wrap justify-center gap-8">
-          {['Antwort in 24 h', 'Kostenlose Beratung', 'Festpreisgarantie', 'Vollversichert'].map(item => (
+          {d.benefits.map(item => (
             <div key={item} className="flex items-center gap-2 text-slate-300/70 text-sm font-medium">
               <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
               {item}

@@ -6,29 +6,43 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const stats = [
-  { val: 500, suffix: '+', label: 'Zufriedene Kunden',  color: 'text-primary' },
-  { val: 15,  suffix: '+', label: 'Jahre Erfahrung',    color: 'text-green' },
-  { val: 10,  suffix: '',  label: 'Leistungsbereiche',  color: 'text-primary' },
-  { val: 100, suffix: '%', label: 'Weiterempfehlung',   color: 'text-green' },
-];
+export interface WhyUsData {
+  stats?: { val: number; suffix: string; label: string }[];
+  headline?: string;
+  subtitle?: string;
+  reasons?: { icon: string; title: string; desc: string }[];
+}
 
-const reasons = [
-  { icon: '⏰', title: 'Pünktlich & Zuverlässig',    desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
-  { icon: '🏆', title: 'Höchste Qualität',            desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
-  { icon: '💰', title: 'Faire Festpreise',             desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
-  { icon: '🌍', title: 'Regional verwurzelt',         desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
-  { icon: '📞', title: 'Direkter Ansprechpartner',    desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
-  { icon: '🔒', title: 'Vollversichert & Seriös',     desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
-];
+const defaultWhyUs: Required<WhyUsData> = {
+  stats: [
+    { val: 500, suffix: '+', label: 'Zufriedene Kunden' },
+    { val: 15,  suffix: '+', label: 'Jahre Erfahrung' },
+    { val: 10,  suffix: '',  label: 'Leistungsbereiche' },
+    { val: 100, suffix: '%', label: 'Weiterempfehlung' },
+  ],
+  headline: 'Der Unterschied, den Sie spüren werden',
+  subtitle: 'Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.',
+  reasons: [
+    { icon: '⏰', title: 'Pünktlich & Zuverlässig',    desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
+    { icon: '🏆', title: 'Höchste Qualität',            desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
+    { icon: '💰', title: 'Faire Festpreise',             desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
+    { icon: '🌍', title: 'Regional verwurzelt',          desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
+    { icon: '📞', title: 'Direkter Ansprechpartner',     desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
+    { icon: '🔒', title: 'Vollversichert & Seriös',      desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
+  ],
+};
 
-export default function WhyUs() {
+const statColors = ['text-primary', 'text-green', 'text-primary', 'text-green'];
+
+export default function WhyUs({ data }: { data?: WhyUsData }) {
+  const d = { ...defaultWhyUs, ...data };
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const statsRef   = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      stats.forEach((s, i) => {
+      d.stats.forEach((s, i) => {
         const el = document.querySelector(`.stat-val-${i}`);
         if (!el) return;
         const obj = { val: s.val };
@@ -50,6 +64,7 @@ export default function WhyUs() {
       });
     }, sectionRef);
     return () => ctx.revert();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -57,9 +72,9 @@ export default function WhyUs() {
       <div className="container mx-auto">
         {/* Animated stats */}
         <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-20">
-          {stats.map((s, i) => (
+          {d.stats.map((s, i) => (
             <div key={s.label} className="card rounded-2xl p-8 text-center cursor-default">
-              <div className={`text-5xl font-black ${s.color} mb-2 stat-val-${i}`}>{s.val}{s.suffix}</div>
+              <div className={`text-5xl font-black ${statColors[i % statColors.length]} mb-2 stat-val-${i}`}>{s.val}{s.suffix}</div>
               <div className="text-slate-500 text-sm font-medium">{s.label}</div>
             </div>
           ))}
@@ -69,17 +84,16 @@ export default function WhyUs() {
         <div className="why-title text-center mb-16">
           <div className="section-label mx-auto w-fit">Warum Huwa?</div>
           <h2 className="mb-4">
-            Der Unterschied, den Sie{' '}
-            <span className="gradient-text">spüren werden</span>
+            <span className="gradient-text">{d.headline}</span>
           </h2>
           <p className="text-slate-500 max-w-xl mx-auto text-lg">
-            Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.
+            {d.subtitle}
           </p>
         </div>
 
         {/* Reasons */}
         <div className="why-grid grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {reasons.map((r) => (
+          {d.reasons.map((r) => (
             <div key={r.title} className="why-card card rounded-2xl p-7 group hover:border-primary/30 transition-all duration-300">
               <div className="w-14 h-14 bg-primary/8 border border-primary/10 rounded-2xl flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition-transform duration-300">
                 {r.icon}

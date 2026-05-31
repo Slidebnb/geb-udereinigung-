@@ -6,7 +6,42 @@ import { gsap } from 'gsap';
 import { siteConfig } from '@/lib/site';
 import HeroBg from './HeroCanvas';
 
-export default function Hero() {
+export interface HeroData {
+  badge?: string;
+  h1?: string;
+  h2?: string;
+  h3?: string;
+  subtitle?: string;
+  stats?: { val: string; label: string }[];
+  services?: { icon: string; title: string }[];
+}
+
+const defaultHero: Required<HeroData> = {
+  badge: `Seit ${siteConfig.foundingYear} – Ihr Partner in ${siteConfig.address.city}`,
+  h1: 'Professionelle',
+  h2: 'Gebäudereinigung',
+  h3: '& Hausmeister',
+  subtitle: 'Sauberkeit auf höchstem Niveau – für Büros, Wohnhäuser und Gewerbe in Neuwied, Koblenz & Bendorf. Zuverlässig, gründlich, fair.',
+  stats: [
+    { val: '500+', label: 'zufriedene Kunden' },
+    { val: '15+',  label: 'Jahre Erfahrung' },
+    { val: '4.9★', label: 'Google Bewertung' },
+  ],
+  services: [
+    { icon: '🏢', title: 'Gebäudereinigung' },
+    { icon: '💼', title: 'Büroreinigung' },
+    { icon: '🪟', title: 'Glasreinigung' },
+    { icon: '🏠', title: 'Treppenhausreinigung' },
+    { icon: '🏗️', title: 'Baureinigung' },
+    { icon: '🔧', title: 'Hausmeisterdienste' },
+    { icon: '❄️', title: 'Winterdienst' },
+    { icon: '🌿', title: 'Gartenarbeiten' },
+  ],
+};
+
+export default function Hero({ data }: { data?: HeroData }) {
+  const d = { ...defaultHero, ...data };
+
   const headlineRef = useRef<HTMLDivElement>(null);
   const subRef      = useRef<HTMLParagraphElement>(null);
   const ctaRef      = useRef<HTMLDivElement>(null);
@@ -35,18 +70,18 @@ export default function Hero() {
           {/* Badge */}
           <div ref={badgeRef} className="inline-flex items-center gap-2 border border-white/20 text-white/80 px-4 py-1.5 rounded-full text-sm font-medium mb-7">
             <span className="w-1.5 h-1.5 rounded-full bg-green" />
-            Seit {siteConfig.foundingYear} – Ihr Partner in {siteConfig.address.city}
+            {d.badge}
           </div>
 
           {/* Headline */}
           <div ref={headlineRef}>
-            <h1 className="text-white mb-1 leading-[1.1]">Professionelle</h1>
-            <h1 className="gradient-text mb-1 leading-[1.1]">Gebäudereinigung</h1>
-            <h1 className="text-white leading-[1.1]">& Hausmeister</h1>
+            <h1 className="text-white mb-1 leading-[1.1]">{d.h1}</h1>
+            <h1 className="gradient-text mb-1 leading-[1.1]">{d.h2}</h1>
+            <h1 className="text-white leading-[1.1]">{d.h3}</h1>
           </div>
 
           <p ref={subRef} className="text-slate-300 text-lg mt-6 mb-10 leading-relaxed max-w-lg">
-            Sauberkeit auf höchstem Niveau – für Büros, Wohnhäuser und Gewerbe in Neuwied, Koblenz & Bendorf. Zuverlässig, gründlich, fair.
+            {d.subtitle}
           </p>
 
           {/* CTAs */}
@@ -63,11 +98,7 @@ export default function Hero() {
 
           {/* Stats */}
           <div ref={statsRef} className="flex flex-wrap gap-6">
-            {[
-              { val: '500+', label: 'zufriedene Kunden' },
-              { val: '15+',  label: 'Jahre Erfahrung' },
-              { val: '4.9★', label: 'Google Bewertung' },
-            ].map(({ val, label }) => (
+            {d.stats.map(({ val, label }) => (
               <div key={label} className="flex flex-col">
                 <span className="text-2xl font-black text-white">{val}</span>
                 <span className="text-slate-400 text-xs mt-0.5">{label}</span>
@@ -81,16 +112,7 @@ export default function Hero() {
           <div className="bg-white/8 border border-white/12 rounded-2xl p-8">
             <p className="text-slate-300 text-sm font-semibold uppercase tracking-wider mb-6">Unsere Leistungen</p>
             <div className="grid grid-cols-2 gap-3">
-              {[
-                { icon: '🏢', title: 'Gebäudereinigung' },
-                { icon: '💼', title: 'Büroreinigung' },
-                { icon: '🪟', title: 'Glasreinigung' },
-                { icon: '🏠', title: 'Treppenhausreinigung' },
-                { icon: '🏗️', title: 'Baureinigung' },
-                { icon: '🔧', title: 'Hausmeisterdienste' },
-                { icon: '❄️', title: 'Winterdienst' },
-                { icon: '🌿', title: 'Gartenarbeiten' },
-              ].map(({ icon, title }) => (
+              {d.services.map(({ icon, title }) => (
                 <div key={title} className="flex items-center gap-2.5 text-slate-300 text-sm">
                   <span className="text-lg">{icon}</span>
                   {title}
