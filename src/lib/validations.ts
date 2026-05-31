@@ -6,8 +6,7 @@ export const contactSchema = z.object({
   phone: z.string().max(40).optional().or(z.literal('')),
   subject: z.string().max(150).optional().or(z.literal('')),
   message: z.string().min(10, 'Ihre Nachricht ist zu kurz.').max(3000),
-  // Einwilligung wird clientseitig erzwungen; serverseitig optional
-  privacy: z.boolean().optional(),
+  privacy: z.literal(true, { errorMap: () => ({ message: 'Bitte stimmen Sie der Datenschutzerklärung zu.' }) }),
   // Honeypot
   website: z.string().max(0).optional().or(z.literal('')),
 });
@@ -25,8 +24,7 @@ export const quoteSchema = z.object({
   phone: z.string().max(40).optional().or(z.literal('')),
   company: z.string().max(120).optional().or(z.literal('')),
   message: z.string().max(3000).optional().or(z.literal('')),
-  // Einwilligung wird clientseitig erzwungen; serverseitig optional
-  privacy: z.boolean().optional(),
+  privacy: z.literal(true, { errorMap: () => ({ message: 'Bitte stimmen Sie der Datenschutzerklärung zu.' }) }),
   website: z.string().max(0).optional().or(z.literal('')),
 });
 

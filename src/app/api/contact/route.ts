@@ -22,6 +22,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true });
     }
 
+    const mailSent = await sendNotificationMail({
+      subject: `Neue Kontaktanfrage von ${name}`,
+      html: renderContactMail({ name, email, phone, subject, message }),
+      replyTo: email,
+    });
+
     const created = await prisma.contactRequest.create({
       data: {
         name,
@@ -29,13 +35,8 @@ export async function POST(request: Request) {
         phone: phone || null,
         subject: subject || null,
         message,
+        mailSent,
       },
-    });
-
-    await sendNotificationMail({
-      subject: `Neue Kontaktanfrage von ${name}`,
-      html: renderContactMail({ name, email, phone, subject, message }),
-      replyTo: email,
     });
 
     return NextResponse.json({ ok: true, id: created.id });

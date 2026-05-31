@@ -21,6 +21,12 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true });
     }
 
+    const mailSent = await sendNotificationMail({
+      subject: `Neue Angebotsanfrage: ${data.service}`,
+      html: renderQuoteMail(data),
+      replyTo: data.email,
+    });
+
     const created = await prisma.quoteRequest.create({
       data: {
         name: data.name,
@@ -33,13 +39,8 @@ export async function POST(request: Request) {
         estimatedMin: data.estimatedMin ?? null,
         estimatedMax: data.estimatedMax ?? null,
         message: data.message || null,
+        mailSent,
       },
-    });
-
-    await sendNotificationMail({
-      subject: `Neue Angebotsanfrage: ${data.service}`,
-      html: renderQuoteMail(data),
-      replyTo: data.email,
     });
 
     return NextResponse.json({ ok: true, id: created.id });

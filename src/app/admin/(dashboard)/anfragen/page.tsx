@@ -35,6 +35,9 @@ export default async function AnfragenPage() {
                     <span className={`ml-auto text-xs px-2 py-1 rounded-full ${r.status === 'neu' ? 'bg-red-100 text-red-700 font-medium' : r.status === 'gelesen' ? 'bg-yellow-100 text-yellow-700' : 'bg-green-100 text-green-700'}`}>
                       {r.status}
                     </span>
+                    {!r.mailSent && (
+                      <span className="text-xs px-2 py-1 rounded-full bg-orange-100 text-orange-700 font-medium" title="E-Mail-Benachrichtigung wurde nicht gesendet">⚠️ Mail fehlt</span>
+                    )}
                   </div>
                   {r.subject && <div className="text-sm font-medium text-gray-700 mb-1">{r.subject}</div>}
                   <p className="text-sm text-gray-600 leading-relaxed">{r.message}</p>
@@ -66,6 +69,9 @@ export default async function AnfragenPage() {
                     <div className="text-xs text-gray-500">{r.email} · {r.phone}</div>
                   </div>
                   <span className={`ml-auto text-xs px-2 py-1 rounded-full ${r.status === 'neu' ? 'bg-red-100 text-red-700 font-medium' : 'bg-green-100 text-green-700'}`}>{r.status}</span>
+                  {!r.mailSent && (
+                    <span className="text-xs px-2 py-1 rounded-full bg-orange-100 text-orange-700 font-medium" title="E-Mail-Benachrichtigung wurde nicht gesendet">⚠️ Mail fehlt</span>
+                  )}
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm mb-3">
                   <div><span className="text-gray-400">Leistung:</span> <span className="font-medium">{r.service}</span></div>

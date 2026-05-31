@@ -24,6 +24,7 @@ jobs:
             git checkout claude/huwa-cleaning-website-PJ5Ql
             git pull origin claude/huwa-cleaning-website-PJ5Ql
             npm ci --omit=dev
+            npx prisma db push --skip-generate
             rm -rf .next
             npm run build
             pm2 restart huwa-web

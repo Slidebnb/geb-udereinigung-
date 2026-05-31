@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: { default: `${siteConfig.name} | Professionelle Reinigung`, template: `%s | ${siteConfig.shortName}` },
   description: siteConfig.description,
-  keywords: ['Gebäudereinigung', 'Hausmeisterdienste', 'Büroreinigung', 'Winterdienst', 'Düsseldorf', 'Reinigungsunternehmen'],
+  keywords: ['Gebäudereinigung', 'Hausmeisterdienste', 'Büroreinigung', 'Winterdienst', 'Neuwied', 'Koblenz', 'Bendorf', 'Reinigungsunternehmen'],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
   openGraph: {

@@ -13,6 +13,7 @@ const schema = z.object({
   phone:   z.string().optional(),
   subject: z.string().min(3, 'Bitte geben Sie ein Thema ein'),
   message: z.string().min(20, 'Bitte schreiben Sie mindestens 20 Zeichen'),
+  privacy: z.literal(true, { errorMap: () => ({ message: 'Bitte stimmen Sie der Datenschutzerklärung zu.' }) }),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -137,13 +138,19 @@ export default function KontaktPage() {
                   <textarea {...register('message')} rows={6} className="input-field resize-none" placeholder="Beschreiben Sie Ihr Anliegen..." />
                   {errors.message && <p className="form-error">{errors.message.message}</p>}
                 </div>
+                <div>
+                  <label className="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" {...register('privacy')} className="mt-0.5 w-4 h-4 accent-primary flex-shrink-0" />
+                    <span className="text-sm text-gray-600">
+                      Ich stimme der <a href="/datenschutz" className="text-primary underline hover:no-underline">Datenschutzerklärung</a> zu. *
+                    </span>
+                  </label>
+                  {errors.privacy && <p className="form-error mt-1">{errors.privacy.message}</p>}
+                </div>
                 {error && <p className="form-error text-center">{error}</p>}
                 <button type="submit" disabled={isSubmitting} className="btn-primary w-full justify-center py-4 text-base disabled:opacity-50 disabled:cursor-not-allowed">
                   {isSubmitting ? 'Wird gesendet…' : 'Nachricht senden'}
                 </button>
-                <p className="text-xs text-gray-400 text-center">
-                  Mit dem Absenden stimmen Sie unserer <a href="/datenschutz" className="underline hover:text-primary transition-colors">Datenschutzerklärung</a> zu.
-                </p>
               </form>
             )}
           </div>

@@ -15,6 +15,7 @@ const schema = z.object({
   area: z.string().optional(),
   frequency: z.string().optional(),
   message: z.string().optional(),
+  privacy: z.literal(true, { errorMap: () => ({ message: 'Bitte stimmen Sie der Datenschutzerklärung zu.' }) }),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -35,7 +36,7 @@ export default function AngebotPage() {
   const selectedService = watch('service');
 
   const nextStep = async () => {
-    const fields: (keyof FormData)[] = step === 1 ? ['service'] : step === 2 ? [] : ['name', 'email', 'phone'];
+    const fields: (keyof FormData)[] = step === 1 ? ['service'] : step === 2 ? [] : ['name', 'email', 'phone', 'privacy'];
     const valid = await trigger(fields);
     if (valid) setStep(s => s + 1);
   };
@@ -175,6 +176,15 @@ export default function AngebotPage() {
                     </div>
                   </div>
                 </div>
+                  <div>
+                    <label className="flex items-start gap-3 cursor-pointer">
+                      <input type="checkbox" {...register('privacy')} className="mt-0.5 w-4 h-4 accent-primary flex-shrink-0" />
+                      <span className="text-sm text-gray-600">
+                        Ich stimme der <a href="/datenschutz" className="text-primary underline hover:no-underline">Datenschutzerklärung</a> zu. *
+                      </span>
+                    </label>
+                    {errors.privacy && <p className="form-error mt-1">{(errors.privacy as any).message}</p>}
+                  </div>
                 {error && <p className="form-error text-center mt-4">{error}</p>}
               </div>
             )}
