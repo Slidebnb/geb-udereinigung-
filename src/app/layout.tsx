@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/lib/site';
-import Header from '@/components/layout/Header';
+import Header from '@/components/layout/HeaderWrapper';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/shared/WhatsAppButton';
 import CookieBanner from '@/components/shared/CookieBanner';

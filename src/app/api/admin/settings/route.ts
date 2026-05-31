@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { isAdmin } from '@/lib/admin-guard';
 
@@ -28,6 +29,7 @@ export async function POST(request: Request) {
       create: { key, value: String(value ?? '') },
     });
   }
+  revalidatePath('/', 'layout');
   return NextResponse.json({ ok: true });
 }
 
