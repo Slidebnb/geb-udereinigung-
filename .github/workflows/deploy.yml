@@ -1,0 +1,30 @@
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - claude/huwa-cleaning-website-PJ5Ql
+      - main
+
+jobs:
+  deploy:
+    name: Deploy via SSH
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Hetzner Server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: 22
+          script: |
+            cd /var/www/huwa
+            git fetch origin
+            git checkout claude/huwa-cleaning-website-PJ5Ql
+            git pull origin claude/huwa-cleaning-website-PJ5Ql
+            npm ci --omit=dev
+            rm -rf .next
+            npm run build
+            pm2 restart huwa-web
+            echo "✅ Deployment erfolgreich: $(date)"
