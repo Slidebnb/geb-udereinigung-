@@ -102,11 +102,7 @@ export default async function ReferenzenPage() {
             <div className="text-center mb-14">
               <div className="section-label mx-auto w-fit">Kundenstimmen</div>
               <h2 className="mt-4">Das sagen unsere <span className="gradient-text">Kunden</span></h2>
-              <div className="flex items-center justify-center gap-3 mt-3">
-                <span className="text-yellow-400 text-xl tracking-tight">★★★★★</span>
-                <span className="font-black text-dark">4.9</span>
-                <span className="text-gray-400 text-sm">/5 · 127+ Bewertungen</span>
-              </div>
+              <p className="text-gray-500 text-sm mt-3">Echte Rückmeldungen unserer Kunden aus Neuwied, Koblenz und Umgebung.</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {testimonials.map(t => (

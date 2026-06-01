@@ -116,7 +116,7 @@ export default function EinstellungenPage() {
     { key: 'phone', label: 'Telefonnummer', placeholder: '02601 9131820' },
     { key: 'contact_email', label: 'Kontakt-E-Mail', placeholder: 'info@huwa-gebaeudedienste.de' },
     { key: 'whatsapp', label: 'WhatsApp-Nummer (mit Ländervorwahl)', placeholder: '492601913182' },
-    { key: 'address', label: 'Adresse', placeholder: 'Musterstraße 12, 40210 Düsseldorf' },
+    { key: 'address', label: 'Adresse', placeholder: 'Mittelweg 24, 56566 Neuwied' },
     { key: 'opening_hours', label: 'Öffnungszeiten Woche', placeholder: 'Mo–Fr 07:00–18:00 Uhr' },
     { key: 'opening_hours_sat', label: 'Öffnungszeiten Samstag', placeholder: 'Sa 08:00–14:00 Uhr' },
     { key: 'google_rating', label: 'Google-Bewertung', placeholder: '4.9' },

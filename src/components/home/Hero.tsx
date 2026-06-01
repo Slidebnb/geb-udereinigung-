@@ -25,7 +25,7 @@ const defaultHero: Required<HeroData> = {
   stats: [
     { val: '100+', label: 'zufriedene Kunden' },
     { val: '3+',   label: 'Jahre Erfahrung' },
-    { val: '4.9★', label: 'Google Bewertung' },
+    { val: 'DGUV', label: 'Zertifiziert' },
   ],
   services: [
     { icon: '🏢', title: 'Gebäudereinigung' },

@@ -56,7 +56,7 @@ export default function Header({ settings = {} }: HeaderProps) {
           </div>
           <div className="flex items-center gap-3 text-xs text-blue-200/70">
             <span>{openingHours}</span>
-            <span className="hidden sm:inline text-primary font-semibold">★ {settings.google_rating || '4.9'}/5 Google</span>
+            {settings.google_rating && <span className="hidden sm:inline text-primary font-semibold">★ {settings.google_rating}/5 Google</span>}
           </div>
         </div>
       </div>

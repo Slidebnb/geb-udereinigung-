@@ -57,7 +57,7 @@ export default function UeberUnsPage() {
               { val: siteConfig.foundingYear.toString(), label: 'Gründungsjahr', color: 'text-primary' },
               { val: '20+',  label: 'Mitarbeiter',  color: 'text-green' },
               { val: '500+', label: 'Kunden',       color: 'text-primary' },
-              { val: '4.9★', label: 'Google Rating', color: 'text-yellow-500' },
+              { val: 'DGUV', label: 'Zertifiziert', color: 'text-green' },
             ].map(({ val, label, color }) => (
               <div key={label} className="card p-6 text-center hover:border-primary/30 transition-all duration-200">
                 <div className={`text-3xl font-black ${color} mb-1`}>{val}</div>
