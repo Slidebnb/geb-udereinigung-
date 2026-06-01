@@ -7,9 +7,9 @@ import { faqs, getFaqCategories } from '@/lib/faqs';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Häufige Fragen (FAQ) | Huwa Gebäudereinigung',
+  title: 'FAQ | Gebäudereinigung & Hausmeisterdienste Neuwied | Huwa',
   description:
-    'Antworten auf die häufigsten Fragen zu unseren Reinigungs- und Hausmeisterdiensten: Preise, Verträge, Ablauf, Qualität und mehr. Jetzt informieren!',
+    'Häufige Fragen zu Gebäudereinigung, Hausmeisterdienste und Winterdienst in Neuwied & Koblenz: Preise, Verträge, Ablauf und mehr. Jetzt informieren!',
   alternates: { canonical: `${siteConfig.url}/faq` },
 };
 

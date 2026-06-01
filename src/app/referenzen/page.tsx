@@ -5,8 +5,8 @@ import { prisma } from '@/lib/prisma';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Referenzen & Projekte | Huwa Gebäudereinigung',
-  description: 'Überzeugen Sie sich von unserer Arbeit: Referenzprojekte und Kundenstimmen aus Neuwied, Koblenz und Bendorf.',
+  title: 'Referenzen | Gebäudereinigung Neuwied & Koblenz | Huwa',
+  description: 'Referenzprojekte von Huwa Gebäudereinigung: Büros, Wohnanlagen, Treppenhäuser in Neuwied, Koblenz & Bendorf. Kundenstimmen & abgeschlossene Projekte.',
   alternates: { canonical: `${siteConfig.url}/referenzen` },
 };
 

@@ -4,8 +4,9 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Über uns | Huwa Gebäudereinigung & Hausmeisterdienste',
-  description: `Seit ${siteConfig.foundingYear} Ihr zuverlässiger Partner für Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Erfahren Sie mehr über unser Unternehmen.`,
+  title: 'Über uns | Huwa Gebäudereinigung Neuwied & Koblenz',
+  description: `Huwa Gebäudereinigung – Ihr lokaler Partner in Neuwied, Koblenz und Bendorf. Seit ${siteConfig.foundingYear} für Gebäudereinigung, Hausmeisterdienste und Winterdienst. Familie Huwa.`,
+  alternates: { canonical: `${siteConfig.url}/ueber-uns` },
 };
 
 const values = [

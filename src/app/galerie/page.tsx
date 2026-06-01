@@ -6,9 +6,9 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Vorher/Nachher | Huwa Gebäudedienste',
+  title: 'Vorher/Nachher Galerie | Gebäudereinigung Neuwied | Huwa',
   description:
-    'Sehen Sie selbst – echte Vorher/Nachher-Ergebnisse von Huwa Gebäudereinigung in Neuwied, Koblenz und Bendorf.',
+    'Echte Vorher/Nachher-Ergebnisse: Treppenhausreinigung, Büroreinigung, Glasreinigung in Neuwied & Koblenz. Überzeugen Sie sich von unserer Arbeit.',
   alternates: { canonical: `${siteConfig.url}/galerie` },
 };
 
