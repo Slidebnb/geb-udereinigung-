@@ -7,7 +7,7 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.huwa-gebaeudedienste.de',
   locale: 'de_DE',
   phone: process.env.NEXT_PUBLIC_PHONE || '02601 9131820',
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '492601913182',
+  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '4915117864090',
   email: 'info@huwa-gebaeudedienste.de',
   address: {
     street: 'Mittelweg 24',
