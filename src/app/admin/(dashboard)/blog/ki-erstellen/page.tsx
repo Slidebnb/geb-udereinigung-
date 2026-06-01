@@ -57,6 +57,7 @@ interface GeneratedArticle {
   category: string;
   content: string;
   coverImageSuggestion: string;
+  coverImage?: string | null;
 }
 
 function slugify(text: string): string {
@@ -96,6 +97,7 @@ export default function KiBlogPage() {
     category: '',
     content: '',
     coverImageSuggestion: '',
+    coverImage: null,
   });
 
   const handleGenerate = async () => {
@@ -130,6 +132,7 @@ export default function KiBlogPage() {
         category: data.article.category || 'Ratgeber',
         content: data.article.content || '',
         coverImageSuggestion: data.article.coverImageSuggestion || '',
+        coverImage: data.article.coverImage ?? null,
       });
       setState('preview');
     } catch {
@@ -138,7 +141,7 @@ export default function KiBlogPage() {
     }
   };
 
-  const handleSave = async (contentStatus: 'draft' | 'review') => {
+  const handleSave = async (contentStatus: 'draft' | 'review' | 'publish') => {
     setState('saving');
     setError(null);
 
@@ -153,6 +156,8 @@ export default function KiBlogPage() {
           targetService: leistung,
           aiPrompt: `keyword:${keyword};leistung:${leistung};ort:${ort};zielgruppe:${zielgruppe};artikeltyp:${artikeltyp};laenge:${laenge};tonalitaet:${tonalitaet}`,
           contentStatus,
+          coverImage: article.coverImage,
+          published: contentStatus === 'publish',
         }),
       });
 
@@ -188,7 +193,7 @@ export default function KiBlogPage() {
               Artikel bearbeiten
             </Link>
             <button
-              onClick={() => { setState('idle'); setSavedId(null); setArticle({ title: '', slug: '', excerpt: '', metaTitle: '', metaDesc: '', category: '', content: '', coverImageSuggestion: '' }); setKeyword(''); }}
+              onClick={() => { setState('idle'); setSavedId(null); setArticle({ title: '', slug: '', excerpt: '', metaTitle: '', metaDesc: '', category: '', content: '', coverImageSuggestion: '', coverImage: null }); setKeyword(''); }}
               className="border border-gray-200 text-gray-600 px-5 py-2.5 rounded-lg text-sm font-medium hover:bg-gray-50 transition-colors"
             >
               Neuen Artikel erstellen
@@ -417,6 +422,13 @@ export default function KiBlogPage() {
                   <div className="text-sm text-gray-700">{article.coverImageSuggestion}</div>
                 </div>
               )}
+
+              {article.coverImage && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Cover-Bild (automatisch)</label>
+                  <img src={article.coverImage} alt="Cover" className="w-full h-48 object-cover rounded-xl border border-gray-200" />
+                </div>
+              )}
             </div>
           </div>
 
@@ -428,7 +440,7 @@ export default function KiBlogPage() {
             >
               ↩ Neu generieren
             </button>
-            <div className="flex gap-3">
+            <div className="flex gap-3 flex-wrap">
               <button
                 onClick={() => handleSave('draft')}
                 disabled={state === 'saving'}
@@ -443,7 +455,14 @@ export default function KiBlogPage() {
                 disabled={state === 'saving'}
                 className="bg-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary-800 transition-colors disabled:opacity-60"
               >
-                Zur Überprüfung freigeben
+                Zur Überprüfung
+              </button>
+              <button
+                onClick={() => handleSave('publish')}
+                disabled={state === 'saving'}
+                className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors disabled:opacity-60"
+              >
+                🚀 Direkt veröffentlichen
               </button>
             </div>
           </div>
