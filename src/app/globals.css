@@ -99,6 +99,18 @@
     background: linear-gradient(90deg, transparent, #4BB8F5 30%, #2DC94E 70%, transparent);
   }
   .prose-content { @apply leading-relaxed; }
+
+  .prose-html p  { @apply text-gray-600 leading-relaxed mb-5; }
+  .prose-html h2 { @apply text-2xl font-bold text-dark mt-10 mb-4; }
+  .prose-html h3 { @apply text-xl font-bold text-dark mt-8 mb-3; }
+  .prose-html h4 { @apply text-lg font-semibold text-dark mt-6 mb-2; }
+  .prose-html ul { @apply list-disc pl-6 space-y-2 mb-5 text-gray-600; }
+  .prose-html ol { @apply list-decimal pl-6 space-y-2 mb-5 text-gray-600; }
+  .prose-html li { @apply leading-relaxed; }
+  .prose-html strong { @apply font-semibold text-gray-800; }
+  .prose-html a  { @apply text-primary underline hover:text-primary-800 transition-colors; }
+  .prose-html blockquote { @apply border-l-4 border-primary pl-4 italic text-gray-500 my-6; }
+  .prose-html article { @apply block; }
 }
 
 /* ── Hero orb animations ── */

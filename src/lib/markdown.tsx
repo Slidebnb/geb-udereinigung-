@@ -1,10 +1,19 @@
 import React from 'react';
 
-/**
- * Minimaler Markdown-Renderer für Blogbeiträge.
- * Unterstützt: # H1, ## H2, ### H3, - Listen, **fett**, Absätze.
- */
+function isHtml(content: string): boolean {
+  return /<[a-z][\s\S]*>/i.test(content.trim().slice(0, 200));
+}
+
 export function renderMarkdown(content: string): React.ReactNode {
+  if (isHtml(content)) {
+    return (
+      <div
+        className="prose-html"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
+  }
+
   const lines = content.split('\n');
   const blocks: React.ReactNode[] = [];
   let listItems: string[] = [];
