@@ -90,7 +90,7 @@ export default function Header({ settings = {} }: HeaderProps) {
               Leistungen
               <svg className="w-4 h-4 group-hover:rotate-180 transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
             </button>
-            <div className="absolute top-full left-0 bg-white shadow-card-hover rounded-2xl border border-gray-100/80 p-3 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
+            <div className="absolute top-full left-0 bg-white shadow-card-hover rounded-2xl border border-gray-100/80 p-3 w-96 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
               <Link href="/leistungen" className="flex items-center justify-between px-3 py-2.5 rounded-xl bg-gradient-brand text-white font-semibold text-sm mb-2">
                 Alle Leistungen
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
@@ -98,8 +98,8 @@ export default function Header({ settings = {} }: HeaderProps) {
               <div className="grid grid-cols-2 gap-1">
                 {services.map(s => (
                   <Link key={s.href} href={s.href} className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
-                    <span className="text-base">{s.icon}</span>
-                    <span className="font-medium">{s.name}</span>
+                    <span className="text-base flex-shrink-0">{s.icon}</span>
+                    <span className="font-medium leading-tight">{s.name}</span>
                   </Link>
                 ))}
               </div>
@@ -136,10 +136,11 @@ export default function Header({ settings = {} }: HeaderProps) {
               <svg className={`w-4 h-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
             </button>
             {servicesOpen && (
-              <div className="grid grid-cols-2 gap-1 px-2 mb-2">
+              <div className="flex flex-col px-2 mb-2">
                 {services.map(s => (
-                  <Link key={s.href} href={s.href} className="flex items-center gap-2 p-2.5 text-sm text-gray-600 hover:text-primary rounded-xl hover:bg-primary/5 transition-colors" onClick={() => setOpen(false)}>
-                    <span>{s.icon}</span><span className="font-medium">{s.name}</span>
+                  <Link key={s.href} href={s.href} className="flex items-center gap-3 p-2.5 text-sm text-gray-600 hover:text-primary rounded-xl hover:bg-primary/5 transition-colors" onClick={() => setOpen(false)}>
+                    <span className="text-base flex-shrink-0">{s.icon}</span>
+                    <span className="font-medium">{s.name}</span>
                   </Link>
                 ))}
               </div>
