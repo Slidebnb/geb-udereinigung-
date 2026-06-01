@@ -23,7 +23,7 @@ jobs:
             git fetch origin
             git checkout claude/huwa-cleaning-website-PJ5Ql
             git pull origin claude/huwa-cleaning-website-PJ5Ql
-            npm ci --omit=dev
+            npm ci
             npx prisma db push --skip-generate
             rm -rf .next
             npm run build
