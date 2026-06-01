@@ -42,7 +42,7 @@ export default function UeberUnsPage() {
             <h2 className="mb-6">Von der Idee zum <span className="gradient-text">führenden Reinigungsunternehmen</span></h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                Gegründet im Jahr {siteConfig.foundingYear}, startete Huwa Gebäudereinigung als kleines Unternehmen in Neuwied – mit einem einfachen Versprechen: Qualität, Zuverlässigkeit und Kundenzufriedenheit an erster Stelle.
+                Gegründet im Jahr {siteConfig.foundingYear} als inhabergeführtes Familienunternehmen in Neuwied – mit einem einfachen Versprechen: persönlicher Einsatz, Qualität und Kundenzufriedenheit an erster Stelle.
               </p>
               <p>
                 Durch hervorragende Arbeit und treue Stammkunden wuchs das Unternehmen stetig. Heute betreuen wir über 500 zufriedene Kunden im Raum Neuwied, Koblenz und Bendorf mit einem erfahrenen, DGUV-geschulten Team.
@@ -93,13 +93,14 @@ export default function UeberUnsPage() {
         <div className="container mx-auto">
           <div className="text-center mb-14">
             <div className="section-label mx-auto w-fit">Unser Team</div>
-            <h2 className="mt-4">Die Menschen hinter <span className="gradient-text">Huwa</span></h2>
+            <h2 className="mt-4">Familie <span className="gradient-text">Huwa</span></h2>
           </div>
           <div className="max-w-sm mx-auto">
             <div className="card p-8 text-center hover:border-primary/30 transition-all duration-200">
               <div className="w-20 h-20 rounded-full bg-gradient-brand flex items-center justify-center text-white text-3xl font-black mx-auto mb-5">H</div>
               <h3 className="text-xl font-bold text-dark mb-1">Hasan Huseyin Unal</h3>
-              <p className="text-primary font-semibold text-sm mb-4">Geschäftsführer & Gründer</p>
+              <p className="text-primary font-semibold text-sm mb-1">Geschäftsführer & Gründer</p>
+              <p className="text-xs text-gray-400 mb-3">Inhabergeführtes Familienunternehmen</p>
               <p className="text-gray-500 text-sm leading-relaxed">
                 Mit über 15 Jahren Erfahrung in der Gebäudereinigung hat Hasan das Unternehmen von Grund auf aufgebaut. Er ist persönlich für die Qualitätssicherung verantwortlich und direkter Ansprechpartner für unsere Kunden.
               </p>

@@ -87,7 +87,38 @@ Antworte NUR mit validem JSON in diesem Format:
     }
 
     const result = JSON.parse(jsonMatch[0]);
-    return NextResponse.json({ ok: true, article: result });
+
+    let coverImage: string | null = null;
+    const unsplashKey = process.env.UNSPLASH_ACCESS_KEY;
+    if (unsplashKey) {
+      const queryMap: Record<string, string> = {
+        'Gebäudereinigung': 'building facade cleaning professional',
+        'Büroreinigung': 'office cleaning professional service',
+        'Treppenhausreinigung': 'apartment staircase building entrance clean',
+        'Glasreinigung': 'window cleaning squeegee professional',
+        'Grundreinigung': 'deep cleaning service professional',
+        'Unterhaltsreinigung': 'commercial cleaning office regular service',
+        'Baureinigung': 'construction site cleaning cleanup',
+        'Hausmeisterdienste': 'building maintenance facility manager',
+        'Winterdienst': 'snow removal winter service road',
+        'Gartenarbeiten': 'garden maintenance landscaping professional',
+      };
+      const query = queryMap[leistung as string] || 'professional cleaning service building';
+      try {
+        const imgRes = await fetch(
+          `https://api.unsplash.com/photos/random?query=${encodeURIComponent(query)}&orientation=landscape&client_id=${unsplashKey}`,
+          { headers: { 'Accept-Version': 'v1' } }
+        );
+        if (imgRes.ok) {
+          const imgData = await imgRes.json();
+          coverImage = imgData?.urls?.regular ?? null;
+        }
+      } catch {
+        // Unsplash unavailable – continue without image
+      }
+    }
+
+    return NextResponse.json({ ok: true, article: { ...result, coverImage } });
   } catch (error) {
     console.error('[ai-blog/generate]', error);
     return NextResponse.json({ error: 'Interner Fehler.' }, { status: 500 });

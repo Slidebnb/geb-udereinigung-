@@ -20,6 +20,8 @@ export async function POST(req: Request) {
     targetService,
     aiPrompt,
     contentStatus,
+    coverImage,
+    published,
   } = await req.json();
 
   try {
@@ -33,7 +35,8 @@ export async function POST(req: Request) {
         metaDesc: metaDesc || excerpt,
         category: category || 'Ratgeber',
         author: 'Huwa Team',
-        published: false,
+        coverImage: coverImage || null,
+        published: published === true ? true : false,
         aiGenerated: true,
         aiPrompt: aiPrompt || null,
         targetKeyword: targetKeyword || null,
