@@ -88,6 +88,24 @@ export default async function Footer() {
               </li>
             ))}
           </ul>
+
+          <h4 className="text-white font-bold mt-7 mb-4 text-sm uppercase tracking-widest">Saisonangebote</h4>
+          <ul className="space-y-2.5">
+            <li>
+              <Link href="/winterdienst-anmeldung-2026" className="flex items-center gap-2 text-amber-300/70 hover:text-amber-300 text-sm transition-colors duration-150 group">
+                <span>❄️</span>
+                <span>Winterdienst 2026/2027</span>
+                <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded-full font-semibold">Neu</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="/gartenpflege-anmeldung-2026" className="flex items-center gap-2 text-green/70 hover:text-green text-sm transition-colors duration-150">
+                <span>🌿</span>
+                <span>Gartenpflege 2026</span>
+                <span className="text-[10px] bg-green/20 text-green px-1.5 py-0.5 rounded-full font-semibold">Neu</span>
+              </Link>
+            </li>
+          </ul>
         </div>
 
         {/* Contact */}
