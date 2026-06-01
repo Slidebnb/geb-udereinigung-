@@ -120,7 +120,7 @@ export default function AngebotPage() {
               <div>
                 <h2 className="mb-2">Welche Leistung benötigen Sie?</h2>
                 <p className="text-gray-500 text-sm mb-6">Wählen Sie die gewünschte Dienstleistung aus.</p>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {services.map(s => (
                     <label key={s} className={`relative flex items-center gap-2 p-3 rounded-xl border-2 cursor-pointer transition-colors text-sm font-medium ${selectedService === s ? 'border-primary bg-primary-50 text-primary' : 'border-gray-200 hover:border-primary-200 text-gray-700'}`}>
                       <input type="radio" {...register('service')} value={s} className="sr-only" />

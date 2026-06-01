@@ -89,10 +89,24 @@ export default async function Footer() {
             ))}
           </ul>
 
+          <h4 className="text-white font-bold mt-7 mb-4 text-sm uppercase tracking-widest">Tools & Service</h4>
+          <ul className="space-y-2.5">
+            {[
+              ['💰 Preisrechner',           '/preisrechner'],
+              ['📷 Vorher/Nachher Galerie', '/galerie'],
+              ['📋 Haustechnik-Checkliste', '/checkliste'],
+              ['🔑 Kundenportal',           '/portal'],
+            ].map(([label, href]) => (
+              <li key={href}>
+                <Link href={href} className="text-blue-300/50 hover:text-primary text-sm transition-colors duration-150">{label}</Link>
+              </li>
+            ))}
+          </ul>
+
           <h4 className="text-white font-bold mt-7 mb-4 text-sm uppercase tracking-widest">Saisonangebote</h4>
           <ul className="space-y-2.5">
             <li>
-              <Link href="/winterdienst-anmeldung-2026" className="flex items-center gap-2 text-amber-300/70 hover:text-amber-300 text-sm transition-colors duration-150 group">
+              <Link href="/winterdienst-anmeldung-2026" className="flex items-center gap-2 text-amber-300/70 hover:text-amber-300 text-sm transition-colors duration-150">
                 <span>❄️</span>
                 <span>Winterdienst 2026/2027</span>
                 <span className="text-[10px] bg-amber-400/20 text-amber-300 px-1.5 py-0.5 rounded-full font-semibold">Neu</span>
