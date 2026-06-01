@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { decrypt } from '@/lib/crypto';
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -29,7 +30,7 @@ export async function POST(req: Request) {
 
   const caption = [socialPost.caption, socialPost.hashtags].filter(Boolean).join('\n\n');
   const imageUrl = socialPost.imageUrl;
-  const accessToken = account.accessToken;
+  const accessToken = decrypt(account.accessToken);
   const igAccountId = account.accountId;
 
   try {

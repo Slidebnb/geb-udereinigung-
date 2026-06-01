@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { encrypt } from '@/lib/crypto';
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get('code');
@@ -37,7 +38,8 @@ export async function GET(req: NextRequest) {
         ? new Date(Date.now() + (tokenData.expires_in as number) * 1000)
         : null;
 
-    // Token speichern (in Produktion verschlüsseln!)
+    const encryptedToken = encrypt(tokenData.access_token);
+
     await prisma.socialAccount.upsert({
       where: { id: accountId },
       create: {
@@ -45,12 +47,12 @@ export async function GET(req: NextRequest) {
         platform: 'instagram',
         accountId: accountId,
         username: meData.name || null,
-        accessToken: tokenData.access_token,
+        accessToken: encryptedToken,
         tokenExpiresAt: expiresAt,
         status: 'connected',
       },
       update: {
-        accessToken: tokenData.access_token,
+        accessToken: encryptedToken,
         username: meData.name || null,
         tokenExpiresAt: expiresAt,
         status: 'connected',

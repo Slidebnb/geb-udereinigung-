@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { siteConfig } from '@/lib/site';
 
 interface Crumb { label: string; href?: string; }
 
@@ -6,12 +7,15 @@ export default function Breadcrumb({ items, dark = false }: { items: Crumb[]; da
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      name: item.label,
-      ...(item.href ? { item: `${process.env.NEXT_PUBLIC_SITE_URL}${item.href}` } : {}),
-    })),
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Startseite', item: siteConfig.url },
+      ...items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 2,
+        name: item.label,
+        ...(item.href ? { item: `${siteConfig.url}${item.href}` } : {}),
+      })),
+    ],
   };
 
   const base  = dark ? 'text-blue-300/50' : 'text-gray-500';

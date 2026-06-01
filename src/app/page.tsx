@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site';
 import { getSettings } from '@/lib/get-settings';
+import { prisma } from '@/lib/prisma';
 import Hero from '@/components/home/Hero';
 import Services from '@/components/home/Services';
 import WhyUs from '@/components/home/WhyUs';
@@ -40,14 +41,16 @@ const localBusinessSchema = {
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '07:00', closes: '18:00' },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday'], opens: '08:00', closes: '14:00' },
   ],
-  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '100', bestRating: '5' },
   priceRange: '€€',
   areaServed: siteConfig.serviceAreas,
   sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
 };
 
 export default async function HomePage() {
-  const settings = await getSettings();
+  const [settings, dbReviews] = await Promise.all([
+    getSettings(),
+    prisma.testimonial.findMany({ where: { published: true }, orderBy: { createdAt: 'desc' } }).catch(() => []),
+  ]);
 
   function parseSection<T>(key: string): Partial<T> {
     const raw = settings[key];
@@ -66,7 +69,7 @@ export default async function HomePage() {
       <Hero data={heroData} />
       <Services data={servicesData} />
       <WhyUs data={whyUsData} />
-      <Testimonials />
+      <Testimonials reviews={dbReviews} />
 
       {/* Beliebte Leistungen in Ihrer Nähe */}
       <section className="section-padding bg-slate-50">

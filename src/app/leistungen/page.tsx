@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import CTABanner from '@/components/home/CTABanner';
+import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
   title: 'Alle Leistungen | Gebäudereinigung Neuwied | Huwa',
   description: 'Büroreinigung, Glasreinigung, Grundreinigung, Hausmeisterdienste, Winterdienst & mehr in Neuwied, Koblenz und Bendorf. Festpreisangebot anfordern!',
-  alternates: { canonical: 'https://www.huwa-gebaeudedienste.de/leistungen' },
+  alternates: { canonical: `${siteConfig.url}/leistungen` },
 };
 
 const services = [
