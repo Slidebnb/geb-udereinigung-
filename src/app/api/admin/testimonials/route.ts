@@ -40,12 +40,20 @@ export async function PATCH(request: Request) {
   if (!(await isAdmin())) {
     return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
   }
-  const { id, published } = await request.json();
+  const body = await request.json();
+  const { id } = body;
   if (!id) return NextResponse.json({ error: 'ID fehlt.' }, { status: 400 });
-  const testimonial = await prisma.testimonial.update({
-    where: { id },
-    data: { published: Boolean(published) },
-  });
+
+  const data: Record<string, unknown> = {};
+  if (body.published !== undefined) data.published = Boolean(body.published);
+  if (body.name !== undefined) data.name = body.name;
+  if (body.role !== undefined) data.role = body.role || null;
+  if (body.company !== undefined) data.company = body.company || null;
+  if (body.content !== undefined) data.content = body.content;
+  if (body.rating !== undefined) data.rating = Number(body.rating);
+  if (body.location !== undefined) data.location = body.location || null;
+
+  const testimonial = await prisma.testimonial.update({ where: { id }, data });
   return NextResponse.json({ ok: true, testimonial });
 }
 

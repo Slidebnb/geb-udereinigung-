@@ -47,7 +47,7 @@ export default function AdminLoginPage() {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 className="input-field"
-                placeholder="admin@huwa-reinigung.de"
+                placeholder="admin@huwa-gebaeudedienste.de"
                 required
               />
             </div>

@@ -108,7 +108,7 @@ export default function BlogEditor({ post }: { post: PostData }) {
             <div>
               <label className="label">Kategorie</label>
               <select value={form.category} onChange={(e) => update('category', e.target.value)} className="input-field">
-                {['Reinigungswissen', 'Büroreinigung', 'Winterdienst', 'Hausmeister', 'Tipps & Tricks', 'Ratgeber', 'Reinigung'].map((c) => (
+                {['Reinigungswissen', 'Büroreinigung', 'Winterdienst', 'Hausmeisterdienste', 'Tipps & Tricks', 'Ratgeber', 'Lokaler Ratgeber'].map((c) => (
                   <option key={c} value={c}>{c}</option>
                 ))}
               </select>
