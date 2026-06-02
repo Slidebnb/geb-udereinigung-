@@ -22,7 +22,7 @@ const CERTS = [
   { icon: '📋', label: 'DGUV Ausgebildet', sub: 'Zertifiziertes Personal' },
   { icon: '🏛️', label: 'Innungsmitglied', sub: 'Koblenz' },
   { icon: '🔒', label: 'DSGVO Konform', sub: 'Datenschutz gesichert' },
-  { icon: '⭐', label: '15+ Jahre', sub: 'Branchenerfahrung' },
+  { icon: '⭐', label: 'Seit 2023', sub: 'Inhabergeführt' },
 ];
 
 function StarRating({ n }: { n: number }) {

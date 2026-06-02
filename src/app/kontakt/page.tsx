@@ -125,7 +125,7 @@ export default function KontaktPage() {
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className="label">Telefon (optional)</label>
-                    <input {...register('phone')} className="input-field" placeholder="+49 170 1234567" />
+                    <input {...register('phone')} className="input-field" placeholder="z.B. 02601 123456" />
                   </div>
                   <div>
                     <label className="label">Betreff *</label>

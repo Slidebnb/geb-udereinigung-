@@ -102,7 +102,7 @@ export default function UeberUnsPage() {
               <p className="text-primary font-semibold text-sm mb-1">Geschäftsführer & Gründer</p>
               <p className="text-xs text-gray-400 mb-3">Inhabergeführtes Familienunternehmen</p>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Mit über 15 Jahren Erfahrung in der Gebäudereinigung hat Hasan das Unternehmen von Grund auf aufgebaut. Er ist persönlich für die Qualitätssicherung verantwortlich und direkter Ansprechpartner für unsere Kunden.
+                Hasan Huseyin Unal hat das Unternehmen mit einer klaren Vision gegründet: Gebäudereinigung auf höchstem Niveau, persönlich und zuverlässig. Er ist direkt für die Qualitätssicherung verantwortlich und persönlicher Ansprechpartner für alle Kunden.
               </p>
             </div>
           </div>

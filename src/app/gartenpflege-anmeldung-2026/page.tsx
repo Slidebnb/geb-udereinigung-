@@ -264,7 +264,7 @@ export default function GartenpflegeAnmeldung2026Page() {
                     <input
                       {...register('phone')}
                       className="input-field"
-                      placeholder="+49 2601 123456"
+                      placeholder="z.B. 02601 123456"
                     />
                     {errors.phone && <p className="form-error">{errors.phone.message}</p>}
                   </div>

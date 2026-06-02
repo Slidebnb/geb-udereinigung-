@@ -185,7 +185,7 @@ export default function AngebotPage() {
                     </div>
                     <div>
                       <label className="label">Telefon *</label>
-                      <input {...register('phone')} className="input-field" placeholder="+49 170 1234567" />
+                      <input {...register('phone')} className="input-field" placeholder="z.B. 02601 123456" />
                       {errors.phone && <p className="form-error">{errors.phone.message}</p>}
                     </div>
                   </div>
