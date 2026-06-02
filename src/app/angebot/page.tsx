@@ -1,11 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
+import { siteConfig } from '@/lib/site';
 
 const schema = z.object({
   name: z.string().min(2, 'Pflichtfeld'),
@@ -206,6 +206,30 @@ export default function AngebotPage() {
 
           <div className="mt-6 text-center text-sm text-gray-500">
             🔒 Ihre Daten werden vertraulich behandelt. Kein Spam, kein Verkauf Ihrer Daten.
+          </div>
+
+          <div className="mt-8 border border-slate-200 rounded-2xl p-6 bg-slate-50">
+            <p className="text-sm font-semibold text-gray-700 mb-4 text-center">Oder direkt Kontakt aufnehmen</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <a href={`mailto:${siteConfig.email}`} className="flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-5 py-3 hover:border-primary hover:shadow-sm transition-all group">
+                <span className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                  <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                </span>
+                <div>
+                  <div className="text-xs text-gray-400">E-Mail</div>
+                  <div className="text-sm font-medium text-gray-800">{siteConfig.email}</div>
+                </div>
+              </a>
+              <a href={`tel:${siteConfig.phone.replace(/\s/g, '')}`} className="flex items-center gap-3 bg-white border border-slate-200 rounded-xl px-5 py-3 hover:border-primary hover:shadow-sm transition-all group">
+                <span className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                  <svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                </span>
+                <div>
+                  <div className="text-xs text-gray-400">Telefon</div>
+                  <div className="text-sm font-medium text-gray-800">{siteConfig.phone}</div>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </section>
