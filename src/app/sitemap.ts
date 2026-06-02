@@ -10,8 +10,6 @@ const CITY_SERVICES = [
   { slug: 'treppenhausreinigung',label: 'Treppenhausreinigung' },
   { slug: 'hausmeisterservice',  label: 'Hausmeisterservice' },
   { slug: 'winterdienst',        label: 'Winterdienst' },
-  { slug: 'glasreinigung',       label: 'Glasreinigung' },
-  { slug: 'gartenarbeiten',      label: 'Gartenarbeiten' },
 ];
 
 // Städte mit URL-freundlichem Slug

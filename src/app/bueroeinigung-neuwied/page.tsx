@@ -5,7 +5,7 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Büroreinigung in Neuwied | Huwa Gebäudedienste',
+  title: 'Büroreinigung in Neuwied | Huwa Gebäudereinigung',
   description: 'Zuverlässige Büroreinigung in Neuwied für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
   alternates: { canonical: `${siteConfig.url}/bueroeinigung-neuwied` },
 };

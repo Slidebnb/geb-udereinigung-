@@ -24,7 +24,7 @@ async function main() {
 
   if ((await prisma.testimonial.count()) === 0) {
     for (const t of testimonials) {
-      await prisma.testimonial.create({ data: t });
+      await prisma.testimonial.create({ data: { ...t, published: false } });
     }
   }
 

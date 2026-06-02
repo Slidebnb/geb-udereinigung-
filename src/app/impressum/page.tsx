@@ -3,7 +3,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Impressum',
+  title: 'Impressum | Huwa Gebäudereinigung',
   description: 'Impressum und Anbieterkennzeichnung der Huwa Gebäudereinigung & Hausmeisterdienste.',
   robots: { index: false, follow: true },
   alternates: { canonical: `${siteConfig.url}/impressum` },

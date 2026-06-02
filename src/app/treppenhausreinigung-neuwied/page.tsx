@@ -5,7 +5,7 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Treppenhausreinigung in Neuwied | Huwa Gebäudedienste',
+  title: 'Treppenhausreinigung in Neuwied | Huwa Gebäudereinigung',
   description: 'Zuverlässige Treppenhausreinigung in Neuwied für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
   alternates: { canonical: `${siteConfig.url}/treppenhausreinigung-neuwied` },
 };

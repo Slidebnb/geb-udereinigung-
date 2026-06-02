@@ -3,7 +3,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Datenschutzerklärung',
+  title: 'Datenschutz | Huwa Gebäudereinigung',
   description: 'Datenschutzerklärung der Huwa Gebäudereinigung & Hausmeisterdienste GmbH gemäß DSGVO. Informationen zur Verarbeitung Ihrer personenbezogenen Daten.',
   robots: { index: false, follow: true },
   alternates: { canonical: `${siteConfig.url}/datenschutz` },
@@ -92,7 +92,7 @@ export default function DatenschutzPage() {
           </div>
 
           <p className="text-sm text-gray-400 pt-4">
-            Hinweis: Diese Datenschutzerklärung ist eine Mustervorlage und sollte vor Veröffentlichung an die konkreten Gegebenheiten angepasst und rechtlich geprüft werden.
+            Stand: {new Date().getFullYear()}
           </p>
         </div>
       </section>

@@ -5,7 +5,7 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Hausmeisterservice in Koblenz | Huwa Gebäudedienste',
+  title: 'Hausmeisterservice in Koblenz | Huwa Gebäudereinigung',
   description: 'Zuverlässiger Hausmeisterservice in Koblenz für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
   alternates: { canonical: `${siteConfig.url}/hausmeisterservice-koblenz` },
 };

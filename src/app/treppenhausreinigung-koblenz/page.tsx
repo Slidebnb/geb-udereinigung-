@@ -5,7 +5,7 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Treppenhausreinigung in Koblenz | Huwa Gebäudedienste',
+  title: 'Treppenhausreinigung in Koblenz | Huwa Gebäudereinigung',
   description: 'Zuverlässige Treppenhausreinigung in Koblenz für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
   alternates: { canonical: `${siteConfig.url}/treppenhausreinigung-koblenz` },
 };

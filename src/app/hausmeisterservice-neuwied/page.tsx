@@ -5,7 +5,7 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Hausmeisterservice in Neuwied | Huwa Gebäudedienste',
+  title: 'Hausmeisterservice in Neuwied | Huwa Gebäudereinigung',
   description: 'Zuverlässiger Hausmeisterservice in Neuwied für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
   alternates: { canonical: `${siteConfig.url}/hausmeisterservice-neuwied` },
 };

@@ -14,7 +14,7 @@ import type { WhyUsData } from '@/components/home/WhyUs';
 import type { CTAData } from '@/components/home/CTABanner';
 
 export const metadata: Metadata = {
-  title: 'Gebäudereinigung Neuwied & Koblenz | Huwa Gebäudedienste',
+  title: 'Gebäudereinigung Neuwied & Koblenz | Huwa Gebäudereinigung',
   description: siteConfig.description,
   alternates: { canonical: siteConfig.url },
 };

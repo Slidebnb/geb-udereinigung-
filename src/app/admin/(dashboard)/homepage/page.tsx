@@ -18,12 +18,12 @@ type CTAState = { headline: string; headline_gradient: string; subtitle: string;
 
 /* ── Defaults ───────────────────────────────────────────────────────── */
 const DEFAULT_HERO: HeroState = {
-  badge:    'Seit 2009 – Ihr Partner in Neuwied',
+  badge:    'Seit 2023 – Ihr Partner in Neuwied',
   h1:       'Professionelle',
   h2:       'Gebäudereinigung',
   h3:       '& Hausmeister',
   subtitle: 'Sauberkeit auf höchstem Niveau – für Büros, Wohnhäuser und Gewerbe in Neuwied, Koblenz & Bendorf. Zuverlässig, gründlich, fair.',
-  stats:    [{ val: '500+', label: 'zufriedene Kunden' }, { val: '15+', label: 'Jahre Erfahrung' }, { val: '4.9★', label: 'Google Bewertung' }],
+  stats:    [{ val: '100+', label: 'zufriedene Kunden' }, { val: '3+', label: 'Jahre Erfahrung' }, { val: '4.9★', label: 'Google Bewertung' }],
   services: [
     { icon: '🏢', title: 'Gebäudereinigung' }, { icon: '💼', title: 'Büroreinigung' },
     { icon: '🪟', title: 'Glasreinigung' },    { icon: '🏠', title: 'Treppenhausreinigung' },
@@ -50,7 +50,7 @@ const DEFAULT_SERVICES: ServicesState = {
 };
 
 const DEFAULT_WHYUS: WhyUsState = {
-  stats:   [{ val: 500, suffix: '+', label: 'Zufriedene Kunden' }, { val: 15, suffix: '+', label: 'Jahre Erfahrung' }, { val: 10, suffix: '', label: 'Leistungsbereiche' }, { val: 100, suffix: '%', label: 'Weiterempfehlung' }],
+  stats:   [{ val: 100, suffix: '+', label: 'Zufriedene Kunden' }, { val: 3, suffix: '+', label: 'Jahre Erfahrung' }, { val: 10, suffix: '', label: 'Leistungsbereiche' }, { val: 5, suffix: '', label: 'Servicestädte' }],
   headline: 'Der Unterschied, den Sie spüren werden',
   subtitle: 'Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.',
   reasons: [

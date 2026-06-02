@@ -3,7 +3,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Allgemeine Geschäftsbedingungen (AGB)',
+  title: 'AGB | Huwa Gebäudereinigung',
   description: 'Allgemeine Geschäftsbedingungen der Huwa Gebäudereinigung & Hausmeisterdienste GmbH für Reinigungs- und Hausmeisterdienstleistungen.',
   robots: { index: false, follow: true },
   alternates: { canonical: `${siteConfig.url}/agb` },
@@ -75,7 +75,7 @@ export default function AgbPage() {
             </div>
           ))}
           <p className="text-sm text-gray-400 pt-4">
-            Stand: {new Date().getFullYear()}. Diese AGB sind eine Mustervorlage und sollten vor Verwendung rechtlich geprüft werden.
+            Stand: {new Date().getFullYear()}
           </p>
         </div>
       </section>

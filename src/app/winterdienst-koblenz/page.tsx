@@ -5,7 +5,7 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Winterdienst in Koblenz | Huwa Gebäudedienste',
+  title: 'Winterdienst in Koblenz | Huwa Gebäudereinigung',
   description: 'Zuverlässiger Winterdienst in Koblenz für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
   alternates: { canonical: `${siteConfig.url}/winterdienst-koblenz` },
 };

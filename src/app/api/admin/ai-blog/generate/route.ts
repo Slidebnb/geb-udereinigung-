@@ -39,7 +39,7 @@ Antworte NUR mit validem JSON in diesem Format:
   "title": "SEO-Titel des Artikels",
   "slug": "url-freundlicher-slug",
   "excerpt": "2-3 Sätze Zusammenfassung",
-  "metaTitle": "Meta-Titel | Huwa Gebäudedienste",
+  "metaTitle": "Meta-Titel | Huwa Gebäudereinigung",
   "metaDesc": "Meta-Description max 160 Zeichen",
   "category": "Kategorie",
   "content": "Vollständiger HTML-Artikelinhalt mit h2-Tags, Absätzen und internen Links",

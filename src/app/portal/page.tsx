@@ -114,14 +114,14 @@ export default async function PortalDashboardPage() {
           </div>
           <div>
             <div className="text-blue-300 text-xs mb-1">Telefon</div>
-            <a href="tel:+4902631123456" className="font-medium text-[#4BB8F5] hover:underline">
-              02631 / 123 456
+            <a href="tel:+4926019131820" className="font-medium text-[#4BB8F5] hover:underline">
+              02601 9131820
             </a>
           </div>
           <div>
             <div className="text-blue-300 text-xs mb-1">E-Mail</div>
-            <a href="mailto:info@huwa-reinigung.de" className="font-medium text-[#4BB8F5] hover:underline">
-              info@huwa-reinigung.de
+            <a href="mailto:info@huwa-gebaeudedienste.de" className="font-medium text-[#4BB8F5] hover:underline">
+              info@huwa-gebaeudedienste.de
             </a>
           </div>
         </div>
