@@ -26,7 +26,7 @@ const checklistItems = [
 ];
 
 const trustBadges = [
-  { icon: '🏆', label: 'Erfahren & Zuverlässig', desc: 'Seit Jahren vertrauen uns über 500 Kunden' },
+  { icon: '🏆', label: 'Erfahren & Zuverlässig', desc: 'Inhabergeführt, DGUV-geschult, vollversichert' },
   { icon: '🎯', label: 'Spezialisiert', desc: 'Gebäudereinigung & Hausmeisterdienste' },
   { icon: '✅', label: 'Qualität die zählt', desc: 'DGUV-geschult, vollversichert' },
 ];

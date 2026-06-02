@@ -3,44 +3,23 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import CTABanner from '@/components/home/CTABanner';
 import { prisma } from '@/lib/prisma';
 import { siteConfig } from '@/lib/site';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Referenzen | Gebäudereinigung Neuwied & Koblenz | Huwa',
-  description: 'Referenzprojekte von Huwa Gebäudereinigung: Büros, Wohnanlagen, Treppenhäuser in Neuwied, Koblenz & Bendorf. Kundenstimmen & abgeschlossene Projekte.',
+  description: 'Referenzprojekte von Huwa Gebäudereinigung in Neuwied, Koblenz & Bendorf. Büroreinigung, Treppenhausreinigung, Glasreinigung, Winterdienst & Hausmeisterdienste.',
   alternates: { canonical: `${siteConfig.url}/referenzen` },
 };
 
-const projects = [
-  {
-    title: 'Büroreinigung Verwaltungsgebäude', location: 'Neuwied', category: 'Büroreinigung',
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80',
-    desc: 'Verwaltungsgebäude in Neuwied, 2.400 m² Bürofläche, tägliche Unterhaltsreinigung. Leistungsumfang: Schreibtische und Arbeitsbereiche, Sanitäranlagen, Küchen- und Sozialräume, Böden und Eingangsbereiche. Feste Reinigungsmannschaft, Protokoll auf Anfrage.',
-  },
-  {
-    title: 'Treppenhausreinigung Wohnanlage', location: 'Koblenz', category: 'Treppenhausreinigung',
-    image: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?auto=format&fit=crop&w=800&q=80',
-    desc: 'Wohnanlage mit 36 Einheiten in Koblenz, wöchentliche Treppenhausreinigung. Leistungsumfang: Eingangsbereich und Briefkastenanlage, Treppenabsätze und Handläufe, Aufzug innen, Kellerzugänge, Spinnwebenkontrolle. Reinigungsprotokoll im Objekt.',
-  },
-  {
-    title: 'Bauendreinigung Neubau-Ärztehaus', location: 'Bendorf', category: 'Baureinigung',
-    image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=800&q=80',
-    desc: 'Neu errichtetes Ärztehaus in Bendorf, bezugsfertige Bauendreinigung. Leistungsumfang: Bauschutt- und Grobschmutzbeseitigung, Fenster- und Glasreinigung, Bodenreinigung und -pflege aller Praxisflächen, Sanitärdesinfektion, Übergabeprotokoll.',
-  },
-  {
-    title: 'Glasfassade Geschäftshaus', location: 'Koblenz', category: 'Glasreinigung',
-    image: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80',
-    desc: 'Fünfstöckiges Geschäftshaus in Koblenz, 750 m² Glasfassade, quartalsweise Reinigung. Methode: Osmose-Reinwasser-Technik für streifenfreies Ergebnis auch ohne Leitern. Inklusive Schaufenster und Glasdachelemente.',
-  },
-  {
-    title: 'Winterdienst Gewerbepark', location: 'Neuwied', category: 'Winterdienst',
-    image: 'https://images.unsplash.com/photo-1418985991508-e47386d96a71?auto=format&fit=crop&w=800&q=80',
-    desc: 'Gewerbepark in Neuwied, Räum- und Streudienst für Zufahrten, Parkplätze und Gehwege. Bereitschaft ab 4 Uhr morgens, auch an Wochenenden und Feiertagen. Lückenlose Einsatzdokumentation zum Haftungsschutz des Eigentümers.',
-  },
-  {
-    title: 'Grünpflege Wohnquartier', location: 'Andernach', category: 'Gartenarbeiten',
-    image: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80',
-    desc: 'Wohnquartier in Andernach, ganzjährige Außenanlagenbetreuung. Leistungsumfang: Rasenmähen und Kantenschnitt, Heckenpflege, Laubbeseitigung im Herbst, Beetpflege, Sperrmüll- und Grünschnittentsorgung. Fester Ansprechpartner für die Hausverwaltung.',
-  },
+const serviceAreas = [
+  { icon: '🏢', title: 'Büroreinigung',         desc: 'Unterhaltsreinigung von Büros, Praxen und Gewerbeeinheiten – täglich, wöchentlich oder nach Bedarf.' },
+  { icon: '🏠', title: 'Treppenhausreinigung',  desc: 'Wöchentliche Reinigung von Treppenhäusern, Eingängen und Gemeinschaftsflächen für WEGs und Hausverwaltungen.' },
+  { icon: '🪟', title: 'Glasreinigung',         desc: 'Fenster, Schaufenster und Glasfassaden – streifenfrei mit Osmose-Reinwasser-Technik.' },
+  { icon: '🏗️', title: 'Baureinigung',          desc: 'Grob- und Feinreinigung nach Bau- oder Renovierungsarbeiten – bezugsfertig übergeben.' },
+  { icon: '❄️', title: 'Winterdienst',          desc: 'Räum- und Streudienst für Zufahrten, Parkplätze und Gehwege – auch früh morgens und am Wochenende.' },
+  { icon: '🌿', title: 'Gartenarbeiten',        desc: 'Ganzjährige Außenanlagenbetreuung: Rasenmähen, Heckenpflege, Laubbeseitigung und Beete.' },
+  { icon: '🔧', title: 'Hausmeisterdienste',    desc: 'Objektbetreuung, Kleinreparaturen, Kontrollgänge und Müllentsorgung für Wohn- und Gewerbeimmobilien.' },
+  { icon: '✨', title: 'Grundreinigung',        desc: 'Intensive Tiefenreinigung – ideal nach Einzug, Auszug oder Renovierung.' },
 ];
 
 export default async function ReferenzenPage() {
@@ -62,47 +41,57 @@ export default async function ReferenzenPage() {
           <Breadcrumb items={[{ label: 'Referenzen' }]} dark />
           <div className="mt-8 max-w-3xl">
             <div className="section-label mb-4">Referenzen</div>
-            <h1 className="text-white mb-4">Projekte, auf die wir<br /><span className="gradient-text">stolz sind</span></h1>
-            <p className="text-slate-300 text-lg">Über 500 Kunden in Neuwied, Koblenz und Bendorf vertrauen auf Huwa. Hier finden Sie eine Auswahl unserer abgeschlossenen Projekte.</p>
+            <h1 className="text-white mb-4">Leistungen, auf die wir<br /><span className="gradient-text">stolz sind</span></h1>
+            <p className="text-slate-300 text-lg">Wir reinigen und betreuen Objekte in Neuwied, Koblenz, Bendorf und der gesamten Region. Hier finden Sie einen Überblick über unsere Leistungsbereiche.</p>
           </div>
         </div>
       </section>
 
-      {/* Projects grid */}
+      {/* Leistungsübersicht */}
       <section className="section-padding bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-14">
-            <div className="section-label mx-auto w-fit">Projekte</div>
-            <h2 className="mt-4">Eine Auswahl unserer <span className="gradient-text">Arbeiten</span></h2>
+            <div className="section-label mx-auto w-fit">Unsere Leistungen</div>
+            <h2 className="mt-4">Was wir für Sie <span className="gradient-text">leisten</span></h2>
+            <p className="text-gray-500 text-sm mt-3 max-w-xl mx-auto">Referenzdetails stellen wir auf Anfrage gerne zur Verfügung. Sprechen Sie uns an.</p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {projects.map(p => (
-              <article key={p.title} className="card overflow-hidden group hover:border-primary/30 transition-all duration-200">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.image} alt={`${p.title} in ${p.location}`} className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-                <div className="p-6">
-                  <span className="inline-block bg-primary/8 text-primary text-xs font-semibold px-3 py-1 rounded-full mb-3">{p.category}</span>
-                  <h3 className="text-base font-bold text-dark mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
-                  <p className="text-sm text-gray-400 mb-2 flex items-center gap-1">
-                    <svg className="w-3.5 h-3.5 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-                    {p.location}
-                  </p>
-                  <p className="text-sm text-gray-500 leading-relaxed">{p.desc}</p>
-                </div>
-              </article>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {serviceAreas.map((s, i) => (
+              <div key={s.title} className={`card p-6 hover:border-${i % 2 === 0 ? 'primary' : 'green'}/30 transition-all duration-200`}>
+                <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 ${i % 2 === 0 ? 'bg-primary/8' : 'bg-green/8'}`}>{s.icon}</div>
+                <h3 className="text-sm font-bold text-dark mb-2">{s.title}</h3>
+                <p className="text-xs text-gray-500 leading-relaxed">{s.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* DB testimonials */}
+      {/* Referenz auf Anfrage */}
+      <section className="section-padding" style={{ background: '#F8FAFC' }}>
+        <div className="container mx-auto max-w-3xl text-center">
+          <div className="section-label mx-auto w-fit mb-4">Referenzanfrage</div>
+          <h2 className="mb-4">Referenzen <span className="gradient-text">auf Anfrage</span></h2>
+          <p className="text-gray-500 text-base mb-8 leading-relaxed">
+            Wir nennen Ihnen gerne konkrete Referenzobjekte in Ihrer Region – nach vorheriger Absprache und mit Einverständnis unserer Kunden. Sprechen Sie uns einfach an.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/kontakt" className="btn-primary px-8 py-3.5">Referenzen anfragen</Link>
+            <a href={`tel:${siteConfig.phone}`} className="btn-outline px-8 py-3.5">
+              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+              {siteConfig.phone}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* DB testimonials — nur wenn echte Bewertungen vorhanden */}
       {testimonials.length > 0 && (
-        <section className="section-padding" style={{ background: '#F8FAFC' }}>
+        <section className="section-padding bg-white">
           <div className="container mx-auto">
             <div className="text-center mb-14">
               <div className="section-label mx-auto w-fit">Kundenstimmen</div>
               <h2 className="mt-4">Das sagen unsere <span className="gradient-text">Kunden</span></h2>
-              <p className="text-gray-500 text-sm mt-3">Echte Rückmeldungen unserer Kunden aus Neuwied, Koblenz und Umgebung.</p>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
               {testimonials.map(t => (

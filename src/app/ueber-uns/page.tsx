@@ -39,13 +39,13 @@ export default function UeberUnsPage() {
         <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-center">
           <div>
             <div className="section-label mb-5">Unsere Geschichte</div>
-            <h2 className="mb-6">Von der Idee zum <span className="gradient-text">führenden Reinigungsunternehmen</span></h2>
+            <h2 className="mb-6">Lokal verwurzelt –<br /><span className="gradient-text">persönlich engagiert</span></h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
                 Gegründet im Jahr {siteConfig.foundingYear} als inhabergeführtes Familienunternehmen in Neuwied – mit einem einfachen Versprechen: persönlicher Einsatz, Qualität und Kundenzufriedenheit an erster Stelle.
               </p>
               <p>
-                Durch hervorragende Arbeit und treue Stammkunden wuchs das Unternehmen stetig. Heute betreuen wir über 500 zufriedene Kunden im Raum Neuwied, Koblenz und Bendorf mit einem erfahrenen, DGUV-geschulten Team.
+                Durch zuverlässige Arbeit und das Vertrauen unserer Kunden sind wir stetig gewachsen. Wir betreuen Objekte im Raum Neuwied, Koblenz und Bendorf mit einem DGUV-geschulten Team und direktem Ansprechpartner für jedes Objekt.
               </p>
               <p>
                 Was sich nicht verändert hat: unser persönlicher Einsatz, unsere hohen Qualitätsstandards und die Überzeugung, dass zufriedene Kunden und ein motiviertes Team der Schlüssel zum Erfolg sind.
@@ -55,9 +55,9 @@ export default function UeberUnsPage() {
           <div className="grid grid-cols-2 gap-4">
             {[
               { val: siteConfig.foundingYear.toString(), label: 'Gründungsjahr', color: 'text-primary' },
-              { val: '20+',  label: 'Mitarbeiter',  color: 'text-green' },
-              { val: '500+', label: 'Kunden',       color: 'text-primary' },
-              { val: 'DGUV', label: 'Zertifiziert', color: 'text-green' },
+              { val: 'RLP',  label: 'Rheinland-Pfalz', color: 'text-green' },
+              { val: 'DGUV', label: 'Zertifiziert', color: 'text-primary' },
+              { val: '100%', label: 'Inhabergeführt', color: 'text-green' },
             ].map(({ val, label, color }) => (
               <div key={label} className="card p-6 text-center hover:border-primary/30 transition-all duration-200">
                 <div className={`text-3xl font-black ${color} mb-1`}>{val}</div>
