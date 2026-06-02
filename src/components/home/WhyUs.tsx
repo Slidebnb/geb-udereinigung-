@@ -17,7 +17,7 @@ const defaultWhyUs: Required<WhyUsData> = {
   stats: [
     { val: 100, suffix: '+', label: 'Zufriedene Kunden' },
     { val: 3,   suffix: '+', label: 'Jahre Erfahrung' },
-    { val: 9,   suffix: '',  label: 'Leistungsbereiche' },
+    { val: 10,  suffix: '',  label: 'Leistungsbereiche' },
     { val: 5,   suffix: '',  label: 'Servicestädte' },
   ],
   headline: 'Der Unterschied, den Sie spüren werden',
