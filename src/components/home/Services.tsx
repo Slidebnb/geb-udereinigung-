@@ -14,7 +14,7 @@ export interface ServicesData {
 }
 
 const defaultServices: Required<ServicesData> = {
-  headline: '9 Leistungsbereiche',
+  headline: '10 Leistungsbereiche',
   subtitle: 'Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice – Ihr verlässlicher Partner in Neuwied, Koblenz und Bendorf.',
   items: [
     { icon: '🏢', title: 'Gebäudereinigung',    desc: 'Professionelle Reinigung aller Gebäudetypen – innen und außen.',        href: '/leistungen/gebaeudereinigung' },
