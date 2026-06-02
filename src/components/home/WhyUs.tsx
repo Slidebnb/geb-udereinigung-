@@ -73,7 +73,7 @@ export default function WhyUs({ data }: { data?: WhyUsData }) {
         {/* Animated stats */}
         <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-20">
           {d.stats.map((s, i) => (
-            <div key={s.label} className="card rounded-2xl p-8 text-center cursor-default">
+            <div key={s.label} className="card rounded-2xl p-8 text-center cursor-default hover:shadow-glow-blue">
               <div className={`text-5xl font-black ${statColors[i % statColors.length]} mb-2 stat-val-${i}`}>{s.val}{s.suffix}</div>
               <div className="text-slate-500 text-sm font-medium">{s.label}</div>
             </div>
@@ -94,8 +94,8 @@ export default function WhyUs({ data }: { data?: WhyUsData }) {
         {/* Reasons */}
         <div className="why-grid grid md:grid-cols-2 lg:grid-cols-3 gap-5">
           {d.reasons.map((r) => (
-            <div key={r.title} className="why-card card rounded-2xl p-7 group hover:border-primary/30 transition-all duration-300">
-              <div className="w-14 h-14 bg-primary/8 border border-primary/10 rounded-2xl flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition-transform duration-300">
+            <div key={r.title} className="why-card card rounded-2xl p-7 group hover:border-primary/30 hover:shadow-glow-blue transition-all duration-300">
+              <div className="w-14 h-14 bg-primary/8 border border-primary/10 rounded-2xl flex items-center justify-center text-3xl mb-5 group-hover:scale-110 group-hover:rotate-3 transition-transform duration-300">
                 {r.icon}
               </div>
               <h4 className="text-slate-800 font-bold mb-3">{r.title}</h4>

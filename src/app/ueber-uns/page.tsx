@@ -98,11 +98,11 @@ export default function UeberUnsPage() {
           <div className="max-w-sm mx-auto">
             <div className="card p-8 text-center hover:border-primary/30 transition-all duration-200">
               <div className="w-20 h-20 rounded-full bg-gradient-brand flex items-center justify-center text-white text-3xl font-black mx-auto mb-5">H</div>
-              <h3 className="text-xl font-bold text-dark mb-1">Hasan Huseyin Unal</h3>
-              <p className="text-primary font-semibold text-sm mb-1">Geschäftsführer & Gründer</p>
+              <h3 className="text-xl font-bold text-dark mb-1">Familie Huwa</h3>
+              <p className="text-primary font-semibold text-sm mb-1">Geschäftsführung & Gründer</p>
               <p className="text-xs text-gray-400 mb-3">Inhabergeführtes Familienunternehmen</p>
               <p className="text-gray-500 text-sm leading-relaxed">
-                Hasan Huseyin Unal hat das Unternehmen mit einer klaren Vision gegründet: Gebäudereinigung auf höchstem Niveau, persönlich und zuverlässig. Er ist direkt für die Qualitätssicherung verantwortlich und persönlicher Ansprechpartner für alle Kunden.
+                Die Familie Huwa hat das Unternehmen mit einer klaren Vision gegründet: Gebäudereinigung auf höchstem Niveau, persönlich und zuverlässig. Direkter Ansprechpartner für alle Kunden und verantwortlich für die Qualitätssicherung bei jedem Auftrag.
               </p>
             </div>
           </div>

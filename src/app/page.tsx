@@ -117,23 +117,25 @@ export default async function HomePage() {
       <Hero data={heroData} />
 
       {/* ── Wie es funktioniert ── */}
-      <section className="section-padding bg-white">
-        <div className="container mx-auto">
+      <section className="section-padding relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
+        <div className="absolute top-[-80px] right-[-80px] w-96 h-96 rounded-full opacity-15 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, #4BB8F5, transparent 70%)' }} />
+        <div className="absolute bottom-[-60px] left-[-60px] w-72 h-72 rounded-full opacity-10 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, #2DC94E, transparent 70%)' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-5 blur-3xl pointer-events-none" style={{ background: 'radial-gradient(circle, #4BB8F5, transparent 70%)' }} />
+        <div className="container mx-auto relative z-10">
           <div className="text-center mb-14">
             <div className="section-label mx-auto w-fit">So einfach geht&apos;s</div>
-            <h2 className="mt-4">In 3 Schritten zu <span className="gradient-text">Ihrem sauberen Objekt</span></h2>
+            <h2 className="mt-4 text-white">In 3 Schritten zu <span className="gradient-text">Ihrem sauberen Objekt</span></h2>
           </div>
           <div className="grid md:grid-cols-3 gap-6 relative">
-            {/* Connector line (desktop) */}
-            <div className="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-primary/20 via-green/30 to-primary/20 z-0" />
+            <div className="hidden md:block absolute top-12 left-1/3 right-1/3 h-0.5 bg-gradient-to-r from-primary/40 via-green/50 to-primary/40 z-0" />
             {steps.map((s) => (
-              <div key={s.num} className={`relative z-10 border rounded-2xl p-8 text-center ${s.color}`}>
-                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl text-3xl mb-4 bg-white shadow-sm`}>
+              <div key={s.num} className="relative z-10 card-glass rounded-2xl p-8 text-center group hover:scale-[1.02] hover:bg-white/12 transition-all duration-300">
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl text-3xl mb-4 bg-white/10 shadow-glow-blue group-hover:scale-110 group-hover:rotate-6 transition-transform duration-300">
                   {s.icon}
                 </div>
                 <div className={`text-xs font-black uppercase tracking-widest mb-2 ${s.textColor}`}>{s.num}</div>
-                <h3 className="text-lg font-black text-dark mb-3">{s.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+                <h3 className="text-lg font-black text-white mb-3">{s.title}</h3>
+                <p className="text-slate-300 text-sm leading-relaxed">{s.desc}</p>
               </div>
             ))}
           </div>
@@ -148,7 +150,7 @@ export default async function HomePage() {
       <Testimonials reviews={dbReviews} />
 
       {/* ── Regionale Präsenz ── */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-slate-50 bg-dot-grid">
         <div className="container mx-auto">
           <div className="text-center mb-12">
             <div className="section-label mx-auto w-fit">Einzugsgebiet</div>
@@ -160,10 +162,10 @@ export default async function HomePage() {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
             {cityLinks.map((c) => (
               <Link key={c.href} href={c.href}
-                className={`group flex flex-col items-center gap-2 p-5 rounded-2xl border text-center transition-all duration-200 hover:shadow-md ${
+                className={`group flex flex-col items-center gap-2 p-5 rounded-2xl border text-center transition-all duration-200 hover:scale-[1.02] ${
                   c.primary
-                    ? 'bg-gradient-to-b from-primary/5 to-primary/0 border-primary/20 hover:border-primary/40'
-                    : 'bg-white border-slate-100 hover:border-primary/20'
+                    ? 'bg-white border-primary/25 hover:border-primary/50 hover:shadow-[0_0_20px_rgba(75,184,245,0.18)]'
+                    : 'bg-white border-slate-100 hover:border-primary/25 hover:shadow-md'
                 }`}>
                 <span className="text-3xl">{c.icon}</span>
                 <div className="font-bold text-dark text-sm group-hover:text-primary transition-colors">{c.label}</div>

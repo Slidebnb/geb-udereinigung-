@@ -51,7 +51,7 @@ export default function Services({ data }: { data?: ServicesData }) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-padding bg-white">
+    <section ref={sectionRef} className="section-padding bg-gradient-to-b from-white to-slate-50">
       <div className="container mx-auto">
         <div ref={titleRef} className="text-center mb-16">
           <div className="section-label mx-auto w-fit">Unsere Leistungen</div>
@@ -70,10 +70,10 @@ export default function Services({ data }: { data?: ServicesData }) {
               key={s.href}
               href={s.href}
               className={`service-card card group flex flex-col gap-3 p-6 border ${
-                accent ? 'border-primary/10 hover:border-primary/40' : 'border-green/10 hover:border-green/40'
+                accent ? 'border-primary/10 hover:border-primary/40 hover:shadow-glow-blue' : 'border-green/10 hover:border-green/40 hover:shadow-glow-green'
               }`}
             >
-              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110 ${
+              <div className={`w-14 h-14 rounded-2xl flex items-center justify-center text-3xl transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6 ${
                 accent ? 'bg-primary/10' : 'bg-green/10'
               }`}>
                 {s.icon}

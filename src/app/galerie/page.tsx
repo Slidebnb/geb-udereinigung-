@@ -159,9 +159,6 @@ export default function GaleriePage() {
                 </svg>
                 Kostenloses Angebot anfragen
               </Link>
-              <Link href="/preisrechner" className="btn-outline">
-                Preis schätzen lassen
-              </Link>
             </div>
           </div>
         </div>

@@ -92,7 +92,6 @@ export default async function Footer() {
           <h4 className="text-white font-bold mt-7 mb-4 text-sm uppercase tracking-widest">Tools & Service</h4>
           <ul className="space-y-2.5">
             {[
-              ['💰 Preisrechner',           '/preisrechner'],
               ['📷 Vorher/Nachher Galerie', '/galerie'],
               ['📋 Haustechnik-Checkliste', '/checkliste'],
               ['🔑 Kundenportal',           '/portal'],
