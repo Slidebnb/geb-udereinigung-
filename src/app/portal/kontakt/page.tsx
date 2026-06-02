@@ -13,21 +13,21 @@ export default function PortalKontaktPage() {
             </div>
             <div>
               <div className="text-xs font-semibold text-gray-400 uppercase mb-1">Telefon</div>
-              <a href="tel:+4902631123456" className="text-[#4BB8F5] font-medium hover:underline">
-                02631 / 123 456
+              <a href="tel:+4926019131820" className="text-[#4BB8F5] font-medium hover:underline">
+                02601 9131820
               </a>
             </div>
             <div>
               <div className="text-xs font-semibold text-gray-400 uppercase mb-1">E-Mail</div>
-              <a href="mailto:info@huwa-reinigung.de" className="text-[#4BB8F5] font-medium hover:underline">
-                info@huwa-reinigung.de
+              <a href="mailto:info@huwa-gebaeudedienste.de" className="text-[#4BB8F5] font-medium hover:underline">
+                info@huwa-gebaeudedienste.de
               </a>
             </div>
             <div>
               <div className="text-xs font-semibold text-gray-400 uppercase mb-1">Bürozeiten</div>
               <div className="text-gray-700">
-                Mo–Fr: 08:00 – 17:00 Uhr<br />
-                Sa: 09:00 – 13:00 Uhr
+                Mo–Fr: 07:00 – 18:00 Uhr<br />
+                Sa: 08:00 – 14:00 Uhr
               </div>
             </div>
           </div>
@@ -40,13 +40,13 @@ export default function PortalKontaktPage() {
           </p>
           <div className="flex flex-col gap-3">
             <a
-              href="tel:+4902631123456"
+              href="tel:+4926019131820"
               className="flex items-center gap-3 bg-[#1B3E62] hover:bg-[#4BB8F5]/20 px-4 py-3 rounded-xl transition-colors text-sm font-medium"
             >
               <span>📞</span> Jetzt anrufen
             </a>
             <a
-              href="mailto:info@huwa-reinigung.de"
+              href="mailto:info@huwa-gebaeudedienste.de"
               className="flex items-center gap-3 bg-[#1B3E62] hover:bg-[#4BB8F5]/20 px-4 py-3 rounded-xl transition-colors text-sm font-medium"
             >
               <span>✉️</span> E-Mail schreiben

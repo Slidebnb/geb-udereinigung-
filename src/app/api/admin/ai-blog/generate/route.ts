@@ -22,8 +22,8 @@ Artikeltyp: ${artikeltyp}
 Länge: ca. ${wordCount} Wörter
 Tonalität: ${tonalitaet}
 
-Firmenname: Huwa Gebäudereinigung & Hausmeisterdienste
-Kontakt: 02601 9131820, info@huwa-gebaeudedienste.de
+Firmenname: ${process.env.NEXT_PUBLIC_SITE_NAME || 'Huwa Gebäudereinigung & Hausmeisterdienste'}
+Kontakt: ${process.env.NEXT_PUBLIC_PHONE || '02601 9131820'}, ${process.env.NEXT_PUBLIC_EMAIL || 'info@huwa-gebaeudedienste.de'}
 
 Regeln:
 - Keine Fake-Bewertungen, keine erfundenen Kunden

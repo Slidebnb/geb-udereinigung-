@@ -204,7 +204,7 @@ export default function ProtokollDetailPage() {
               <div className="border-t border-gray-300 pt-2 mt-8 text-xs text-gray-400">Unterschrift Auftraggeber</div>
             </div>
             <div>
-              <div className="border-t border-gray-300 pt-2 mt-8 text-xs text-gray-400">Unterschrift Huwa Gebäudedienste</div>
+              <div className="border-t border-gray-300 pt-2 mt-8 text-xs text-gray-400">Unterschrift Huwa Gebäudereinigung</div>
             </div>
           </div>
         </div>

@@ -110,7 +110,7 @@ export default function PortalLoginPage() {
 
         <p className="text-center text-xs text-gray-400 mt-4">
           Noch kein Kunden-Konto? Bitte kontaktieren Sie uns unter{' '}
-          <a href="tel:+4926311234567" className="hover:underline">02631 / 123 456 7</a>.
+          <a href="tel:+4926019131820" className="hover:underline">02601 9131820</a>.
         </p>
       </div>
     </div>
