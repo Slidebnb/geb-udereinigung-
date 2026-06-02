@@ -84,9 +84,13 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
               <h3 className="text-white mb-2 text-lg">Kostenloses Angebot</h3>
               <p className="text-slate-300/80 text-sm mb-5">Individuelle Kalkulation – transparent, fair, ohne versteckte Kosten.</p>
               <Link href="/angebot" className="btn-primary w-full justify-center py-3">Angebot anfragen</Link>
-              <a href={`tel:${siteConfig.phone}`} className="mt-3 flex items-center justify-center gap-2 text-blue-300/60 hover:text-primary text-sm transition-colors">
+              <a href={`tel:${siteConfig.phone}`} className="mt-3 flex items-center justify-center gap-2 text-blue-300/60 hover:text-white text-sm transition-colors">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
                 {siteConfig.phone}
+              </a>
+              <a href={`mailto:${siteConfig.email}`} className="mt-2 flex items-center justify-center gap-2 text-blue-300/60 hover:text-white text-sm transition-colors">
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                {siteConfig.email}
               </a>
             </div>
 
