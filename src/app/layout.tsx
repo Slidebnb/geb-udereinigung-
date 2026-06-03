@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/lib/site';
 import Header from '@/components/layout/HeaderWrapper';
@@ -8,6 +8,12 @@ import WhatsAppButton from '@/components/shared/WhatsAppButton';
 import CookieBanner from '@/components/shared/CookieBanner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  variable: '--font-jakarta',
+  weight: ['500', '600', '700', '800'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -26,7 +32,6 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: siteConfig.name, description: siteConfig.description },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
-  // Kein globales canonical – jede Seite definiert ihr eigenes via alternates.canonical
 };
 
 const organizationSchema = {
@@ -58,7 +63,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={inter.variable}>
+    <html lang="de" className={`${inter.variable} ${jakarta.variable}`}>
       <body className="flex flex-col min-h-screen">
         <Header />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
