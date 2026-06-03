@@ -35,31 +35,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // City landing pages
+  // All city landing pages (5 services × 8 cities + winterdienst × 3 cities)
+  const cities8 = ['neuwied', 'koblenz', 'bendorf', 'andernach', 'bad-neuenahr-ahrweiler', 'boppard', 'lahnstein', 'mayen'];
+  const cities3 = ['neuwied', 'koblenz', 'bendorf'];
+
   const cityPages: MetadataRoute.Sitemap = [
-    '/gebaudereinigung-neuwied',
-    '/gebaudereinigung-koblenz',
-    '/gebaudereinigung-bendorf',
-    '/bueroeinigung-neuwied',
-    '/bueroeinigung-koblenz',
-    '/bueroeinigung-bendorf',
-    '/treppenhausreinigung-neuwied',
-    '/treppenhausreinigung-koblenz',
-    '/treppenhausreinigung-bendorf',
-    '/hausmeisterservice-neuwied',
-    '/hausmeisterservice-koblenz',
-    '/hausmeisterservice-bendorf',
-    '/winterdienst-neuwied',
-    '/winterdienst-koblenz',
-    '/winterdienst-bendorf',
+    ...cities8.map(c => `gebaudereinigung-${c}`),
+    ...cities8.map(c => `bueroeinigung-${c}`),
+    ...cities8.map(c => `treppenhausreinigung-${c}`),
+    ...cities8.map(c => `hausmeisterservice-${c}`),
+    ...cities3.map(c => `winterdienst-${c}`),
   ].map((path) => ({
-    url: `${base}${path}`,
+    url: `${base}/${path}`,
     lastModified: TODAY,
     changeFrequency: 'monthly' as const,
     priority: 0.85,
   }));
 
-  // Blog posts – with 3s timeout so sitemap never hangs if DB is slow
+  // Blog posts with 3s timeout so sitemap never hangs
   let blogPages: MetadataRoute.Sitemap = [];
   try {
     const posts = await Promise.race([
