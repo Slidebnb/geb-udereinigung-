@@ -3,8 +3,20 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import {
+  Clock, Trophy, Banknote, MapPin, Phone, ShieldCheck, type LucideIcon,
+} from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const reasonIconMap: Record<string, LucideIcon> = {
+  clock:       Clock,
+  trophy:      Trophy,
+  banknote:    Banknote,
+  mappin:      MapPin,
+  phone:       Phone,
+  shieldcheck: ShieldCheck,
+};
 
 export interface WhyUsData {
   stats?: { val: number; suffix: string; label: string }[];
@@ -23,12 +35,12 @@ const defaultWhyUs: Required<WhyUsData> = {
   headline: 'Der Unterschied, den Sie spüren werden',
   subtitle: 'Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.',
   reasons: [
-    { icon: '⏰', title: 'Pünktlich & Zuverlässig',    desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
-    { icon: '🏆', title: 'Höchste Qualität',            desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
-    { icon: '💰', title: 'Faire Festpreise',             desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
-    { icon: '🌍', title: 'Regional verwurzelt',          desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
-    { icon: '📞', title: 'Direkter Ansprechpartner',     desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
-    { icon: '🔒', title: 'Vollversichert & Seriös',      desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
+    { icon: 'clock',       title: 'Pünktlich & Zuverlässig',    desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
+    { icon: 'trophy',      title: 'Höchste Qualität',            desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
+    { icon: 'banknote',    title: 'Faire Festpreise',             desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
+    { icon: 'mappin',      title: 'Regional verwurzelt',          desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
+    { icon: 'phone',       title: 'Direkter Ansprechpartner',     desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
+    { icon: 'shieldcheck', title: 'Vollversichert & Seriös',      desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
   ],
 };
 
@@ -93,15 +105,18 @@ export default function WhyUs({ data }: { data?: WhyUsData }) {
 
         {/* Reasons */}
         <div className="why-grid grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {d.reasons.map((r) => (
-            <div key={r.title} className="why-card card rounded-2xl p-7 group hover:border-primary/30 transition-all duration-300">
-              <div className="w-14 h-14 bg-primary/8 border border-primary/10 rounded-2xl flex items-center justify-center text-3xl mb-5 group-hover:scale-110 transition-transform duration-300">
-                {r.icon}
+          {d.reasons.map((r) => {
+            const Icon = reasonIconMap[r.icon] ?? ShieldCheck;
+            return (
+              <div key={r.title} className="why-card card rounded-2xl p-7 group hover:border-primary/30 transition-all duration-300">
+                <div className="w-14 h-14 bg-primary/8 border border-primary/10 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                  <Icon className="w-6 h-6 text-primary" />
+                </div>
+                <h4 className="text-slate-800 font-bold mb-3">{r.title}</h4>
+                <p className="text-slate-500 text-sm leading-relaxed">{r.desc}</p>
               </div>
-              <h4 className="text-slate-800 font-bold mb-3">{r.title}</h4>
-              <p className="text-slate-500 text-sm leading-relaxed">{r.desc}</p>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Certifications */}

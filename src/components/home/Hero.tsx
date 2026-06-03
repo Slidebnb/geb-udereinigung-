@@ -3,6 +3,10 @@
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
+import {
+  Building2, Briefcase, AppWindow, Home, HardHat,
+  Wrench, Snowflake, Leaf, type LucideIcon,
+} from 'lucide-react';
 import { siteConfig } from '@/lib/site';
 import HeroBg from './HeroCanvas';
 
@@ -16,6 +20,17 @@ export interface HeroData {
   services?: { icon: string; title: string }[];
 }
 
+const heroIconMap: Record<string, LucideIcon> = {
+  building2:  Building2,
+  briefcase:  Briefcase,
+  appwindow:  AppWindow,
+  home:       Home,
+  hardhat:    HardHat,
+  wrench:     Wrench,
+  snowflake:  Snowflake,
+  leaf:       Leaf,
+};
+
 const defaultHero: Required<HeroData> = {
   badge: `Seit ${siteConfig.foundingYear} – Ihr Partner in ${siteConfig.address.city}`,
   h1: 'Professionelle',
@@ -28,14 +43,14 @@ const defaultHero: Required<HeroData> = {
     { val: '4.9★', label: 'Google Bewertung' },
   ],
   services: [
-    { icon: '🏢', title: 'Gebäudereinigung' },
-    { icon: '💼', title: 'Büroreinigung' },
-    { icon: '🪟', title: 'Glasreinigung' },
-    { icon: '🏠', title: 'Treppenhausreinigung' },
-    { icon: '🏗️', title: 'Baureinigung' },
-    { icon: '🔧', title: 'Hausmeisterdienste' },
-    { icon: '❄️', title: 'Winterdienst' },
-    { icon: '🌿', title: 'Gartenarbeiten' },
+    { icon: 'building2',  title: 'Gebäudereinigung' },
+    { icon: 'briefcase',  title: 'Büroreinigung' },
+    { icon: 'appwindow',  title: 'Glasreinigung' },
+    { icon: 'home',       title: 'Treppenhausreinigung' },
+    { icon: 'hardhat',    title: 'Baureinigung' },
+    { icon: 'wrench',     title: 'Hausmeisterdienste' },
+    { icon: 'snowflake',  title: 'Winterdienst' },
+    { icon: 'leaf',       title: 'Gartenarbeiten' },
   ],
 };
 
@@ -112,12 +127,15 @@ export default function Hero({ data }: { data?: HeroData }) {
           <div className="bg-white/8 border border-white/12 rounded-2xl p-8">
             <p className="text-slate-300 text-sm font-semibold uppercase tracking-wider mb-6">Unsere Leistungen</p>
             <div className="grid grid-cols-2 gap-3">
-              {d.services.map(({ icon, title }) => (
-                <div key={title} className="flex items-center gap-2.5 text-slate-300 text-sm">
-                  <span className="text-lg">{icon}</span>
-                  {title}
-                </div>
-              ))}
+              {d.services.map(({ icon, title }) => {
+                const Icon = heroIconMap[icon] ?? Building2;
+                return (
+                  <div key={title} className="flex items-center gap-2.5 text-slate-300 text-sm">
+                    <Icon className="w-4 h-4 flex-shrink-0 text-primary/80" />
+                    {title}
+                  </div>
+                );
+              })}
             </div>
             <div className="mt-6 pt-6 border-t border-white/10 flex items-center gap-2">
               <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
