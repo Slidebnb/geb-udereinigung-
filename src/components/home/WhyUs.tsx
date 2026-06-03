@@ -3,9 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import {
-  Clock, Trophy, Banknote, MapPin, Phone, ShieldCheck, type LucideIcon,
-} from 'lucide-react';
+import { Clock, Trophy, Banknote, MapPin, Phone, ShieldCheck, type LucideIcon } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -33,22 +31,22 @@ const defaultWhyUs: Required<WhyUsData> = {
     { val: 100, suffix: '%', label: 'Weiterempfehlung' },
   ],
   headline: 'Der Unterschied, den Sie spüren werden',
-  subtitle: 'Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.',
+  subtitle:
+    'Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.',
   reasons: [
-    { icon: 'clock',       title: 'Pünktlich & Zuverlässig',    desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
-    { icon: 'trophy',      title: 'Höchste Qualität',            desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
-    { icon: 'banknote',    title: 'Faire Festpreise',             desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
-    { icon: 'mappin',      title: 'Regional verwurzelt',          desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
-    { icon: 'phone',       title: 'Direkter Ansprechpartner',     desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
-    { icon: 'shieldcheck', title: 'Vollversichert & Seriös',      desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
+    { icon: 'clock',       title: 'Pünktlich & Zuverlässig',  desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
+    { icon: 'trophy',      title: 'Höchste Qualität',          desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
+    { icon: 'banknote',    title: 'Faire Festpreise',           desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
+    { icon: 'mappin',      title: 'Regional verwurzelt',        desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
+    { icon: 'phone',       title: 'Direkter Ansprechpartner',   desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
+    { icon: 'shieldcheck', title: 'Vollversichert & Seriös',    desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
   ],
 };
 
-const statColors = ['text-primary', 'text-green', 'text-primary', 'text-green'];
+const statColors = ['#1E5FD8', '#059669', '#1E5FD8', '#059669'];
 
 export default function WhyUs({ data }: { data?: WhyUsData }) {
   const d = { ...defaultWhyUs, ...data };
-
   const sectionRef = useRef<HTMLDivElement>(null);
   const statsRef   = useRef<HTMLDivElement>(null);
 
@@ -80,13 +78,22 @@ export default function WhyUs({ data }: { data?: WhyUsData }) {
   }, []);
 
   return (
-    <section ref={sectionRef} className="section-padding bg-slate-50">
+    <section ref={sectionRef} className="section-padding bg-white">
       <div className="container mx-auto">
         {/* Animated stats */}
         <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-20">
           {d.stats.map((s, i) => (
-            <div key={s.label} className="card rounded-2xl p-8 text-center cursor-default">
-              <div className={`text-5xl font-black ${statColors[i % statColors.length]} mb-2 stat-val-${i}`}>{s.val}{s.suffix}</div>
+            <div
+              key={s.label}
+              className="rounded-2xl p-8 text-center cursor-default border border-slate-100 hover:shadow-[0_8px_32px_rgba(5,13,26,0.1)] hover:-translate-y-1 transition-all duration-300"
+              style={{ backgroundColor: '#F8F7F4' }}
+            >
+              <div
+                className={`text-5xl font-black font-display mb-2 stat-val-${i}`}
+                style={{ color: statColors[i % statColors.length] }}
+              >
+                {s.val}{s.suffix}
+              </div>
               <div className="text-slate-500 text-sm font-medium">{s.label}</div>
             </div>
           ))}
@@ -98,9 +105,7 @@ export default function WhyUs({ data }: { data?: WhyUsData }) {
           <h2 className="mb-4">
             <span className="gradient-text">{d.headline}</span>
           </h2>
-          <p className="text-slate-500 max-w-xl mx-auto text-lg">
-            {d.subtitle}
-          </p>
+          <p className="text-slate-500 max-w-xl mx-auto text-lg">{d.subtitle}</p>
         </div>
 
         {/* Reasons */}
@@ -108,11 +113,19 @@ export default function WhyUs({ data }: { data?: WhyUsData }) {
           {d.reasons.map((r) => {
             const Icon = reasonIconMap[r.icon] ?? ShieldCheck;
             return (
-              <div key={r.title} className="why-card card rounded-2xl p-7 group hover:border-primary/30 transition-all duration-300">
-                <div className="w-14 h-14 bg-primary/8 border border-primary/10 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
-                  <Icon className="w-6 h-6 text-primary" />
+              <div
+                key={r.title}
+                className="why-card relative bg-white rounded-2xl p-7 border border-slate-100 overflow-hidden group hover:shadow-[0_8px_32px_rgba(5,13,26,0.1)] hover:-translate-y-1 transition-all duration-300"
+              >
+                {/* Left accent bar */}
+                <div
+                  className="absolute left-0 top-6 bottom-6 w-[3px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: 'linear-gradient(to bottom, #1E5FD8, #059669)' }}
+                />
+                <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300" style={{ backgroundColor: 'rgba(30,95,216,0.08)' }}>
+                  <Icon className="w-5 h-5 text-primary" />
                 </div>
-                <h4 className="text-slate-800 font-bold mb-3">{r.title}</h4>
+                <h4 className="text-slate-800 font-bold mb-3" style={{ fontFamily: 'var(--font-jakarta)' }}>{r.title}</h4>
                 <p className="text-slate-500 text-sm leading-relaxed">{r.desc}</p>
               </div>
             );
@@ -124,7 +137,9 @@ export default function WhyUs({ data }: { data?: WhyUsData }) {
         <div className="flex flex-wrap justify-center gap-8">
           {['DGUV Ausgebildet', 'Betriebshaftpflicht', 'Innungsmitglied', 'DSGVO Konform', 'Geprüfte Qualität'].map(cert => (
             <div key={cert} className="flex items-center gap-2 text-slate-400 text-sm font-semibold">
-              <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+              <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
               {cert}
             </div>
           ))}
