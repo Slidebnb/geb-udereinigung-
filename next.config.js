@@ -13,6 +13,11 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      { source: '/preisrechner', destination: '/angebot', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {
