@@ -105,13 +105,13 @@ export default function Hero({ data }: { data?: HeroData }) {
         <div>
           {/* Badge */}
           <div ref={badgeRef} className="inline-flex items-center gap-2 mb-8">
-            <span className="inline-flex items-center gap-2.5 bg-white/8 border border-white/15 text-white/70 px-4 py-2 rounded-full text-sm font-medium backdrop-blur-sm">
+            <span className="inline-flex items-center gap-2.5 bg-white/10 border border-white/15 text-white/70 px-4 py-2 rounded-full text-sm font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0" />
               {d.badge}
             </span>
           </div>
 
-          {/* Headline – premium typographic hierarchy */}
+          {/* Headline */}
           <div ref={headlineRef} className="mb-7">
             <p className="text-primary text-sm font-bold font-display uppercase tracking-[0.22em] mb-3">
               {d.h1}
