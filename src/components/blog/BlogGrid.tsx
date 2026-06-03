@@ -12,6 +12,7 @@ interface Post {
   coverImage: string | null;
   author: string;
   publishedAt: string;
+  readingTime?: number;
 }
 
 interface BlogGridProps {
@@ -104,6 +105,7 @@ export default function BlogGrid({ posts }: BlogGridProps) {
               <span>{featured.author}</span>
               <span>·</span>
               <span>{formatDate(featured.publishedAt)}</span>
+              {featured.readingTime && <><span>·</span><span>⏱ {featured.readingTime} Min.</span></>}
             </div>
           </div>
         </Link>
@@ -133,7 +135,10 @@ export default function BlogGrid({ posts }: BlogGridProps) {
                 </h3>
                 <p className="text-sm text-gray-500 leading-relaxed mb-4 flex-1 line-clamp-3">{post.excerpt}</p>
                 <div className="flex items-center justify-between text-xs text-gray-400 pt-3 border-t border-gray-50">
-                  <span>{formatDate(post.publishedAt)}</span>
+                  <div className="flex items-center gap-2">
+                    <span>{formatDate(post.publishedAt)}</span>
+                    {post.readingTime && <><span>·</span><span>⏱ {post.readingTime} Min.</span></>}
+                  </div>
                   <span className="text-primary font-medium group-hover:underline">Weiterlesen →</span>
                 </div>
               </div>

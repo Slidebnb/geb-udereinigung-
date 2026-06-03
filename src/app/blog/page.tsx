@@ -24,20 +24,31 @@ export default async function BlogPage() {
     coverImage: string | null;
     author: string;
     publishedAt: Date;
+    content: string;
   }[] = [];
 
   try {
     posts = await prisma.blogPost.findMany({
       where: { published: true },
       orderBy: { publishedAt: 'desc' },
-      select: { id: true, title: true, slug: true, excerpt: true, category: true, coverImage: true, author: true, publishedAt: true },
+      select: { id: true, title: true, slug: true, excerpt: true, category: true, coverImage: true, author: true, publishedAt: true, content: true },
     });
   } catch {
     posts = [];
   }
 
+  function readingTime(content: string): number {
+    const words = content.trim().split(/\s+/).length;
+    return Math.max(1, Math.round(words / 200));
+  }
+
   // Serialize dates for client component
-  const serialized = posts.map(p => ({ ...p, publishedAt: p.publishedAt.toISOString() }));
+  const serialized = posts.map(p => ({
+    ...p,
+    publishedAt: p.publishedAt.toISOString(),
+    readingTime: readingTime(p.content),
+    content: undefined,
+  }));
 
   return (
     <>

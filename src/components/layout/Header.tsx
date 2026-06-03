@@ -25,6 +25,7 @@ export default function Header({ settings = {} }: HeaderProps) {
   const [open,         setOpen]         = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled,     setScrolled]     = useState(false);
+  const [logoError,    setLogoError]    = useState(false);
 
   const phone       = getPhone(settings);
   const companyName = getCompanyName(settings);
@@ -64,9 +65,9 @@ export default function Header({ settings = {} }: HeaderProps) {
       {/* Main nav */}
       <nav className="container mx-auto flex items-center justify-between py-3">
         <Link href="/" className="flex items-center gap-3 group">
-          {logoUrl ? (
+          {logoUrl && !logoError ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt={companyName} className="h-10 w-auto object-contain" />
+            <img src={logoUrl} alt={companyName} className="h-14 w-auto object-contain" onError={() => setLogoError(true)} />
           ) : (
             <div className="flex items-center gap-2">
               {/* HUWA Logo SVG replica */}

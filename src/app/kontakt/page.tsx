@@ -158,17 +158,32 @@ export default function KontaktPage() {
       </section>
 
       {/* Map */}
-      <section className="h-64 bg-gray-100 flex items-center justify-center border-t border-gray-200">
-        <div className="text-center">
-          <div className="text-4xl mb-3">📍</div>
-          <p className="font-semibold text-dark">{siteConfig.address.street}, {siteConfig.address.zip} {siteConfig.address.city}</p>
+      <section className="relative border-t border-gray-100">
+        <div className="relative h-80 md:h-96 w-full overflow-hidden bg-gray-100">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20524.96!2d7.4663!3d50.4268!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47be9ea97b21b1c9%3A0x422d4d510db91e0!2sNeuwied!5e0!3m2!1sde!2sde!4v1700000000000"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title="Standort Huwa Gebäudereinigung Neuwied"
+            className="absolute inset-0 w-full h-full"
+          />
+        </div>
+        <div className="container mx-auto py-4 flex items-center justify-between flex-wrap gap-3">
+          <p className="text-sm text-gray-500">
+            <span className="font-semibold text-dark">{siteConfig.address.street}, {siteConfig.address.zip} {siteConfig.address.city}</span>
+          </p>
           <a
             href={`https://maps.google.com/?q=${encodeURIComponent(`${siteConfig.address.street} ${siteConfig.address.city}`)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-2 inline-block text-primary hover:underline text-sm font-medium"
+            className="text-primary hover:underline text-sm font-medium flex items-center gap-1.5"
           >
-            In Google Maps öffnen →
+            In Google Maps öffnen
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
           </a>
         </div>
       </section>

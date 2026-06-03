@@ -5,6 +5,7 @@ import { siteConfig } from '@/lib/site';
 import Header from '@/components/layout/HeaderWrapper';
 import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/shared/WhatsAppButton';
+import MobileCTABar from '@/components/shared/MobileCTABar';
 import CookieBanner from '@/components/shared/CookieBanner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <MobileCTABar />
         <CookieBanner />
       </body>
     </html>

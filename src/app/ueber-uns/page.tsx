@@ -9,6 +9,14 @@ export const metadata: Metadata = {
   alternates: { canonical: `${siteConfig.url}/ueber-uns` },
 };
 
+const milestones = [
+  { year: siteConfig.foundingYear.toString(), title: 'Gründung', desc: 'Start als inhabergeführtes Familienunternehmen in Neuwied mit Fokus auf Gebäudereinigung.' },
+  { year: '+2 J.', title: 'Erste Gewerbeobjekte', desc: 'Ausbau auf Büro- und Gewerbegebäude sowie erste Treppenhausreinigungsverträge.' },
+  { year: '+4 J.', title: 'Hausmeisterdienste', desc: 'Erweiterung um Hausmeisterservice und Winterdienst – Vollservice aus einer Hand.' },
+  { year: '+6 J.', title: 'Regionaler Marktführer', desc: 'Expansion auf Koblenz, Bendorf, Andernach und weitere Städte in Rheinland-Pfalz.' },
+  { year: 'Heute', title: 'Ihr Partner', desc: 'DGUV-zertifiziertes Team, vollversichert, direkte Ansprechpartner – für jedes Objekt.' },
+];
+
 const values = [
   { icon: '🏆', title: 'Qualität', desc: 'Jeder Einsatz wird mit höchster Sorgfalt durchgeführt. DGUV-geschultes Personal, geprüfte Reinigungsmittel und lückenlose Qualitätsprozesse.' },
   { icon: '🤝', title: 'Vertrauen',       desc: 'Unsere Kunden vertrauen uns ihre Immobilien an. Dieses Vertrauen nehmen wir ernst – mit Seriosität, Diskretion und Betriebshaftpflicht.' },
@@ -68,8 +76,37 @@ export default function UeberUnsPage() {
         </div>
       </section>
 
-      {/* Values */}
+      {/* Timeline */}
       <section className="section-padding" style={{ background: '#F8FAFC' }}>
+        <div className="container mx-auto">
+          <div className="text-center mb-14">
+            <div className="section-label mx-auto w-fit">Unsere Geschichte</div>
+            <h2 className="mt-4 mb-3">Von der Idee zum <span className="gradient-text">Marktführer</span></h2>
+          </div>
+          <div className="relative max-w-3xl mx-auto">
+            <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-primary/50 to-transparent hidden md:block" />
+            <div className="space-y-8">
+              {milestones.map((m, i) => (
+                <div key={i} className="flex gap-6 items-start">
+                  <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-gradient-brand flex items-center justify-center text-white font-black text-xs text-center leading-tight hidden md:flex shadow-lg">
+                    {m.year}
+                  </div>
+                  <div className="flex-1 card p-6 hover:border-primary/30 transition-all duration-200">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="md:hidden text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">{m.year}</span>
+                      <h3 className="font-bold text-dark text-base">{m.title}</h3>
+                    </div>
+                    <p className="text-gray-500 text-sm leading-relaxed">{m.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="section-padding bg-white">
         <div className="container mx-auto">
           <div className="text-center mb-14">
             <div className="section-label mx-auto w-fit">Unsere Werte</div>

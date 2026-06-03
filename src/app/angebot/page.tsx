@@ -92,12 +92,19 @@ export default function AngebotPage() {
       <section className="section-padding">
         <div className="container mx-auto max-w-2xl">
           <div className="flex items-center justify-between mb-10">
-            {[1, 2, 3].map(s => (
-              <div key={s} className="flex items-center flex-1">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-colors ${s <= step ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}`}>
-                  {s < step ? '✓' : s}
+            {[
+              { num: 1, label: 'Leistung' },
+              { num: 2, label: 'Details' },
+              { num: 3, label: 'Kontakt' },
+            ].map(({ num, label }) => (
+              <div key={num} className="flex items-center flex-1">
+                <div className="flex flex-col items-center gap-1.5">
+                  <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-colors ${num <= step ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}`}>
+                    {num < step ? '✓' : num}
+                  </div>
+                  <span className={`text-xs font-medium transition-colors ${num <= step ? 'text-primary' : 'text-gray-400'}`}>{label}</span>
                 </div>
-                {s < 3 && <div className={`flex-1 h-1 mx-2 transition-colors ${s < step ? 'bg-primary' : 'bg-gray-200'}`} />}
+                {num < 3 && <div className={`flex-1 h-1 mx-2 mb-5 transition-colors ${num < step ? 'bg-primary' : 'bg-gray-200'}`} />}
               </div>
             ))}
           </div>
