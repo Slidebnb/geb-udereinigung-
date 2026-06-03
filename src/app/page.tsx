@@ -6,7 +6,6 @@ import { prisma } from '@/lib/prisma';
 import Hero from '@/components/home/Hero';
 import Services from '@/components/home/Services';
 import WhyUs from '@/components/home/WhyUs';
-import Testimonials from '@/components/home/Testimonials';
 import CTABanner from '@/components/home/CTABanner';
 import type { HeroData } from '@/components/home/Hero';
 import type { ServicesData } from '@/components/home/Services';
@@ -94,9 +93,8 @@ const quickLinks = [
 ];
 
 export default async function HomePage() {
-  const [settings, dbReviews, blogPosts] = await Promise.all([
+  const [settings, blogPosts] = await Promise.all([
     getSettings(),
-    prisma.testimonial.findMany({ where: { published: true }, orderBy: { createdAt: 'desc' } }).catch(() => []),
     prisma.blogPost.findMany({ where: { published: true }, orderBy: { createdAt: 'desc' }, take: 3, select: { title: true, slug: true, category: true, createdAt: true, excerpt: true } }).catch(() => []),
   ]);
 
@@ -147,7 +145,6 @@ export default async function HomePage() {
 
       <Services data={servicesData} />
       <WhyUs data={whyUsData} />
-      <Testimonials reviews={dbReviews} />
 
       {/* ── Regionale Präsenz ── */}
       <section className="section-padding bg-slate-50 bg-dot-grid">

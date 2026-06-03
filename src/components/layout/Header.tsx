@@ -106,7 +106,7 @@ export default function Header({ settings = {} }: HeaderProps) {
             </div>
           </div>
 
-          {[['Über uns','/ueber-uns'],['Referenzen','/referenzen'],['Galerie','/galerie'],['Blog','/blog'],['FAQ','/faq'],['Kontakt','/kontakt']].map(([label,href]) => (
+          {[['Über uns','/ueber-uns'],['Blog','/blog'],['FAQ','/faq'],['Kontakt','/kontakt']].map(([label,href]) => (
             <Link key={href} href={href} className="font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
               {label}
             </Link>
@@ -145,7 +145,7 @@ export default function Header({ settings = {} }: HeaderProps) {
                 ))}
               </div>
             )}
-            {[['Über uns','/ueber-uns'],['Referenzen','/referenzen'],['Galerie','/galerie'],['Blog','/blog'],['FAQ','/faq'],['Kontakt','/kontakt']].map(([label,href]) => (
+            {[['Über uns','/ueber-uns'],['Blog','/blog'],['FAQ','/faq'],['Kontakt','/kontakt']].map(([label,href]) => (
               <Link key={href} href={href} className="block py-3 px-2 font-semibold text-gray-700 border-t border-gray-50 hover:text-primary transition-colors" onClick={() => setOpen(false)}>{label}</Link>
             ))}
             <div className="mt-4 px-2 flex flex-col gap-3">

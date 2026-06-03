@@ -74,7 +74,6 @@ export default async function Footer() {
           <ul className="space-y-2.5">
             {[
               ['Über uns',         '/ueber-uns'],
-              ['Referenzen',       '/referenzen'],
               ['Blog & Ratgeber',  '/blog'],
               ['FAQ',              '/faq'],
               ['Kontakt',          '/kontakt'],
@@ -92,9 +91,7 @@ export default async function Footer() {
           <h4 className="text-white font-bold mt-7 mb-4 text-sm uppercase tracking-widest">Tools & Service</h4>
           <ul className="space-y-2.5">
             {[
-              ['📷 Vorher/Nachher Galerie', '/galerie'],
               ['📋 Haustechnik-Checkliste', '/checkliste'],
-              ['🔑 Kundenportal',           '/portal'],
             ].map(([label, href]) => (
               <li key={href}>
                 <Link href={href} className="text-blue-300/50 hover:text-primary text-sm transition-colors duration-150">{label}</Link>
