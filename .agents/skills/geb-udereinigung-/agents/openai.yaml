@@ -1,0 +1,6 @@
+interface:
+  display_name: "Geb Udereinigung"
+  short_description: "Repo-specific patterns and workflows for geb-udereinigung-"
+  default_prompt: "Use the geb-udereinigung- repo skill to follow existing architecture, testing, and workflow conventions."
+policy:
+  allow_implicit_invocation: true
