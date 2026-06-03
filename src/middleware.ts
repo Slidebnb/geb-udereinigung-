@@ -7,7 +7,7 @@ export default withAuth(
   },
   {
     callbacks: {
-      authorized: ({ token }) => !!token,
+      authorized: ({ token }) => token?.role === 'admin',
     },
     pages: {
       signIn: '/admin/login',
