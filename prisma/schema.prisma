@@ -21,7 +21,7 @@ model User {
 model CleaningProtocol {
   id         String   @id @default(cuid())
   customerId String
-  customer   User     @relation(fields: [customerId], references: [id])
+  customer   User     @relation(fields: [customerId], references: [id], onDelete: Cascade)
   date       DateTime
   type       String
   location   String

@@ -2,16 +2,18 @@ import { prisma } from '@/lib/prisma';
 import Link from 'next/link';
 
 async function getStats() {
-  const [totalRequests, pendingRequests, totalBlog, totalTestimonials, recentRequests] = await Promise.all([
+  const [totalRequests, pendingRequests, totalBlog, totalTestimonials, recentRequests, totalNewsletter, totalKunden] = await Promise.all([
     prisma.contactRequest.count().catch(() => 0),
     prisma.contactRequest.count({ where: { status: 'neu' } }).catch(() => 0),
     prisma.blogPost.count().catch(() => 0),
     prisma.testimonial.count().catch(() => 0),
     prisma.contactRequest.findMany({ take: 5, orderBy: { createdAt: 'desc' } }).catch(() => []),
+    prisma.newsletterSubscriber.count().catch(() => 0),
+    prisma.user.count({ where: { role: 'kunde' } }).catch(() => 0),
   ]);
   const quoteCount = await prisma.quoteRequest.count().catch(() => 0);
   const quotePending = await prisma.quoteRequest.count({ where: { status: 'neu' } }).catch(() => 0);
-  return { totalRequests: totalRequests + quoteCount, pendingRequests: pendingRequests + quotePending, totalBlog, totalTestimonials, recentRequests };
+  return { totalRequests: totalRequests + quoteCount, pendingRequests: pendingRequests + quotePending, totalBlog, totalTestimonials, recentRequests, totalNewsletter, totalKunden };
 }
 
 export default async function AdminDashboard() {
@@ -22,13 +24,15 @@ export default async function AdminDashboard() {
     { label: 'Alle Anfragen', value: stats.totalRequests, icon: '📋', color: 'bg-blue-50 text-blue-600', href: '/admin/anfragen' },
     { label: 'Blog-Artikel', value: stats.totalBlog, icon: '✍️', color: 'bg-green-50 text-green-600', href: '/admin/blog' },
     { label: 'Bewertungen', value: stats.totalTestimonials, icon: '⭐', color: 'bg-yellow-50 text-yellow-600', href: '/admin/testimonials' },
+    { label: 'Newsletter-Abos', value: stats.totalNewsletter, icon: '📧', color: 'bg-purple-50 text-purple-600', href: '/admin/newsletter' },
+    { label: 'Kunden', value: stats.totalKunden, icon: '👥', color: 'bg-teal-50 text-teal-600', href: '/admin/kunden' },
   ];
 
   return (
     <div>
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Dashboard</h1>
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 mb-8">
         {cards.map(c => (
           <Link key={c.label} href={c.href} className="bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
             <div className={`w-10 h-10 rounded-lg ${c.color} flex items-center justify-center text-xl mb-3`}>{c.icon}</div>

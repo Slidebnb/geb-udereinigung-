@@ -74,12 +74,28 @@ export async function PUT(request: Request) {
   return NextResponse.json({ ok: true, post });
 }
 
+export async function PATCH(request: Request) {
+  if (!(await isAdmin())) {
+    return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
+  }
+  const { id, published } = await request.json();
+  if (!id || published === undefined) {
+    return NextResponse.json({ error: 'ID und published fehlen.' }, { status: 400 });
+  }
+  const post = await prisma.blogPost.update({ where: { id }, data: { published } });
+  return NextResponse.json({ ok: true, post });
+}
+
 export async function DELETE(request: Request) {
   if (!(await isAdmin())) {
     return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
   }
   const { id } = await request.json();
   if (!id) return NextResponse.json({ error: 'ID fehlt.' }, { status: 400 });
-  await prisma.blogPost.delete({ where: { id } });
-  return NextResponse.json({ ok: true });
+  try {
+    await prisma.blogPost.delete({ where: { id } });
+    return NextResponse.json({ ok: true });
+  } catch {
+    return NextResponse.json({ error: 'Artikel nicht gefunden.' }, { status: 404 });
+  }
 }
