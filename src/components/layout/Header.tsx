@@ -25,7 +25,7 @@ export default function Header({ settings = {} }: HeaderProps) {
   const [open,         setOpen]         = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled,     setScrolled]     = useState(false);
-  const [logoError,    setLogoError]    = useState(false);
+  const [logoOk,       setLogoOk]       = useState(false);
 
   const phone       = getPhone(settings);
   const companyName = getCompanyName(settings);
@@ -37,6 +37,17 @@ export default function Header({ settings = {} }: HeaderProps) {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Proaktiv prüfen ob die Logo-URL wirklich ein gültiges Bild liefert.
+  // onError am <img> allein reicht nicht – das Bild kann vor der React-Hydration
+  // fehlschlagen und der Event wird dann nicht mehr gefeuert.
+  useEffect(() => {
+    if (!logoUrl) return;
+    const img = new window.Image();
+    img.onload  = () => setLogoOk(true);
+    img.onerror = () => setLogoOk(false);
+    img.src = logoUrl;
+  }, [logoUrl]);
 
   return (
     <header className={`sticky top-0 z-50 transition-all duration-300 ${
@@ -65,9 +76,9 @@ export default function Header({ settings = {} }: HeaderProps) {
       {/* Main nav */}
       <nav className="container mx-auto flex items-center justify-between py-3">
         <Link href="/" className="flex items-center gap-3 group">
-          {logoUrl && !logoError ? (
+          {logoOk ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt={companyName} className="h-14 w-auto object-contain" onError={() => setLogoError(true)} />
+            <img src={logoUrl} alt={companyName} className="h-14 w-auto object-contain" />
           ) : (
             <div className="flex items-center gap-2">
               {/* HUWA Logo SVG replica */}
