@@ -1,4 +1,7 @@
-export const GTAG_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID || 'G-P9XY4V50W9';
+export const GTAG_ID = process.env.NEXT_PUBLIC_GOOGLE_TAG_ID || 'G-P9X4V50V9';
+export const GADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_ID || 'AW-11374923270';
+export const FORM_CONVERSION_LABEL = process.env.NEXT_PUBLIC_GOOGLE_ADS_FORM_CONVERSION_LABEL || 'c7xECMzR474ZEIac_q8q';
+export const FORM_CONVERSION_SEND_TO = `${GADS_ID}/${FORM_CONVERSION_LABEL}`;
 
 declare global {
   interface Window {
@@ -30,18 +33,12 @@ export function denyConsent() {
   });
 }
 
+/** Telefon-Klick – eigene Google Ads Conversion sobald vorhanden */
 export function trackPhoneClick() {
   gtag('event', 'phone_click', { event_category: 'contact' });
 }
 
-export function trackContactForm() {
-  gtag('event', 'generate_lead', { event_category: 'contact_form' });
-}
-
-export function trackQuoteForm() {
-  gtag('event', 'generate_lead', { event_category: 'quote_form' });
-}
-
-export function trackAngebotClick() {
-  gtag('event', 'click', { event_category: 'cta', event_label: 'angebot_anfragen' });
+/** Formular-Conversion – nur auf /danke auslösen, nicht direkt aufrufen */
+export function trackFormConversion() {
+  gtag('event', 'conversion', { send_to: FORM_CONVERSION_SEND_TO });
 }

@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
-import { trackContactForm, trackPhoneClick } from '@/lib/gtag';
+import { trackPhoneClick } from '@/lib/gtag';
 
 const schema = z.object({
   name:    z.string().min(2, 'Bitte geben Sie Ihren Namen ein'),
@@ -20,7 +21,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function KontaktPage() {
-  const [sent,  setSent]  = useState(false);
+  const router = useRouter();
   const [error, setError] = useState('');
   const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>({ resolver: zodResolver(schema) });
 
@@ -29,9 +30,8 @@ export default function KontaktPage() {
     try {
       const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error();
-      trackContactForm();
-      setSent(true);
       reset();
+      router.push('/danke');
     } catch {
       setError('Fehler beim Senden. Bitte versuchen Sie es erneut oder rufen Sie uns an.');
     }
@@ -102,16 +102,7 @@ export default function KontaktPage() {
           {/* Form */}
           <div className="lg:col-span-2">
             <h2 className="mb-8">Nachricht <span className="gradient-text">schreiben</span></h2>
-            {sent ? (
-              <div className="rounded-2xl p-10 text-center" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)', border: '1px solid rgba(255,255,255,0.1)' }}>
-                <div className="w-16 h-16 rounded-full bg-green/20 border border-green/30 flex items-center justify-center mx-auto mb-5">
-                  <svg className="w-8 h-8 text-green" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
-                </div>
-                <h3 className="text-white text-xl font-bold mb-2">Vielen Dank für Ihre Nachricht!</h3>
-                <p className="text-slate-300/80">Wir melden uns innerhalb von 24 Stunden persönlich bei Ihnen.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
                   <div>
                     <label className="label">Name *</label>
@@ -154,7 +145,6 @@ export default function KontaktPage() {
                   {isSubmitting ? 'Wird gesendet…' : 'Nachricht senden'}
                 </button>
               </form>
-            )}
           </div>
         </div>
       </section>

@@ -7,7 +7,7 @@ import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/shared/WhatsAppButton';
 import MobileCTABar from '@/components/shared/MobileCTABar';
 import CookieBanner from '@/components/shared/CookieBanner';
-import GoogleTag from '@/components/shared/GoogleTag';
+import GoogleTag from '@/components/tracking/GoogleTag';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 

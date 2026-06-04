@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
-import { trackQuoteForm, trackPhoneClick } from '@/lib/gtag';
+import { trackPhoneClick } from '@/lib/gtag';
 
 const schema = z.object({
   name: z.string().min(2, 'Pflichtfeld'),
@@ -29,8 +30,8 @@ const services = [
 ];
 
 export default function AngebotPage() {
+  const router = useRouter();
   const [step, setStep] = useState(1);
-  const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
 
   const { register, handleSubmit, watch, trigger, formState: { errors, isSubmitting } } = useForm<FormData>({ resolver: zodResolver(schema) });
@@ -48,27 +49,11 @@ export default function AngebotPage() {
     try {
       const res = await fetch('/api/angebot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error();
-      trackQuoteForm();
-      setSent(true);
+      router.push('/danke');
     } catch {
       setError('Fehler beim Senden. Bitte rufen Sie uns an.');
     }
   };
-
-  if (sent) {
-    return (
-      <section className="section-padding" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
-        <div className="container mx-auto max-w-lg text-center py-20">
-          <div className="w-20 h-20 rounded-full bg-green/20 border border-green/30 flex items-center justify-center mx-auto mb-6">
-            <svg className="w-10 h-10 text-green" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
-          </div>
-          <h1 className="text-white mb-4">Anfrage erfolgreich gesendet!</h1>
-          <p className="text-slate-300 mb-8">Vielen Dank für Ihr Interesse. Wir melden uns innerhalb von 24 Stunden mit Ihrem persönlichen Angebot.</p>
-          <a href="/" className="btn-primary">Zurück zur Startseite</a>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <>
