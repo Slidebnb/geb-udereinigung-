@@ -93,9 +93,10 @@ const quickLinks = [
 ];
 
 export default async function HomePage() {
-  const [settings, blogPosts] = await Promise.all([
+  const [settings, blogPosts, testimonials] = await Promise.all([
     getSettings(),
     prisma.blogPost.findMany({ where: { published: true }, orderBy: { createdAt: 'desc' }, take: 3, select: { title: true, slug: true, category: true, createdAt: true, excerpt: true } }).catch(() => []),
+    prisma.testimonial.findMany({ where: { published: true }, orderBy: { createdAt: 'desc' }, take: 6 }).catch(() => []),
   ]);
 
   function parseSection<T>(key: string): Partial<T> {
@@ -209,6 +210,47 @@ export default async function HomePage() {
           ))}
         </div>
       </div>
+
+      {/* ── Kundenstimmen ── */}
+      {testimonials.length > 0 && (
+        <section className="section-padding bg-white">
+          <div className="container mx-auto">
+            <div className="text-center mb-12">
+              <div className="section-label mx-auto w-fit">Kundenstimmen</div>
+              <h2 className="mt-4">Was unsere Kunden <span className="gradient-text">sagen</span></h2>
+              <p className="text-gray-500 mt-3 max-w-lg mx-auto">Echte Erfahrungen von Hausverwaltungen, Unternehmen und Privatkunden aus der Region.</p>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+              {testimonials.map((t) => (
+                <div key={t.id} className="card p-6 flex flex-col gap-4 hover:border-primary/30 transition-all duration-200">
+                  <div className="flex gap-0.5">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <svg key={i} className={`w-4 h-4 ${i < t.rating ? 'text-yellow-400' : 'text-gray-200'}`} fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed flex-1">&bdquo;{t.content}&ldquo;</p>
+                  <div className="border-t border-slate-100 pt-4">
+                    <div className="font-bold text-dark text-sm">{t.name}</div>
+                    {(t.role || t.company) && (
+                      <div className="text-xs text-gray-400 mt-0.5">
+                        {t.role}{t.role && t.company ? ' · ' : ''}{t.company}
+                      </div>
+                    )}
+                    {t.location && (
+                      <div className="text-xs text-gray-400 mt-0.5 flex items-center gap-1">
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        {t.location}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── Blog ── */}
       {blogPosts.length > 0 && (
