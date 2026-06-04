@@ -27,6 +27,13 @@ jobs:
             npm ci
             npx prisma generate
             npx prisma db push --skip-generate
+            node -e "
+              const {PrismaClient}=require('@prisma/client');
+              const p=new PrismaClient();
+              p.setting.deleteMany({where:{key:'logo_url'}})
+               .then(r=>{console.log('logo_url entries removed:',r.count);return p.\$disconnect();})
+               .catch(e=>{console.error(e);return p.\$disconnect();});
+            "
             rm -rf .next
             npm run build
             pm2 restart huwa-web
