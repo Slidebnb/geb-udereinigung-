@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     'Jetzt für den Winterdienst 2025/2026 in Neuwied, Koblenz und Bendorf anmelden. Saisonvertrag, Räum- und Streupflicht, Dokumentation inklusive.',
   alternates: { canonical: `${siteConfig.url}/winterdienst-anmeldung-2025` },
+  robots: { index: false, follow: false },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {

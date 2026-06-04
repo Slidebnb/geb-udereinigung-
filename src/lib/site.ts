@@ -4,7 +4,7 @@ export const siteConfig = {
   legalName: 'Huwa Gebäudereinigung & Hausmeisterdienste',
   description:
     'Professionelle Gebäudereinigung & Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Zuverlässig, gründlich, mit Festpreisangebot. Jetzt kostenlos anfragen!',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://huwa-gebaeudedienste.de',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.huwa-gebaeudedienste.de',
   locale: 'de_DE',
   phone: process.env.NEXT_PUBLIC_PHONE || '02601 9131820',
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '4915117864090',
