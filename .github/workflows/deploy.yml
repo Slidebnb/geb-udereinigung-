@@ -29,4 +29,9 @@ jobs:
             rm -rf .next
             npm run build
             pm2 restart huwa-web
+            sleep 8
+            echo "--- PM2 Status ---"
+            pm2 status
+            echo "--- PM2 Logs (letzte 30 Zeilen) ---"
+            pm2 logs huwa-web --lines 30 --nostream || true
             echo "✅ Deployment erfolgreich: $(date)"
