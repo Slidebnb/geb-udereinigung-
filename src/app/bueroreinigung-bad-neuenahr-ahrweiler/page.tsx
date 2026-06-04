@@ -5,32 +5,32 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Büroreinigung Mayen | Huwa – Ihr lokaler Partner',
-  description: 'Professionelle Büroreinigung in Mayen: Regelmäßige Unterhaltsreinigung für Büros, Praxen & Gewerberäume. Festes Team, Reinigungsprotokoll, Festpreis.',
-  alternates: { canonical: `${siteConfig.url}/bueroeinigung-mayen` },
+  title: 'Büroreinigung Bad Neuenahr-Ahrweiler | Huwa – Ihr lokaler Partner',
+  description: 'Professionelle Büroreinigung in Bad Neuenahr-Ahrweiler: Regelmäßige Unterhaltsreinigung für Büros, Praxen & Gewerberäume. Festes Team, Reinigungsprotokoll, Festpreis.',
+  alternates: { canonical: `${siteConfig.url}/bueroreinigung-bad-neuenahr-ahrweiler` },
 };
 
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: siteConfig.name,
-  description: 'Büroreinigung in Mayen und Umgebung',
-  url: `${siteConfig.url}/bueroeinigung-mayen`,
+  description: 'Büroreinigung in Bad Neuenahr-Ahrweiler und Umgebung',
+  url: `${siteConfig.url}/bueroreinigung-bad-neuenahr-ahrweiler`,
   telephone: siteConfig.phone,
   email: siteConfig.email,
   address: {
     '@type': 'PostalAddress',
     streetAddress: siteConfig.address.street,
     postalCode: siteConfig.address.zip,
-    addressLocality: 'Mayen',
+    addressLocality: 'Bad Neuenahr-Ahrweiler',
     addressRegion: 'Rheinland-Pfalz',
     addressCountry: 'DE',
   },
-  areaServed: { '@type': 'City', name: 'Mayen' },
+  areaServed: { '@type': 'City', name: 'Bad Neuenahr-Ahrweiler' },
   priceRange: '€€',
 };
 
-export default function BueroeinigungMayen() {
+export default function BueroeinigungBadNeuenahrAhrweiler() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -38,14 +38,14 @@ export default function BueroeinigungMayen() {
       {/* Hero */}
       <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
-          <Breadcrumb items={[{ label: 'Büroreinigung Mayen' }]} dark />
+          <Breadcrumb items={[{ label: 'Büroreinigung Bad Neuenahr-Ahrweiler' }]} dark />
           <div className="mt-8 max-w-3xl">
-            <div className="section-label mb-4">Mayen & Umgebung</div>
+            <div className="section-label mb-4">Bad Neuenahr-Ahrweiler & Umgebung</div>
             <h1 className="text-white mb-4 leading-tight">
-              Büroreinigung <span className="gradient-text">Mayen</span>
+              Büroreinigung <span className="gradient-text">Bad Neuenahr-Ahrweiler</span>
             </h1>
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-8">
-              Saubere Büros in Mayen – zuverlässig, termingerecht und mit festem Reinigungsteam. Wir übernehmen die regelmäßige Unterhaltsreinigung Ihrer Büroflächen, Sanitäranlagen und Sozialräume.
+              Saubere Büros in Bad Neuenahr-Ahrweiler – zuverlässig, termingerecht und mit festem Reinigungsteam. Wir übernehmen die regelmäßige Unterhaltsreinigung Ihrer Büroflächen, Sanitäranlagen und Sozialräume.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/angebot" className="btn-primary px-8 py-3.5">Kostenloses Angebot</Link>
@@ -62,16 +62,16 @@ export default function BueroeinigungMayen() {
       <section className="section-padding bg-white">
         <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-start">
           <div>
-            <div className="section-label">Büroreinigung in Mayen – was Sie erwartet</div>
+            <div className="section-label">Büroreinigung in Bad Neuenahr-Ahrweiler – was Sie erwartet</div>
             <h2 className="mt-4 mb-6">Lokale Präsenz –<br /><span className="gradient-text">persönlicher Service</span></h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Mayen ist das Zentrum der Eifelregion und vereint historische Altstadt mit modernen Gewerbegebieten. Praxen, Büros und Wohnanlagen stellen vielfältige Reinigungsanforderungen.
+              Bad Neuenahr-Ahrweiler vereint Kurstadt und Weinbaugebiet im Ahrtal. Hotels, Praxen, Verwaltungsgebäude und Wohnanlagen benötigen zuverlässige Reinigungsdienste.
             </p>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Wir betreuen Bürogebäude, Praxen, Kanzleien und Gewerbeeinheiten in Stadtmitte, Hausen, Kürrenberg und Alzheim. Jedes Objekt hat ein fest zugeteiltes Reinigungsteam und einen Objektleiter als direkten Ansprechpartner.
+              Wir betreuen Bürogebäude, Praxen, Kanzleien und Gewerbeeinheiten in Bad Neuenahr, Ahrweiler, Bachem und Heimersheim. Jedes Objekt hat ein fest zugeteiltes Reinigungsteam und einen Objektleiter als direkten Ansprechpartner.
             </p>
             <p className="text-slate-600 leading-relaxed">
-              Reinigungsprotokolle geben Ihnen jederzeit Transparenz. Auf Wunsch erweitern wir die Büroreinigung in Mayen um Glasreinigung, Grundreinigung oder Winterdienst.
+              Reinigungsprotokolle geben Ihnen jederzeit Transparenz. Auf Wunsch erweitern wir die Büroreinigung in Bad Neuenahr-Ahrweiler um Glasreinigung, Grundreinigung oder Winterdienst.
             </p>
             <div className="mt-8 grid sm:grid-cols-3 gap-5">
               {[
@@ -89,31 +89,31 @@ export default function BueroeinigungMayen() {
           <div className="space-y-4">
             <details className="card p-5 group cursor-pointer">
               <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-4 text-sm">
-                <span>Wie oft wird mein Büro in Mayen gereinigt?</span>
+                <span>Wie oft wird mein Büro in Bad Neuenahr-Ahrweiler gereinigt?</span>
                 <svg className="w-4 h-4 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
               </summary>
-              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Je nach Bedarf täglich, 3× pro Woche oder wöchentlich. Wir erstellen einen individuellen Reinigungsplan für Ihr Büro in Mayen.</p>
+              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Je nach Bedarf täglich, 3× pro Woche oder wöchentlich. Wir erstellen einen individuellen Reinigungsplan für Ihr Büro in Bad Neuenahr-Ahrweiler.</p>
             </details>
             <details className="card p-5 group cursor-pointer">
               <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-4 text-sm">
                 <span>Wird immer dasselbe Team geschickt?</span>
                 <svg className="w-4 h-4 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
               </summary>
-              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Ja – jedes Bürogebäude in Mayen hat ein festes Reinigungsteam. Sicherheit und Vertrauen sind uns wichtig.</p>
+              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Ja – jedes Bürogebäude in Bad Neuenahr-Ahrweiler hat ein festes Reinigungsteam. Sicherheit und Vertrauen sind uns wichtig.</p>
             </details>
             <details className="card p-5 group cursor-pointer">
               <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-4 text-sm">
-                <span>Können Sie auch Praxen oder Kanzleien in Mayen reinigen?</span>
+                <span>Können Sie auch Praxen oder Kanzleien in Bad Neuenahr-Ahrweiler reinigen?</span>
                 <svg className="w-4 h-4 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
               </summary>
-              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Ja, wir reinigen Arztpraxen, Zahnarztpraxen, Rechtsanwaltskanzleien und andere Gewerbebetriebe in Mayen nach individuellen Hygienestandards.</p>
+              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Ja, wir reinigen Arztpraxen, Zahnarztpraxen, Rechtsanwaltskanzleien und andere Gewerbebetriebe in Bad Neuenahr-Ahrweiler nach individuellen Hygienestandards.</p>
             </details>
             <details className="card p-5 group cursor-pointer">
               <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-4 text-sm">
-                <span>Was kostet die Büroreinigung in Mayen?</span>
+                <span>Was kostet die Büroreinigung in Bad Neuenahr-Ahrweiler?</span>
                 <svg className="w-4 h-4 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
               </summary>
-              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Der Preis richtet sich nach Fläche, Intervall und Umfang. Wir erstellen ein transparentes Festpreisangebot nach kostenloser Besichtigung in Mayen.</p>
+              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Der Preis richtet sich nach Fläche, Intervall und Umfang. Wir erstellen ein transparentes Festpreisangebot nach kostenloser Besichtigung in Bad Neuenahr-Ahrweiler.</p>
             </details>
           </div>
         </div>
@@ -123,8 +123,8 @@ export default function BueroeinigungMayen() {
       <section className="section-padding bg-slate-50">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <div className="section-label mx-auto w-fit">Leistungen in Mayen</div>
-            <h2 className="mt-4">Was wir in Mayen <span className="gradient-text">anbieten</span></h2>
+            <div className="section-label mx-auto w-fit">Leistungen in Bad Neuenahr-Ahrweiler</div>
+            <h2 className="mt-4">Was wir in Bad Neuenahr-Ahrweiler <span className="gradient-text">anbieten</span></h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
@@ -133,7 +133,7 @@ export default function BueroeinigungMayen() {
               { icon: '🍽️', title: 'Küche & Sozialräume', desc: 'Reinigung von Kühlschrank, Mikrowelle, Spüle und Arbeitsflächen.', accent: true },
               { icon: '🪟', title: 'Fenster & Glasflächen', desc: 'Auf Wunsch regelmäßige Fensterreinigung innen.', accent: false },
               { icon: '🏢', title: 'Eingangsbereiche', desc: 'Empfang, Foyer und Aufzüge – immer sauber für Besucher.', accent: true },
-              { icon: '📋', title: 'Reinigungsprotokoll', desc: 'Lückenlose Dokumentation jedes Einsatzes in Mayen.', accent: false }
+              { icon: '📋', title: 'Reinigungsprotokoll', desc: 'Lückenlose Dokumentation jedes Einsatzes in Bad Neuenahr-Ahrweiler.', accent: false }
             ].map((s) => (
               <div key={s.title} className={`card p-6 hover:border-${s.accent ? 'primary' : 'green'}/30 transition-all`}>
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 ${s.accent ? 'bg-primary/8' : 'bg-green/8'}`}>{s.icon}</div>

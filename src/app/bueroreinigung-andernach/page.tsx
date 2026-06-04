@@ -5,32 +5,32 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Büroreinigung Boppard | Huwa – Ihr lokaler Partner',
-  description: 'Professionelle Büroreinigung in Boppard: Regelmäßige Unterhaltsreinigung für Büros, Praxen & Gewerberäume. Festes Team, Reinigungsprotokoll, Festpreis.',
-  alternates: { canonical: `${siteConfig.url}/bueroeinigung-boppard` },
+  title: 'Büroreinigung Andernach | Huwa – Ihr lokaler Partner',
+  description: 'Professionelle Büroreinigung in Andernach: Regelmäßige Unterhaltsreinigung für Büros, Praxen & Gewerberäume. Festes Team, Reinigungsprotokoll, Festpreis.',
+  alternates: { canonical: `${siteConfig.url}/bueroreinigung-andernach` },
 };
 
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: siteConfig.name,
-  description: 'Büroreinigung in Boppard und Umgebung',
-  url: `${siteConfig.url}/bueroeinigung-boppard`,
+  description: 'Büroreinigung in Andernach und Umgebung',
+  url: `${siteConfig.url}/bueroreinigung-andernach`,
   telephone: siteConfig.phone,
   email: siteConfig.email,
   address: {
     '@type': 'PostalAddress',
     streetAddress: siteConfig.address.street,
     postalCode: siteConfig.address.zip,
-    addressLocality: 'Boppard',
+    addressLocality: 'Andernach',
     addressRegion: 'Rheinland-Pfalz',
     addressCountry: 'DE',
   },
-  areaServed: { '@type': 'City', name: 'Boppard' },
+  areaServed: { '@type': 'City', name: 'Andernach' },
   priceRange: '€€',
 };
 
-export default function BueroeinigungBoppard() {
+export default function BueroeinigungAndernach() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -38,14 +38,14 @@ export default function BueroeinigungBoppard() {
       {/* Hero */}
       <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
-          <Breadcrumb items={[{ label: 'Büroreinigung Boppard' }]} dark />
+          <Breadcrumb items={[{ label: 'Büroreinigung Andernach' }]} dark />
           <div className="mt-8 max-w-3xl">
-            <div className="section-label mb-4">Boppard & Umgebung</div>
+            <div className="section-label mb-4">Andernach & Umgebung</div>
             <h1 className="text-white mb-4 leading-tight">
-              Büroreinigung <span className="gradient-text">Boppard</span>
+              Büroreinigung <span className="gradient-text">Andernach</span>
             </h1>
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-8">
-              Saubere Büros in Boppard – zuverlässig, termingerecht und mit festem Reinigungsteam. Wir übernehmen die regelmäßige Unterhaltsreinigung Ihrer Büroflächen, Sanitäranlagen und Sozialräume.
+              Saubere Büros in Andernach – zuverlässig, termingerecht und mit festem Reinigungsteam. Wir übernehmen die regelmäßige Unterhaltsreinigung Ihrer Büroflächen, Sanitäranlagen und Sozialräume.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/angebot" className="btn-primary px-8 py-3.5">Kostenloses Angebot</Link>
@@ -62,16 +62,16 @@ export default function BueroeinigungBoppard() {
       <section className="section-padding bg-white">
         <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-start">
           <div>
-            <div className="section-label">Büroreinigung in Boppard – was Sie erwartet</div>
+            <div className="section-label">Büroreinigung in Andernach – was Sie erwartet</div>
             <h2 className="mt-4 mb-6">Lokale Präsenz –<br /><span className="gradient-text">persönlicher Service</span></h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Boppard liegt im UNESCO-Welterbe Oberes Mittelrheintal. Hotellerie, Gastronomie, Wohn- und Gewerbeobjekte stellen besondere Anforderungen an Sauberkeit und regelmäßige Pflege.
+              Andernach liegt direkt am Rhein zwischen Neuwied und Koblenz. Historische Innenstadt, Wohnanlagen am Rheinufer und gewachsene Gewerbegebiete prägen das Stadtbild.
             </p>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Wir betreuen Bürogebäude, Praxen, Kanzleien und Gewerbeeinheiten in Boppard Stadt, Bad Salzig, Buchholz und Hirzenach. Jedes Objekt hat ein fest zugeteiltes Reinigungsteam und einen Objektleiter als direkten Ansprechpartner.
+              Wir betreuen Bürogebäude, Praxen, Kanzleien und Gewerbeeinheiten in Stadtmitte, Namedy, Miesenheim, Kell und Eich. Jedes Objekt hat ein fest zugeteiltes Reinigungsteam und einen Objektleiter als direkten Ansprechpartner.
             </p>
             <p className="text-slate-600 leading-relaxed">
-              Reinigungsprotokolle geben Ihnen jederzeit Transparenz. Auf Wunsch erweitern wir die Büroreinigung in Boppard um Glasreinigung, Grundreinigung oder Winterdienst.
+              Reinigungsprotokolle geben Ihnen jederzeit Transparenz. Auf Wunsch erweitern wir die Büroreinigung in Andernach um Glasreinigung, Grundreinigung oder Winterdienst.
             </p>
             <div className="mt-8 grid sm:grid-cols-3 gap-5">
               {[
@@ -89,31 +89,31 @@ export default function BueroeinigungBoppard() {
           <div className="space-y-4">
             <details className="card p-5 group cursor-pointer">
               <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-4 text-sm">
-                <span>Wie oft wird mein Büro in Boppard gereinigt?</span>
+                <span>Wie oft wird mein Büro in Andernach gereinigt?</span>
                 <svg className="w-4 h-4 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
               </summary>
-              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Je nach Bedarf täglich, 3× pro Woche oder wöchentlich. Wir erstellen einen individuellen Reinigungsplan für Ihr Büro in Boppard.</p>
+              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Je nach Bedarf täglich, 3× pro Woche oder wöchentlich. Wir erstellen einen individuellen Reinigungsplan für Ihr Büro in Andernach.</p>
             </details>
             <details className="card p-5 group cursor-pointer">
               <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-4 text-sm">
                 <span>Wird immer dasselbe Team geschickt?</span>
                 <svg className="w-4 h-4 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
               </summary>
-              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Ja – jedes Bürogebäude in Boppard hat ein festes Reinigungsteam. Sicherheit und Vertrauen sind uns wichtig.</p>
+              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Ja – jedes Bürogebäude in Andernach hat ein festes Reinigungsteam. Sicherheit und Vertrauen sind uns wichtig.</p>
             </details>
             <details className="card p-5 group cursor-pointer">
               <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-4 text-sm">
-                <span>Können Sie auch Praxen oder Kanzleien in Boppard reinigen?</span>
+                <span>Können Sie auch Praxen oder Kanzleien in Andernach reinigen?</span>
                 <svg className="w-4 h-4 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
               </summary>
-              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Ja, wir reinigen Arztpraxen, Zahnarztpraxen, Rechtsanwaltskanzleien und andere Gewerbebetriebe in Boppard nach individuellen Hygienestandards.</p>
+              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Ja, wir reinigen Arztpraxen, Zahnarztpraxen, Rechtsanwaltskanzleien und andere Gewerbebetriebe in Andernach nach individuellen Hygienestandards.</p>
             </details>
             <details className="card p-5 group cursor-pointer">
               <summary className="font-semibold text-slate-800 cursor-pointer list-none flex justify-between items-center gap-4 text-sm">
-                <span>Was kostet die Büroreinigung in Boppard?</span>
+                <span>Was kostet die Büroreinigung in Andernach?</span>
                 <svg className="w-4 h-4 text-primary/50 group-open:rotate-180 transition-transform flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
               </summary>
-              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Der Preis richtet sich nach Fläche, Intervall und Umfang. Wir erstellen ein transparentes Festpreisangebot nach kostenloser Besichtigung in Boppard.</p>
+              <p className="mt-3 text-slate-600 text-sm leading-relaxed">Der Preis richtet sich nach Fläche, Intervall und Umfang. Wir erstellen ein transparentes Festpreisangebot nach kostenloser Besichtigung in Andernach.</p>
             </details>
           </div>
         </div>
@@ -123,8 +123,8 @@ export default function BueroeinigungBoppard() {
       <section className="section-padding bg-slate-50">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <div className="section-label mx-auto w-fit">Leistungen in Boppard</div>
-            <h2 className="mt-4">Was wir in Boppard <span className="gradient-text">anbieten</span></h2>
+            <div className="section-label mx-auto w-fit">Leistungen in Andernach</div>
+            <h2 className="mt-4">Was wir in Andernach <span className="gradient-text">anbieten</span></h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
@@ -133,7 +133,7 @@ export default function BueroeinigungBoppard() {
               { icon: '🍽️', title: 'Küche & Sozialräume', desc: 'Reinigung von Kühlschrank, Mikrowelle, Spüle und Arbeitsflächen.', accent: true },
               { icon: '🪟', title: 'Fenster & Glasflächen', desc: 'Auf Wunsch regelmäßige Fensterreinigung innen.', accent: false },
               { icon: '🏢', title: 'Eingangsbereiche', desc: 'Empfang, Foyer und Aufzüge – immer sauber für Besucher.', accent: true },
-              { icon: '📋', title: 'Reinigungsprotokoll', desc: 'Lückenlose Dokumentation jedes Einsatzes in Boppard.', accent: false }
+              { icon: '📋', title: 'Reinigungsprotokoll', desc: 'Lückenlose Dokumentation jedes Einsatzes in Andernach.', accent: false }
             ].map((s) => (
               <div key={s.title} className={`card p-6 hover:border-${s.accent ? 'primary' : 'green'}/30 transition-all`}>
                 <div className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl mb-4 ${s.accent ? 'bg-primary/8' : 'bg-green/8'}`}>{s.icon}</div>

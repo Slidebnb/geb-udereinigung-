@@ -34,7 +34,7 @@ export default function UnterhaltsreinigungPage() {
       schema={schema}
       cityLinks={[
         { href: '/angebot', label: 'Kostenloses Angebot anfragen' },
-        { href: '/bueroeinigung-neuwied', label: 'Büroreinigung Neuwied' },
+        { href: '/bueroreinigung-neuwied', label: 'Büroreinigung Neuwied' },
         { href: '/treppenhausreinigung-neuwied', label: 'Treppenhausreinigung Neuwied' },
       ]}
     />

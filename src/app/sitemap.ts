@@ -6,7 +6,7 @@ import { prisma } from '@/lib/prisma';
 // Leistungen, für die Ort-Seiten existieren (slug → URL-Präfix)
 const CITY_SERVICES = [
   { slug: 'gebaudereinigung',    label: 'Gebäudereinigung' },
-  { slug: 'bueroeinigung',       label: 'Büroreinigung' },
+  { slug: 'bueroreinigung',      label: 'Büroreinigung' },
   { slug: 'treppenhausreinigung',label: 'Treppenhausreinigung' },
   { slug: 'hausmeisterservice',  label: 'Hausmeisterservice' },
   { slug: 'winterdienst',        label: 'Winterdienst' },

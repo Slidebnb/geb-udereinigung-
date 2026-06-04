@@ -34,8 +34,8 @@ export default function GrundreinigungPage() {
       schema={schema}
       cityLinks={[
         { href: '/angebot', label: 'Kostenloses Angebot anfragen' },
-        { href: '/bueroeinigung-neuwied', label: 'Büroreinigung Neuwied' },
-        { href: '/bueroeinigung-koblenz', label: 'Büroreinigung Koblenz' },
+        { href: '/bueroreinigung-neuwied', label: 'Büroreinigung Neuwied' },
+        { href: '/bueroreinigung-koblenz', label: 'Büroreinigung Koblenz' },
       ]}
     />
   );

@@ -33,9 +33,9 @@ export default function BueroeinigungPage() {
       breadcrumb={s.shortTitle}
       schema={schema}
       cityLinks={[
-        { href: '/bueroeinigung-neuwied', label: 'Büroreinigung Neuwied' },
-        { href: '/bueroeinigung-koblenz', label: 'Büroreinigung Koblenz' },
-        { href: '/bueroeinigung-bendorf', label: 'Büroreinigung Bendorf' },
+        { href: '/bueroreinigung-neuwied', label: 'Büroreinigung Neuwied' },
+        { href: '/bueroreinigung-koblenz', label: 'Büroreinigung Koblenz' },
+        { href: '/bueroreinigung-bendorf', label: 'Büroreinigung Bendorf' },
       ]}
     />
   );

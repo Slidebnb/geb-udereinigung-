@@ -5,60 +5,60 @@ import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Büroreinigung in Koblenz | Huwa Gebäudereinigung',
-  description: 'Zuverlässige Büroreinigung in Koblenz für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
-  alternates: { canonical: `${siteConfig.url}/bueroeinigung-koblenz` },
+  title: 'Büroreinigung in Neuwied | Huwa Gebäudereinigung',
+  description: 'Zuverlässige Büroreinigung in Neuwied für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
+  alternates: { canonical: `${siteConfig.url}/bueroreinigung-neuwied` },
 };
 
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
   name: siteConfig.name,
-  description: 'Professionelle Büroreinigung in Koblenz für Unternehmen, Behörden und Arztpraxen',
-  url: `${siteConfig.url}/bueroeinigung-koblenz`,
+  description: 'Professionelle Büroreinigung in Neuwied für Büros, Arztpraxen, Kanzleien und Verwaltungen',
+  url: `${siteConfig.url}/bueroreinigung-neuwied`,
   telephone: siteConfig.phone,
   email: siteConfig.email,
   address: {
     '@type': 'PostalAddress',
     streetAddress: siteConfig.address.street,
     postalCode: siteConfig.address.zip,
-    addressLocality: siteConfig.address.city,
+    addressLocality: 'Neuwied',
     addressRegion: 'Rheinland-Pfalz',
     addressCountry: 'DE',
   },
-  areaServed: { '@type': 'City', name: 'Koblenz' },
+  areaServed: { '@type': 'City', name: 'Neuwied' },
   priceRange: '€€',
 };
 
 const services = [
-  { icon: '💼', title: 'Büroreinigung',        desc: 'Tägliche oder wöchentliche Unterhaltsreinigung für Verwaltungsgebäude, Bürokomplexe und Behörden – gründlich und pünktlich nach Ablaufplan.' },
-  { icon: '🚿', title: 'Sanitäranlagen',       desc: 'Desinfizierende Reinigung von WC-Bereichen, Waschräumen und Armaturen – besonders wichtig für Arztpraxen und Kanzleien mit Publikumsverkehr.' },
-  { icon: '☕', title: 'Teeküche & Meetingräume', desc: 'Hygienische Reinigung von Aufenthaltsräumen, Küchenbereichen und Besprechungsräumen – täglich frisch für Ihr Team und Ihre Gäste.' },
-  { icon: '🏛️', title: 'Empfang & Lobby',     desc: 'Repräsentativer Eingangsbereich und Wartezonen immer in makellosem Zustand – erster Eindruck zählt, besonders bei Behörden und Kanzleien in Koblenz.' },
-  { icon: '🧹', title: 'Bodenreinigung',       desc: 'Maschinelle Pflege von Naturstein, Parkett, Teppich und PVC – wir kennen die richtigen Mittel und Methoden für jeden Belag.' },
-  { icon: '🪟', title: 'Fensterreinigung',     desc: 'Streifenfreie Fensterreinigung für Büros und Geschäftshäuser in Koblenz – innen und außen, auf Wunsch mit Osmose-Technik.' },
+  { icon: '💼', title: 'Büroreinigung',       desc: 'Regelmäßige Unterhaltsreinigung aller Büroräume – Schreibtische, Bodenbeläge, Oberflächen und Schalter täglich oder wöchentlich je nach Bedarf.' },
+  { icon: '🚿', title: 'Sanitärreinigung',    desc: 'Hygienische Grundreinigung von WC-Anlagen, Waschbecken und Armaturen – inklusive Desinfektion und Auffrischung der Verbrauchsmaterialien.' },
+  { icon: '☕', title: 'Teeküche & Kantine',  desc: 'Reinigung von Teeküchen, Pausenräumen und Kantinen – Oberflächen, Kühlschrank, Mikrowelle und Spülbereich werden gründlich gepflegt.' },
+  { icon: '🏛️', title: 'Empfang & Flure',    desc: 'Repräsentativer Eingangsbereich und Flure immer in bestem Zustand – Böden, Türen, Glaselemente und Möbel werden sorgfältig gereinigt.' },
+  { icon: '🧹', title: 'Bodenreinigung',      desc: 'Maschinelle Pflege von Hartböden, Teppichen und Laminat – von der einfachen Unterhaltsreinigung bis zur intensiven Grundreinigung.' },
+  { icon: '🪟', title: 'Fensterreinigung',    desc: 'Streifenfreie Fensterreinigung für Büroräume und Schaufronten – auf Wunsch mit Osmose-Technik ohne chemische Rückstände.' },
 ];
 
 const faqs = [
   {
-    q: 'Reinigen Sie in allen Koblenzer Stadtteilen?',
-    a: 'Ja – wir sind in der gesamten Stadt Koblenz aktiv, darunter Güls, Metternich, Moselweiß, Lützel, Kesselheim und der Innenstadt. Auch Randlagen und Gewerbegebiete gehören zu unserem Einsatzgebiet.',
+    q: 'Wie oft sollte eine Büroreinigung in Neuwied stattfinden?',
+    a: 'Das hängt von der Nutzungsintensität ab. Für Büros mit hohem Publikumsverkehr – wie Arztpraxen oder Behörden – empfehlen wir tägliche Reinigung. Kleinere Büros kommen oft mit 2–3 Einsätzen pro Woche gut aus. Wir beraten Sie gerne nach einer kostenlosen Besichtigung.',
   },
   {
-    q: 'Wie läuft die erste Besichtigung in Koblenz ab?',
-    a: 'Wir besichtigen Ihr Büro oder Ihre Gewerbefläche kostenlos und unverbindlich. Dabei erfassen wir alle relevanten Bereiche, Ihre Wünsche und Besonderheiten. Auf dieser Basis erstellen wir ein transparentes Festpreisangebot – in der Regel innerhalb von 24 Stunden.',
+    q: 'Können Sie auch außerhalb der Bürozeiten reinigen?',
+    a: 'Ja. Wir reinigen bevorzugt früh morgens vor Arbeitsbeginn oder abends nach Büroschluss, damit der laufende Betrieb nicht gestört wird. Termine außerhalb der Kernzeiten sind für uns Standard.',
   },
   {
-    q: 'Können Sie auch Arztpraxen und Kanzleien in Koblenz reinigen?',
-    a: 'Ja. Wir reinigen regelmäßig Arztpraxen, Zahnarztpraxen, Steuerberaterkanzleien und Anwaltsbüros in Koblenz. Dabei legen wir besonderen Wert auf Hygiene, Diskretion und zuverlässige Einhaltung der Reinigungszeiten.',
+    q: 'Gibt es einen festen Ansprechpartner für unser Büro in Neuwied?',
+    a: 'Jeder Kunde erhält bei uns einen festen Objektleiter. Dieser kennt Ihr Büro, Ihre Wünsche und ist direkt erreichbar – ohne Call-Center oder Weiterleitungen.',
   },
   {
-    q: 'Gibt es Rahmenverträge für regelmäßige Büroreinigung in Koblenz?',
-    a: 'Ja. Wir schließen gerne Jahresverträge ab, die Ihnen Planungssicherheit und stabile Preise garantieren. Monatliche Kündigungsoptionen sind auf Wunsch ebenfalls möglich.',
+    q: 'In welchen Stadtteilen von Neuwied sind Sie tätig?',
+    a: 'Wir betreuen Büros in ganz Neuwied – inklusive Heddesdorf, Heimbach-Weis, Engers, Gladbach, Irlich und allen weiteren Stadtteilen. Als Neuwieder Unternehmen kennen wir die Region sehr gut.',
   },
 ];
 
-export default function BueroeinigungKoblenz() {
+export default function BueroeinigungNeuwied() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -66,14 +66,14 @@ export default function BueroeinigungKoblenz() {
       {/* Hero */}
       <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
-          <Breadcrumb items={[{ label: 'Büroreinigung Koblenz' }]} dark />
+          <Breadcrumb items={[{ label: 'Büroreinigung Neuwied' }]} dark />
           <div className="mt-8 max-w-3xl">
-            <div className="section-label mb-4">Koblenz & Umgebung</div>
+            <div className="section-label mb-4">Neuwied & Umgebung</div>
             <h1 className="text-white mb-4 leading-tight">
-              Büroreinigung <span className="gradient-text">Koblenz</span>
+              Büroreinigung <span className="gradient-text">Neuwied</span>
             </h1>
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-8">
-              Zuverlässige Büroreinigung für Unternehmen, Behörden, Arztpraxen und Kanzleien in Koblenz. Wir übernehmen die komplette Unterhaltsreinigung Ihrer Flächen – zu festen Zeiten, mit dokumentierten Abläufen und einem persönlichen Ansprechpartner.
+              Professionelle Büroreinigung für Arztpraxen, Kanzleien, Verwaltungsgebäude und Büroflächen in Neuwied. Feste Reinigungszeiten, klar dokumentierte Abläufe und ein persönlicher Ansprechpartner – damit Ihr Büro jeden Morgen sauber und einladend ist.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link href="/angebot" className="btn-primary px-8 py-3.5">Kostenloses Angebot</Link>
@@ -90,16 +90,16 @@ export default function BueroeinigungKoblenz() {
       <section className="section-padding bg-white">
         <div className="container mx-auto grid lg:grid-cols-2 gap-16 items-start">
           <div>
-            <div className="section-label">Büroreinigung in Koblenz</div>
-            <h2 className="mt-4 mb-6">Für Büros, Praxen &<br /><span className="gradient-text">Behörden in Koblenz</span></h2>
+            <div className="section-label">Büroreinigung in Neuwied</div>
+            <h2 className="mt-4 mb-6">Sauberkeit, die den<br /><span className="gradient-text">Arbeitsalltag erleichtert</span></h2>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Koblenz ist ein bedeutender Wirtschafts- und Verwaltungsstandort. Von Bundesbehörden über mittelständische Unternehmen bis hin zu Arztpraxen und Steuerberaterkanzleien – wir reinigen Büroflächen jeder Größe und Branche in der gesamten Stadt.
+              Ein gepflegtes Büro wirkt nicht nur professionell auf Kunden und Besucher – es sorgt auch für Wohlbefinden und Produktivität im Arbeitsalltag. Wir übernehmen die regelmäßige Unterhaltsreinigung Ihrer Büroflächen in Neuwied, damit Sie sich auf das Wesentliche konzentrieren können.
             </p>
             <p className="text-slate-600 leading-relaxed mb-4">
-              Besonders erfahren sind wir in der Reinigung von Praxen mit erhöhten Hygieneanforderungen sowie in der diskreten Betreuung von Kanzleien, bei denen Pünktlichkeit und Verlässlichkeit an erster Stelle stehen. Wir sind in Stadtteilen wie Güls, Metternich, Moselweiß, Lützel und Kesselheim tätig.
+              Wir betreuen Büros, Arztpraxen, Kanzleien und Verwaltungsgebäude in allen Neuwieder Stadtteilen: Heddesdorf, Heimbach-Weis, Engers, Gladbach, Irlich und der Innenstadt. Als lokales Unternehmen sind wir schnell vor Ort und kennen die typischen Anforderungen der Neuwieder Geschäftswelt.
             </p>
             <p className="text-slate-600 leading-relaxed mb-6">
-              Alle Einsätze laufen nach einem festen Ablaufplan. Auf Wunsch erhalten Sie monatliche Reinigungsprotokolle als Nachweis für Ihre Buchhaltung oder Qualitätssicherung.
+              Unsere Reinigungskräfte arbeiten nach festem Ablaufplan – zuverlässig, diskret und zu den vereinbarten Zeiten. Auf Wunsch erstellen wir monatliche Reinigungsprotokolle für Ihre Unterlagen.
             </p>
             <Link href="/leistungen/bueroeinigung" className="btn-outline inline-flex">
               Zur Leistungsseite Büroreinigung
@@ -123,7 +123,7 @@ export default function BueroeinigungKoblenz() {
       <section className="section-padding bg-slate-50">
         <div className="container mx-auto">
           <div className="text-center mb-12">
-            <div className="section-label mx-auto w-fit">Leistungen in Koblenz</div>
+            <div className="section-label mx-auto w-fit">Leistungen in Neuwied</div>
             <h2 className="mt-4">Was wir bei der Büroreinigung <span className="gradient-text">übernehmen</span></h2>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -145,14 +145,14 @@ export default function BueroeinigungKoblenz() {
       <section className="section-padding bg-white">
         <div className="container mx-auto text-center">
           <div className="section-label mx-auto w-fit mb-4">Auch in Ihrer Nähe verfügbar</div>
-          <h2 className="mb-8">Büroreinigung auch in <span className="gradient-text">Neuwied & Bendorf</span></h2>
+          <h2 className="mb-8">Büroreinigung auch in <span className="gradient-text">Koblenz & Bendorf</span></h2>
           <div className="grid sm:grid-cols-2 gap-5 max-w-xl mx-auto">
-            <Link href="/bueroeinigung-neuwied" className="card p-6 hover:border-primary/30 transition-all text-left group">
+            <Link href="/bueroreinigung-koblenz" className="card p-6 hover:border-primary/30 transition-all text-left group">
               <div className="text-2xl mb-3">💼</div>
-              <h3 className="font-bold text-slate-800 group-hover:text-primary transition-colors">Büroreinigung Neuwied</h3>
-              <p className="text-slate-500 text-sm mt-1">Für Büros, Arztpraxen und Kanzleien in Neuwied</p>
+              <h3 className="font-bold text-slate-800 group-hover:text-primary transition-colors">Büroreinigung Koblenz</h3>
+              <p className="text-slate-500 text-sm mt-1">Für Unternehmen, Behörden und Praxen in Koblenz</p>
             </Link>
-            <Link href="/bueroeinigung-bendorf" className="card p-6 hover:border-primary/30 transition-all text-left group">
+            <Link href="/bueroreinigung-bendorf" className="card p-6 hover:border-primary/30 transition-all text-left group">
               <div className="text-2xl mb-3">💼</div>
               <h3 className="font-bold text-slate-800 group-hover:text-primary transition-colors">Büroreinigung Bendorf</h3>
               <p className="text-slate-500 text-sm mt-1">Für Büros, Praxen und Gewerbe in Bendorf</p>

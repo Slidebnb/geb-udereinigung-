@@ -7,7 +7,7 @@ import { siteConfig } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Büroreinigung in Bendorf | Huwa Gebäudereinigung',
   description: 'Zuverlässige Büroreinigung in Bendorf für Hausverwaltungen, Gewerbe und Wohnanlagen. Feste Abläufe, klare Absprachen und kostenloses Angebot.',
-  alternates: { canonical: `${siteConfig.url}/bueroeinigung-bendorf` },
+  alternates: { canonical: `${siteConfig.url}/bueroreinigung-bendorf` },
 };
 
 const schema = {
@@ -15,7 +15,7 @@ const schema = {
   '@type': 'LocalBusiness',
   name: siteConfig.name,
   description: 'Professionelle Büroreinigung in Bendorf für kleine Büros, Praxen und Gewerbebetriebe',
-  url: `${siteConfig.url}/bueroeinigung-bendorf`,
+  url: `${siteConfig.url}/bueroreinigung-bendorf`,
   telephone: siteConfig.phone,
   email: siteConfig.email,
   address: {
@@ -147,12 +147,12 @@ export default function BueroeinigungBendorf() {
           <div className="section-label mx-auto w-fit mb-4">Auch in Ihrer Nähe verfügbar</div>
           <h2 className="mb-8">Büroreinigung auch in <span className="gradient-text">Neuwied & Koblenz</span></h2>
           <div className="grid sm:grid-cols-2 gap-5 max-w-xl mx-auto">
-            <Link href="/bueroeinigung-neuwied" className="card p-6 hover:border-primary/30 transition-all text-left group">
+            <Link href="/bueroreinigung-neuwied" className="card p-6 hover:border-primary/30 transition-all text-left group">
               <div className="text-2xl mb-3">💼</div>
               <h3 className="font-bold text-slate-800 group-hover:text-primary transition-colors">Büroreinigung Neuwied</h3>
               <p className="text-slate-500 text-sm mt-1">Für Büros, Arztpraxen und Kanzleien in Neuwied</p>
             </Link>
-            <Link href="/bueroeinigung-koblenz" className="card p-6 hover:border-primary/30 transition-all text-left group">
+            <Link href="/bueroreinigung-koblenz" className="card p-6 hover:border-primary/30 transition-all text-left group">
               <div className="text-2xl mb-3">💼</div>
               <h3 className="font-bold text-slate-800 group-hover:text-primary transition-colors">Büroreinigung Koblenz</h3>
               <p className="text-slate-500 text-sm mt-1">Für Unternehmen, Behörden und Praxen in Koblenz</p>

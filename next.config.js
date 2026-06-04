@@ -16,6 +16,14 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/preisrechner', destination: '/angebot', permanent: true },
+      { source: '/bueroeinigung-koblenz', destination: '/bueroreinigung-koblenz', permanent: true },
+      { source: '/bueroeinigung-neuwied', destination: '/bueroreinigung-neuwied', permanent: true },
+      { source: '/bueroeinigung-bendorf', destination: '/bueroreinigung-bendorf', permanent: true },
+      { source: '/bueroeinigung-andernach', destination: '/bueroreinigung-andernach', permanent: true },
+      { source: '/bueroeinigung-boppard', destination: '/bueroreinigung-boppard', permanent: true },
+      { source: '/bueroeinigung-lahnstein', destination: '/bueroreinigung-lahnstein', permanent: true },
+      { source: '/bueroeinigung-mayen', destination: '/bueroreinigung-mayen', permanent: true },
+      { source: '/bueroeinigung-bad-neuenahr-ahrweiler', destination: '/bueroreinigung-bad-neuenahr-ahrweiler', permanent: true },
     ];
   },
   async headers() {

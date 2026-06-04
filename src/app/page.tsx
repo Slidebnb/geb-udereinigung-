@@ -85,11 +85,11 @@ const cityLinks = [
 
 const quickLinks = [
   { href: '/treppenhausreinigung-neuwied', label: 'Treppenhausreinigung Neuwied',  icon: '🏠' },
-  { href: '/bueroeinigung-koblenz',        label: 'Büroreinigung Koblenz',         icon: '💼' },
+  { href: '/bueroreinigung-koblenz',       label: 'Büroreinigung Koblenz',         icon: '💼' },
   { href: '/hausmeisterservice-neuwied',   label: 'Hausmeisterservice Neuwied',    icon: '🔧' },
   { href: '/winterdienst-neuwied',         label: 'Winterdienst Neuwied',          icon: '❄️' },
   { href: '/treppenhausreinigung-koblenz', label: 'Treppenhausreinigung Koblenz',  icon: '🏠' },
-  { href: '/bueroeinigung-neuwied',        label: 'Büroreinigung Neuwied',         icon: '💼' },
+  { href: '/bueroreinigung-neuwied',       label: 'Büroreinigung Neuwied',         icon: '💼' },
 ];
 
 export default async function HomePage() {
