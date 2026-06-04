@@ -25,6 +25,7 @@ jobs:
             git reset --hard origin/claude/huwa-cleaning-website-PJ5Ql
             git clean -fd
             npm ci
+            npx prisma generate
             npx prisma db push --skip-generate
             rm -rf .next
             npm run build
