@@ -130,6 +130,45 @@ export function renderQuoteMail(data: {
   `;
 }
 
+export function renderContactConfirmation(name: string): string {
+  return `
+    <div style="font-family:Arial,sans-serif;color:#1a3a6b;max-width:600px;">
+      <div style="background:linear-gradient(135deg,#0C2340,#1B3E62);padding:32px 24px;border-radius:12px 12px 0 0;text-align:center;">
+        <h1 style="color:#fff;margin:0;font-size:24px;">Vielen Dank, ${escapeHtml(name)}!</h1>
+      </div>
+      <div style="background:#f8fafc;padding:32px 24px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0;border-top:none;">
+        <p style="font-size:16px;line-height:1.6;">wir haben Ihre Nachricht erhalten und melden uns <strong>innerhalb von 24 Stunden</strong> persönlich bei Ihnen.</p>
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:20px;margin:24px 0;">
+          <p style="margin:0 0 8px;color:#64748b;font-size:14px;">Bei dringenden Anfragen erreichen Sie uns direkt:</p>
+          <a href="tel:026019131820" style="color:#4BB8F5;font-size:18px;font-weight:bold;text-decoration:none;">02601 9131820</a>
+          <p style="margin:8px 0 0;color:#64748b;font-size:13px;">Mo–Fr 07:00–18:00 · Sa 08:00–14:00 Uhr</p>
+        </div>
+        <p style="color:#64748b;font-size:13px;margin:0;">Huwa Gebäudereinigung & Hausmeisterdienste GmbH · An der Wies 2 · 56567 Neuwied</p>
+      </div>
+    </div>
+  `;
+}
+
+export function renderQuoteConfirmation(name: string, service: string): string {
+  return `
+    <div style="font-family:Arial,sans-serif;color:#1a3a6b;max-width:600px;">
+      <div style="background:linear-gradient(135deg,#0C2340,#1B3E62);padding:32px 24px;border-radius:12px 12px 0 0;text-align:center;">
+        <h1 style="color:#fff;margin:0;font-size:24px;">Anfrage erhalten, ${escapeHtml(name)}!</h1>
+      </div>
+      <div style="background:#f8fafc;padding:32px 24px;border-radius:0 0 12px 12px;border:1px solid #e2e8f0;border-top:none;">
+        <p style="font-size:16px;line-height:1.6;">Ihre Angebotsanfrage für <strong>${escapeHtml(service)}</strong> ist bei uns eingegangen. Wir prüfen Ihren Bedarf und erstellen ein individuelles Festpreisangebot.</p>
+        <p style="font-size:16px;">Sie erhalten Ihr persönliches Angebot <strong>innerhalb von 24 Stunden</strong>.</p>
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:20px;margin:24px 0;">
+          <p style="margin:0 0 8px;color:#64748b;font-size:14px;">Für Rückfragen erreichen Sie uns direkt:</p>
+          <a href="tel:026019131820" style="color:#4BB8F5;font-size:18px;font-weight:bold;text-decoration:none;">02601 9131820</a>
+          <p style="margin:8px 0 0;color:#64748b;font-size:13px;">Mo–Fr 07:00–18:00 · Sa 08:00–14:00 Uhr</p>
+        </div>
+        <p style="color:#64748b;font-size:13px;margin:0;">Huwa Gebäudereinigung & Hausmeisterdienste GmbH · An der Wies 2 · 56567 Neuwied</p>
+      </div>
+    </div>
+  `;
+}
+
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
