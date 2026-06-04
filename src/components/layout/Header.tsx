@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import type { SiteSettings } from '@/lib/get-settings';
 import { getPhone, getCompanyName } from '@/lib/get-settings';
 import { siteConfig } from '@/lib/site';
+import { trackPhoneClick } from '@/lib/gtag';
 
 const services = [
   { name: 'Gebäudereinigung', href: '/leistungen/gebaeudereinigung', icon: '🏢' },
@@ -57,7 +58,7 @@ export default function Header({ settings = {} }: HeaderProps) {
       <div className="bg-dark text-white text-sm">
         <div className="container mx-auto flex flex-wrap justify-between items-center py-2 gap-2">
           <div className="flex items-center gap-5">
-            <a href={`tel:${phone}`} className="flex items-center gap-1.5 hover:text-primary transition-colors">
+            <a href={`tel:${phone}`} className="flex items-center gap-1.5 hover:text-primary transition-colors" onClick={trackPhoneClick}>
               <svg className="w-3.5 h-3.5 text-primary" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
               {phone}
             </a>

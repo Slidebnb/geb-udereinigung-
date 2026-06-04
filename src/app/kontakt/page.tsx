@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
+import { trackContactForm, trackPhoneClick } from '@/lib/gtag';
 
 const schema = z.object({
   name:    z.string().min(2, 'Bitte geben Sie Ihren Namen ein'),
@@ -28,6 +29,7 @@ export default function KontaktPage() {
     try {
       const res = await fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error();
+      trackContactForm();
       setSent(true);
       reset();
     } catch {
@@ -54,16 +56,16 @@ export default function KontaktPage() {
           {/* Sidebar */}
           <div className="space-y-5">
             {[
-              { icon: '📞', label: 'Telefon', value: siteConfig.phone, href: `tel:${siteConfig.phone}` },
-              { icon: '📧', label: 'E-Mail',  value: siteConfig.email, href: `mailto:${siteConfig.email}` },
-              { icon: '📍', label: 'Adresse', value: `${siteConfig.address.street}, ${siteConfig.address.zip} ${siteConfig.address.city}`, href: undefined },
+              { icon: '📞', label: 'Telefon', value: siteConfig.phone, href: `tel:${siteConfig.phone}`, track: true },
+              { icon: '📧', label: 'E-Mail',  value: siteConfig.email, href: `mailto:${siteConfig.email}`, track: false },
+              { icon: '📍', label: 'Adresse', value: `${siteConfig.address.street}, ${siteConfig.address.zip} ${siteConfig.address.city}`, href: undefined, track: false },
             ].map(item => (
               <div key={item.label} className="card p-5 flex items-start gap-4">
                 <span className="text-2xl">{item.icon}</span>
                 <div>
                   <div className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-0.5">{item.label}</div>
                   {item.href ? (
-                    <a href={item.href} className="font-semibold text-dark hover:text-primary transition-colors">{item.value}</a>
+                    <a href={item.href} className="font-semibold text-dark hover:text-primary transition-colors" onClick={item.track ? trackPhoneClick : undefined}>{item.value}</a>
                   ) : (
                     <span className="font-semibold text-dark">{item.value}</span>
                   )}

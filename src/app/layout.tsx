@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer';
 import WhatsAppButton from '@/components/shared/WhatsAppButton';
 import MobileCTABar from '@/components/shared/MobileCTABar';
 import CookieBanner from '@/components/shared/CookieBanner';
+import GoogleTag from '@/components/shared/GoogleTag';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de" className={inter.variable}>
       <body className="flex flex-col min-h-screen">
+        <GoogleTag />
         <Header />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
