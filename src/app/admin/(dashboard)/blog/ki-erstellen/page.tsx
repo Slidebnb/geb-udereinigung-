@@ -371,7 +371,12 @@ export default function KiBlogPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">Meta Title</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Meta Title{' '}
+                    <span className={`font-normal ${article.metaTitle.length >= 50 && article.metaTitle.length <= 60 ? 'text-green-600' : article.metaTitle.length > 0 ? 'text-amber-500' : 'text-gray-400'}`}>
+                      ({article.metaTitle.length}/60)
+                    </span>
+                  </label>
                   <input
                     type="text"
                     value={article.metaTitle}
@@ -431,6 +436,46 @@ export default function KiBlogPage() {
               )}
             </div>
           </div>
+
+          {/* SEO-Check Panel */}
+          {(() => {
+            const titleLen = article.metaTitle.length;
+            const descLen = article.metaDesc.length;
+            const kwLower = keyword.toLowerCase();
+            const titleHasKw = kwLower && article.title.toLowerCase().includes(kwLower);
+            const contentHasKw = kwLower && article.content.toLowerCase().includes(kwLower);
+            const wordCount = article.content.replace(/<[^>]+>/g, '').trim().split(/\s+/).filter(Boolean).length;
+
+            const checks = [
+              { label: 'Meta Title (50–60 Zeichen)', ok: titleLen >= 50 && titleLen <= 60, note: `${titleLen} Zeichen` },
+              { label: 'Meta Description (120–160 Zeichen)', ok: descLen >= 120 && descLen <= 160, note: `${descLen} Zeichen` },
+              { label: 'Keyword im Titel', ok: !!titleHasKw },
+              { label: 'Keyword im Content', ok: !!contentHasKw },
+              { label: 'Inhaltslänge (min. 300 Wörter)', ok: wordCount >= 300, note: `${wordCount} Wörter` },
+            ];
+            const score = checks.filter(c => c.ok).length;
+            return (
+              <div className="bg-white rounded-xl shadow-sm p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-sm font-semibold text-gray-800">SEO-Check</h3>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${score === 5 ? 'bg-green-100 text-green-700' : score >= 3 ? 'bg-amber-100 text-amber-700' : 'bg-red-100 text-red-700'}`}>
+                    {score}/5 Punkte
+                  </span>
+                </div>
+                <div className="space-y-2">
+                  {checks.map(c => (
+                    <div key={c.label} className="flex items-center gap-2.5 text-sm">
+                      <span className={`w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${c.ok ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-600'}`}>
+                        {c.ok ? '✓' : '✗'}
+                      </span>
+                      <span className={c.ok ? 'text-gray-700' : 'text-gray-500'}>{c.label}</span>
+                      {c.note && <span className="text-gray-400 text-xs ml-auto">{c.note}</span>}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
 
           <div className="flex flex-wrap gap-3 justify-between items-center bg-white rounded-xl shadow-sm p-4">
             <button
