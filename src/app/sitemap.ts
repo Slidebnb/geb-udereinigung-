@@ -3,80 +3,63 @@ import { siteConfig } from '@/lib/site';
 import { getAllServiceSlugs } from '@/lib/services';
 import { prisma } from '@/lib/prisma';
 
-// Leistungen, für die Ort-Seiten existieren (slug → URL-Präfix)
-const CITY_SERVICES = [
-  { slug: 'gebaudereinigung',    label: 'Gebäudereinigung' },
-  { slug: 'bueroreinigung',      label: 'Büroreinigung' },
-  { slug: 'treppenhausreinigung',label: 'Treppenhausreinigung' },
-  { slug: 'hausmeisterservice',  label: 'Hausmeisterservice' },
-  { slug: 'winterdienst',        label: 'Winterdienst' },
-];
+const LAST_SEO_UPDATE = new Date('2026-06-04');
 
-// Städte mit URL-freundlichem Slug
-function citySlug(city: string): string {
-  return city
-    .toLowerCase()
-    .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
-    .replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-}
+const knownLandingPages = [
+  { path: '/gebaudereinigung-neuwied', priority: 0.9 },
+  { path: '/gebaudereinigung-koblenz', priority: 0.9 },
+  { path: '/gebaudereinigung-bendorf', priority: 0.85 },
+  { path: '/bueroreinigung-koblenz', priority: 0.85 },
+  { path: '/bueroreinigung-neuwied', priority: 0.8 },
+  { path: '/bueroreinigung-bendorf', priority: 0.75 },
+  { path: '/treppenhausreinigung-koblenz', priority: 0.85 },
+  { path: '/treppenhausreinigung-neuwied', priority: 0.8 },
+  { path: '/treppenhausreinigung-bendorf', priority: 0.75 },
+  { path: '/hausmeisterservice-koblenz', priority: 0.85 },
+  { path: '/hausmeisterservice-neuwied', priority: 0.8 },
+  { path: '/hausmeisterservice-bendorf', priority: 0.75 },
+  { path: '/winterdienst-koblenz', priority: 0.8 },
+  { path: '/winterdienst-neuwied', priority: 0.75 },
+  { path: '/winterdienst-bendorf', priority: 0.7 },
+  { path: '/unterhaltsreinigung-koblenz', priority: 0.8 },
+  { path: '/fensterreinigung-koblenz', priority: 0.75 },
+  { path: '/gartenpflege-koblenz', priority: 0.75 },
+  { path: '/gartenpflege', priority: 0.7 },
+  { path: '/gartenpflege-anmeldung-2026', priority: 0.65 },
+  { path: '/winterdienst-anmeldung-2026', priority: 0.65 },
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = siteConfig.url;
-  const now = new Date();
 
   const staticPages: MetadataRoute.Sitemap = [
-    { url: base,                   lastModified: now, changeFrequency: 'weekly',  priority: 1.0 },
-    { url: `${base}/leistungen`,   lastModified: now, changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${base}/ueber-uns`,    lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/angebot`,      lastModified: now, changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${base}/kontakt`,      lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/blog`,         lastModified: now, changeFrequency: 'weekly',  priority: 0.7 },
-    { url: `${base}/faq`,          lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
-    { url: `${base}/checkliste`,              lastModified: now, changeFrequency: 'yearly',  priority: 0.5 },
-    { url: `${base}/unterhaltsreinigung-koblenz`,  lastModified: now, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/fensterreinigung-koblenz`,     lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
-    { url: `${base}/gartenpflege-koblenz`,         lastModified: now, changeFrequency: 'monthly', priority: 0.75 },
-    { url: `${base}/gartenpflege`,                 lastModified: now, changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${base}/gartenpflege-anmeldung-2026`,  lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
-    { url: `${base}/winterdienst-anmeldung-2026`,  lastModified: now, changeFrequency: 'monthly', priority: 0.65 },
-    { url: `${base}/impressum`,    lastModified: now, changeFrequency: 'yearly',  priority: 0.2 },
-    { url: `${base}/datenschutz`,  lastModified: now, changeFrequency: 'yearly',  priority: 0.2 },
-    { url: `${base}/agb`,          lastModified: now, changeFrequency: 'yearly',  priority: 0.2 },
+    { url: base,                   lastModified: LAST_SEO_UPDATE, changeFrequency: 'weekly',  priority: 1.0 },
+    { url: `${base}/leistungen`,   lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${base}/ueber-uns`,    lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${base}/angebot`,      lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.85 },
+    { url: `${base}/kontakt`,      lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${base}/blog`,         lastModified: LAST_SEO_UPDATE, changeFrequency: 'weekly',  priority: 0.7 },
+    { url: `${base}/faq`,          lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.65 },
+    { url: `${base}/checkliste`,   lastModified: LAST_SEO_UPDATE, changeFrequency: 'yearly',  priority: 0.5 },
+    { url: `${base}/impressum`,    lastModified: LAST_SEO_UPDATE, changeFrequency: 'yearly',  priority: 0.2 },
+    { url: `${base}/datenschutz`,  lastModified: LAST_SEO_UPDATE, changeFrequency: 'yearly',  priority: 0.2 },
+    { url: `${base}/agb`,          lastModified: LAST_SEO_UPDATE, changeFrequency: 'yearly',  priority: 0.2 },
   ];
 
-  // Leistungsseiten aus services.ts (single source of truth)
   const servicePages: MetadataRoute.Sitemap = getAllServiceSlugs().map(slug => ({
     url: `${base}/leistungen/${slug}`,
-    lastModified: now,
+    lastModified: LAST_SEO_UPDATE,
     changeFrequency: 'monthly' as const,
     priority: 0.85,
   }));
 
-  // Ort-Leistungsseiten – generiert aus siteConfig.serviceAreas × CITY_SERVICES
-  // Nur Hauptstädte (erste 3) mit höchster Priorität, Rest mit niedrigerer
-  const primaryCities = siteConfig.serviceAreas.slice(0, 3);
-  const secondaryCities = siteConfig.serviceAreas.slice(3);
+  const landingPages: MetadataRoute.Sitemap = knownLandingPages.map(page => ({
+    url: `${base}${page.path}`,
+    lastModified: LAST_SEO_UPDATE,
+    changeFrequency: 'monthly' as const,
+    priority: page.priority,
+  }));
 
-  const cityPages: MetadataRoute.Sitemap = [
-    ...primaryCities.flatMap(city =>
-      CITY_SERVICES.map(svc => ({
-        url: `${base}/${svc.slug}-${citySlug(city)}`,
-        lastModified: now,
-        changeFrequency: 'monthly' as const,
-        priority: 0.85,
-      }))
-    ),
-    ...secondaryCities.flatMap(city =>
-      CITY_SERVICES.slice(0, 4).map(svc => ({
-        url: `${base}/${svc.slug}-${citySlug(city)}`,
-        lastModified: now,
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-      }))
-    ),
-  ];
-
-  // Blog-Beiträge aus DB (nur veröffentlichte)
   let blogPages: MetadataRoute.Sitemap = [];
   try {
     const posts = await prisma.blogPost.findMany({
@@ -93,5 +76,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     blogPages = [];
   }
 
-  return [...staticPages, ...servicePages, ...cityPages, ...blogPages];
+  return [...staticPages, ...servicePages, ...landingPages, ...blogPages];
 }
