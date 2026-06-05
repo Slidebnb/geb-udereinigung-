@@ -1,24 +1,17 @@
 'use client';
 
 import { useEffect } from 'react';
-import { trackFormConversion } from '@/lib/gtag';
-
-const SESSION_KEY = 'huwa_conversion_fired';
+import { consumeFormSubmittedForConversion, trackFormConversion } from '@/lib/gtag';
 
 /**
- * Feuert die Google Ads Formular-Conversion einmalig pro Session.
+ * Feuert die Google Ads Formular-Conversion nur nach echter Formularweiterleitung.
+ * Voraussetzung: Kontakt- oder Angebotsformular setzt vorher den Session-Marker.
  * Nur auf /danke einbinden – niemals global in layout.tsx.
  */
 export default function GoogleAdsConversion() {
   useEffect(() => {
-    try {
-      if (sessionStorage.getItem(SESSION_KEY)) return;
-      trackFormConversion();
-      sessionStorage.setItem(SESSION_KEY, '1');
-    } catch {
-      // sessionStorage nicht verfügbar → trotzdem feuern
-      trackFormConversion();
-    }
+    if (!consumeFormSubmittedForConversion()) return;
+    trackFormConversion();
   }, []);
 
   return null;
