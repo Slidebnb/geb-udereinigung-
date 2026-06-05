@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
-import { trackPhoneClick } from '@/lib/gtag';
+import { markFormSubmittedForConversion, trackPhoneClick } from '@/lib/gtag';
 
 const schema = z.object({
   name: z.string().min(2, 'Pflichtfeld'),
@@ -49,6 +49,7 @@ export default function AngebotPage() {
     try {
       const res = await fetch('/api/angebot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
       if (!res.ok) throw new Error();
+      markFormSubmittedForConversion();
       router.push('/danke');
     } catch {
       setError('Fehler beim Senden. Bitte rufen Sie uns an.');
