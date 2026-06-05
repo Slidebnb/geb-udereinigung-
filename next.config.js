@@ -16,6 +16,9 @@ const nextConfig = {
   async redirects() {
     return [
       { source: '/preisrechner', destination: '/angebot', permanent: true },
+      { source: '/gebaeudereinigung-neuwied', destination: '/gebaudereinigung-neuwied', permanent: true },
+      { source: '/gebaeudereinigung-koblenz', destination: '/gebaudereinigung-koblenz', permanent: true },
+      { source: '/gebaeudereinigung-bendorf', destination: '/gebaudereinigung-bendorf', permanent: true },
       { source: '/bueroeinigung-koblenz', destination: '/bueroreinigung-koblenz', permanent: true },
       { source: '/bueroeinigung-neuwied', destination: '/bueroreinigung-neuwied', permanent: true },
       { source: '/bueroeinigung-bendorf', destination: '/bueroreinigung-bendorf', permanent: true },
