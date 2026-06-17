@@ -22,10 +22,13 @@ type TemplateCategory =
   | 'Nachfassen'
   | 'Termin';
 
+type TemplatePurpose = 'Erstkontakt' | 'Nachfassen' | 'Termin';
+
 type EmailTemplate = {
   id: string;
   name: string;
   category: TemplateCategory;
+  purpose: TemplatePurpose;
   subject: string;
   body: string;
 };
@@ -51,21 +54,57 @@ const DEFAULT_PLACEHOLDERS: PlaceholderState = {
   email: 'info@huwa-gebaeudedienste.de',
 };
 
+const PLACEHOLDER_PRESETS: Array<{ label: string; values: Partial<PlaceholderState> }> = [
+  {
+    label: 'Hausverwaltung Neuwied',
+    values: {
+      firma: 'Hausverwaltung Muster GmbH',
+      ansprechpartner: 'Herr Beispiel',
+      stadt: 'Neuwied',
+      leistung: 'Treppenhausreinigung und Hausmeisterservice',
+    },
+  },
+  {
+    label: 'Büro Koblenz',
+    values: {
+      firma: 'Beispiel Büroservice GmbH',
+      ansprechpartner: 'Frau Muster',
+      stadt: 'Koblenz',
+      leistung: 'Büro- und Unterhaltsreinigung',
+    },
+  },
+  {
+    label: 'Winterdienst Bendorf',
+    values: {
+      firma: 'Objektservice Beispiel',
+      ansprechpartner: 'Herr Winter',
+      stadt: 'Bendorf',
+      leistung: 'Winterdienst',
+    },
+  },
+];
+
 const DEFAULT_TEMPLATES: EmailTemplate[] = [
   {
     id: 'hausverwaltung-erstkontakt',
     name: 'Erstkontakt Hausverwaltung',
     category: 'Hausverwaltung',
-    subject: 'Gebäudereinigung für Ihre Objekte in {{stadt}}',
+    purpose: 'Erstkontakt',
+    subject: 'Gebäudereinigung und Objektbetreuung für Ihre Objekte in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
-wir möchten uns Ihnen als regionaler Ansprechpartner für Gebäudereinigung, Treppenhausreinigung, Hausmeisterservice, Gartenpflege und Winterdienst in {{stadt}} vorstellen.
+ich möchte Ihnen HUWA Gebäudedienste kurz als regionalen Ansprechpartner für die Betreuung von Wohn- und Gewerbeobjekten in {{stadt}} vorstellen.
 
-HUWA Gebäudedienste unterstützt Hausverwaltungen mit festen Ansprechpartnern, klaren Abläufen und zuverlässiger Ausführung vor Ort.
+Wir unterstützen Hausverwaltungen unter anderem bei:
+- Treppenhausreinigung
+- Unterhaltsreinigung
+- Hausmeisterservice
+- Gartenpflege
+- Winterdienst
 
-Gerne stellen wir uns Ihnen kurz vor und prüfen, ob wir Sie bei bestehenden oder neuen Objekten sinnvoll unterstützen können.
+Wichtig ist uns keine große Versprechung, sondern verlässliche Ausführung, feste Ansprechpartner und klare Absprachen.
 
-Falls Interesse besteht, senden wir Ihnen gerne weitere Informationen oder vereinbaren ein kurzes Gespräch.
+Falls das Thema für {{firma}} grundsätzlich interessant ist, freue ich mich über eine kurze Rückmeldung. Gerne sende ich Ihnen weitere Informationen oder vereinbare ein kurzes Kennenlernen.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -76,21 +115,17 @@ HUWA Gebäudedienste
     id: 'weg-erstkontakt',
     name: 'Erstkontakt WEG / Eigentümergemeinschaft',
     category: 'WEG',
-    subject: 'Betreuung von WEG-Objekten in {{stadt}}',
+    purpose: 'Erstkontakt',
+    subject: 'Zuverlässige Betreuung von WEG-Objekten in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
-wir möchten uns Ihnen als regionaler Dienstleister für die Betreuung von WEG-Objekten in {{stadt}} vorstellen.
+wir möchten uns Ihnen als regionaler Dienstleister für die laufende Betreuung von WEG-Objekten in {{stadt}} vorstellen.
 
-Unsere Leistungen umfassen unter anderem:
-- Treppenhausreinigung
-- Unterhaltsreinigung
-- Hausmeisterservice
-- Gartenpflege
-- Winterdienst
+HUWA Gebäudedienste unterstützt Eigentümergemeinschaften und Verwaltungen mit planbaren Leistungen wie Treppenhausreinigung, Unterhaltsreinigung, Hausmeisterservice, Gartenpflege und Winterdienst.
 
-Wir arbeiten mit klaren Absprachen, festen Ansprechpartnern und zuverlässiger Ausführung.
+Unser Fokus liegt auf einer sauberen Ausführung, festen Ansprechpartnern und einer Zusammenarbeit, die im Alltag entlastet.
 
-Wenn Sie aktuell Unterstützung für einzelne Leistungen oder die laufende Objektbetreuung suchen, freuen wir uns über Ihre Rückmeldung.
+Falls {{firma}} aktuell Unterstützung in diesem Bereich sucht, freuen wir uns über Ihre Rückmeldung.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -101,16 +136,17 @@ HUWA Gebäudedienste
     id: 'buero-erstkontakt',
     name: 'Erstkontakt Büroreinigung',
     category: 'Büro',
+    purpose: 'Erstkontakt',
     subject: 'Zuverlässige Büroreinigung in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für Büro- und Unterhaltsreinigung in {{stadt}} vorstellen.
 
-HUWA Gebäudedienste unterstützt Unternehmen mit festen Abläufen, planbarer Qualität und persönlichem Ansprechpartner.
+HUWA Gebäudedienste unterstützt Unternehmen mit festen Abläufen, persönlichem Ansprechpartner und einer Ausführung, auf die man sich verlassen kann.
 
 Ob regelmäßige Büroreinigung, Sanitärpflege oder ergänzende Hausmeisterleistungen: Gerne prüfen wir, ob wir {{firma}} sinnvoll unterstützen können.
 
-Bei Interesse senden wir Ihnen gerne weitere Informationen oder vereinbaren ein kurzes Kennenlernen.
+Wenn das Thema für Sie grundsätzlich interessant ist, freue ich mich über eine kurze Rückmeldung.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -121,16 +157,15 @@ HUWA Gebäudedienste
     id: 'praxis-erstkontakt',
     name: 'Erstkontakt Praxisreinigung',
     category: 'Praxis',
+    purpose: 'Erstkontakt',
     subject: 'Professionelle Praxisreinigung in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
-wir möchten uns Ihnen als Dienstleister für zuverlässige Praxis- und Unterhaltsreinigung in {{stadt}} vorstellen.
+wir möchten uns Ihnen als regionaler Dienstleister für zuverlässige Praxis- und Unterhaltsreinigung in {{stadt}} vorstellen.
 
-Gerade in sensiblen Bereichen sind strukturierte Abläufe, Diskretion und verlässliche Ausführung entscheidend.
+Gerade in sensiblen Bereichen sind strukturierte Abläufe, Diskretion und verlässliche Ausführung entscheidend. Genau darauf legen wir bei HUWA Gebäudedienste besonderen Wert.
 
-HUWA Gebäudedienste unterstützt Praxen mit regelmäßiger Reinigung und persönlichem Ansprechpartner.
-
-Wenn Sie aktuell nach einer zuverlässigen Lösung suchen oder sich unverbindlich informieren möchten, freuen wir uns über Ihre Rückmeldung.
+Wenn Sie aktuell nach einer stabilen Lösung suchen oder sich unverbindlich informieren möchten, freuen wir uns über Ihre Rückmeldung.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -141,16 +176,15 @@ HUWA Gebäudedienste
     id: 'zahnarzt-erstkontakt',
     name: 'Erstkontakt Zahnarztpraxis',
     category: 'Zahnarzt',
+    purpose: 'Erstkontakt',
     subject: 'Reinigungslösung für Ihre Zahnarztpraxis in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
-wir möchten uns Ihnen als regionaler Ansprechpartner für die zuverlässige Reinigung von Praxis- und Empfangsbereichen in {{stadt}} vorstellen.
+ich möchte Ihnen HUWA Gebäudedienste kurz als regionalen Ansprechpartner für die zuverlässige Reinigung von Praxis- und Empfangsbereichen in {{stadt}} vorstellen.
 
-Gerade in Zahnarztpraxen sind ein gepflegter Eindruck, planbare Abläufe und diskrete Ausführung besonders wichtig.
+Gerade in Zahnarztpraxen sind ein gepflegter Eindruck, planbare Abläufe und diskrete Ausführung besonders wichtig. Wir arbeiten mit festen Ansprechpartnern und klaren Absprachen.
 
-HUWA Gebäudedienste unterstützt Praxen mit regelmäßiger Reinigung und persönlichem Ansprechpartner.
-
-Wenn das Thema für {{firma}} aktuell interessant ist, freuen wir uns über Ihre Rückmeldung.
+Falls das Thema für {{firma}} aktuell interessant ist, freue ich mich über eine kurze Rückmeldung.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -161,16 +195,15 @@ HUWA Gebäudedienste
     id: 'kanzlei-erstkontakt',
     name: 'Erstkontakt Kanzlei',
     category: 'Kanzlei',
-    subject: 'Zuverlässige Reinigung für Kanzlei- und Büroräume',
+    purpose: 'Erstkontakt',
+    subject: 'Zuverlässige Reinigung für Kanzlei- und Büroräume in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für Büro- und Unterhaltsreinigung in {{stadt}} vorstellen.
 
-Gerade in Kanzleien sind Verlässlichkeit, Diskretion und ein gepflegter Gesamteindruck besonders wichtig.
+Gerade in Kanzleien sind Verlässlichkeit, Diskretion und ein gepflegter Gesamteindruck besonders wichtig. HUWA Gebäudedienste unterstützt Unternehmen mit festen Ansprechpartnern und sauber abgestimmten Abläufen.
 
-HUWA Gebäudedienste unterstützt Unternehmen mit festen Ansprechpartnern und klaren Abläufen.
-
-Wenn Sie Interesse an einem unverbindlichen Austausch haben, freuen wir uns über Ihre Rückmeldung.
+Falls das Thema für {{firma}} grundsätzlich relevant ist, freue ich mich über Ihre Rückmeldung.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -181,14 +214,15 @@ HUWA Gebäudedienste
     id: 'gewerbe-erstkontakt',
     name: 'Erstkontakt Gewerbeobjekt',
     category: 'Gewerbe',
-    subject: 'Gebäudereinigung und Hausmeisterservice in {{stadt}}',
+    purpose: 'Erstkontakt',
+    subject: '{{leistung}} für Ihr Objekt in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Dienstleister für {{leistung}} in {{stadt}} vorstellen.
 
 HUWA Gebäudedienste betreut Gewerbeobjekte mit zuverlässiger Reinigung, festen Ansprechpartnern und ergänzenden Leistungen wie Hausmeisterservice, Gartenpflege und Winterdienst.
 
-Wenn {{firma}} aktuell Unterstützung in diesem Bereich sucht, senden wir Ihnen gerne weitere Informationen.
+Wenn {{firma}} aktuell Unterstützung in diesem Bereich sucht, senden wir Ihnen gerne weitere Informationen oder stellen uns kurz persönlich vor.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -199,12 +233,13 @@ HUWA Gebäudedienste
     id: 'autohaus-erstkontakt',
     name: 'Erstkontakt Autohaus',
     category: 'Autohaus',
-    subject: 'Reinigung und Objektpflege für Ihr Autohaus',
+    purpose: 'Erstkontakt',
+    subject: 'Reinigung und Objektpflege für Ihr Autohaus in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für die Reinigung und Pflege von Gewerbeobjekten in {{stadt}} vorstellen.
 
-Gerade in Autohäusern ist ein gepflegter Eindruck für Kunden besonders wichtig. HUWA Gebäudedienste unterstützt dabei mit zuverlässiger Reinigung, Glasflächenpflege und ergänzender Objektbetreuung.
+Gerade in Autohäusern ist ein gepflegter Eindruck für Kunden besonders wichtig. HUWA Gebäudedienste unterstützt dabei mit verlässlicher Reinigung, Glasflächenpflege und ergänzender Objektbetreuung.
 
 Wenn Sie Interesse an einem kurzen Austausch haben, freuen wir uns über Ihre Rückmeldung.
 
@@ -217,12 +252,13 @@ HUWA Gebäudedienste
     id: 'fitness-erstkontakt',
     name: 'Erstkontakt Fitnessstudio',
     category: 'Fitness',
-    subject: 'Reinigungslösung für Fitness- und Trainingsflächen',
+    purpose: 'Erstkontakt',
+    subject: 'Reinigungslösung für Fitness- und Trainingsflächen in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für die laufende Reinigung von Trainings-, Sanitär- und Eingangsbereichen in {{stadt}} vorstellen.
 
-HUWA Gebäudedienste arbeitet mit festen Abläufen, verlässlichen Ansprechpartnern und regelmäßiger Ausführung.
+HUWA Gebäudedienste arbeitet mit festen Abläufen, verlässlichen Ansprechpartnern und regelmäßiger Ausführung – genau das ist im laufenden Studioalltag entscheidend.
 
 Wenn {{firma}} aktuell nach einer stabilen Reinigungslösung sucht, freuen wir uns über Ihre Rückmeldung.
 
@@ -235,14 +271,13 @@ HUWA Gebäudedienste
     id: 'hotel-erstkontakt',
     name: 'Erstkontakt Hotel / Pension',
     category: 'Hotel',
+    purpose: 'Erstkontakt',
     subject: 'Reinigung und Objektpflege für Beherbergungsbetriebe in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für Reinigungs- und Pflegeleistungen in {{stadt}} vorstellen.
 
-Gerade bei Hotels, Pensionen und Gästehäusern sind ein gepflegter erster Eindruck, verlässliche Abläufe und saubere Gemeinschaftsbereiche entscheidend.
-
-HUWA Gebäudedienste unterstützt dabei mit festen Ansprechpartnern und planbarer Ausführung.
+Gerade bei Hotels, Pensionen und Gästehäusern sind ein gepflegter erster Eindruck, verlässliche Abläufe und saubere Gemeinschaftsbereiche entscheidend. HUWA Gebäudedienste unterstützt dabei mit festen Ansprechpartnern und planbarer Ausführung.
 
 Wenn das Thema für {{firma}} aktuell relevant ist, freuen wir uns über Ihre Rückmeldung.
 
@@ -255,16 +290,15 @@ HUWA Gebäudedienste
     id: 'einzelhandel-erstkontakt',
     name: 'Erstkontakt Einzelhandel',
     category: 'Einzelhandel',
+    purpose: 'Erstkontakt',
     subject: 'Saubere Verkaufsflächen und Eingangsbereiche in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für die zuverlässige Reinigung von Verkaufs-, Sanitär- und Eingangsbereichen in {{stadt}} vorstellen.
 
-Ein gepflegter Eindruck ist für Kundenwahrnehmung und Alltag im Geschäft entscheidend.
+Ein gepflegter Eindruck ist für Kundenwahrnehmung und Alltag im Geschäft entscheidend. HUWA Gebäudedienste unterstützt Einzelhandelsstandorte mit regelmäßiger Reinigung und ergänzender Objektpflege.
 
-HUWA Gebäudedienste unterstützt Einzelhandelsstandorte mit regelmäßiger Reinigung und ergänzender Objektpflege.
-
-Wenn {{firma}} aktuell nach einer stabilen Lösung sucht, freuen wir uns über Ihre Rückmeldung.
+Wenn {{firma}} aktuell nach einer verlässlichen Lösung sucht, freuen wir uns über Ihre Rückmeldung.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -275,14 +309,13 @@ HUWA Gebäudedienste
     id: 'kindergarten-erstkontakt',
     name: 'Erstkontakt Kindergarten',
     category: 'Kindergarten',
+    purpose: 'Erstkontakt',
     subject: 'Zuverlässige Reinigung für Kindergarten- und Betreuungsräume',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für Reinigungsleistungen in Kindergärten und Betreuungseinrichtungen in {{stadt}} vorstellen.
 
-Gerade in sensiblen Bereichen sind planbare Abläufe, verlässliche Ausführung und ein gepflegtes Umfeld besonders wichtig.
-
-HUWA Gebäudedienste unterstützt Einrichtungen mit regelmäßiger Reinigung und persönlichem Ansprechpartner.
+Gerade in sensiblen Bereichen sind planbare Abläufe, verlässliche Ausführung und ein gepflegtes Umfeld besonders wichtig. HUWA Gebäudedienste unterstützt Einrichtungen mit regelmäßiger Reinigung und persönlichem Ansprechpartner.
 
 Wenn Sie aktuell nach Unterstützung suchen, freuen wir uns über Ihre Rückmeldung.
 
@@ -295,12 +328,13 @@ HUWA Gebäudedienste
     id: 'schule-erstkontakt',
     name: 'Erstkontakt Schule / Bildungseinrichtung',
     category: 'Schule',
+    purpose: 'Erstkontakt',
     subject: 'Reinigungs- und Objektpflege für Bildungseinrichtungen in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für Reinigungs- und Objektpflegeleistungen in {{stadt}} vorstellen.
 
-HUWA Gebäudedienste unterstützt Bildungseinrichtungen mit regelmäßiger Reinigung, festen Ansprechpartnern und planbarer Ausführung.
+HUWA Gebäudedienste unterstützt Bildungseinrichtungen mit regelmäßiger Reinigung, festen Ansprechpartnern und planbarer Ausführung. Unser Fokus liegt auf einer Zusammenarbeit, die organisatorisch entlastet und zuverlässig läuft.
 
 Wenn das Thema für {{firma}} aktuell relevant ist, freuen wir uns über Ihre Rückmeldung.
 
@@ -313,12 +347,13 @@ HUWA Gebäudedienste
     id: 'winterdienst-erstkontakt',
     name: 'Erstkontakt Winterdienst',
     category: 'Winterdienst',
+    purpose: 'Erstkontakt',
     subject: 'Winterdienst für Ihre Objekte in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für Winterdienst in {{stadt}} vorstellen.
 
-HUWA Gebäudedienste unterstützt Unternehmen, Hausverwaltungen und Eigentümergemeinschaften mit planbarer Betreuung in der Wintersaison.
+HUWA Gebäudedienste unterstützt Unternehmen, Hausverwaltungen und Eigentümergemeinschaften mit planbarer Betreuung in der Wintersaison – mit klaren Absprachen und verlässlicher Ausführung.
 
 Wenn Sie aktuell Unterstützung für Räum- und Streudienste benötigen, freuen wir uns über Ihre Rückmeldung.
 
@@ -331,12 +366,13 @@ HUWA Gebäudedienste
     id: 'gartenpflege-erstkontakt',
     name: 'Erstkontakt Gartenpflege',
     category: 'Gartenpflege',
+    purpose: 'Erstkontakt',
     subject: 'Gartenpflege und Außenanlagen in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für Gartenpflege und die Betreuung von Außenanlagen in {{stadt}} vorstellen.
 
-HUWA Gebäudedienste unterstützt Unternehmen, Hausverwaltungen und Eigentümergemeinschaften bei Rasenpflege, Heckenrückschnitt, Objektpflege und saisonalen Arbeiten.
+HUWA Gebäudedienste unterstützt Unternehmen, Hausverwaltungen und Eigentümergemeinschaften bei Rasenpflege, Heckenrückschnitt, Objektpflege und saisonalen Arbeiten – sauber abgestimmt und verlässlich ausgeführt.
 
 Wenn Sie aktuell Unterstützung suchen, senden wir Ihnen gerne weitere Informationen.
 
@@ -349,12 +385,13 @@ HUWA Gebäudedienste
     id: 'hausmeisterservice-erstkontakt',
     name: 'Erstkontakt Hausmeisterservice',
     category: 'Hausmeisterservice',
+    purpose: 'Erstkontakt',
     subject: 'Hausmeisterservice für Ihre Objekte in {{stadt}}',
     body: `Guten Tag {{ansprechpartner}},
 
 wir möchten uns Ihnen als regionaler Ansprechpartner für Hausmeisterservice in {{stadt}} vorstellen.
 
-HUWA Gebäudedienste unterstützt mit laufender Objektkontrolle, Kleinpflege, Außenanlagenbetreuung und ergänzenden Reinigungsleistungen.
+HUWA Gebäudedienste unterstützt mit laufender Objektkontrolle, Kleinpflege, Außenanlagenbetreuung und ergänzenden Reinigungsleistungen. Unser Fokus liegt auf klaren Abläufen und einer Zusammenarbeit, die im Alltag wirklich entlastet.
 
 Wenn Sie aktuell einen verlässlichen Partner für einzelne Leistungen oder die laufende Objektbetreuung suchen, freuen wir uns über Ihre Rückmeldung.
 
@@ -367,6 +404,7 @@ HUWA Gebäudedienste
     id: 'nachfassen-7-tage',
     name: 'Nachfassen nach 7 Tagen',
     category: 'Nachfassen',
+    purpose: 'Nachfassen',
     subject: 'Kurze Rückfrage zu meiner Nachricht',
     body: `Guten Tag {{ansprechpartner}},
 
@@ -385,6 +423,7 @@ HUWA Gebäudedienste
     id: 'nachfassen-14-tage',
     name: 'Nachfassen nach 14 Tagen',
     category: 'Nachfassen',
+    purpose: 'Nachfassen',
     subject: 'Noch einmal kurz nachgefragt',
     body: `Guten Tag {{ansprechpartner}},
 
@@ -403,6 +442,7 @@ HUWA Gebäudedienste
     id: 'angebotserinnerung',
     name: 'Angebotsnachverfolgung',
     category: 'Nachfassen',
+    purpose: 'Nachfassen',
     subject: 'Kurze Rückfrage zu unserem Angebot',
     body: `Guten Tag {{ansprechpartner}},
 
@@ -419,6 +459,7 @@ HUWA Gebäudedienste
     id: 'terminvereinbarung',
     name: 'Terminvereinbarung / Kennenlernen',
     category: 'Termin',
+    purpose: 'Termin',
     subject: 'Vorschlag für ein kurzes Kennenlernen',
     body: `Guten Tag {{ansprechpartner}},
 
@@ -437,6 +478,7 @@ HUWA Gebäudedienste
     id: 'danke-fuer-das-gespraech',
     name: 'Danke für das Gespräch',
     category: 'Termin',
+    purpose: 'Termin',
     subject: 'Vielen Dank für das Gespräch',
     body: `Guten Tag {{ansprechpartner}},
 
@@ -473,8 +515,16 @@ const CATEGORIES: Array<'Alle' | TemplateCategory> = [
   'Termin',
 ];
 
+const PURPOSES: Array<'Alle' | TemplatePurpose> = ['Alle', 'Erstkontakt', 'Nachfassen', 'Termin'];
+
 function uid() {
   return Math.random().toString(36).slice(2, 10);
+}
+
+function inferPurpose(category: TemplateCategory): TemplatePurpose {
+  if (category === 'Nachfassen') return 'Nachfassen';
+  if (category === 'Termin') return 'Termin';
+  return 'Erstkontakt';
 }
 
 function replacePlaceholders(text: string, placeholders: PlaceholderState) {
@@ -488,9 +538,16 @@ function parseTemplates(value?: string | null) {
     const parsed = JSON.parse(value);
     if (!Array.isArray(parsed)) return DEFAULT_TEMPLATES;
 
-    const cleaned = parsed.filter((item): item is EmailTemplate => {
-      return Boolean(item?.id && item?.name && item?.category && item?.subject && item?.body);
-    });
+    const cleaned = parsed
+      .filter(item => Boolean(item?.id && item?.name && item?.category && item?.subject && item?.body))
+      .map((item): EmailTemplate => ({
+        id: String(item.id),
+        name: String(item.name),
+        category: item.category as TemplateCategory,
+        purpose: (item.purpose as TemplatePurpose) || inferPurpose(item.category as TemplateCategory),
+        subject: String(item.subject),
+        body: String(item.body),
+      }));
 
     return cleaned.length > 0 ? cleaned : DEFAULT_TEMPLATES;
   } catch {
@@ -502,6 +559,7 @@ export default function EmailVorlagenPage() {
   const [templates, setTemplates] = useState<EmailTemplate[]>(DEFAULT_TEMPLATES);
   const [selectedId, setSelectedId] = useState<string>(DEFAULT_TEMPLATES[0].id);
   const [category, setCategory] = useState<'Alle' | TemplateCategory>('Alle');
+  const [purpose, setPurpose] = useState<'Alle' | TemplatePurpose>('Alle');
   const [search, setSearch] = useState('');
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
@@ -522,17 +580,25 @@ export default function EmailVorlagenPage() {
       });
   }, []);
 
+  const stats = useMemo(() => ({
+    total: templates.length,
+    firstTouch: templates.filter(item => item.purpose === 'Erstkontakt').length,
+    followUps: templates.filter(item => item.purpose === 'Nachfassen').length,
+    meetings: templates.filter(item => item.purpose === 'Termin').length,
+  }), [templates]);
+
   const filteredTemplates = useMemo(() => {
     const q = search.trim().toLowerCase();
 
     return templates.filter(template => {
       if (category !== 'Alle' && template.category !== category) return false;
+      if (purpose !== 'Alle' && template.purpose !== purpose) return false;
       if (!q) return true;
 
-      const haystack = `${template.name} ${template.category} ${template.subject} ${template.body}`.toLowerCase();
+      const haystack = `${template.name} ${template.category} ${template.purpose} ${template.subject} ${template.body}`.toLowerCase();
       return haystack.includes(q);
     });
-  }, [category, search, templates]);
+  }, [category, purpose, search, templates]);
 
   useEffect(() => {
     if (!filteredTemplates.some(template => template.id === selectedId)) {
@@ -550,6 +616,11 @@ export default function EmailVorlagenPage() {
     setTemplates(prev => prev.map(template => template.id === selectedTemplate.id ? { ...template, ...patch } : template));
   };
 
+  const flashMessage = (type: 'ok' | 'err', text: string, timeout = 3200) => {
+    setMessage({ type, text });
+    setTimeout(() => setMessage(null), timeout);
+  };
+
   const saveTemplates = async () => {
     setSaving(true);
     setMessage(null);
@@ -562,28 +633,26 @@ export default function EmailVorlagenPage() {
       });
 
       if (!res.ok) throw new Error();
-      setMessage({ type: 'ok', text: 'Vorlagen gespeichert.' });
+      flashMessage('ok', 'Vorlagen gespeichert.');
     } catch {
-      setMessage({ type: 'err', text: 'Fehler beim Speichern der Vorlagen.' });
+      flashMessage('err', 'Fehler beim Speichern der Vorlagen.');
     } finally {
       setSaving(false);
-      setTimeout(() => setMessage(null), 3500);
+    }
+  };
+
+  const copyText = async (text: string, successText: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      flashMessage('ok', successText);
+    } catch {
+      flashMessage('err', 'Kopieren fehlgeschlagen.');
     }
   };
 
   const copyTemplate = async () => {
     if (!selectedTemplate) return;
-
-    const combined = `Betreff: ${previewSubject}\n\n${previewBody}`;
-
-    try {
-      await navigator.clipboard.writeText(combined);
-      setMessage({ type: 'ok', text: 'Vorlage in die Zwischenablage kopiert.' });
-    } catch {
-      setMessage({ type: 'err', text: 'Kopieren fehlgeschlagen.' });
-    } finally {
-      setTimeout(() => setMessage(null), 3000);
-    }
+    await copyText(`Betreff: ${previewSubject}\n\n${previewBody}`, 'Vorlage in die Zwischenablage kopiert.');
   };
 
   const addTemplate = () => {
@@ -591,20 +660,20 @@ export default function EmailVorlagenPage() {
       id: uid(),
       name: 'Neue Vorlage',
       category: 'Gewerbe',
+      purpose: 'Erstkontakt',
       subject: 'Vorstellung von HUWA Gebäudedienste in {{stadt}}',
       body: `Guten Tag {{ansprechpartner}},\n\nwir möchten uns Ihnen als regionaler Dienstleister für {{leistung}} in {{stadt}} vorstellen.\n\nMit freundlichen Grüßen\nHUWA Gebäudedienste\n{{telefon}}\n{{email}}`,
     };
 
     setTemplates(prev => [next, ...prev]);
     setSelectedId(next.id);
-    setMessage({ type: 'ok', text: 'Neue Vorlage angelegt.' });
-    setTimeout(() => setMessage(null), 2500);
+    flashMessage('ok', 'Neue Vorlage angelegt.', 2400);
   };
 
   const duplicateTemplate = () => {
     if (!selectedTemplate) return;
 
-    const next = {
+    const next: EmailTemplate = {
       ...selectedTemplate,
       id: uid(),
       name: `${selectedTemplate.name} Kopie`,
@@ -612,23 +681,30 @@ export default function EmailVorlagenPage() {
 
     setTemplates(prev => [next, ...prev]);
     setSelectedId(next.id);
-    setMessage({ type: 'ok', text: 'Vorlage dupliziert.' });
-    setTimeout(() => setMessage(null), 2500);
+    flashMessage('ok', 'Vorlage dupliziert.', 2400);
   };
 
   const removeTemplate = () => {
     if (!selectedTemplate) return;
     if (templates.length === 1) {
-      setMessage({ type: 'err', text: 'Mindestens eine Vorlage muss bestehen bleiben.' });
-      setTimeout(() => setMessage(null), 2500);
+      flashMessage('err', 'Mindestens eine Vorlage muss bestehen bleiben.', 2400);
       return;
     }
 
     const nextTemplates = templates.filter(template => template.id !== selectedTemplate.id);
     setTemplates(nextTemplates);
     setSelectedId(nextTemplates[0]?.id || '');
-    setMessage({ type: 'ok', text: 'Vorlage gelöscht.' });
-    setTimeout(() => setMessage(null), 2500);
+    flashMessage('ok', 'Vorlage gelöscht.', 2400);
+  };
+
+  const resetDefaults = () => {
+    if (!confirm('Die gesamte Vorlagenbibliothek auf den Standard zurücksetzen? Eigene Änderungen werden dabei überschrieben.')) return;
+    setTemplates(DEFAULT_TEMPLATES);
+    setSelectedId(DEFAULT_TEMPLATES[0].id);
+    setCategory('Alle');
+    setPurpose('Alle');
+    setSearch('');
+    flashMessage('ok', 'Standardbibliothek wiederhergestellt.', 2600);
   };
 
   return (
@@ -638,13 +714,13 @@ export default function EmailVorlagenPage() {
           <p className="text-sm font-semibold text-primary uppercase tracking-wider">Vertriebshilfe</p>
           <h1 className="text-2xl font-bold text-slate-800">E-Mail-Vorlagen</h1>
           <p className="text-slate-500 text-sm mt-1">
-            Vorlagen für Erstvorstellung, Nachfassen und branchenspezifische Akquise direkt im Adminbereich.
+            Starke Vorlagen für Erstvorstellung, Nachfassen und Terminvereinbarung – direkt im HUWA-Adminbereich.
           </p>
         </div>
         <div className="flex gap-2 flex-wrap">
           <button onClick={addTemplate} className="btn-outline text-sm py-2 px-4">+ Neue Vorlage</button>
           <button onClick={duplicateTemplate} disabled={!selectedTemplate} className="btn-outline text-sm py-2 px-4 disabled:opacity-50">Duplizieren</button>
-          <button onClick={copyTemplate} disabled={!selectedTemplate} className="btn-primary text-sm py-2 px-4 disabled:opacity-50">Vorlage kopieren</button>
+          <button onClick={copyTemplate} disabled={!selectedTemplate} className="btn-primary text-sm py-2 px-4 disabled:opacity-50">Alles kopieren</button>
           <button onClick={saveTemplates} disabled={saving} className="btn-primary text-sm py-2 px-4 disabled:opacity-50">
             {saving ? 'Speichert…' : 'Speichern'}
           </button>
@@ -656,6 +732,21 @@ export default function EmailVorlagenPage() {
           {message.text}
         </div>
       )}
+
+      <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
+        {[
+          { label: 'Vorlagen gesamt', value: stats.total, hint: 'Bibliothek' },
+          { label: 'Erstkontakt', value: stats.firstTouch, hint: 'direkte Vorstellung' },
+          { label: 'Nachfassen', value: stats.followUps, hint: 'dranbleiben ohne Druck' },
+          { label: 'Termin & Gespräch', value: stats.meetings, hint: 'Rückmeldung nutzen' },
+        ].map(card => (
+          <div key={card.label} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+            <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">{card.label}</div>
+            <div className="text-3xl font-black text-slate-800 mt-2">{card.value}</div>
+            <div className="text-xs text-slate-400 mt-1">{card.hint}</div>
+          </div>
+        ))}
+      </div>
 
       <div className="grid xl:grid-cols-[320px_1fr] gap-6">
         <aside className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 h-fit xl:sticky xl:top-6">
@@ -671,10 +762,26 @@ export default function EmailVorlagenPage() {
                 <option key={item} value={item}>{item}</option>
               ))}
             </select>
+            <div className="flex flex-wrap gap-2">
+              {PURPOSES.map(item => (
+                <button
+                  key={item}
+                  onClick={() => setPurpose(item)}
+                  className={`px-3 py-1.5 rounded-full text-xs font-semibold border transition-colors ${purpose === item ? 'bg-primary text-white border-primary' : 'bg-white text-slate-500 border-slate-200 hover:border-primary/30 hover:text-slate-700'}`}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider mb-3">
-            {filteredTemplates.length} Vorlagen
+          <div className="flex items-center justify-between mb-3">
+            <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
+              {filteredTemplates.length} Vorlagen
+            </div>
+            <button onClick={resetDefaults} className="text-xs text-slate-400 hover:text-slate-600">
+              Standard laden
+            </button>
           </div>
 
           <div className="space-y-2 max-h-[65vh] overflow-auto pr-1">
@@ -690,6 +797,9 @@ export default function EmailVorlagenPage() {
                     <div className="font-semibold text-slate-800 text-sm truncate">{template.name}</div>
                     <span className="text-[11px] rounded-full bg-slate-100 text-slate-500 px-2 py-0.5 shrink-0">{template.category}</span>
                   </div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-[11px] rounded-full bg-blue-50 text-blue-600 px-2 py-0.5">{template.purpose}</span>
+                  </div>
                   <div className="text-xs text-slate-500 line-clamp-2">{template.subject}</div>
                 </button>
               );
@@ -700,7 +810,10 @@ export default function EmailVorlagenPage() {
         <section className="space-y-6">
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
             <div className="flex items-center justify-between gap-3 mb-4">
-              <h2 className="text-lg font-bold text-slate-800">Vorlage bearbeiten</h2>
+              <div>
+                <h2 className="text-lg font-bold text-slate-800">Vorlage bearbeiten</h2>
+                <p className="text-sm text-slate-500 mt-1">Starker erster Wurf statt halber Texte. Passe Betreff und Argumentation direkt an deine Zielgruppe an.</p>
+              </div>
               <button onClick={removeTemplate} disabled={!selectedTemplate} className="text-sm text-red-600 hover:text-red-700 disabled:opacity-50">
                 Vorlage löschen
               </button>
@@ -708,7 +821,7 @@ export default function EmailVorlagenPage() {
 
             {selectedTemplate ? (
               <div className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
+                <div className="grid md:grid-cols-3 gap-4">
                   <div>
                     <label className="label">Interner Name</label>
                     <input
@@ -729,6 +842,18 @@ export default function EmailVorlagenPage() {
                       ))}
                     </select>
                   </div>
+                  <div>
+                    <label className="label">Typ</label>
+                    <select
+                      className="input-field"
+                      value={selectedTemplate.purpose}
+                      onChange={e => updateTemplate({ purpose: e.target.value as TemplatePurpose })}
+                    >
+                      {PURPOSES.filter(item => item !== 'Alle').map(item => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <div>
@@ -744,14 +869,26 @@ export default function EmailVorlagenPage() {
                   <label className="label">E-Mail-Text</label>
                   <textarea
                     rows={16}
-                    className="input-field resize-y min-h-[320px]"
+                    className="input-field resize-y min-h-[340px]"
                     value={selectedTemplate.body}
                     onChange={e => updateTemplate({ body: e.target.value })}
                   />
                 </div>
 
-                <div className="text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200 p-3">
-                  Unterstützte Platzhalter: {PLACEHOLDER_TOKENS.join(', ')}
+                <div className="grid lg:grid-cols-2 gap-4">
+                  <div className="text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200 p-4">
+                    <div className="font-semibold text-slate-700 mb-2">Unterstützte Platzhalter</div>
+                    <div className="leading-6">{PLACEHOLDER_TOKENS.join(', ')}</div>
+                  </div>
+                  <div className="text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200 p-4">
+                    <div className="font-semibold text-slate-700 mb-2">Akquise-Regeln für bessere Wirkung</div>
+                    <ul className="space-y-1.5 list-disc pl-4">
+                      <li>nicht zu lang schreiben – schnell auf den Punkt kommen</li>
+                      <li>nicht billig oder anbiedernd klingen</li>
+                      <li>konkreten Nutzen statt Floskeln nennen</li>
+                      <li>Rückmeldung oder kurzes Kennenlernen als nächstes Ziel</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -760,7 +897,20 @@ export default function EmailVorlagenPage() {
           </div>
 
           <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6">
-            <h2 className="text-lg font-bold text-slate-800 mb-4">Platzhalter & Vorschau</h2>
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <h2 className="text-lg font-bold text-slate-800">Platzhalter & Vorschau</h2>
+              <div className="flex gap-2 flex-wrap">
+                {PLACEHOLDER_PRESETS.map(preset => (
+                  <button
+                    key={preset.label}
+                    onClick={() => setPlaceholders(prev => ({ ...prev, ...preset.values }))}
+                    className="text-xs px-3 py-1.5 rounded-full border border-slate-200 text-slate-600 hover:border-primary/30 hover:text-slate-800"
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mb-5">
               {Object.entries(placeholders).map(([key, value]) => (
@@ -773,6 +923,12 @@ export default function EmailVorlagenPage() {
                   />
                 </div>
               ))}
+            </div>
+
+            <div className="flex gap-2 flex-wrap mb-4">
+              <button onClick={() => copyText(previewSubject, 'Betreff kopiert.')} className="btn-outline text-sm py-2 px-4">Betreff kopieren</button>
+              <button onClick={() => copyText(previewBody, 'Text kopiert.')} className="btn-outline text-sm py-2 px-4">Text kopieren</button>
+              <button onClick={copyTemplate} className="btn-primary text-sm py-2 px-4">Betreff + Text kopieren</button>
             </div>
 
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
