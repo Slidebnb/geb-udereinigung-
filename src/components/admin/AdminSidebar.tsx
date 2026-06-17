@@ -7,6 +7,7 @@ const nav = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
   { href: '/admin/homepage', label: 'Startseite', icon: '🏠' },
   { href: '/admin/anfragen', label: 'Anfragen', icon: '📬' },
+  { href: '/admin/email-vorlagen', label: 'E-Mail Vorlagen', icon: '✉️' },
   { href: '/admin/kunden', label: 'Kunden', icon: '👥' },
   { href: '/admin/blog', label: 'Blog', icon: '✍️' },
   { href: '/admin/blog/ki-erstellen', label: 'KI Blog', icon: '🤖' },
@@ -37,7 +38,6 @@ export default function AdminSidebar({ isOpen = false, onClose }: AdminSidebarPr
           <div className="font-bold text-lg">HUWA Admin</div>
           <div className="text-blue-300 text-xs">Steuerung & Marketing</div>
         </div>
-        {/* Close button – only visible on mobile */}
         <button
           onClick={onClose}
           className="lg:hidden text-blue-300 hover:text-white p-1"
