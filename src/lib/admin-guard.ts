@@ -3,5 +3,5 @@ import { authOptions } from '@/lib/auth';
 
 export async function isAdmin(): Promise<boolean> {
   const session = await getServerSession(authOptions);
-  return Boolean(session?.user);
+  return session?.user?.role === 'admin';
 }

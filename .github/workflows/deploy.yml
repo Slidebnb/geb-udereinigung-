@@ -3,7 +3,6 @@ name: Deploy to Server
 on:
   push:
     branches:
-      - claude/huwa-cleaning-website-PJ5Ql
       - main
 
 jobs:
@@ -19,10 +18,11 @@ jobs:
           key: ${{ secrets.DEPLOY_SSH_KEY }}
           port: 22
           script: |
+            set -e
             cd /var/www/huwa
             git fetch origin
-            git checkout claude/huwa-cleaning-website-PJ5Ql
-            git pull origin claude/huwa-cleaning-website-PJ5Ql
+            git checkout main
+            git pull --ff-only origin main
             npm ci --omit=dev
             npx prisma db push --skip-generate
             rm -rf .next

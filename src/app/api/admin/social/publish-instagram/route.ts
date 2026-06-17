@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { isAdmin } from '@/lib/admin-guard';
+import { decryptToken } from '@/lib/token-crypto';
 
 export async function POST(req: Request) {
-  const session = await getServerSession(authOptions);
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   const { postId } = await req.json();
   if (!postId) {
@@ -29,7 +28,16 @@ export async function POST(req: Request) {
 
   const caption = [socialPost.caption, socialPost.hashtags].filter(Boolean).join('\n\n');
   const imageUrl = socialPost.imageUrl;
-  const accessToken = account.accessToken;
+  let accessToken: string;
+  try {
+    accessToken = decryptToken(account.accessToken);
+  } catch (error) {
+    console.error('[social/publish-instagram] token decrypt failed', error);
+    return NextResponse.json(
+      { error: 'Instagram-Token ist nicht lesbar. Bitte Konto neu verbinden.' },
+      { status: 503 }
+    );
+  }
   const igAccountId = account.accountId;
 
   try {

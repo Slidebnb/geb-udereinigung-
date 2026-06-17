@@ -1,13 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { isAdmin } from '@/lib/admin-guard';
+import { encryptToken, hasTokenEncryptionKey } from '@/lib/token-crypto';
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get('code');
   const error = req.nextUrl.searchParams.get('error');
+  const state = req.nextUrl.searchParams.get('state');
+  const expectedState = req.cookies.get('instagram_oauth_state')?.value;
   const baseUrl = process.env.NEXTAUTH_URL || '';
 
-  if (error || !code) {
-    return NextResponse.redirect(`${baseUrl}/admin/social?error=oauth_failed`);
+  const redirectWithClearedState = (target: string) => {
+    const response = NextResponse.redirect(target);
+    response.cookies.set('instagram_oauth_state', '', {
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      path: '/api/admin/social/instagram/callback',
+      maxAge: 0,
+    });
+    return response;
+  };
+
+  if (!(await isAdmin())) {
+    return redirectWithClearedState(`${baseUrl}/admin/social?error=unauthorized`);
+  }
+
+  if (error || !code || !state || !expectedState || state !== expectedState) {
+    return redirectWithClearedState(`${baseUrl}/admin/social?error=oauth_failed`);
+  }
+
+  if (!hasTokenEncryptionKey()) {
+    return redirectWithClearedState(`${baseUrl}/admin/social?error=token_key_missing`);
   }
 
   try {
@@ -22,7 +46,7 @@ export async function GET(req: NextRequest) {
     const tokenData = await tokenRes.json();
 
     if (!tokenData.access_token) {
-      return NextResponse.redirect(`${baseUrl}/admin/social?error=token_failed`);
+      return redirectWithClearedState(`${baseUrl}/admin/social?error=token_failed`);
     }
 
     // Nutzerinfo holen
@@ -45,21 +69,21 @@ export async function GET(req: NextRequest) {
         platform: 'instagram',
         accountId: accountId,
         username: meData.name || null,
-        accessToken: tokenData.access_token,
+        accessToken: encryptToken(tokenData.access_token),
         tokenExpiresAt: expiresAt,
         status: 'connected',
       },
       update: {
-        accessToken: tokenData.access_token,
+        accessToken: encryptToken(tokenData.access_token),
         username: meData.name || null,
         tokenExpiresAt: expiresAt,
         status: 'connected',
       },
     });
 
-    return NextResponse.redirect(`${baseUrl}/admin/social?success=connected`);
+    return redirectWithClearedState(`${baseUrl}/admin/social?success=connected`);
   } catch (err) {
     console.error('[instagram/callback]', err);
-    return NextResponse.redirect(`${baseUrl}/admin/social?error=server_error`);
+    return redirectWithClearedState(`${baseUrl}/admin/social?error=server_error`);
   }
 }

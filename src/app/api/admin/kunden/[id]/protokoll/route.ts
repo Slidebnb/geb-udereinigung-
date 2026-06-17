@@ -1,16 +1,15 @@
-import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
+import { isAdmin } from '@/lib/admin-guard';
 
 export async function POST(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const session = await getServerSession(authOptions);
-  if (!session || session.user.role !== 'admin') {
+  if (!(await isAdmin())) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+  const { id } = await params;
 
   try {
     const body = await request.json();
@@ -29,14 +28,14 @@ export async function POST(
       return NextResponse.json({ error: 'Datum, Leistungsart, Standort und Aufgaben sind erforderlich.' }, { status: 400 });
     }
 
-    const customer = await prisma.user.findUnique({ where: { id: params.id } });
+    const customer = await prisma.user.findUnique({ where: { id } });
     if (!customer || customer.role !== 'kunde') {
       return NextResponse.json({ error: 'Kunde nicht gefunden.' }, { status: 404 });
     }
 
     const protocol = await prisma.cleaningProtocol.create({
       data: {
-        customerId: params.id,
+        customerId: id,
         date: new Date(date),
         type,
         location,

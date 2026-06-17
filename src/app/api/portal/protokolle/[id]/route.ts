@@ -3,13 +3,14 @@ import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { NextResponse } from 'next/server';
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   const session = await getServerSession(authOptions);
   if (!session || session.user.role !== 'kunde') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
+  const { id } = await params;
   const protocol = await prisma.cleaningProtocol.findFirst({
-    where: { id: params.id, customerId: session.user.id },
+    where: { id, customerId: session.user.id },
     include: { customer: { select: { name: true, email: true } } },
   });
   if (!protocol) {

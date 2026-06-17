@@ -144,7 +144,7 @@ export default function EinstellungenPage() {
               )}
             </div>
             <div className="flex-1">
-              <p className="text-sm text-gray-500 mb-3">PNG, JPG oder SVG · max. 2 MB</p>
+              <p className="text-sm text-gray-500 mb-3">PNG, JPG, WebP, AVIF oder GIF · max. 2 MB</p>
               <div className="flex gap-2 flex-wrap">
                 <button
                   onClick={() => fileRef.current?.click()}
@@ -159,7 +159,7 @@ export default function EinstellungenPage() {
                   </button>
                 )}
               </div>
-              <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
+              <input ref={fileRef} type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/gif" className="hidden" onChange={handleLogoUpload} />
             </div>
           </div>
         </div>
