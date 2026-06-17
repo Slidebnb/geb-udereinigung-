@@ -7,14 +7,20 @@ type TemplateCategory =
   | 'WEG'
   | 'Büro'
   | 'Praxis'
+  | 'Zahnarzt'
   | 'Kanzlei'
   | 'Gewerbe'
   | 'Autohaus'
   | 'Fitness'
+  | 'Hotel'
+  | 'Einzelhandel'
+  | 'Kindergarten'
+  | 'Schule'
   | 'Winterdienst'
   | 'Gartenpflege'
   | 'Hausmeisterservice'
-  | 'Nachfassen';
+  | 'Nachfassen'
+  | 'Termin';
 
 type EmailTemplate = {
   id: string;
@@ -34,6 +40,7 @@ type PlaceholderState = {
 };
 
 const SETTINGS_KEY = 'sales_email_templates_v1';
+const PLACEHOLDER_TOKENS = ['{{firma}}', '{{ansprechpartner}}', '{{stadt}}', '{{leistung}}', '{{telefon}}', '{{email}}'];
 
 const DEFAULT_PLACEHOLDERS: PlaceholderState = {
   firma: 'Musterfirma GmbH',
@@ -131,6 +138,26 @@ HUWA Gebäudedienste
 {{email}}`,
   },
   {
+    id: 'zahnarzt-erstkontakt',
+    name: 'Erstkontakt Zahnarztpraxis',
+    category: 'Zahnarzt',
+    subject: 'Reinigungslösung für Ihre Zahnarztpraxis in {{stadt}}',
+    body: `Guten Tag {{ansprechpartner}},
+
+wir möchten uns Ihnen als regionaler Ansprechpartner für die zuverlässige Reinigung von Praxis- und Empfangsbereichen in {{stadt}} vorstellen.
+
+Gerade in Zahnarztpraxen sind ein gepflegter Eindruck, planbare Abläufe und diskrete Ausführung besonders wichtig.
+
+HUWA Gebäudedienste unterstützt Praxen mit regelmäßiger Reinigung und persönlichem Ansprechpartner.
+
+Wenn das Thema für {{firma}} aktuell interessant ist, freuen wir uns über Ihre Rückmeldung.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
+  {
     id: 'kanzlei-erstkontakt',
     name: 'Erstkontakt Kanzlei',
     category: 'Kanzlei',
@@ -198,6 +225,84 @@ wir möchten uns Ihnen als regionaler Ansprechpartner für die laufende Reinigun
 HUWA Gebäudedienste arbeitet mit festen Abläufen, verlässlichen Ansprechpartnern und regelmäßiger Ausführung.
 
 Wenn {{firma}} aktuell nach einer stabilen Reinigungslösung sucht, freuen wir uns über Ihre Rückmeldung.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
+  {
+    id: 'hotel-erstkontakt',
+    name: 'Erstkontakt Hotel / Pension',
+    category: 'Hotel',
+    subject: 'Reinigung und Objektpflege für Beherbergungsbetriebe in {{stadt}}',
+    body: `Guten Tag {{ansprechpartner}},
+
+wir möchten uns Ihnen als regionaler Ansprechpartner für Reinigungs- und Pflegeleistungen in {{stadt}} vorstellen.
+
+Gerade bei Hotels, Pensionen und Gästehäusern sind ein gepflegter erster Eindruck, verlässliche Abläufe und saubere Gemeinschaftsbereiche entscheidend.
+
+HUWA Gebäudedienste unterstützt dabei mit festen Ansprechpartnern und planbarer Ausführung.
+
+Wenn das Thema für {{firma}} aktuell relevant ist, freuen wir uns über Ihre Rückmeldung.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
+  {
+    id: 'einzelhandel-erstkontakt',
+    name: 'Erstkontakt Einzelhandel',
+    category: 'Einzelhandel',
+    subject: 'Saubere Verkaufsflächen und Eingangsbereiche in {{stadt}}',
+    body: `Guten Tag {{ansprechpartner}},
+
+wir möchten uns Ihnen als regionaler Ansprechpartner für die zuverlässige Reinigung von Verkaufs-, Sanitär- und Eingangsbereichen in {{stadt}} vorstellen.
+
+Ein gepflegter Eindruck ist für Kundenwahrnehmung und Alltag im Geschäft entscheidend.
+
+HUWA Gebäudedienste unterstützt Einzelhandelsstandorte mit regelmäßiger Reinigung und ergänzender Objektpflege.
+
+Wenn {{firma}} aktuell nach einer stabilen Lösung sucht, freuen wir uns über Ihre Rückmeldung.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
+  {
+    id: 'kindergarten-erstkontakt',
+    name: 'Erstkontakt Kindergarten',
+    category: 'Kindergarten',
+    subject: 'Zuverlässige Reinigung für Kindergarten- und Betreuungsräume',
+    body: `Guten Tag {{ansprechpartner}},
+
+wir möchten uns Ihnen als regionaler Ansprechpartner für Reinigungsleistungen in Kindergärten und Betreuungseinrichtungen in {{stadt}} vorstellen.
+
+Gerade in sensiblen Bereichen sind planbare Abläufe, verlässliche Ausführung und ein gepflegtes Umfeld besonders wichtig.
+
+HUWA Gebäudedienste unterstützt Einrichtungen mit regelmäßiger Reinigung und persönlichem Ansprechpartner.
+
+Wenn Sie aktuell nach Unterstützung suchen, freuen wir uns über Ihre Rückmeldung.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
+  {
+    id: 'schule-erstkontakt',
+    name: 'Erstkontakt Schule / Bildungseinrichtung',
+    category: 'Schule',
+    subject: 'Reinigungs- und Objektpflege für Bildungseinrichtungen in {{stadt}}',
+    body: `Guten Tag {{ansprechpartner}},
+
+wir möchten uns Ihnen als regionaler Ansprechpartner für Reinigungs- und Objektpflegeleistungen in {{stadt}} vorstellen.
+
+HUWA Gebäudedienste unterstützt Bildungseinrichtungen mit regelmäßiger Reinigung, festen Ansprechpartnern und planbarer Ausführung.
+
+Wenn das Thema für {{firma}} aktuell relevant ist, freuen wir uns über Ihre Rückmeldung.
 
 Mit freundlichen Grüßen
 HUWA Gebäudedienste
@@ -276,6 +381,74 @@ HUWA Gebäudedienste
 {{telefon}}
 {{email}}`,
   },
+  {
+    id: 'nachfassen-14-tage',
+    name: 'Nachfassen nach 14 Tagen',
+    category: 'Nachfassen',
+    subject: 'Noch einmal kurz nachgefragt',
+    body: `Guten Tag {{ansprechpartner}},
+
+ich wollte mich noch einmal kurz zu meiner letzten Nachricht melden.
+
+Vielleicht passt das Thema aktuell nicht oder ist intern noch offen. Falls {{leistung}} für {{firma}} in {{stadt}} künftig relevant sein sollte, freuen wir uns über Ihre Rückmeldung.
+
+Gerne bleiben wir unverbindlich in Kontakt.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
+  {
+    id: 'angebotserinnerung',
+    name: 'Angebotsnachverfolgung',
+    category: 'Nachfassen',
+    subject: 'Kurze Rückfrage zu unserem Angebot',
+    body: `Guten Tag {{ansprechpartner}},
+
+ich wollte kurz nachfragen, ob Sie unser Angebot bereits prüfen konnten.
+
+Falls noch Rückfragen offen sind oder Anpassungen gewünscht werden, geben Sie uns gerne Bescheid. Wir schauen uns das direkt an.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
+  {
+    id: 'terminvereinbarung',
+    name: 'Terminvereinbarung / Kennenlernen',
+    category: 'Termin',
+    subject: 'Vorschlag für ein kurzes Kennenlernen',
+    body: `Guten Tag {{ansprechpartner}},
+
+vielen Dank für Ihre Rückmeldung.
+
+Gerne würden wir ein kurzes Kennenlernen oder Telefonat vereinbaren, um Ihren Bedarf und mögliche Leistungen für {{firma}} in {{stadt}} besser einzuordnen.
+
+Nennen Sie uns gerne ein passendes Zeitfenster, alternativ schlagen wir Ihnen 2–3 Termine vor.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
+  {
+    id: 'danke-fuer-das-gespraech',
+    name: 'Danke für das Gespräch',
+    category: 'Termin',
+    subject: 'Vielen Dank für das Gespräch',
+    body: `Guten Tag {{ansprechpartner}},
+
+vielen Dank für das angenehme Gespräch.
+
+Wie besprochen stehen wir Ihnen gerne für {{leistung}} in {{stadt}} zur Verfügung. Falls Sie noch Unterlagen, Informationen oder ein konkretes Angebot wünschen, melden Sie sich jederzeit gerne.
+
+Mit freundlichen Grüßen
+HUWA Gebäudedienste
+{{telefon}}
+{{email}}`,
+  },
 ];
 
 const CATEGORIES: Array<'Alle' | TemplateCategory> = [
@@ -284,14 +457,20 @@ const CATEGORIES: Array<'Alle' | TemplateCategory> = [
   'WEG',
   'Büro',
   'Praxis',
+  'Zahnarzt',
   'Kanzlei',
   'Gewerbe',
   'Autohaus',
   'Fitness',
+  'Hotel',
+  'Einzelhandel',
+  'Kindergarten',
+  'Schule',
   'Winterdienst',
   'Gartenpflege',
   'Hausmeisterservice',
   'Nachfassen',
+  'Termin',
 ];
 
 function uid() {
@@ -572,7 +751,7 @@ export default function EmailVorlagenPage() {
                 </div>
 
                 <div className="text-xs text-slate-500 bg-slate-50 rounded-xl border border-slate-200 p-3">
-                  Unterstützte Platzhalter: {{firma}}, {{ansprechpartner}}, {{stadt}}, {{leistung}}, {{telefon}}, {{email}}
+                  Unterstützte Platzhalter: {PLACEHOLDER_TOKENS.join(', ')}
                 </div>
               </div>
             ) : (
