@@ -1,8 +1,12 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { newsletterSchema } from '@/lib/validations';
+import { publicFormRateLimit } from '@/lib/rate-limit';
 
 export async function POST(request: Request) {
+  const limited = publicFormRateLimit(request, 'newsletter');
+  if (limited) return limited;
+
   try {
     const body = await request.json();
     const parsed = newsletterSchema.safeParse(body);

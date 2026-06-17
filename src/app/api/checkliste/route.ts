@@ -3,6 +3,8 @@ import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { sendNotificationMail, sendDirectMail } from '@/lib/mail';
 import { siteConfig } from '@/lib/site';
+import { escapeHtml } from '@/lib/html';
+import { publicFormRateLimit } from '@/lib/rate-limit';
 
 const checklisteSchema = z.object({
   name: z.string().min(2),
@@ -13,6 +15,9 @@ const checklisteSchema = z.object({
 });
 
 export async function POST(request: Request) {
+  const limited = publicFormRateLimit(request, 'checkliste');
+  if (limited) return limited;
+
   try {
     const body = await request.json();
     const parsed = checklisteSchema.safeParse(body);
@@ -39,7 +44,7 @@ export async function POST(request: Request) {
       subject: 'Ihre kostenlose Haustechnik-Checkliste von Huwa',
       html: `
         <div style="font-family: Arial; color: #1a2e4a;">
-          <h2>Hallo ${name},</h2>
+          <h2>Hallo ${escapeHtml(name)},</h2>
           <p>vielen Dank für Ihr Interesse! Hier ist Ihre kostenlose Checkliste:</p>
           <p>
             <a href="${siteConfig.url}/downloads/haustechnik-checkliste.html"
@@ -63,8 +68,8 @@ export async function POST(request: Request) {
       <div style="font-family: Arial; color: #1a2e4a;">
         <h2 style="color:#1a2e4a;">Neuer Checklisten-Download</h2>
         <table style="border-collapse:collapse;">
-          <tr><td style="padding:4px 12px 4px 0;"><strong>Name:</strong></td><td>${name}</td></tr>
-          <tr><td style="padding:4px 12px 4px 0;"><strong>E-Mail:</strong></td><td>${email}</td></tr>
+          <tr><td style="padding:4px 12px 4px 0;"><strong>Name:</strong></td><td>${escapeHtml(name)}</td></tr>
+          <tr><td style="padding:4px 12px 4px 0;"><strong>E-Mail:</strong></td><td>${escapeHtml(email)}</td></tr>
           <tr><td style="padding:4px 12px 4px 0;"><strong>Newsletter:</strong></td><td>${newsletter ? 'Ja' : 'Nein'}</td></tr>
         </table>
       </div>

@@ -62,7 +62,7 @@ export default function AngebotPage() {
           </div>
           <h1 className="text-white mb-4">Anfrage erfolgreich gesendet!</h1>
           <p className="text-slate-300 mb-8">Vielen Dank für Ihr Interesse. Wir melden uns innerhalb von 24 Stunden mit Ihrem persönlichen Angebot.</p>
-          <a href="/" className="btn-primary">Zurück zur Startseite</a>
+          <Link href="/" className="btn-primary">Zurück zur Startseite</Link>
         </div>
       </section>
     );
@@ -194,7 +194,7 @@ export default function AngebotPage() {
                     <label className="flex items-start gap-3 cursor-pointer">
                       <input type="checkbox" {...register('privacy')} className="mt-0.5 w-4 h-4 accent-primary flex-shrink-0" />
                       <span className="text-sm text-gray-600">
-                        Ich stimme der <a href="/datenschutz" className="text-primary underline hover:no-underline">Datenschutzerklärung</a> zu. *
+                        Ich stimme der <Link href="/datenschutz" className="text-primary underline hover:no-underline">Datenschutzerklärung</Link> zu. *
                       </span>
                     </label>
                     {errors.privacy && <p className="form-error mt-1">{(errors.privacy as any).message}</p>}

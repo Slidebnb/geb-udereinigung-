@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -73,7 +74,7 @@ export default function AdminLoginPage() {
           </form>
         </div>
         <p className="text-center text-xs text-gray-400 mt-4">
-          <a href="/" className="hover:text-gray-600">← Zur Webseite</a>
+          <Link href="/" className="hover:text-gray-600">← Zur Webseite</Link>
         </p>
       </div>
     </div>

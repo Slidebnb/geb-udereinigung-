@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { sendNotificationMail } from '@/lib/mail';
+import { publicFormRateLimit } from '@/lib/rate-limit';
 
 const schema = z.object({
   name: z.string().min(2),
@@ -45,6 +46,9 @@ function renderGartenpflegeMail(data: z.infer<typeof schema>): string {
 }
 
 export async function POST(request: Request) {
+  const limited = publicFormRateLimit(request, 'gartenpflege-anfrage');
+  if (limited) return limited;
+
   try {
     const body = await request.json();
     const parsed = schema.safeParse(body);

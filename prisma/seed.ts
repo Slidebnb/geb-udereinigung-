@@ -4,13 +4,24 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-  // Admin user
-  const passwordHash = await bcrypt.hash('admin123', 12);
-  await prisma.user.upsert({
-    where: { email: 'admin@huwa-gebaeudedienste.de' },
-    update: {},
-    create: { email: 'admin@huwa-gebaeudedienste.de', name: 'Administrator', password: passwordHash, role: 'admin' },
-  });
+  const adminEmail = process.env.SEED_ADMIN_EMAIL;
+  const adminPassword = process.env.SEED_ADMIN_PASSWORD;
+
+  if (adminEmail && adminPassword) {
+    if (adminPassword.length < 12) {
+      throw new Error('SEED_ADMIN_PASSWORD must be at least 12 characters.');
+    }
+
+    const passwordHash = await bcrypt.hash(adminPassword, 12);
+    await prisma.user.upsert({
+      where: { email: adminEmail },
+      update: { password: passwordHash, role: 'admin' },
+      create: { email: adminEmail, name: 'Administrator', password: passwordHash, role: 'admin' },
+    });
+    console.log(`Admin user seeded: ${adminEmail}`);
+  } else {
+    console.warn('Skipping admin seed because SEED_ADMIN_EMAIL or SEED_ADMIN_PASSWORD is missing.');
+  }
 
   // Testimonials
   const testimonials = [
@@ -153,9 +164,7 @@ Kontaktieren Sie uns für ein individuelles Angebot – wir beraten Sie kostenlo
     await prisma.setting.upsert({ where: { key: s.key }, update: { value: s.value }, create: s });
   }
 
-  console.log('✅ Seed abgeschlossen!');
-  console.log('📧 Admin-Login: admin@huwa-gebaeudedienste.de');
-  console.log('🔑 Passwort: admin123');
+  console.log('Seed abgeschlossen!');
 }
 
 main().catch(console.error).finally(() => prisma.$disconnect());

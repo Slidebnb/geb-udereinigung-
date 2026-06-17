@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 import { isAdmin } from '@/lib/admin-guard';
+import { isAllowedSettingKey } from '@/lib/settings-keys';
 
 export async function GET() {
   if (!(await isAdmin())) {
@@ -23,6 +24,9 @@ export async function POST(request: Request) {
   }
   for (const [key, value] of Object.entries(body)) {
     if (!key) continue;
+    if (!isAllowedSettingKey(key)) {
+      return NextResponse.json({ error: `Einstellung "${key}" ist nicht erlaubt.` }, { status: 400 });
+    }
     await prisma.setting.upsert({
       where: { key },
       update: { value: String(value ?? '') },
@@ -44,6 +48,9 @@ export async function PUT(request: Request) {
   }
   for (const s of settings) {
     if (!s.key) continue;
+    if (!isAllowedSettingKey(s.key)) {
+      return NextResponse.json({ error: `Einstellung "${s.key}" ist nicht erlaubt.` }, { status: 400 });
+    }
     await prisma.setting.upsert({
       where: { key: s.key },
       update: { value: String(s.value ?? '') },

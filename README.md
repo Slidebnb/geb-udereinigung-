@@ -116,7 +116,7 @@ certbot --nginx -d www.huwa-gebaeudedienste.de -d huwa-gebaeudedienste.de
 
 ## Continuous Deployment (GitHub Actions)
 
-Pushes to `main` or `claude/huwa-cleaning-website-PJ5Ql` automatically deploy via SSH.
+Pushes to `main` automatically deploy via SSH.
 
 **Required GitHub Secrets** (Settings → Secrets → Actions):
 
@@ -131,7 +131,7 @@ Add the public key to `/root/.ssh/authorized_keys` on the server.
 ## Admin Panel
 
 URL: `/admin`  
-Default credentials: `admin@huwa-gebaeudedienste.de` / `admin123`
+No default admin password is committed. To create or reset the seed admin, set `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` before running `npm run db:seed`.
 
 Change the password immediately after first login via the admin settings.
 
