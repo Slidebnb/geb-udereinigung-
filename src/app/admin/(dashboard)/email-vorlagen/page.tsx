@@ -67,7 +67,7 @@ const PLACEHOLDER_PRESETS: Array<{ label: string; values: Partial<PlaceholderSta
   {
     label: 'Büro Koblenz',
     values: {
-      firma: 'Beispiel Büroservice GmbH',
+      firma: 'Büroservice Beispiel GmbH',
       ansprechpartner: 'Frau Muster',
       stadt: 'Koblenz',
       leistung: 'Büro- und Unterhaltsreinigung',
@@ -123,7 +123,7 @@ wir möchten uns Ihnen als regionaler Dienstleister für die laufende Betreuung 
 
 HUWA Gebäudedienste unterstützt Eigentümergemeinschaften und Verwaltungen mit planbaren Leistungen wie Treppenhausreinigung, Unterhaltsreinigung, Hausmeisterservice, Gartenpflege und Winterdienst.
 
-Unser Fokus liegt auf einer sauberen Ausführung, festen Ansprechpartnern und einer Zusammenarbeit, die im Alltag entlastet.
+Unser Fokus liegt auf einer sauberen Ausführung, festen Ansprechpartnern und einer Zusammenarbeit, die im Alltag wirklich entlastet.
 
 Falls {{firma}} aktuell Unterstützung in diesem Bereich sucht, freuen wir uns über Ihre Rückmeldung.
 
@@ -555,6 +555,16 @@ function parseTemplates(value?: string | null) {
   }
 }
 
+function StatCard({ label, value, hint }: { label: string; value: number; hint: string }) {
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
+      <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">{label}</div>
+      <div className="text-3xl font-black text-slate-800 mt-2">{value}</div>
+      <div className="text-xs text-slate-400 mt-1">{hint}</div>
+    </div>
+  );
+}
+
 export default function EmailVorlagenPage() {
   const [templates, setTemplates] = useState<EmailTemplate[]>(DEFAULT_TEMPLATES);
   const [selectedId, setSelectedId] = useState<string>(DEFAULT_TEMPLATES[0].id);
@@ -594,7 +604,6 @@ export default function EmailVorlagenPage() {
       if (category !== 'Alle' && template.category !== category) return false;
       if (purpose !== 'Alle' && template.purpose !== purpose) return false;
       if (!q) return true;
-
       const haystack = `${template.name} ${template.category} ${template.purpose} ${template.subject} ${template.body}`.toLowerCase();
       return haystack.includes(q);
     });
@@ -607,38 +616,17 @@ export default function EmailVorlagenPage() {
   }, [filteredTemplates, selectedId, templates]);
 
   const selectedTemplate = templates.find(template => template.id === selectedId) || templates[0];
-
   const previewSubject = selectedTemplate ? replacePlaceholders(selectedTemplate.subject, placeholders) : '';
   const previewBody = selectedTemplate ? replacePlaceholders(selectedTemplate.body, placeholders) : '';
+
+  const flashMessage = (type: 'ok' | 'err', text: string, timeout = 3200) => {
+    setMessage({ type, text });
+    window.setTimeout(() => setMessage(null), timeout);
+  };
 
   const updateTemplate = (patch: Partial<EmailTemplate>) => {
     if (!selectedTemplate) return;
     setTemplates(prev => prev.map(template => template.id === selectedTemplate.id ? { ...template, ...patch } : template));
-  };
-
-  const flashMessage = (type: 'ok' | 'err', text: string, timeout = 3200) => {
-    setMessage({ type, text });
-    setTimeout(() => setMessage(null), timeout);
-  };
-
-  const saveTemplates = async () => {
-    setSaving(true);
-    setMessage(null);
-
-    try {
-      const res = await fetch('/api/admin/settings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ [SETTINGS_KEY]: JSON.stringify(templates) }),
-      });
-
-      if (!res.ok) throw new Error();
-      flashMessage('ok', 'Vorlagen gespeichert.');
-    } catch {
-      flashMessage('err', 'Fehler beim Speichern der Vorlagen.');
-    } finally {
-      setSaving(false);
-    }
   };
 
   const copyText = async (text: string, successText: string) => {
@@ -651,8 +639,7 @@ export default function EmailVorlagenPage() {
   };
 
   const copyTemplate = async () => {
-    if (!selectedTemplate) return;
-    await copyText(`Betreff: ${previewSubject}\n\n${previewBody}`, 'Vorlage in die Zwischenablage kopiert.');
+    await copyText(`Betreff: ${previewSubject}\n\n${previewBody}`, 'Betreff und Text kopiert.');
   };
 
   const addTemplate = () => {
@@ -664,7 +651,6 @@ export default function EmailVorlagenPage() {
       subject: 'Vorstellung von HUWA Gebäudedienste in {{stadt}}',
       body: `Guten Tag {{ansprechpartner}},\n\nwir möchten uns Ihnen als regionaler Dienstleister für {{leistung}} in {{stadt}} vorstellen.\n\nMit freundlichen Grüßen\nHUWA Gebäudedienste\n{{telefon}}\n{{email}}`,
     };
-
     setTemplates(prev => [next, ...prev]);
     setSelectedId(next.id);
     flashMessage('ok', 'Neue Vorlage angelegt.', 2400);
@@ -672,13 +658,7 @@ export default function EmailVorlagenPage() {
 
   const duplicateTemplate = () => {
     if (!selectedTemplate) return;
-
-    const next: EmailTemplate = {
-      ...selectedTemplate,
-      id: uid(),
-      name: `${selectedTemplate.name} Kopie`,
-    };
-
+    const next: EmailTemplate = { ...selectedTemplate, id: uid(), name: `${selectedTemplate.name} Kopie` };
     setTemplates(prev => [next, ...prev]);
     setSelectedId(next.id);
     flashMessage('ok', 'Vorlage dupliziert.', 2400);
@@ -690,7 +670,6 @@ export default function EmailVorlagenPage() {
       flashMessage('err', 'Mindestens eine Vorlage muss bestehen bleiben.', 2400);
       return;
     }
-
     const nextTemplates = templates.filter(template => template.id !== selectedTemplate.id);
     setTemplates(nextTemplates);
     setSelectedId(nextTemplates[0]?.id || '');
@@ -707,6 +686,24 @@ export default function EmailVorlagenPage() {
     flashMessage('ok', 'Standardbibliothek wiederhergestellt.', 2600);
   };
 
+  const saveTemplates = async () => {
+    setSaving(true);
+    setMessage(null);
+    try {
+      const res = await fetch('/api/admin/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ [SETTINGS_KEY]: JSON.stringify(templates) }),
+      });
+      if (!res.ok) throw new Error();
+      flashMessage('ok', 'Vorlagen gespeichert.');
+    } catch {
+      flashMessage('err', 'Fehler beim Speichern der Vorlagen.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
   return (
     <div className="max-w-7xl">
       <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between mb-6">
@@ -721,9 +718,7 @@ export default function EmailVorlagenPage() {
           <button onClick={addTemplate} className="btn-outline text-sm py-2 px-4">+ Neue Vorlage</button>
           <button onClick={duplicateTemplate} disabled={!selectedTemplate} className="btn-outline text-sm py-2 px-4 disabled:opacity-50">Duplizieren</button>
           <button onClick={copyTemplate} disabled={!selectedTemplate} className="btn-primary text-sm py-2 px-4 disabled:opacity-50">Alles kopieren</button>
-          <button onClick={saveTemplates} disabled={saving} className="btn-primary text-sm py-2 px-4 disabled:opacity-50">
-            {saving ? 'Speichert…' : 'Speichern'}
-          </button>
+          <button onClick={saveTemplates} disabled={saving} className="btn-primary text-sm py-2 px-4 disabled:opacity-50">{saving ? 'Speichert…' : 'Speichern'}</button>
         </div>
       </div>
 
@@ -734,33 +729,18 @@ export default function EmailVorlagenPage() {
       )}
 
       <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4 mb-6">
-        {[
-          { label: 'Vorlagen gesamt', value: stats.total, hint: 'Bibliothek' },
-          { label: 'Erstkontakt', value: stats.firstTouch, hint: 'direkte Vorstellung' },
-          { label: 'Nachfassen', value: stats.followUps, hint: 'dranbleiben ohne Druck' },
-          { label: 'Termin & Gespräch', value: stats.meetings, hint: 'Rückmeldung nutzen' },
-        ].map(card => (
-          <div key={card.label} className="bg-white rounded-2xl border border-slate-100 shadow-sm p-5">
-            <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">{card.label}</div>
-            <div className="text-3xl font-black text-slate-800 mt-2">{card.value}</div>
-            <div className="text-xs text-slate-400 mt-1">{card.hint}</div>
-          </div>
-        ))}
+        <StatCard label="Vorlagen gesamt" value={stats.total} hint="Bibliothek" />
+        <StatCard label="Erstkontakt" value={stats.firstTouch} hint="direkte Vorstellung" />
+        <StatCard label="Nachfassen" value={stats.followUps} hint="dranbleiben" />
+        <StatCard label="Termin & Gespräch" value={stats.meetings} hint="Rückmeldung nutzen" />
       </div>
 
       <div className="grid xl:grid-cols-[320px_1fr] gap-6">
         <aside className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 h-fit xl:sticky xl:top-6">
           <div className="space-y-3 mb-4">
-            <input
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="input-field"
-              placeholder="Vorlagen durchsuchen…"
-            />
+            <input value={search} onChange={e => setSearch(e.target.value)} className="input-field" placeholder="Vorlagen durchsuchen…" />
             <select value={category} onChange={e => setCategory(e.target.value as 'Alle' | TemplateCategory)} className="input-field">
-              {CATEGORIES.map(item => (
-                <option key={item} value={item}>{item}</option>
-              ))}
+              {CATEGORIES.map(item => <option key={item} value={item}>{item}</option>)}
             </select>
             <div className="flex flex-wrap gap-2">
               {PURPOSES.map(item => (
@@ -776,12 +756,8 @@ export default function EmailVorlagenPage() {
           </div>
 
           <div className="flex items-center justify-between mb-3">
-            <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">
-              {filteredTemplates.length} Vorlagen
-            </div>
-            <button onClick={resetDefaults} className="text-xs text-slate-400 hover:text-slate-600">
-              Standard laden
-            </button>
+            <div className="text-xs text-slate-400 font-semibold uppercase tracking-wider">{filteredTemplates.length} Vorlagen</div>
+            <button onClick={resetDefaults} className="text-xs text-slate-400 hover:text-slate-600">Standard laden</button>
           </div>
 
           <div className="space-y-2 max-h-[65vh] overflow-auto pr-1">
@@ -814,9 +790,7 @@ export default function EmailVorlagenPage() {
                 <h2 className="text-lg font-bold text-slate-800">Vorlage bearbeiten</h2>
                 <p className="text-sm text-slate-500 mt-1">Starker erster Wurf statt halber Texte. Passe Betreff und Argumentation direkt an deine Zielgruppe an.</p>
               </div>
-              <button onClick={removeTemplate} disabled={!selectedTemplate} className="text-sm text-red-600 hover:text-red-700 disabled:opacity-50">
-                Vorlage löschen
-              </button>
+              <button onClick={removeTemplate} disabled={!selectedTemplate} className="text-sm text-red-600 hover:text-red-700 disabled:opacity-50">Vorlage löschen</button>
             </div>
 
             {selectedTemplate ? (
@@ -824,55 +798,30 @@ export default function EmailVorlagenPage() {
                 <div className="grid md:grid-cols-3 gap-4">
                   <div>
                     <label className="label">Interner Name</label>
-                    <input
-                      className="input-field"
-                      value={selectedTemplate.name}
-                      onChange={e => updateTemplate({ name: e.target.value })}
-                    />
+                    <input className="input-field" value={selectedTemplate.name} onChange={e => updateTemplate({ name: e.target.value })} />
                   </div>
                   <div>
                     <label className="label">Kategorie</label>
-                    <select
-                      className="input-field"
-                      value={selectedTemplate.category}
-                      onChange={e => updateTemplate({ category: e.target.value as TemplateCategory })}
-                    >
-                      {CATEGORIES.filter(item => item !== 'Alle').map(item => (
-                        <option key={item} value={item}>{item}</option>
-                      ))}
+                    <select className="input-field" value={selectedTemplate.category} onChange={e => updateTemplate({ category: e.target.value as TemplateCategory })}>
+                      {CATEGORIES.filter(item => item !== 'Alle').map(item => <option key={item} value={item}>{item}</option>)}
                     </select>
                   </div>
                   <div>
                     <label className="label">Typ</label>
-                    <select
-                      className="input-field"
-                      value={selectedTemplate.purpose}
-                      onChange={e => updateTemplate({ purpose: e.target.value as TemplatePurpose })}
-                    >
-                      {PURPOSES.filter(item => item !== 'Alle').map(item => (
-                        <option key={item} value={item}>{item}</option>
-                      ))}
+                    <select className="input-field" value={selectedTemplate.purpose} onChange={e => updateTemplate({ purpose: e.target.value as TemplatePurpose })}>
+                      {PURPOSES.filter(item => item !== 'Alle').map(item => <option key={item} value={item}>{item}</option>)}
                     </select>
                   </div>
                 </div>
 
                 <div>
                   <label className="label">Betreff</label>
-                  <input
-                    className="input-field"
-                    value={selectedTemplate.subject}
-                    onChange={e => updateTemplate({ subject: e.target.value })}
-                  />
+                  <input className="input-field" value={selectedTemplate.subject} onChange={e => updateTemplate({ subject: e.target.value })} />
                 </div>
 
                 <div>
                   <label className="label">E-Mail-Text</label>
-                  <textarea
-                    rows={16}
-                    className="input-field resize-y min-h-[340px]"
-                    value={selectedTemplate.body}
-                    onChange={e => updateTemplate({ body: e.target.value })}
-                  />
+                  <textarea rows={16} className="input-field resize-y min-h-[340px]" value={selectedTemplate.body} onChange={e => updateTemplate({ body: e.target.value })} />
                 </div>
 
                 <div className="grid lg:grid-cols-2 gap-4">
@@ -916,11 +865,7 @@ export default function EmailVorlagenPage() {
               {Object.entries(placeholders).map(([key, value]) => (
                 <div key={key}>
                   <label className="label">{key}</label>
-                  <input
-                    className="input-field"
-                    value={value}
-                    onChange={e => setPlaceholders(prev => ({ ...prev, [key]: e.target.value }))}
-                  />
+                  <input className="input-field" value={value} onChange={e => setPlaceholders(prev => ({ ...prev, [key]: e.target.value }))} />
                 </div>
               ))}
             </div>
