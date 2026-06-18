@@ -8,6 +8,7 @@ import {
   Building2, Briefcase, AppWindow, Sparkles, RefreshCw,
   HardHat, Home, Wrench, Snowflake, Leaf, type LucideIcon,
 } from 'lucide-react';
+import { quoteUrl } from '@/lib/quote-url';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -120,12 +121,16 @@ export default function Services({ data }: { data?: ServicesData }) {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </span>
+                <span className="text-xs text-slate-400">Details, Ablauf und Angebot</span>
               </Link>
             );
           })}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <Link href={quoteUrl({ source: 'services' })} className="btn-primary inline-flex">
+            Kostenloses Angebot anfragen
+          </Link>
           <Link href="/leistungen" className="btn-outline inline-flex">
             Alle Leistungen ansehen
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

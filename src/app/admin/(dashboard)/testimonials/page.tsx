@@ -49,7 +49,7 @@ export default function TestimonialsPage() {
             </div>
             <div>
               <label className="label">Rolle / Funktion</label>
-              <input value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))} className="input-field" placeholder="Geschäftsführer" />
+              <input value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))} className="input-field" placeholder="z.B. Hausverwaltung oder Gewerbekunde" />
             </div>
             <div>
               <label className="label">Unternehmen</label>

@@ -7,12 +7,12 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const reviews = [
-  { name: 'Andreas Berger',     role: 'Geschäftsführer, Berger Immobilien', content: 'Huwa reinigt seit 3 Jahren alle unsere Objekte in Neuwied. Pünktlich, gründlich, kein Ausreden – ein verlässlicher Partner.', rating: 5, location: 'Neuwied' },
-  { name: 'Sabine Krause',      role: 'Hausverwalterin, WEG Koblenz',       content: 'Ausgezeichneter Hausmeisterservice und Treppenhausreinigung. Das Team reagiert sofort auf Anfragen und arbeitet sehr professionell.', rating: 5, location: 'Koblenz' },
-  { name: 'Thomas Kirchner',    role: 'Privatperson',                         content: 'Die Grundreinigung nach unserem Umzug hat die Wohnung komplett verwandelt. Alles blitzt – absolut empfehlenswert!', rating: 5, location: 'Bendorf' },
-  { name: 'Angela Hofmann',     role: 'Office Managerin, Hunsrück Technik',  content: 'Seit wir Huwa beauftragen, läuft die Büroreinigung reibungslos. Immer zur vereinbarten Zeit, immer perfekt.', rating: 5, location: 'Neuwied' },
-  { name: 'Peter Schmidt',      role: 'Bauträger, Schmidt Bau',               content: 'Huwa hat unsere Baustelle in Koblenz perfekt besenrein übergeben. Schnell, effizient und zum vereinbarten Festpreis.', rating: 5, location: 'Koblenz' },
-  { name: 'Karin Weiss',        role: 'Privatperson',                         content: 'Der Winterdienst ist Gold wert. Jeden Morgen geräumt, bevor ich zur Arbeit fahre. Ein Service, auf den man sich verlassen kann!', rating: 5, location: 'Andernach' },
+  { name: 'Hausverwaltung', role: 'Wohnanlage', content: 'Geschätzt werden vor allem die festen Absprachen, die schnelle Rückmeldung und die zuverlässige Ausführung im Objekt.', rating: 5, location: 'Koblenz' },
+  { name: 'Gewerbekunde', role: 'Büro & Praxis', content: 'Kunden legen Wert darauf, dass Reinigungstermine planbar sind und Ansprechpartner direkt erreichbar bleiben.', rating: 5, location: 'Neuwied' },
+  { name: 'Privatkunde', role: 'Einzelauftrag', content: 'Bei einmaligen Reinigungen zählt eine klare Einschätzung vorab und eine saubere Übergabe nach Abschluss der Arbeit.', rating: 5, location: 'Bendorf' },
+  { name: 'Objektbetreuung', role: 'Hausmeisterdienst', content: 'Bei laufender Objektbetreuung sind kurze Wege, Dokumentation und verbindliche Kommunikation besonders wichtig.', rating: 5, location: 'Region' },
+  { name: 'Gewerbeobjekt', role: 'Regelmäßige Reinigung', content: 'Wiederkehrende Einsätze funktionieren am besten mit festen Abläufen und klaren Zuständigkeiten.', rating: 5, location: 'Koblenz' },
+  { name: 'Winterdienstkunde', role: 'Saisonaler Auftrag', content: 'Im Winterdienst kommt es auf Erreichbarkeit, verlässliche Planung und schnelle Reaktion bei Wetterwechsel an.', rating: 5, location: 'Neuwied' },
 ];
 
 export default function Testimonials() {
@@ -49,13 +49,13 @@ export default function Testimonials() {
         <div className="testimonial-title text-center mb-16">
           <div className="section-label mx-auto w-fit">Kundenstimmen</div>
           <h2 className="mb-4">
-            Was unsere Kunden{' '}
-            <span className="gradient-text">über uns sagen</span>
+            Was Kunden an{' '}
+            <span className="gradient-text">der Zusammenarbeit schätzen</span>
           </h2>
           <div className="flex items-center justify-center gap-3">
             <span className="text-yellow-400 text-2xl tracking-tight">★★★★★</span>
             <span className="font-black text-dark text-xl">4.9</span>
-            <span className="text-gray-400">/5 · Google Bewertungen</span>
+            <span className="text-gray-400">Kundenfeedback aus der Praxis</span>
           </div>
         </div>
 

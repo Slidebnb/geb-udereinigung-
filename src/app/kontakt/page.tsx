@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -44,7 +45,11 @@ export default function KontaktPage() {
           <div className="mt-8 max-w-2xl">
             <div className="section-label mb-4">Kontakt</div>
             <h1 className="text-white mb-4">Sprechen Sie uns <span className="gradient-text">direkt an</span></h1>
-            <p className="text-slate-300 text-lg">Wir freuen uns auf Ihre Nachricht. Antwort garantiert innerhalb von 24 Stunden – persönlich und unkompliziert.</p>
+            <p className="text-slate-300 text-lg mb-8">Ob Objektanfrage, Rückrufwunsch oder schnelle Rückfrage: Wir melden uns innerhalb von 24 Stunden persönlich und unkompliziert.</p>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link href="/angebot?source=kontakt-hero" className="btn-primary justify-center">Kostenloses Angebot anfragen</Link>
+              <a href={`tel:${siteConfig.phone}`} className="btn-white justify-center">{siteConfig.phone}</a>
+            </div>
           </div>
         </div>
       </section>
@@ -53,6 +58,12 @@ export default function KontaktPage() {
         <div className="container mx-auto grid lg:grid-cols-3 gap-12">
           {/* Sidebar */}
           <div className="space-y-5">
+            <div className="rounded-2xl p-6 text-white" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
+              <h2 className="text-white text-xl mb-3">Schnell zum Angebot</h2>
+              <p className="text-slate-300/80 text-sm mb-5">Für Reinigung, Hausmeisterdienst, Winterdienst oder mehrere Leistungen ist das Angebotsformular der schnellste Weg.</p>
+              <Link href="/angebot?source=kontakt-sidebar" className="btn-primary w-full justify-center">Angebot anfragen</Link>
+            </div>
+
             {[
               { icon: '📞', label: 'Telefon', value: siteConfig.phone, href: `tel:${siteConfig.phone}` },
               { icon: '📧', label: 'E-Mail',  value: siteConfig.email, href: `mailto:${siteConfig.email}` },
@@ -92,21 +103,26 @@ export default function KontaktPage() {
               <svg className="w-8 h-8 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.554 4.103 1.523 5.83L.057 23.428a.5.5 0 00.606.665l5.765-1.512A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.875a9.864 9.864 0 01-5.022-1.373l-.36-.214-3.73.978.996-3.639-.235-.374A9.864 9.864 0 012.125 12C2.125 6.554 6.554 2.125 12 2.125S21.875 6.554 21.875 12 17.446 21.875 12 21.875z"/></svg>
               <div>
                 <div className="font-bold text-sm">Per WhatsApp schreiben</div>
-                <div className="text-gray-500 text-xs">Schnelle Antwort garantiert</div>
+                <div className="text-gray-500 text-xs">Schnelle Rückmeldung im Tagesgeschäft</div>
               </div>
             </a>
           </div>
 
           {/* Form */}
           <div className="lg:col-span-2">
-            <h2 className="mb-8">Nachricht <span className="gradient-text">schreiben</span></h2>
+            <h2 className="mb-3">Nachricht <span className="gradient-text">schreiben</span></h2>
+            <p className="text-gray-500 mb-8">Für allgemeine Fragen reicht eine kurze Nachricht. Für konkrete Preise nutzen Sie am besten direkt das Angebotsformular.</p>
             {sent ? (
               <div className="rounded-2xl p-10 text-center" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)', border: '1px solid rgba(255,255,255,0.1)' }}>
                 <div className="w-16 h-16 rounded-full bg-green/20 border border-green/30 flex items-center justify-center mx-auto mb-5">
                   <svg className="w-8 h-8 text-green" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
                 </div>
                 <h3 className="text-white text-xl font-bold mb-2">Vielen Dank für Ihre Nachricht!</h3>
-                <p className="text-slate-300/80">Wir melden uns innerhalb von 24 Stunden persönlich bei Ihnen.</p>
+                <p className="text-slate-300/80 mb-6">Wir melden uns innerhalb von 24 Stunden persönlich bei Ihnen.</p>
+                <div className="flex flex-col sm:flex-row justify-center gap-3">
+                  <Link href="/angebot?source=kontakt-success" className="btn-primary">Zusätzlich Angebot anfragen</Link>
+                  <a href={`tel:${siteConfig.phone}`} className="btn-white">Direkt anrufen</a>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
@@ -141,10 +157,10 @@ export default function KontaktPage() {
                 <div>
                   <label className="flex items-start gap-3 cursor-pointer">
                     <input type="checkbox" {...register('privacy')} className="mt-0.5 w-4 h-4 accent-primary flex-shrink-0" />
-                    <span className="text-sm text-gray-600">
-                      Ich stimme der <a href="/datenschutz" className="text-primary underline hover:no-underline">Datenschutzerklärung</a> zu. *
-                    </span>
-                  </label>
+                      <span className="text-sm text-gray-600">
+                      Ich stimme der <Link href="/datenschutz" className="text-primary underline hover:no-underline">Datenschutzerklärung</Link> zu. *
+                      </span>
+                    </label>
                   {errors.privacy && <p className="form-error mt-1">{errors.privacy.message}</p>}
                 </div>
                 {error && <p className="form-error text-center">{error}</p>}
@@ -153,6 +169,27 @@ export default function KontaktPage() {
                 </button>
               </form>
             )}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-slate-50 border-y border-slate-100">
+        <div className="container mx-auto">
+          <div className="text-center mb-10">
+            <div className="section-label mx-auto w-fit">Ablauf</div>
+            <h2 className="mt-4">So läuft Ihre <span className="gradient-text">Anfrage</span></h2>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              { title: '1. Anfrage senden', text: 'Sie nennen Leistung, Objekt und Kontaktweg. Das dauert nur wenige Minuten.' },
+              { title: '2. Rückfrage klären', text: 'Wir melden uns persönlich, prüfen Details und stimmen Besonderheiten ab.' },
+              { title: '3. Angebot erhalten', text: 'Sie bekommen eine realistische Einschätzung oder ein transparentes Festpreisangebot.' },
+            ].map(item => (
+              <div key={item.title} className="card p-6">
+                <h3 className="text-lg mb-2">{item.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{item.text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

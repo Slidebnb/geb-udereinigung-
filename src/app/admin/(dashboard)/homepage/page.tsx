@@ -18,12 +18,12 @@ type CTAState = { headline: string; headline_gradient: string; subtitle: string;
 
 /* ── Defaults ───────────────────────────────────────────────────────── */
 const DEFAULT_HERO: HeroState = {
-  badge:    'Seit 2009 – Ihr Partner in Neuwied',
+  badge:    'Seit 2020 – Ihr Partner in Neuwied',
   h1:       'Professionelle',
   h2:       'Gebäudereinigung',
   h3:       '& Hausmeister',
   subtitle: 'Sauberkeit auf höchstem Niveau – für Büros, Wohnhäuser und Gewerbe in Neuwied, Koblenz & Bendorf. Zuverlässig, gründlich, fair.',
-  stats:    [{ val: '500+', label: 'zufriedene Kunden' }, { val: '15+', label: 'Jahre Erfahrung' }, { val: '4.9★', label: 'Google Bewertung' }],
+  stats:    [{ val: '100+', label: 'Kunden' }, { val: '6', label: 'Jahre Erfahrung' }, { val: '24 h', label: 'Rückmeldung' }],
   services: [
     { icon: '🏢', title: 'Gebäudereinigung' }, { icon: '💼', title: 'Büroreinigung' },
     { icon: '🪟', title: 'Glasreinigung' },    { icon: '🏠', title: 'Treppenhausreinigung' },
@@ -50,16 +50,16 @@ const DEFAULT_SERVICES: ServicesState = {
 };
 
 const DEFAULT_WHYUS: WhyUsState = {
-  stats:   [{ val: 500, suffix: '+', label: 'Zufriedene Kunden' }, { val: 15, suffix: '+', label: 'Jahre Erfahrung' }, { val: 10, suffix: '', label: 'Leistungsbereiche' }, { val: 100, suffix: '%', label: 'Weiterempfehlung' }],
+  stats:   [{ val: 100, suffix: '+', label: 'Kunden' }, { val: 6, suffix: '', label: 'Jahre Erfahrung' }, { val: 10, suffix: '', label: 'Leistungsbereiche' }, { val: 24, suffix: ' h', label: 'Rückmeldung' }],
   headline: 'Der Unterschied, den Sie spüren werden',
   subtitle: 'Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.',
   reasons: [
     { icon: '⏰', title: 'Pünktlich & Zuverlässig',    desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
-    { icon: '🏆', title: 'Höchste Qualität',            desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
+    { icon: '🏆', title: 'Saubere Qualität',            desc: 'Klare Absprachen, strukturierte Abläufe und kontrollierte Ergebnisse nach jedem Einsatz.' },
     { icon: '💰', title: 'Faire Festpreise',             desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
-    { icon: '🌍', title: 'Regional verwurzelt',          desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
+    { icon: '🌍', title: 'Regional verwurzelt',          desc: 'In Neuwied, Koblenz und Bendorf aktiv – mit kurzen Wegen und persönlicher Betreuung.' },
     { icon: '📞', title: 'Direkter Ansprechpartner',     desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
-    { icon: '🔒', title: 'Vollversichert & Seriös',      desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
+    { icon: '🔒', title: 'Seriös & verbindlich',         desc: 'Diskrete Abwicklung, saubere Dokumentation und verlässliche Kommunikation.' },
   ],
 };
 
@@ -211,11 +211,11 @@ export default function HomepagePage() {
               <div key={i} className="flex items-center gap-3 mb-2 p-3 bg-slate-50 rounded-lg">
                 <div className="flex-1">
                   <label className="text-xs text-slate-400 font-medium">Wert</label>
-                  <input className="input-field mt-1" value={s.val} placeholder="z.B. 500+" onChange={e => setHero(p => ({ ...p, stats: p.stats.map((x, j) => j === i ? { ...x, val: e.target.value } : x) }))} />
+                  <input className="input-field mt-1" value={s.val} placeholder="z.B. 100+" onChange={e => setHero(p => ({ ...p, stats: p.stats.map((x, j) => j === i ? { ...x, val: e.target.value } : x) }))} />
                 </div>
                 <div className="flex-1">
                   <label className="text-xs text-slate-400 font-medium">Beschriftung</label>
-                  <input className="input-field mt-1" value={s.label} placeholder="z.B. zufriedene Kunden" onChange={e => setHero(p => ({ ...p, stats: p.stats.map((x, j) => j === i ? { ...x, label: e.target.value } : x) }))} />
+                  <input className="input-field mt-1" value={s.label} placeholder="z.B. Kunden" onChange={e => setHero(p => ({ ...p, stats: p.stats.map((x, j) => j === i ? { ...x, label: e.target.value } : x) }))} />
                 </div>
                 <button onClick={() => setHero(p => ({ ...p, stats: p.stats.filter((_, j) => j !== i) }))} className="text-red-400 hover:text-red-600 p-1 mt-4 shrink-0" title="Entfernen">✕</button>
               </div>

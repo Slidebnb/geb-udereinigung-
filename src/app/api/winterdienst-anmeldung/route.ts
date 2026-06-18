@@ -14,6 +14,7 @@ const schema = z.object({
   adresse: z.string().min(5),
   besonderheiten: z.string().optional().or(z.literal('')),
   starttermin: z.string().min(1),
+  season: z.string().optional().or(z.literal('')),
   privacy: z.literal(true),
   website: z.string().max(0).optional().or(z.literal('')),
 });
@@ -30,7 +31,7 @@ function escapeHtml(str: string): string {
 function renderWinterdienstMail(data: z.infer<typeof schema>): string {
   return `
     <div style="font-family: Arial, sans-serif; color: #1a3a6b;">
-      <h2 style="color:#0C2340;">Neue Winterdienst-Anmeldung 2025/2026</h2>
+      <h2 style="color:#0C2340;">Neue Winterdienst-Anmeldung ${escapeHtml(data.season || '2026/2027')}</h2>
       <table style="border-collapse:collapse; width:100%;">
         <tr><td style="padding:4px 12px 4px 0; font-weight:bold; white-space:nowrap;">Name / Firma:</td><td>${escapeHtml(data.name)}</td></tr>
         <tr><td style="padding:4px 12px 4px 0; font-weight:bold; white-space:nowrap;">E-Mail:</td><td>${escapeHtml(data.email)}</td></tr>
@@ -73,6 +74,7 @@ export async function POST(request: Request) {
       `Gesamtfläche: ${data.gesamtflaeche}`,
       `Flächenarten: ${data.flaechenarten.join(', ')}`,
       `Adresse: ${data.adresse}`,
+      `Saison: ${data.season || '2026/2027'}`,
       `Wunsch-Starttermin: ${data.starttermin}`,
       data.besonderheiten ? `Besonderheiten: ${data.besonderheiten}` : null,
     ]
@@ -80,7 +82,7 @@ export async function POST(request: Request) {
       .join('\n');
 
     const mailSent = await sendNotificationMail({
-      subject: `Winterdienst-Anmeldung 2025/2026: ${data.name}`,
+      subject: `Winterdienst-Anmeldung ${data.season || '2026/2027'}: ${data.name}`,
       html: renderWinterdienstMail(data),
       replyTo: data.email,
     });
@@ -90,7 +92,7 @@ export async function POST(request: Request) {
         name: data.name,
         email: data.email,
         phone: data.phone,
-        service: 'Winterdienst 2025/2026',
+        service: `Winterdienst ${data.season || '2026/2027'}`,
         area: data.gesamtflaeche,
         frequency: 'Saisonal',
         message: messageText,

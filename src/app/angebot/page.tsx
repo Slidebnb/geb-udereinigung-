@@ -1,11 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
+import { siteConfig } from '@/lib/site';
 
 const schema = z.object({
   name: z.string().min(2, 'Pflichtfeld'),
@@ -15,8 +16,11 @@ const schema = z.object({
   service: z.string().min(1, 'Bitte wählen Sie eine Leistung'),
   area: z.string().optional(),
   frequency: z.string().optional(),
+  estimatedMin: z.coerce.number().int().optional(),
+  estimatedMax: z.coerce.number().int().optional(),
   message: z.string().optional(),
   privacy: z.literal(true, { errorMap: () => ({ message: 'Bitte stimmen Sie der Datenschutzerklärung zu.' }) }),
+  website: z.string().max(0).optional(),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -31,10 +35,47 @@ export default function AngebotPage() {
   const [step, setStep] = useState(1);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
+  const [context, setContext] = useState<{ city?: string; source?: string }>({});
 
-  const { register, handleSubmit, watch, trigger, formState: { errors, isSubmitting } } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const { register, handleSubmit, watch, trigger, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    defaultValues: { website: '' },
+  });
 
   const selectedService = watch('service');
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get('service');
+    const city = params.get('city');
+    const source = params.get('source');
+    const area = params.get('area');
+    const frequency = params.get('frequency');
+    const estimatedMin = params.get('estimatedMin');
+    const estimatedMax = params.get('estimatedMax');
+
+    if (service && services.includes(service)) {
+      setValue('service', service, { shouldDirty: true, shouldValidate: true });
+    }
+    if (area) {
+      setValue('area', area, { shouldDirty: true });
+    }
+    if (frequency) {
+      setValue('frequency', frequency, { shouldDirty: true });
+    }
+    if (estimatedMin) {
+      setValue('estimatedMin', Number(estimatedMin));
+    }
+    if (estimatedMax) {
+      setValue('estimatedMax', Number(estimatedMax));
+    }
+    if (city) {
+      setContext(prev => ({ ...prev, city }));
+    }
+    if (source) {
+      setContext(prev => ({ ...prev, source }));
+    }
+  }, [setValue]);
 
   const nextStep = async () => {
     const fields: (keyof FormData)[] = step === 1 ? ['service'] : step === 2 ? [] : ['name', 'email', 'phone', 'privacy'];
@@ -44,12 +85,22 @@ export default function AngebotPage() {
 
   const onSubmit = async (data: FormData) => {
     setError('');
+    const contextLines = [
+      context.city ? `Ort/Region: ${context.city}` : '',
+      context.source ? `Quelle: ${context.source}` : '',
+      data.estimatedMin && data.estimatedMax ? `Preisrechner-Schätzung: ${data.estimatedMin}–${data.estimatedMax} EUR` : '',
+    ].filter(Boolean);
+    const payload = {
+      ...data,
+      message: [data.message, ...contextLines].filter(Boolean).join('\n\n'),
+    };
+
     try {
-      const res = await fetch('/api/angebot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+      const res = await fetch('/api/angebot', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
       if (!res.ok) throw new Error();
       setSent(true);
     } catch {
-      setError('Fehler beim Senden. Bitte rufen Sie uns an.');
+      setError('Die Anfrage konnte gerade nicht gesendet werden. Bitte rufen Sie uns an oder schreiben Sie per WhatsApp.');
     }
   };
 
@@ -60,9 +111,27 @@ export default function AngebotPage() {
           <div className="w-20 h-20 rounded-full bg-green/20 border border-green/30 flex items-center justify-center mx-auto mb-6">
             <svg className="w-10 h-10 text-green" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
           </div>
-          <h1 className="text-white mb-4">Anfrage erfolgreich gesendet!</h1>
-          <p className="text-slate-300 mb-8">Vielen Dank für Ihr Interesse. Wir melden uns innerhalb von 24 Stunden mit Ihrem persönlichen Angebot.</p>
-          <Link href="/" className="btn-primary">Zurück zur Startseite</Link>
+          <h1 className="text-white mb-4">Anfrage ist angekommen!</h1>
+          <p className="text-slate-300 mb-8">Vielen Dank. Wir prüfen Ihre Angaben und melden uns innerhalb von 24 Stunden persönlich mit den nächsten Schritten.</p>
+          <div className="grid gap-3 text-left mb-8">
+            {['Wir prüfen Leistung, Objekt und Intervall.', 'Bei Rückfragen melden wir uns telefonisch.', 'Sie erhalten eine realistische Einschätzung oder ein Festpreisangebot.'].map(item => (
+              <div key={item} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-slate-200">
+                <svg className="w-5 h-5 text-green flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
+                {item}
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col sm:flex-row justify-center gap-3">
+            <a href={`tel:${siteConfig.phone}`} className="btn-white">Direkt anrufen</a>
+            <a
+              href={`https://wa.me/${siteConfig.whatsapp}?text=Hallo%2C%20ich%20habe%20gerade%20eine%20Angebotsanfrage%20gesendet.`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+            >
+              Per WhatsApp nachfassen
+            </a>
+          </div>
         </div>
       </section>
     );
@@ -76,9 +145,9 @@ export default function AngebotPage() {
           <div className="mt-8 max-w-2xl">
             <div className="section-label mb-4">Angebot anfragen</div>
             <h1 className="text-white mb-4">Kostenloses Angebot für <span className="gradient-text">Ihr Objekt</span></h1>
-            <p className="text-slate-300 text-lg mb-6">Beschreiben Sie kurz Ihr Objekt. Wir prüfen Aufwand, Reinigungsintervall und Besonderheiten – und melden uns persönlich mit einer realistischen Einschätzung.</p>
+            <p className="text-slate-300 text-lg mb-6">In rund 60 Sekunden anfragen. Wir prüfen Aufwand, Reinigungsintervall und Besonderheiten – und melden uns persönlich mit einer realistischen Einschätzung.</p>
             <div className="flex flex-wrap gap-4">
-              {['Antwort in 24 Stunden', 'Kostenlose Objektbesichtigung', 'Transparentes Festpreisangebot', 'Für Hausverwaltungen, Gewerbe & Wohnanlagen'].map(item => (
+              {['Antwort in 24 Stunden', 'Kostenlose Erstberatung', 'Transparentes Festpreisangebot', 'Für Hausverwaltungen, Gewerbe & Wohnanlagen'].map(item => (
                 <div key={item} className="flex items-center gap-2 text-slate-300/80 text-sm">
                   <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/></svg>
                   {item}
@@ -105,21 +174,29 @@ export default function AngebotPage() {
           </div>
 
           <div className="flex items-center justify-between mb-10">
-            {[1, 2, 3].map(s => (
-              <div key={s} className="flex items-center flex-1">
-                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-colors ${s <= step ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}`}>
-                  {s < step ? '✓' : s}
+            {[
+              { n: 1, label: 'Leistung' },
+              { n: 2, label: 'Objekt' },
+              { n: 3, label: 'Kontakt' },
+            ].map(({ n, label }) => (
+              <div key={n} className="flex items-center flex-1">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm transition-colors ${n <= step ? 'bg-primary text-white' : 'bg-gray-200 text-gray-500'}`}>
+                  {n < step ? '✓' : n}
                 </div>
-                {s < 3 && <div className={`flex-1 h-1 mx-2 transition-colors ${s < step ? 'bg-primary' : 'bg-gray-200'}`} />}
+                <span className="ml-2 hidden sm:inline text-xs font-semibold text-gray-500">{label}</span>
+                {n < 3 && <div className={`flex-1 h-1 mx-2 transition-colors ${n < step ? 'bg-primary' : 'bg-gray-200'}`} />}
               </div>
             ))}
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="card p-8 space-y-6">
+            <input type="text" tabIndex={-1} autoComplete="off" className="hidden" {...register('website')} />
+            <input type="hidden" {...register('estimatedMin')} />
+            <input type="hidden" {...register('estimatedMax')} />
             {step === 1 && (
               <div>
                 <h2 className="mb-2">Welche Leistung benötigen Sie?</h2>
-                <p className="text-gray-500 text-sm mb-6">Wählen Sie die gewünschte Dienstleistung aus.</p>
+                <p className="text-gray-500 text-sm mb-6">Wählen Sie die gewünschte Dienstleistung aus. Wenn Sie mehrere Leistungen benötigen, wählen Sie einfach “Mehrere Leistungen”.</p>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {services.map(s => (
                     <label key={s} className={`relative flex items-center gap-2 p-3 rounded-xl border-2 cursor-pointer transition-colors text-sm font-medium ${selectedService === s ? 'border-primary bg-primary-50 text-primary' : 'border-gray-200 hover:border-primary-200 text-gray-700'}`}>
@@ -135,8 +212,13 @@ export default function AngebotPage() {
             {step === 2 && (
               <div>
                 <h2 className="mb-2">Details zu Ihrem Objekt</h2>
-                <p className="text-gray-500 text-sm mb-6">Damit wir ein genaues Angebot erstellen können.</p>
+                <p className="text-gray-500 text-sm mb-6">Alles optional, aber hilfreich für eine schnelle und realistische Rückmeldung.</p>
                 <div className="space-y-5">
+                  {context.city && (
+                    <div className="rounded-xl bg-primary/6 border border-primary/15 px-4 py-3 text-sm text-gray-700">
+                      Anfrage für Region: <span className="font-semibold text-primary">{context.city}</span>
+                    </div>
+                  )}
                   <div>
                     <label className="label">Fläche (ca. m²)</label>
                     <input {...register('area')} className="input-field" placeholder="z.B. 150 m²" />
@@ -164,7 +246,7 @@ export default function AngebotPage() {
             {step === 3 && (
               <div>
                 <h2 className="mb-2">Ihre Kontaktdaten</h2>
-                <p className="text-gray-500 text-sm mb-6">Damit wir Ihr Angebot zusenden können.</p>
+                <p className="text-gray-500 text-sm mb-6">Telefon bleibt wichtig, damit wir Rückfragen schnell klären können.</p>
                 <div className="space-y-5">
                   <div className="grid sm:grid-cols-2 gap-5">
                     <div>
@@ -199,7 +281,22 @@ export default function AngebotPage() {
                     </label>
                     {errors.privacy && <p className="form-error mt-1">{(errors.privacy as any).message}</p>}
                   </div>
-                {error && <p className="form-error text-center mt-4">{error}</p>}
+                {error && (
+                  <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-center">
+                    <p className="form-error mb-3">{error}</p>
+                    <div className="flex flex-col sm:flex-row justify-center gap-2">
+                      <a href={`tel:${siteConfig.phone}`} className="btn-secondary justify-center">Anrufen</a>
+                      <a
+                        href={`https://wa.me/${siteConfig.whatsapp}?text=Hallo%2C%20ich%20m%C3%B6chte%20ein%20Angebot%20anfragen.`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary justify-center"
+                      >
+                        WhatsApp
+                      </a>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 

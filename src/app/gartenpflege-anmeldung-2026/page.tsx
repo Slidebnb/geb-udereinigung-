@@ -31,6 +31,7 @@ const schema = z.object({
   anmerkungen: z.string().optional(),
   leistungen: z.array(z.string()).min(1, 'Bitte mindestens eine Leistung wählen'),
   privacy: z.literal(true, { errorMap: () => ({ message: 'Bitte stimmen Sie der Datenschutzerklärung zu.' }) }),
+  website: z.string().max(0).optional().or(z.literal('')),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -42,7 +43,7 @@ const faqs = [
   },
   {
     q: 'Wie früh sollte ich mich für 2026 anmelden?',
-    a: 'Am besten bis März 2026. Die Kapazitäten für regelmäßige Saisonverträge sind begrenzt. Frühe Anmeldung sichert Ihren Wunschtermin und eine verlässliche Betreuung von April bis November.',
+    a: 'Am besten frühzeitig vor Saisonstart 2026. Die Kapazitäten für regelmäßige Saisonverträge sind begrenzt. Frühe Anmeldung sichert Ihren Wunschtermin und eine verlässliche Betreuung von 2026 bis in die Folgesaison.',
   },
   {
     q: 'Entsorgen Sie auch Grünschnitt?',
@@ -83,7 +84,7 @@ export default function GartenpflegeAnmeldung2026Page() {
       const res = await fetch('/api/gartenpflege-anfrage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, season: '2026' }),
+        body: JSON.stringify({ ...data, season: '2026/2027' }),
       });
       if (!res.ok) throw new Error();
       setSent(true);
@@ -106,7 +107,7 @@ export default function GartenpflegeAnmeldung2026Page() {
           </div>
           <h1 className="text-white mb-4">Anmeldung erfolgreich!</h1>
           <p className="text-green-100 text-lg mb-10">
-            Wir melden uns innerhalb von 24 Stunden mit Ihrem maßgeschneiderten Gartenpflege-Angebot für die Saison 2026.
+            Wir melden uns innerhalb von 24 Stunden mit Ihrem maßgeschneiderten Gartenpflege-Angebot für die Saison 2026/2027.
           </p>
           <Link href="/" className="btn-primary px-10 py-4">
             Zurück zur Startseite
@@ -131,24 +132,24 @@ export default function GartenpflegeAnmeldung2026Page() {
           <Breadcrumb
             items={[
               { label: 'Gartenarbeiten', href: '/leistungen/gartenarbeiten' },
-              { label: 'Anmeldung Saison 2026' },
+              { label: 'Anmeldung Saison 2026/2027' },
             ]}
             dark
           />
           <div className="mt-8 max-w-3xl">
-            <div className="section-label mb-4">Jetzt für Saison 2026 anmelden</div>
+            <div className="section-label mb-4">Jetzt für Saison 2026/2027 anmelden</div>
             <h1 className="text-white mb-4 leading-tight">
-              Gartenpflege 2026 –{' '}
+              Gartenpflege 2026/2027 –{' '}
               <span className="gradient-text">Hecken, Rasen & mehr</span>
             </h1>
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-6">
               Professionelle Grünpflege für Wohnanlagen, Gewerbeobjekte und private Gärten in
               Neuwied, Koblenz und Bendorf. Wählen Sie Ihre Wunschleistungen – wir erstellen ein
-              maßgeschneidertes Saisonangebot.
+              maßgeschneidertes Saisonangebot für Heckenschnitt, Rasenpflege und Grünanlagen.
             </p>
             <div className="inline-flex items-center gap-2 bg-green/10 border border-green/30 rounded-full px-5 py-2.5 text-green text-sm font-semibold">
               <span>🌿</span>
-              <span>Sichern Sie sich jetzt Ihren Platz für die Gartensaison 2026</span>
+              <span>Sichern Sie sich jetzt Ihren Platz für die Gartenpflege-Saison 2026/2027</span>
             </div>
           </div>
         </div>
@@ -161,7 +162,7 @@ export default function GartenpflegeAnmeldung2026Page() {
             <div className="section-label mx-auto w-fit mb-3">Leistungen wählen</div>
             <h2>
               Welche Leistungen{' '}
-              <span className="gradient-text">benötigen Sie 2026?</span>
+              <span className="gradient-text">benötigen Sie 2026/2027?</span>
             </h2>
             <p className="text-slate-500 mt-3">
               Wählen Sie alle gewünschten Leistungen aus. Sie können mehrere kombinieren.
@@ -224,7 +225,7 @@ export default function GartenpflegeAnmeldung2026Page() {
               <div className="section-label mx-auto w-fit mb-3">Anmeldeformular</div>
               <h2>
                 Jetzt für die{' '}
-                <span className="gradient-text">Gartensaison 2026 anmelden</span>
+                  <span className="gradient-text">Gartensaison 2026/2027 anmelden</span>
               </h2>
               <p className="text-slate-500 mt-3">
                 Füllen Sie das Formular aus – wir melden uns innerhalb von 24 Stunden mit Ihrem
@@ -233,6 +234,7 @@ export default function GartenpflegeAnmeldung2026Page() {
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="card p-8 space-y-6">
+              <input type="text" {...register('website')} className="hidden" tabIndex={-1} autoComplete="off" />
               <input type="hidden" {...register('leistungen')} />
 
               <div className="space-y-5">
@@ -315,7 +317,7 @@ export default function GartenpflegeAnmeldung2026Page() {
                     type="date"
                     className="input-field"
                     min="2026-03-01"
-                    max="2026-11-30"
+                    max="2027-11-30"
                   />
                 </div>
 
@@ -378,7 +380,7 @@ export default function GartenpflegeAnmeldung2026Page() {
                 disabled={isSubmitting}
                 className="btn-primary w-full py-4 text-base disabled:opacity-50"
               >
-                {isSubmitting ? 'Wird gesendet...' : '🌿 Jetzt für Gartenpflege-Saison 2026 anmelden'}
+                {isSubmitting ? 'Wird gesendet...' : '🌿 Jetzt für Gartenpflege-Saison 2026/2027 anmelden'}
               </button>
 
               <p className="text-center text-xs text-gray-400">
@@ -396,8 +398,8 @@ export default function GartenpflegeAnmeldung2026Page() {
             {[
               {
                 icon: '🌿',
-                title: 'Saisonvertrag 2026',
-                desc: 'Fester Jahresvertrag für zuverlässige Grünpflege von März bis November 2026 – planbare Kosten, kein Aufwand für Sie.',
+                title: 'Saisonvertrag 2026/2027',
+                desc: 'Planbare Grünpflege für die Saison 2026/2027 – mit klaren Intervallen, festen Absprachen und persönlicher Betreuung.',
               },
               {
                 icon: '🚜',
@@ -429,7 +431,7 @@ export default function GartenpflegeAnmeldung2026Page() {
             <div className="section-label mx-auto w-fit mb-3">Häufige Fragen</div>
             <h2>
               Alles zur{' '}
-              <span className="gradient-text">Gartenpflege 2026</span>
+              <span className="gradient-text">Gartenpflege 2026/2027</span>
             </h2>
           </div>
           <div className="space-y-4">
@@ -455,7 +457,7 @@ export default function GartenpflegeAnmeldung2026Page() {
       <CTABanner
         data={{
           headline: 'Ihr Garten startet',
-          headline_gradient: 'perfekt in 2026',
+          headline_gradient: 'perfekt in 2026/2027',
           subtitle:
             'Begrenzte Kapazitäten – sichern Sie sich jetzt Ihren Saisonvertrag für professionelle Gartenpflege in der Region Neuwied.',
           benefits: ['Kostenlose Besichtigung', 'Festpreisangebot', 'Eigene Ausrüstung', 'Grünschnitt-Entsorgung'],

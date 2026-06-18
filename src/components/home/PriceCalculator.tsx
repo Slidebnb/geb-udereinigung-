@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { quoteUrl } from '@/lib/quote-url';
 
 const services = [
   { value: 'bueroeinigung', label: 'Büroreinigung', baseMin: 0.8, baseMax: 1.4 },
@@ -34,6 +35,7 @@ export default function PriceCalculator() {
       max: Math.round(s.baseMax * area * f.discount),
     });
   };
+  const selectedService = services.find(x => x.value === service) ?? services[0];
 
   return (
     <section className="section-padding bg-primary">
@@ -83,7 +85,7 @@ export default function PriceCalculator() {
                 {result.min}€ – {result.max}€
               </p>
               <p className="text-xs text-gray-500 mb-4">Alle Preise netto zzgl. MwSt. Richtwert ohne Verbindlichkeit.</p>
-              <Link href="/angebot" className="btn-primary">Verbindliches Angebot anfragen</Link>
+              <Link href={quoteUrl({ service: selectedService.label, source: 'price-calculator' })} className="btn-primary">Verbindliches Angebot anfragen</Link>
             </div>
           )}
 

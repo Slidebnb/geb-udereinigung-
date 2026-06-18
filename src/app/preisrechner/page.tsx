@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { quoteUrl } from '@/lib/quote-url';
 
 // ─── Price tables ────────────────────────────────────────────────────────────
 
@@ -66,6 +67,9 @@ interface CalcParams {
   winterTyp: 'gehwege' | 'parkplatz' | 'beides';
   gartenFlaeche: number;
   gartenHaeufigkeit: 'weekly' | 'bimonthly' | 'monthly';
+  objektart: 'buero' | 'praxis' | 'wohnanlage' | 'gewerbe';
+  verschmutzung: 'leicht' | 'normal' | 'stark';
+  ort: 'Neuwied' | 'Koblenz' | 'Bendorf' | 'Andernach' | 'Andere Region';
 }
 
 type PriceResult =
@@ -83,6 +87,15 @@ function calculate(p: CalcParams): PriceResult {
     high: round(base * 1.2),
     unit,
   });
+  const objektMulti =
+    p.objektart === 'praxis' ? 1.18 :
+    p.objektart === 'wohnanlage' ? 1.08 :
+    p.objektart === 'gewerbe' ? 1.12 : 1;
+  const schmutzMulti =
+    p.verschmutzung === 'stark' ? 1.28 :
+    p.verschmutzung === 'leicht' ? 0.92 : 1;
+  const ortMulti = p.ort === 'Andere Region' ? 1.08 : 1;
+  const precisionMulti = objektMulti * schmutzMulti * ortMulti;
 
   switch (p.service) {
     case 'bueroreinigung': {
@@ -92,23 +105,23 @@ function calculate(p: CalcParams): PriceResult {
         p.haeufigkeitBuero === 'weekly'  ? PREISE.bueroreinigung.weekly  :
                                            PREISE.bueroreinigung.bimonthly;
       const etageMulti = 1 + Math.max(0, p.etagen - 1) * 0.10;
-      const base = p.flaeche * PREISE.bueroreinigung.base * freq * etageMulti;
+      const base = p.flaeche * PREISE.bueroreinigung.base * freq * etageMulti * precisionMulti;
       return range(base, '/Monat');
     }
 
     case 'unterhaltsreinigung': {
       const etageMulti = 1 + Math.max(0, p.etagen - 1) * 0.10;
-      const base = p.flaeche * PREISE.unterhaltsreinigung.base * etageMulti;
+      const base = p.flaeche * PREISE.unterhaltsreinigung.base * etageMulti * precisionMulti;
       return range(base, '/Monat');
     }
 
     case 'grundreinigung': {
-      const base = p.flaeche * PREISE.grundreinigung.base;
+      const base = p.flaeche * PREISE.grundreinigung.base * precisionMulti;
       return range(base, 'einmalig');
     }
 
     case 'baureinigung': {
-      const base = p.flaeche * PREISE.baureinigung.base;
+      const base = p.flaeche * PREISE.baureinigung.base * schmutzMulti * ortMulti;
       return range(base, 'einmalig');
     }
 
@@ -119,7 +132,7 @@ function calculate(p: CalcParams): PriceResult {
         (PREISE.treppenhausreinigung.base +
           (p.treppEtagen - 1) * PREISE.treppenhausreinigung.perEtage +
           aufzugAdd) *
-        freq;
+        freq * precisionMulti;
       return range(base, '/Monat');
     }
 
@@ -128,7 +141,7 @@ function calculate(p: CalcParams): PriceResult {
         p.glasGroesse === 'gross'        ? PREISE.glasreinigung.gross       :
         p.glasGroesse === 'schaufenster' ? PREISE.glasreinigung.schaufenster :
                                            PREISE.glasreinigung.standard;
-      const base = p.glasFenster * pricePerFenster;
+      const base = p.glasFenster * pricePerFenster * schmutzMulti * ortMulti;
       return range(base, 'einmalig');
     }
 
@@ -140,7 +153,7 @@ function calculate(p: CalcParams): PriceResult {
       const umfangMulti =
         p.hausUmfang === 'komplett' ? 1.4 :
         p.hausUmfang === 'standard' ? 1.15 : 1.0;
-      const base = sizeBase * umfangMulti;
+      const base = sizeBase * umfangMulti * ortMulti;
       return range(base, '/Monat');
     }
 
@@ -151,7 +164,7 @@ function calculate(p: CalcParams): PriceResult {
       const freqMulti =
         p.gartenHaeufigkeit === 'weekly'   ? 4 :
         p.gartenHaeufigkeit === 'bimonthly' ? 2 : 1;
-      const base = p.gartenFlaeche * PREISE.gartenarbeiten.base * freqMulti;
+      const base = p.gartenFlaeche * PREISE.gartenarbeiten.base * freqMulti * schmutzMulti * ortMulti;
       return range(base, '/Monat');
     }
 
@@ -192,6 +205,9 @@ export default function PreisrechnerPage() {
   // Garten
   const [gartenFlaeche, setGartenFlaeche] = useState(300);
   const [gartenHaeufigkeit, setGartenHaeufigkeit] = useState<'weekly' | 'bimonthly' | 'monthly'>('bimonthly');
+  const [objektart, setObjektart] = useState<'buero' | 'praxis' | 'wohnanlage' | 'gewerbe'>('buero');
+  const [verschmutzung, setVerschmutzung] = useState<'leicht' | 'normal' | 'stark'>('normal');
+  const [ort, setOrt] = useState<'Neuwied' | 'Koblenz' | 'Bendorf' | 'Andernach' | 'Andere Region'>('Neuwied');
 
   const result = useMemo<PriceResult>(
     () =>
@@ -203,6 +219,7 @@ export default function PreisrechnerPage() {
         hausGroesse, hausUmfang,
         winterFlaeche, winterTyp,
         gartenFlaeche, gartenHaeufigkeit,
+        objektart, verschmutzung, ort,
       }),
     [
       service, flaeche, haeufigkeitBuero, etagen,
@@ -211,10 +228,20 @@ export default function PreisrechnerPage() {
       hausGroesse, hausUmfang,
       winterFlaeche, winterTyp,
       gartenFlaeche, gartenHaeufigkeit,
+      objektart, verschmutzung, ort,
     ]
   );
 
   const flaecheServices: ServiceKey[] = ['bueroreinigung', 'unterhaltsreinigung', 'grundreinigung', 'baureinigung'];
+  const selectedOption = SERVICE_OPTIONS.find(opt => opt.key === service);
+  const estimateHref =
+    result?.type === 'range' && selectedOption
+      ? `${quoteUrl({
+          service: selectedOption.label.replace(' / Fenster', ''),
+          city: ort === 'Andere Region' ? undefined : ort,
+          source: 'preisrechner',
+        })}&area=${encodeURIComponent(`${flaeche} m²`)}&estimatedMin=${result.low}&estimatedMax=${result.high}`
+      : quoteUrl({ service: selectedOption?.label.replace(' / Fenster', ''), city: ort === 'Andere Region' ? undefined : ort, source: 'preisrechner' });
 
   return (
     <>
@@ -273,6 +300,33 @@ export default function PreisrechnerPage() {
               </p>
 
               <div className="space-y-6">
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <div>
+                    <label className="label">Ort / Region</label>
+                    <select value={ort} onChange={(e) => setOrt(e.target.value as typeof ort)} className="input-field">
+                      {['Neuwied', 'Koblenz', 'Bendorf', 'Andernach', 'Andere Region'].map(item => (
+                        <option key={item} value={item}>{item}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="label">Objektart</label>
+                    <select value={objektart} onChange={(e) => setObjektart(e.target.value as typeof objektart)} className="input-field">
+                      <option value="buero">Büro / Verwaltung</option>
+                      <option value="praxis">Praxis / Hygiene sensibel</option>
+                      <option value="wohnanlage">Wohnanlage / WEG</option>
+                      <option value="gewerbe">Gewerbeobjekt</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="label">Verschmutzung</label>
+                    <select value={verschmutzung} onChange={(e) => setVerschmutzung(e.target.value as typeof verschmutzung)} className="input-field">
+                      <option value="leicht">Leicht</option>
+                      <option value="normal">Normal</option>
+                      <option value="stark">Stark / Grundbedarf</option>
+                    </select>
+                  </div>
+                </div>
 
                 {/* Fläche – for bueroreinigung, unterhalts, grund, bau */}
                 {flaecheServices.includes(service) && (
@@ -604,7 +658,7 @@ export default function PreisrechnerPage() {
                     Der Winterdienst-Preis hängt stark von der Saison, der Lage und den lokalen
                     Gegebenheiten ab. Wir erstellen Ihnen kostenlos ein exaktes Saisonangebot.
                   </p>
-                  <Link href="/angebot" className="btn-primary">
+                  <Link href="/winterdienst-anmeldung-2026" className="btn-primary">
                     Kostenloses Angebot anfragen
                   </Link>
                 </>
@@ -641,7 +695,7 @@ export default function PreisrechnerPage() {
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-3">
-                    <Link href="/angebot" className="btn-primary">
+                    <Link href={estimateHref} className="btn-primary">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                       </svg>

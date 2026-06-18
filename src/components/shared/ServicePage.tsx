@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Breadcrumb from './Breadcrumb';
 import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
+import { quoteUrl } from '@/lib/quote-url';
 
 interface ServicePageProps {
   icon: string;
@@ -17,6 +18,8 @@ interface ServicePageProps {
 }
 
 export default function ServicePage({ icon, title, subtitle, description, benefits, features, faq, breadcrumb, schema, cityLinks }: ServicePageProps) {
+  const offerHref = quoteUrl({ service: title, source: 'service-page' });
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -30,7 +33,7 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
             <h1 className="text-white mb-4 leading-tight">{title}</h1>
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed">{subtitle}</p>
             <div className="flex flex-wrap gap-4 mt-8">
-              <Link href="/angebot" className="btn-primary px-8 py-3.5">Kostenloses Angebot</Link>
+              <Link href={offerHref} className="btn-primary px-8 py-3.5">Kostenloses Angebot</Link>
               <a href={`tel:${siteConfig.phone}`} className="btn-white px-8 py-3.5">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
                 {siteConfig.phone}
@@ -83,7 +86,7 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
             <div className="rounded-2xl p-6 text-white" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
               <h3 className="text-white mb-2 text-lg">Kostenloses Angebot</h3>
               <p className="text-slate-300/80 text-sm mb-5">Individuelle Kalkulation – transparent, fair, ohne versteckte Kosten.</p>
-              <Link href="/angebot" className="btn-primary w-full justify-center py-3">Angebot anfragen</Link>
+              <Link href={offerHref} className="btn-primary w-full justify-center py-3">Angebot anfragen</Link>
               <a href={`tel:${siteConfig.phone}`} className="mt-3 flex items-center justify-center gap-2 text-blue-300/60 hover:text-primary text-sm transition-colors">
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
                 {siteConfig.phone}

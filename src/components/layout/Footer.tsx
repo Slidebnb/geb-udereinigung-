@@ -57,6 +57,8 @@ export default async function Footer() {
               ['Hausmeisterdienste',  '/leistungen/hausmeisterdienste'],
               ['Winterdienst',        '/leistungen/winterdienst'],
               ['Gartenarbeiten',      '/leistungen/gartenarbeiten'],
+              ['Winterdienst 2026/2027 anmelden', '/winterdienst-anmeldung-2026'],
+              ['Gartenpflege 2026/2027 anmelden', '/gartenpflege-anmeldung-2026'],
             ].map(([label, href]) => (
               <li key={href}>
                 <Link href={href} className="text-blue-300/50 hover:text-primary text-sm transition-colors duration-150 flex items-center gap-1.5 group">
@@ -74,9 +76,9 @@ export default async function Footer() {
           <ul className="space-y-2.5">
             {[
               ['Über uns',         '/ueber-uns'],
-              ['Referenzen',       '/referenzen'],
               ['Blog & Ratgeber',  '/blog'],
               ['FAQ',              '/faq'],
+              ['Preisrechner',      '/preisrechner'],
               ['Kontakt',          '/kontakt'],
               ['Angebot anfragen', '/angebot'],
               ['Impressum',        '/impressum'],

@@ -11,6 +11,7 @@ import type { HeroData } from '@/components/home/Hero';
 import type { ServicesData } from '@/components/home/Services';
 import type { WhyUsData } from '@/components/home/WhyUs';
 import type { CTAData } from '@/components/home/CTABanner';
+import { quoteUrl } from '@/lib/quote-url';
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
@@ -77,20 +78,35 @@ export default async function HomePage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {[
-              { href: '/gebaudereinigung-neuwied',       label: 'Gebäudereinigung Neuwied',       sub: 'Wohnanlagen & Gewerbe' },
-              { href: '/gebaudereinigung-koblenz',       label: 'Gebäudereinigung Koblenz',       sub: 'Büros & Hausverwaltungen' },
-              { href: '/treppenhausreinigung-neuwied',   label: 'Treppenhausreinigung Neuwied',   sub: 'Für WEGs & Vermieter' },
-              { href: '/treppenhausreinigung-koblenz',   label: 'Treppenhausreinigung Koblenz',   sub: 'Regelmäßig & zuverlässig' },
-              { href: '/bueroeinigung-koblenz',          label: 'Büroreinigung Koblenz',          sub: 'Praxen, Kanzleien & Büros' },
-              { href: '/bueroeinigung-neuwied',          label: 'Büroreinigung Neuwied',          sub: 'Täglich oder wöchentlich' },
-              { href: '/hausmeisterservice-neuwied',     label: 'Hausmeisterservice Neuwied',     sub: 'Rundum-Betreuung' },
-              { href: '/winterdienst-neuwied',           label: 'Winterdienst Neuwied',           sub: 'Räum- & Streudienst' },
+              { href: '/gebaudereinigung-neuwied', label: 'Gebäudereinigung Neuwied', sub: 'Wohnanlagen & Gewerbe', service: 'Gebäudereinigung', city: 'Neuwied' },
+              { href: '/gebaudereinigung-koblenz', label: 'Gebäudereinigung Koblenz', sub: 'Büros & Hausverwaltungen', service: 'Gebäudereinigung', city: 'Koblenz' },
+              { href: '/treppenhausreinigung-neuwied', label: 'Treppenhausreinigung Neuwied', sub: 'Für WEGs & Vermieter', service: 'Treppenhausreinigung', city: 'Neuwied' },
+              { href: '/treppenhausreinigung-koblenz', label: 'Treppenhausreinigung Koblenz', sub: 'Regelmäßig & zuverlässig', service: 'Treppenhausreinigung', city: 'Koblenz' },
+              { href: '/bueroeinigung-koblenz', label: 'Büroreinigung Koblenz', sub: 'Praxen, Kanzleien & Büros', service: 'Büroreinigung', city: 'Koblenz' },
+              { href: '/bueroeinigung-neuwied', label: 'Büroreinigung Neuwied', sub: 'Täglich oder wöchentlich', service: 'Büroreinigung', city: 'Neuwied' },
+              { href: '/hausmeisterservice-neuwied', label: 'Hausmeisterservice Neuwied', sub: 'Rundum-Betreuung', service: 'Hausmeisterdienste', city: 'Neuwied' },
+              { href: '/winterdienst-neuwied', label: 'Winterdienst Neuwied', sub: 'Räum- & Streudienst', service: 'Winterdienst', city: 'Neuwied' },
             ].map(item => (
-              <Link key={item.href} href={item.href} className="card p-5 hover:border-primary/30 hover:shadow-md transition-all group">
-                <div className="font-bold text-dark text-sm group-hover:text-primary transition-colors mb-1">{item.label}</div>
-                <div className="text-xs text-gray-500">{item.sub}</div>
-              </Link>
+              <div key={item.href} className="card p-5 hover:border-primary/30 hover:shadow-md transition-all group">
+                <Link href={item.href} className="block">
+                  <div className="font-bold text-dark text-sm group-hover:text-primary transition-colors mb-1">{item.label}</div>
+                  <div className="text-xs text-gray-500">{item.sub}</div>
+                </Link>
+                <Link
+                  href={quoteUrl({ service: item.service, city: item.city, source: 'local-card' })}
+                  className="mt-4 inline-flex text-xs font-semibold text-primary hover:underline"
+                >
+                  Angebot anfragen →
+                </Link>
+              </div>
             ))}
+          </div>
+          <div className="mt-10 rounded-2xl bg-white border border-primary/15 p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-bold text-dark mb-1">Sie wissen schon, was gereinigt werden soll?</h3>
+              <p className="text-sm text-gray-500">Senden Sie uns kurz Leistung, Objektgröße und Kontaktdaten. Wir melden uns persönlich zurück.</p>
+            </div>
+            <Link href={quoteUrl({ source: 'local-section' })} className="btn-primary shrink-0 justify-center">Kostenloses Angebot anfragen</Link>
           </div>
         </div>
       </section>
@@ -112,7 +128,34 @@ export default async function HomePage() {
             ))}
           </div>
           <p className="text-gray-400 text-sm mb-6">Nicht dabei? Wir kommen auch zu Ihnen!</p>
-          <Link href="/kontakt" className="btn-primary inline-flex">Anfrage stellen</Link>
+          <Link href={quoteUrl({ source: 'service-areas' })} className="btn-primary inline-flex">Anfrage stellen</Link>
+        </div>
+      </section>
+
+      {/* Seasonal signups */}
+      <section className="section-padding bg-slate-50 border-y border-slate-100">
+        <div className="container mx-auto">
+          <div className="text-center mb-10">
+            <div className="section-label mx-auto w-fit">Saison 2026/2027</div>
+            <h2 className="mt-4">Früh anmelden für <span className="gradient-text">Winterdienst & Gartenpflege</span></h2>
+            <p className="text-gray-500 max-w-2xl mx-auto mt-3">
+              Sichern Sie sich frühzeitig Kapazitäten für Räum- und Streudienst, Heckenschneiden, Rasenmähen und regelmäßige Grünpflege in Neuwied, Koblenz und Bendorf.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-5">
+            <Link href="/winterdienst-anmeldung-2026" className="card p-6 hover:border-primary/30 transition-all group">
+              <div className="text-3xl mb-4">❄️</div>
+              <h3 className="text-xl mb-2 group-hover:text-primary transition-colors">Winterdienst 2026/2027 anmelden</h3>
+              <p className="text-gray-500 text-sm mb-5">Saisonvertrag für Gehwege, Einfahrten, Parkplätze, Eingänge und Streupflicht.</p>
+              <span className="text-primary font-semibold text-sm">Zur Winterdienst-Anmeldung →</span>
+            </Link>
+            <Link href="/gartenpflege-anmeldung-2026" className="card p-6 hover:border-green/30 transition-all group">
+              <div className="text-3xl mb-4">🌿</div>
+              <h3 className="text-xl mb-2 group-hover:text-green transition-colors">Gartenpflege 2026/2027 anmelden</h3>
+              <p className="text-gray-500 text-sm mb-5">Heckenschneiden, Rasenmähen, Laubentfernung, Beetpflege und Grünschnitt-Entsorgung.</p>
+              <span className="text-green font-semibold text-sm">Zur Gartenpflege-Anmeldung →</span>
+            </Link>
+          </div>
         </div>
       </section>
 

@@ -25,21 +25,21 @@ export interface WhyUsData {
 
 const defaultWhyUs: Required<WhyUsData> = {
   stats: [
-    { val: 100, suffix: '+', label: 'Zufriedene Kunden' },
-    { val: 3,   suffix: '+', label: 'Jahre Erfahrung' },
+    { val: 100, suffix: '+', label: 'Kunden' },
+    { val: 6,   suffix: '', label: 'Jahre Erfahrung' },
     { val: 10,  suffix: '',  label: 'Leistungsbereiche' },
-    { val: 100, suffix: '%', label: 'Weiterempfehlung' },
+    { val: 24, suffix: ' h', label: 'Rückmeldung' },
   ],
   headline: 'Der Unterschied, den Sie spüren werden',
   subtitle:
     'Wir sind nicht das günstigste Unternehmen – aber das zuverlässigste. Und das merken unsere Kunden nach dem ersten Auftrag.',
   reasons: [
     { icon: 'clock',       title: 'Pünktlich & Zuverlässig',  desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
-    { icon: 'trophy',      title: 'Höchste Qualität',          desc: 'DGUV-geschultes Personal, geprüfte Reinigungsmittel und strukturierte Qualitätsprozesse.' },
+    { icon: 'trophy',      title: 'Saubere Qualität',          desc: 'Klare Absprachen, strukturierte Abläufe und kontrollierte Ergebnisse nach jedem Einsatz.' },
     { icon: 'banknote',    title: 'Faire Festpreise',           desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
-    { icon: 'mappin',      title: 'Regional verwurzelt',        desc: 'Seit Jahren in Neuwied, Koblenz und Bendorf aktiv – wir kennen die Region und Ihre Bedürfnisse.' },
+    { icon: 'mappin',      title: 'Regional verwurzelt',        desc: 'In Neuwied, Koblenz und Bendorf aktiv – mit kurzen Wegen und persönlicher Betreuung.' },
     { icon: 'phone',       title: 'Direkter Ansprechpartner',   desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
-    { icon: 'shieldcheck', title: 'Vollversichert & Seriös',    desc: 'Betriebshaftpflicht, zertifizierte Mitarbeiter und DSGVO-konforme Abwicklung.' },
+    { icon: 'shieldcheck', title: 'Seriös & verbindlich',       desc: 'Diskrete Abwicklung, saubere Dokumentation und verlässliche Kommunikation.' },
   ],
 };
 
@@ -135,7 +135,7 @@ export default function WhyUs({ data }: { data?: WhyUsData }) {
         {/* Certifications */}
         <div className="mt-16 divider-gradient mb-10" />
         <div className="flex flex-wrap justify-center gap-8">
-          {['DGUV Ausgebildet', 'Betriebshaftpflicht', 'Innungsmitglied', 'DSGVO Konform', 'Geprüfte Qualität'].map(cert => (
+          {['Persönliche Abstimmung', 'Klare Angebote', 'Regionale Betreuung', 'Diskrete Arbeitsweise', 'Strukturierte Abläufe'].map(cert => (
             <div key={cert} className="flex items-center gap-2 text-slate-400 text-sm font-semibold">
               <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />

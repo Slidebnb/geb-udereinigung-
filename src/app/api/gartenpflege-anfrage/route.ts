@@ -14,7 +14,9 @@ const schema = z.object({
   starttermin: z.string().optional().or(z.literal('')),
   anmerkungen: z.string().optional().or(z.literal('')),
   leistungen: z.array(z.string()).min(1),
+  season: z.string().optional().or(z.literal('')),
   privacy: z.literal(true),
+  website: z.string().max(0).optional().or(z.literal('')),
 });
 
 function escapeHtml(str: string): string {
@@ -29,7 +31,7 @@ function escapeHtml(str: string): string {
 function renderGartenpflegeMail(data: z.infer<typeof schema>): string {
   return `
     <div style="font-family: Arial, sans-serif; color: #1a3a6b;">
-      <h2 style="color:#0C2340;">Neue Gartenpflege-Anfrage</h2>
+      <h2 style="color:#0C2340;">Neue Gartenpflege-Anfrage ${escapeHtml(data.season || '2026/2027')}</h2>
       <table style="border-collapse:collapse; width:100%;">
         <tr><td style="padding:4px 12px 4px 0; font-weight:bold; white-space:nowrap;">Name / Firma:</td><td>${escapeHtml(data.name)}</td></tr>
         <tr><td style="padding:4px 12px 4px 0; font-weight:bold; white-space:nowrap;">E-Mail:</td><td>${escapeHtml(data.email)}</td></tr>
@@ -61,8 +63,12 @@ export async function POST(request: Request) {
     }
 
     const data = parsed.data;
+    if (data.website) {
+      return NextResponse.json({ ok: true });
+    }
 
     const messageText = [
+      `Saison: ${data.season || '2026/2027'}`,
       `Gewünschte Leistungen: ${data.leistungen.join(', ')}`,
       `Adresse: ${data.adresse}`,
       `Häufigkeit: ${data.haeufigkeit}`,
@@ -74,7 +80,7 @@ export async function POST(request: Request) {
       .join('\n');
 
     const mailSent = await sendNotificationMail({
-      subject: `Gartenpflege-Anfrage: ${data.name}`,
+      subject: `Gartenpflege-Anfrage ${data.season || '2026/2027'}: ${data.name}`,
       html: renderGartenpflegeMail(data),
       replyTo: data.email,
     });
@@ -84,7 +90,7 @@ export async function POST(request: Request) {
         name: data.name,
         email: data.email,
         phone: data.phone,
-        service: 'Gartenpflege',
+        service: `Gartenpflege ${data.season || '2026/2027'}`,
         area: data.flaeche || null,
         frequency: data.haeufigkeit,
         message: messageText,

@@ -25,12 +25,9 @@ async function main() {
 
   // Testimonials
   const testimonials = [
-    { name: 'Markus Weber', role: 'Geschäftsführer', company: 'Weber GmbH', content: 'Huwa reinigt seit 3 Jahren unsere Büroräume. Pünktlich, gründlich und sehr zuverlässig. Wir sind rundum zufrieden!', rating: 5, location: 'Neuwied' },
-    { name: 'Sandra Müller', role: 'Hausverwalterin', company: 'Immobilia Verwaltung', content: 'Ausgezeichneter Hausmeisterservice. Das Team reagiert sofort auf Anfragen und arbeitet sehr professionell.', rating: 5, location: 'Koblenz' },
-    { name: 'Thomas Kirchner', role: 'Privatperson', content: 'Die Grundreinigung hat unsere Wohnung komplett verwandelt. Alles blitzt und glänzt – absolut empfehlenswert!', rating: 5, location: 'Bendorf' },
-    { name: 'Angela Bauer', role: 'Office Managerin', company: 'TechStart AG', content: 'Seit wir Huwa beauftragen, spart unser Team viel Zeit. Die Reinigung läuft reibungslos, immer zu unserer vollsten Zufriedenheit.', rating: 5, location: 'Neuwied' },
-    { name: 'Peter Schmidt', role: 'Bauträger', company: 'Schmidt Bau GmbH', content: 'Huwa hat unsere Baustelle perfekt gereinigt. Schnell, effizient und zu einem fairen Preis. Klare Empfehlung!', rating: 5, location: 'Andernach' },
-    { name: 'Karin Hoffmann', role: 'Privatperson', content: 'Der Winterdienst ist Gold wert. Jeden Morgen ist der Gehweg geräumt bevor ich zur Arbeit fahre. Super Service!', rating: 5, location: 'Koblenz' },
+    { name: 'Hausverwaltung', role: 'Wohnanlage', content: 'Geschätzt werden vor allem feste Absprachen, schnelle Rückmeldung und zuverlässige Ausführung im Objekt.', rating: 5, location: 'Koblenz' },
+    { name: 'Gewerbekunde', role: 'Büro & Praxis', content: 'Bei regelmäßiger Reinigung zählen planbare Termine, klare Zuständigkeiten und direkte Erreichbarkeit.', rating: 5, location: 'Neuwied' },
+    { name: 'Privatkunde', role: 'Einzelauftrag', content: 'Bei einmaligen Reinigungen sind eine klare Einschätzung vorab und eine saubere Übergabe besonders wichtig.', rating: 5, location: 'Bendorf' },
   ];
 
   if ((await prisma.testimonial.count()) === 0) {
@@ -153,9 +150,9 @@ Kontaktieren Sie uns für ein individuelles Angebot – wir beraten Sie kostenlo
     { key: 'address', value: 'Mittelweg 24, 56566 Neuwied' },
     { key: 'whatsapp', value: '492601913182' },
     { key: 'google_rating', value: '4.9' },
-    { key: 'review_count', value: '127' },
-    { key: 'years_experience', value: '15' },
-    { key: 'clients_count', value: '500+' },
+    { key: 'review_count', value: '' },
+    { key: 'years_experience', value: '6' },
+    { key: 'clients_count', value: '100+' },
     { key: 'opening_hours', value: 'Mo–Fr 07:00–18:00 Uhr' },
     { key: 'opening_hours_sat', value: 'Sa 08:00–14:00 Uhr' },
   ];

@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import type { SiteSettings } from '@/lib/get-settings';
 import { getPhone, getCompanyName } from '@/lib/get-settings';
 import { siteConfig } from '@/lib/site';
+import { quoteUrl } from '@/lib/quote-url';
 
 const services = [
   { name: 'Gebäudereinigung', href: '/leistungen/gebaeudereinigung', icon: '🏢' },
@@ -106,7 +107,7 @@ export default function Header({ settings = {} }: HeaderProps) {
             </div>
           </div>
 
-          {[['Über uns','/ueber-uns'],['Referenzen','/referenzen'],['Galerie','/galerie'],['Blog','/blog'],['FAQ','/faq'],['Kontakt','/kontakt']].map(([label,href]) => (
+          {[['Über uns','/ueber-uns'],['Galerie','/galerie'],['Blog','/blog'],['FAQ','/faq'],['Saison 2026/27','/winterdienst-anmeldung-2026'],['Kontakt','/kontakt']].map(([label,href]) => (
             <Link key={href} href={href} className="font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
               {label}
             </Link>
@@ -114,7 +115,7 @@ export default function Header({ settings = {} }: HeaderProps) {
           <Link href="/preisrechner" className="btn-outline ml-2 py-2.5 px-4 text-sm">
             Preis schätzen
           </Link>
-          <Link href="/angebot" className="btn-primary ml-2 py-2.5 px-5 text-sm">
+          <Link href={quoteUrl({ source: 'header' })} className="btn-primary ml-2 py-2.5 px-5 text-sm">
             Angebot anfragen
           </Link>
         </div>
@@ -147,12 +148,12 @@ export default function Header({ settings = {} }: HeaderProps) {
                 ))}
               </div>
             )}
-            {[['Über uns','/ueber-uns'],['Referenzen','/referenzen'],['Galerie','/galerie'],['Blog','/blog'],['FAQ','/faq'],['Kontakt','/kontakt'],['Preisrechner','/preisrechner']].map(([label,href]) => (
+            {[['Über uns','/ueber-uns'],['Galerie','/galerie'],['Blog','/blog'],['FAQ','/faq'],['Winterdienst 2026/2027','/winterdienst-anmeldung-2026'],['Gartenpflege 2026/2027','/gartenpflege-anmeldung-2026'],['Kontakt','/kontakt'],['Preisrechner','/preisrechner']].map(([label,href]) => (
               <Link key={href} href={href} className="block py-3 px-2 font-semibold text-gray-700 border-t border-gray-50 hover:text-primary transition-colors" onClick={() => setOpen(false)}>{label}</Link>
             ))}
             <div className="mt-4 px-2 flex flex-col gap-3">
               <Link href="/preisrechner" className="btn-outline w-full justify-center" onClick={() => setOpen(false)}>Preis schätzen</Link>
-              <Link href="/angebot" className="btn-primary w-full justify-center" onClick={() => setOpen(false)}>Kostenloses Angebot anfragen</Link>
+              <Link href={quoteUrl({ source: 'mobile-menu' })} className="btn-primary w-full justify-center" onClick={() => setOpen(false)}>Kostenloses Angebot anfragen</Link>
             </div>
           </div>
         </div>
