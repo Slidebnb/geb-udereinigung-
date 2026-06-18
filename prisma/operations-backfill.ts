@@ -46,9 +46,12 @@ async function main() {
   }
 
   for (const service of serviceCatalog) {
+    const sourceNote = ['buero', 'unterhalt', 'treppenhaus', 'glas', 'grund', 'bau'].includes(service.key)
+      ? 'Leistungswert aus der bereitgestellten Fachunterlage „Professionelle Kalkulation in der Gebäudereinigung (Stand 2025)“; Tariflohn auf Stand 2026. Vor Angebotsfreigabe mit Objektbegehung prüfen.'
+      : 'Betrieblicher Kalkulationsansatz. Vor dem ersten verbindlichen Angebot anhand eigener Zeitaufschreibungen und tatsächlicher Kosten prüfen.';
     await prisma.servicePriceSetting.upsert({
       where: { serviceKey: service.key },
-      update: {},
+      update: { sourceNote, effectiveFrom: new Date('2026-01-01') },
       create: {
         serviceKey: service.key,
         title: service.title,
@@ -57,6 +60,8 @@ async function main() {
         wagePerHour: service.wage,
         materialPercent: service.material,
         setupMinutes: service.setup,
+        sourceNote,
+        effectiveFrom: new Date('2026-01-01'),
       },
     });
     for (const category of ['vertrag', 'angebot', 'leistungsverzeichnis', 'objekt-checkliste', 'sop', 'zusatzleistungskatalog']) {
@@ -83,8 +88,21 @@ async function main() {
         key: type.key,
         category: type.key,
         title: type.title,
-        content: defaultTemplateContent(type.title, 'Objektdokumentation'),
+        content: defaultTemplateContent(type.key, 'Objektdokumentation'),
       },
+    });
+  }
+
+  const templates = await prisma.documentTemplate.findMany();
+  for (const template of templates) {
+    const isGeneric = template.content.includes('Diese Vorlage wird mit den Daten')
+      || template.content.includes('Objektbereiche und Intervalle werden objektbezogen ergänzt')
+      || template.content.includes('Objekt- und Sicherheitshinweise vor Beginn prüfen');
+    if (!isGeneric) continue;
+    const service = serviceCatalog.find(item => item.key === template.serviceKey);
+    await prisma.documentTemplate.update({
+      where: { id: template.id },
+      data: { content: defaultTemplateContent(template.category, service?.title || 'Objektdokumentation') },
     });
   }
 

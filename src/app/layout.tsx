@@ -3,6 +3,8 @@ import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/lib/site';
 import SiteFrame from '@/components/layout/SiteFrame';
+import HeaderWrapper from '@/components/layout/HeaderWrapper';
+import Footer from '@/components/layout/Footer';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const jakarta = Plus_Jakarta_Sans({
@@ -67,7 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex flex-col min-h-screen">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-        <SiteFrame>{children}</SiteFrame>
+        <SiteFrame header={<HeaderWrapper />} footer={<Footer />}>{children}</SiteFrame>
       </body>
     </html>
   );

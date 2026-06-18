@@ -16,6 +16,12 @@ export type PricingInput = {
   targetHourlyRate?: number;
   minimumMarginPercent?: number;
   publicRangePercent?: number;
+  productiveHoursOverride?: number;
+  visitsForSetup?: number;
+  materialFactor?: number;
+  equipmentFactor?: number;
+  period?: 'Monat' | 'Auftrag' | 'Saison';
+  summary?: string;
 };
 
 export type PricingResult = {
@@ -36,6 +42,8 @@ export type PricingResult = {
   publicMax: number;
   meetsHourlyFloor: boolean;
   meetsMinimumMargin: boolean;
+  period: 'Monat' | 'Auftrag' | 'Saison';
+  summary?: string;
 };
 
 const money = (value: number) => Math.round(value * 100) / 100;
@@ -52,15 +60,16 @@ export function calculatePrice(input: PricingInput): PricingResult {
   const performance = Math.max(0.1, input.performancePerHour ?? preset.performance);
   const setupHours = Math.max(0, input.setupMinutes ?? preset.setup) / 60;
   const productiveHoursPerVisit = preset.unit === 'Std.' ? quantity : quantity / performance;
-  const productiveHours = productiveHoursPerVisit * visits;
-  const monthlyHours = productiveHours + setupHours * visits;
+  const productiveHours = input.productiveHoursOverride ?? productiveHoursPerVisit * visits;
+  const setupVisits = input.visitsForSetup ?? visits;
+  const monthlyHours = productiveHours + setupHours * setupVisits;
   const wage = input.wagePerHour ?? preset.wage;
   const burden = Math.max(0, input.payrollBurdenPercent ?? 75) / 100;
   const laborCost = monthlyHours * wage * (1 + burden);
-  const materialPercent = Math.max(0, input.materialPercent ?? preset.material) / 100;
+  const materialPercent = (Math.max(0, input.materialPercent ?? preset.material) / 100) * Math.max(0, input.materialFactor ?? 1);
   const materialCost = laborCost * materialPercent;
   const travelCost = Math.max(0, input.travelCostPerVisit ?? 18) * visits;
-  const equipmentCost = Math.max(0, input.equipmentFlatPerMonth ?? 0);
+  const equipmentCost = Math.max(0, input.equipmentFlatPerMonth ?? 0) * Math.max(0, input.equipmentFactor ?? 1);
   const directCostBeforeRisk = laborCost + materialCost + travelCost + equipmentCost;
   const risk = Math.max(0, input.riskPercent ?? 5) / 100;
   const directCost = directCostBeforeRisk * (1 + risk);
@@ -96,6 +105,8 @@ export function calculatePrice(input: PricingInput): PricingResult {
     publicMax: publicRound(netMonthly * (1 + range)),
     meetsHourlyFloor: effectiveHourlyRate >= minimumHourlyRate,
     meetsMinimumMargin: marginPercent >= minimumMargin * 100,
+    period: input.period ?? 'Monat',
+    summary: input.summary,
   };
 }
 

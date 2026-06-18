@@ -3,8 +3,9 @@ import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { isAdmin } from '@/lib/admin-guard';
 import { nextNumber } from '@/lib/numbering';
-import { calculatePrice } from '@/lib/pricing-engine';
+import { calculateConfiguredServicePrice } from '@/lib/configured-pricing';
 import { defaultTemplateContent, serviceCatalog, type ServiceKey } from '@/lib/operations-catalog';
+import { normalizeCalculatorAnswers } from '@/lib/service-calculator-config';
 
 export async function GET() {
   if (!(await isAdmin())) return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
@@ -42,12 +43,16 @@ export async function POST(request: Request) {
       const object = await prisma.serviceObject.create({ data: { ...data, objectNumber: await nextNumber('object') } });
       return NextResponse.json(object, { status: 201 });
     }
-    if (action === 'calculation') {
-      const data = z.object({ customerId: z.string().optional(), objectId: z.string().optional(), title: baseString, serviceKey: baseString, quantity: z.coerce.number().positive(), visitsPerMonth: z.coerce.number().positive(), travelCostPerVisit: z.coerce.number().nonnegative().default(18), equipmentFlatPerMonth: z.coerce.number().nonnegative().default(0), riskPercent: z.coerce.number().nonnegative().default(5), overrideReason: z.string().optional() }).parse(body);
+    if (action === 'previewCalculation' || action === 'calculation') {
+      const data = z.object({ customerId: z.string().optional(), objectId: z.string().optional(), title: z.string().optional(), serviceKey: baseString, answers: z.record(z.union([z.string(), z.number(), z.boolean()])), travelCostPerVisit: z.coerce.number().nonnegative().default(0), equipmentFlatPerMonth: z.coerce.number().nonnegative().default(0), riskPercent: z.coerce.number().nonnegative().default(5), overrideReason: z.string().optional() }).parse(body);
       const serviceKey = data.serviceKey as ServiceKey;
       const stored = await prisma.servicePriceSetting.findUnique({ where: { serviceKey } });
-      const result = calculatePrice({ serviceKey, quantity: data.quantity, visitsPerMonth: data.visitsPerMonth, travelCostPerVisit: data.travelCostPerVisit, equipmentFlatPerMonth: data.equipmentFlatPerMonth, riskPercent: data.riskPercent, performancePerHour: stored?.performancePerHour, wagePerHour: stored?.wagePerHour, payrollBurdenPercent: stored?.payrollBurdenPercent, materialPercent: stored?.materialPercent, setupMinutes: stored?.setupMinutes, minimumHourlyRate: stored?.minimumHourlyRate, targetHourlyRate: stored?.targetHourlyRate, minimumMarginPercent: stored?.minimumMarginPercent, publicRangePercent: stored?.publicRangePercent });
-      const calculation = await prisma.calculation.create({ data: { calculationNumber: await nextNumber('calculation'), customerId: data.customerId || null, objectId: data.objectId || null, title: data.title, serviceKey, inputSnapshot: JSON.stringify(data), resultSnapshot: JSON.stringify(result), netTotal: result.netMonthly, grossTotal: result.grossMonthly, productiveHours: result.monthlyHours, effectiveHourlyRate: result.effectiveHourlyRate, marginPercent: result.marginPercent, overrideReason: data.overrideReason || null } });
+      if (!stored?.active) return NextResponse.json({ error: 'Die Kalkulationsgrundlage dieser Dienstleistung ist nicht freigegeben.' }, { status: 409 });
+      const answers = normalizeCalculatorAnswers(serviceKey, data.answers);
+      const result = calculateConfiguredServicePrice(serviceKey, answers, stored, { travelCostPerVisit: data.travelCostPerVisit, equipmentFlat: data.equipmentFlatPerMonth || stored.equipmentFlat, riskPercent: data.riskPercent });
+      if (action === 'previewCalculation') return NextResponse.json(result);
+      if (!data.title?.trim()) return NextResponse.json({ error: 'Bitte einen Kalkulationstitel eingeben.' }, { status: 400 });
+      const calculation = await prisma.calculation.create({ data: { calculationNumber: await nextNumber('calculation'), customerId: data.customerId || null, objectId: data.objectId || null, title: data.title.trim(), serviceKey, inputSnapshot: JSON.stringify({ ...data, answers }), resultSnapshot: JSON.stringify(result), netTotal: result.netMonthly, grossTotal: result.grossMonthly, productiveHours: result.monthlyHours, effectiveHourlyRate: result.effectiveHourlyRate, marginPercent: result.marginPercent, overrideReason: data.overrideReason || null } });
       return NextResponse.json(calculation, { status: 201 });
     }
     if (action === 'offer' || action === 'contract') {
@@ -64,8 +69,13 @@ export async function POST(request: Request) {
       return NextResponse.json(contract, { status: 201 });
     }
     if (action === 'objectDocument') {
-      const data = z.object({ objectId: baseString, type: baseString, title: baseString, serviceKey: z.string().optional(), snapshot: z.string().default('{}') }).parse(body);
-      const document = await prisma.objectDocument.create({ data: { ...data, serviceKey: data.serviceKey || null, documentNumber: await nextNumber('document') } });
+      const data = z.object({ objectId: baseString, type: baseString, title: baseString, serviceKey: z.string().optional(), notes: z.string().optional() }).parse(body);
+      const service = serviceCatalog.find(item => item.key === data.serviceKey);
+      const templateKey = data.serviceKey ? `${data.type}-${data.serviceKey}` : data.type;
+      const template = await prisma.documentTemplate.findUnique({ where: { key: templateKey } });
+      const content = template?.content || defaultTemplateContent(data.type, service?.title || 'Objektdokumentation');
+      const snapshot = JSON.stringify({ content, templateKey, templateUpdatedAt: template?.updatedAt?.toISOString() || null, notes: data.notes || null, createdAt: new Date().toISOString() });
+      const document = await prisma.objectDocument.create({ data: { objectId: data.objectId, type: data.type, title: data.title, serviceKey: data.serviceKey || null, snapshot, documentNumber: await nextNumber('document') } });
       return NextResponse.json(document, { status: 201 });
     }
     if (action === 'deadline') {
@@ -81,8 +91,11 @@ export async function POST(request: Request) {
       return NextResponse.json(await prisma.equipmentItem.create({ data: { ...data, nextMaintenance: data.nextMaintenance ? new Date(data.nextMaintenance) : null } }), { status: 201 });
     }
     if (action === 'priceSetting') {
-      const data = z.object({ serviceKey: baseString, title: baseString, unit: baseString, performancePerHour: z.coerce.number().positive(), wagePerHour: z.coerce.number().positive(), payrollBurdenPercent: z.coerce.number().nonnegative(), materialPercent: z.coerce.number().nonnegative(), equipmentFlat: z.coerce.number().nonnegative(), setupMinutes: z.coerce.number().int().nonnegative(), minimumHourlyRate: z.coerce.number().min(38), targetHourlyRate: z.coerce.number().min(38), minimumMarginPercent: z.coerce.number().min(20), publicRangePercent: z.coerce.number().min(5) }).parse(body);
-      return NextResponse.json(await prisma.servicePriceSetting.upsert({ where: { serviceKey: data.serviceKey }, update: data, create: data }));
+      const data = z.object({ serviceKey: baseString, title: baseString, unit: baseString, performancePerHour: z.coerce.number().positive(), wagePerHour: z.coerce.number().positive(), payrollBurdenPercent: z.coerce.number().nonnegative(), materialPercent: z.coerce.number().nonnegative(), equipmentFlat: z.coerce.number().nonnegative(), setupMinutes: z.coerce.number().int().nonnegative(), minimumHourlyRate: z.coerce.number().min(38), targetHourlyRate: z.coerce.number().min(38), minimumMarginPercent: z.coerce.number().min(20), publicRangePercent: z.coerce.number().min(5), sourceNote: z.string().optional(), active: z.boolean().default(true) }).parse(body);
+      const setting = await prisma.servicePriceSetting.findUnique({ where: { serviceKey: data.serviceKey } });
+      return NextResponse.json(setting
+        ? await prisma.servicePriceSetting.update({ where: { serviceKey: data.serviceKey }, data: { ...data, reviewedAt: new Date(), version: { increment: 1 } } })
+        : await prisma.servicePriceSetting.create({ data: { ...data, reviewedAt: new Date() } }));
     }
     if (action === 'documentTemplate') {
       const data = z.object({ id: baseString, title: baseString, content: baseString, active: z.boolean().default(true), legalApproved: z.boolean().default(false) }).parse(body);

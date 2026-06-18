@@ -30,7 +30,8 @@ export async function GET(_request: Request, { params }: { params: Promise<{ kin
     const item = await prisma.objectDocument.findUnique({ where: { id }, include: { object: { include: { customer: true } } } });
     if (!item) return NextResponse.json({ error: 'Dokument nicht gefunden.' }, { status: 404 });
     const snapshot = JSON.parse(item.snapshot || '{}');
-    payload = { documentType: item.type, number: item.documentNumber, title: item.title, status: item.status, customer: item.object.customer, object: item.object, body: snapshot.content || defaultTemplateContent(item.type, item.serviceKey || 'Objekt'), company };
+    const notes = snapshot.notes ? `\n\nOBJEKTBEZOGENE ERGÄNZUNGEN\n${snapshot.notes}` : '';
+    payload = { documentType: item.type, number: item.documentNumber, title: item.title, status: item.status, customer: item.object.customer, object: item.object, body: `${snapshot.content || defaultTemplateContent(item.type, item.serviceKey || 'Objekt')}${notes}`, company };
   }
   const bytes = await createDocumentPdf(payload);
   return new NextResponse(Buffer.from(bytes), { headers: { 'Content-Type': 'application/pdf', 'Content-Disposition': `inline; filename="${payload.number}.pdf"`, 'Cache-Control': 'private, no-store' } });

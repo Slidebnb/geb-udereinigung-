@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createDocumentPdf } from '../src/lib/document-pdf';
 import { createChecklistPdf } from '../src/lib/checklist-pdf';
+import { defaultTemplateContent } from '../src/lib/operations-catalog';
 
 async function main() {
   await mkdir('tmp/pdfs', { recursive: true });
@@ -13,6 +14,13 @@ async function main() {
     company: { name: 'Huwa Gebäudereinigung & Hausmeisterdienste', representative: 'Familie Huwa', street: 'Mittelweg 24', zip: '56566', city: 'Neuwied', taxNumber: '32/074/56310' },
   });
   await writeFile('tmp/pdfs/admin-document-smoke.pdf', document);
+  await writeFile('tmp/pdfs/leistungsverzeichnis-smoke.pdf', await createDocumentPdf({
+    documentType: 'Leistungsverzeichnis', number: 'DOK-2026-0001', title: 'Leistungsverzeichnis Unterhaltsreinigung', status: 'entwurf',
+    customer: { name: 'Max Mustermann', company: 'Musterverwaltung GmbH' },
+    object: { name: 'Bürogebäude Süd', street: 'Objektstraße 4', zip: '56068', city: 'Koblenz' },
+    body: defaultTemplateContent('leistungsverzeichnis', 'Unterhaltsreinigung'),
+    company: { name: 'Huwa Gebäudereinigung & Hausmeisterdienste', representative: 'Familie Huwa', street: 'Mittelweg 24', zip: '56566', city: 'Neuwied' },
+  }));
   await writeFile('tmp/pdfs/checklist-smoke.pdf', await createChecklistPdf('qualitaetskontrolle'));
   console.log('PDF smoke files created.');
 }

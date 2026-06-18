@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import type { SiteSettings } from '@/lib/get-settings';
-import { getPhone, getCompanyName } from '@/lib/get-settings';
 import { siteConfig } from '@/lib/site';
 import { quoteUrl } from '@/lib/quote-url';
 
@@ -31,8 +30,8 @@ export default function Header({ settings = {}, reviewRating = null, reviewCount
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled,     setScrolled]     = useState(false);
 
-  const phone       = getPhone(settings);
-  const companyName = getCompanyName(settings);
+  const phone       = settings.phone || siteConfig.phone;
+  const companyName = settings.site_title || siteConfig.name;
   const logoUrl     = settings.logo_url || '';
   const openingHours = settings.opening_hours || 'Mo–Fr 07:00–18:00 Uhr';
 
