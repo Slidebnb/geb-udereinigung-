@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 type Tab = 'verbindung' | 'erstellen' | 'entwuerfe';
 
@@ -330,12 +331,12 @@ export default function SocialMediaPage() {
                 </div>
                 <span className="bg-gray-100 text-gray-500 text-xs px-2.5 py-1 rounded-full font-medium">Nicht verbunden</span>
               </div>
-              <a
+              <Link
                 href="/api/admin/social/instagram/connect"
                 className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-5 py-2.5 rounded-lg text-sm font-medium hover:opacity-90 transition-opacity"
               >
                 📸 Instagram verbinden
-              </a>
+              </Link>
               <p className="text-xs text-gray-400">
                 Du benötigst ein Instagram Business- oder Creator-Konto, das mit einer Facebook-Seite verbunden ist.
               </p>
