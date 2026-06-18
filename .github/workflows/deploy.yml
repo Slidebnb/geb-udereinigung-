@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: production-deploy
+  cancel-in-progress: false
+
 jobs:
   deploy:
     name: Deploy via SSH
@@ -23,10 +27,10 @@ jobs:
             git fetch origin
             git checkout main
             git pull --ff-only origin main
+            rm -rf node_modules
             npm ci
             npx prisma db push --skip-generate
             rm -rf .next
             npm run build
-            npm prune --omit=dev
             pm2 restart huwa-web
             echo "✅ Deployment erfolgreich: $(date)"
