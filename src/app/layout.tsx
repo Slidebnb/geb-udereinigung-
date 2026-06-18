@@ -2,11 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/lib/site';
-import Header from '@/components/layout/HeaderWrapper';
-import Footer from '@/components/layout/Footer';
-import WhatsAppButton from '@/components/shared/WhatsAppButton';
-import MobileActionBar from '@/components/shared/MobileActionBar';
-import CookieBanner from '@/components/shared/CookieBanner';
+import SiteFrame from '@/components/layout/SiteFrame';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const jakarta = Plus_Jakarta_Sans({
@@ -69,14 +65,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de" className={`${inter.variable} ${jakarta.variable}`}>
       <body className="flex flex-col min-h-screen">
-        <Header />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
-        <MobileActionBar />
-        <CookieBanner />
+        <SiteFrame>{children}</SiteFrame>
       </body>
     </html>
   );

@@ -35,6 +35,7 @@ jobs:
               find backups -type f -name 'dev.db.*' -mtime +30 -delete
             fi
             npx prisma db push --skip-generate
+            npm run operations:backfill
             npm run seo:backfill
             rm -rf .next
             npm run build

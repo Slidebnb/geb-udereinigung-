@@ -11,7 +11,10 @@
     "db:push": "prisma db push",
     "db:seed": "prisma db seed",
     "seo:backfill": "tsx prisma/seo-backfill.ts",
-    "seo:audit": "node scripts/seo-audit.mjs"
+    "seo:audit": "node scripts/seo-audit.mjs",
+    "operations:backfill": "tsx prisma/operations-backfill.ts",
+    "test:pricing": "tsx scripts/pricing-test.ts",
+    "test:pdf": "tsx scripts/pdf-smoke.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -27,6 +30,7 @@
     "next": "^15.5.19",
     "next-auth": "^4.24.11",
     "nodemailer": "^9.0.1",
+    "pdf-lib": "^1.17.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.0",

@@ -13,7 +13,7 @@ export default function AdminShell({ user, children }: AdminShellProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
+    <div className="admin-app min-h-screen flex">
       {/* Mobile overlay */}
       {sidebarOpen && (
         <div
@@ -27,7 +27,7 @@ export default function AdminShell({ user, children }: AdminShellProps) {
 
       <div className="flex-1 flex flex-col min-w-0">
         <AdminHeader user={user} onMenuToggle={() => setSidebarOpen(!sidebarOpen)} />
-        <main className="flex-1 p-4 md:p-6 overflow-auto">{children}</main>
+        <main className="admin-main flex-1 overflow-auto"><div className="admin-content">{children}</div></main>
       </div>
     </div>
   );

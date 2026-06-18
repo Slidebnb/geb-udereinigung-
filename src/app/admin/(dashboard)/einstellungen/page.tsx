@@ -1,255 +1,51 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-import { siteConfig } from '@/lib/site';
+import { useEffect, useState } from 'react';
+import { AlertTriangle, CheckCircle2, Save, ShieldCheck } from 'lucide-react';
+import { AdminPageHeader, AdminPanel, AdminStatus, EmptyState } from '@/components/admin/AdminUi';
+import { useOperations } from '@/components/admin/useOperations';
+
+const sections = [
+  ['unternehmen', 'Unternehmen'], ['kalkulation', 'Kalkulation'], ['leistungen', 'Leistungsstandards'], ['dokumente', 'Dokumentvorlagen'], ['kommunikation', 'Kommunikation'], ['sicherheit', 'Benutzer & Sicherheit'],
+] as const;
+
+const companyFields = [
+  ['legal_company_name','Firmenname'], ['legal_representative','Vertretungsberechtigte Person / Familie'], ['legal_street','Straße'], ['legal_zip','PLZ'], ['legal_city','Ort'], ['contact_email','E-Mail'], ['phone','Telefon'], ['legal_tax_number','Steuernummer'], ['legal_vat_id','USt-IdNr. (beginnt mit DE)'], ['legal_iban','IBAN'], ['legal_bic','BIC'], ['legal_bank_name','Bank'], ['legal_signature_name','Name für Unterschriftszeile'],
+] as const;
+
+const pricingFields = [
+  ['pricing_min_hourly_rate','Mindest-Verrechnungssatz','38'], ['pricing_target_hourly_rate','Ziel-Verrechnungssatz','42'], ['pricing_min_margin','Mindestmarge in %','20'], ['pricing_payroll_burden','Lohnnebenkosten / Zuschlag in %','75'], ['pricing_vat_rate','Umsatzsteuer in %','19'], ['pricing_public_range','Öffentlicher Preiskorridor ± %','12'],
+] as const;
 
 export default function EinstellungenPage() {
-  const [settings, setSettings] = useState<Record<string, string>>({});
-  const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const { data, loading, create } = useOperations();
+  const [tab, setTab] = useState<(typeof sections)[number][0]>('unternehmen');
+  const [settings, setSettings] = useState<Record<string,string>>({});
+  const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
-  // Logo upload state
-  const [logoPreview, setLogoPreview] = useState('');
-  const [uploading, setUploading] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
-
-  // Password change state
-  const [pwForm, setPwForm] = useState({ current: '', next: '', confirm: '' });
-  const [pwSaving, setPwSaving] = useState(false);
-  const [pwMsg, setPwMsg] = useState('');
-  const [pwError, setPwError] = useState('');
-
-  useEffect(() => {
-    fetch('/api/admin/settings').then(r => r.json()).then(data => {
-      if (Array.isArray(data)) {
-        const map: Record<string, string> = {};
-        data.forEach((s: { key: string; value: string }) => { map[s.key] = s.value; });
-        setSettings(map);
-        if (map.logo_url) setLogoPreview(map.logo_url);
-      }
-    }).catch(() => {});
-  }, []);
-
-  const update = (key: string, value: string) => setSettings(prev => ({ ...prev, [key]: value }));
-
-  const save = async () => {
-    setSaving(true);
-    setError('');
-    try {
-      const res = await fetch('/api/admin/settings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(settings),
-      });
-      if (!res.ok) throw new Error();
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
-    } catch {
-      setError('Fehler beim Speichern. Bitte nochmal versuchen.');
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  const handleLogoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setUploading(true);
-    setError('');
-    try {
-      const fd = new FormData();
-      fd.append('file', file);
-      const res = await fetch('/api/admin/upload', { method: 'POST', body: fd });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Upload fehlgeschlagen.');
-      setLogoPreview(data.url);
-      setSettings(prev => ({ ...prev, logo_url: data.url }));
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
-    } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Upload fehlgeschlagen.');
-    } finally {
-      setUploading(false);
-      if (fileRef.current) fileRef.current.value = '';
-    }
-  };
-
-  const removeLogo = async () => {
-    setLogoPreview('');
-    setSettings(prev => ({ ...prev, logo_url: '' }));
-    await fetch('/api/admin/settings', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ logo_url: '' }),
-    });
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
-  };
-
-  const changePassword = async () => {
-    setPwError('');
-    setPwMsg('');
-    if (!pwForm.current || !pwForm.next) { setPwError('Alle Felder ausfüllen.'); return; }
-    if (pwForm.next !== pwForm.confirm) { setPwError('Neues Passwort stimmt nicht überein.'); return; }
-    if (pwForm.next.length < 8) { setPwError('Passwort muss mindestens 8 Zeichen haben.'); return; }
-    setPwSaving(true);
-    try {
-      const res = await fetch('/api/admin/change-password', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ currentPassword: pwForm.current, newPassword: pwForm.next }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Fehler');
-      setPwMsg('✓ Passwort erfolgreich geändert!');
-      setPwForm({ current: '', next: '', confirm: '' });
-    } catch (err: unknown) {
-      setPwError(err instanceof Error ? err.message : 'Fehler beim Ändern des Passworts.');
-    } finally {
-      setPwSaving(false);
-    }
-  };
-
-  const fields = [
-    { key: 'site_title', label: 'Firmenname', placeholder: siteConfig.name },
-    { key: 'phone', label: 'Telefonnummer', placeholder: '02601 9131820' },
-    { key: 'contact_email', label: 'Kontakt-E-Mail', placeholder: 'info@huwa-gebaeudedienste.de' },
-    { key: 'whatsapp', label: 'WhatsApp-Nummer (mit Ländervorwahl)', placeholder: '4915117864090' },
-    { key: 'address', label: 'Adresse', placeholder: 'Mittelweg 24, 56566 Neuwied' },
-    { key: 'opening_hours', label: 'Öffnungszeiten Woche', placeholder: 'Mo–Fr 07:00–18:00 Uhr' },
-    { key: 'opening_hours_sat', label: 'Öffnungszeiten Samstag', placeholder: 'Sa 08:00–14:00 Uhr' },
-    { key: 'google_rating', label: 'Bewertung (Legacy)', placeholder: '5.0' },
-    { key: 'review_count', label: 'Anzahl Bewertungen', placeholder: 'Nur eintragen, wenn belegbar' },
-    { key: 'years_experience', label: 'Jahre Erfahrung', placeholder: 'Nur eintragen, wenn belegbar' },
-    { key: 'clients_count', label: 'Kundenanzahl', placeholder: 'Nur eintragen, wenn belegbar' },
-  ];
-
-  return (
-    <div>
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">Einstellungen</h1>
-
-      <div className="max-w-2xl space-y-6">
-
-        {/* Logo */}
-        <div className="bg-white rounded-xl p-6 shadow-sm">
-          <h2 className="font-semibold text-gray-700 border-b border-gray-100 pb-3 mb-4">Logo</h2>
-          <div className="flex items-center gap-6">
-            <div className="w-24 h-24 border-2 border-dashed border-gray-200 rounded-xl flex items-center justify-center bg-gray-50 overflow-hidden">
-              {logoPreview ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={logoPreview} alt="Logo" className="object-contain w-full h-full p-1" />
-              ) : (
-                <svg className="w-10 h-10 text-gray-300" fill="currentColor" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
-              )}
-            </div>
-            <div className="flex-1">
-              <p className="text-sm text-gray-500 mb-3">PNG, JPG, WebP, AVIF oder GIF · max. 2 MB</p>
-              <div className="flex gap-2 flex-wrap">
-                <button
-                  onClick={() => fileRef.current?.click()}
-                  disabled={uploading}
-                  className="btn-primary py-2 px-4 text-sm disabled:opacity-50"
-                >
-                  {uploading ? 'Wird hochgeladen...' : logoPreview ? 'Logo ändern' : 'Logo hochladen'}
-                </button>
-                {logoPreview && (
-                  <button onClick={removeLogo} className="btn-secondary py-2 px-4 text-sm text-red-600 border-red-200 hover:bg-red-50">
-                    Entfernen
-                  </button>
-                )}
-              </div>
-              <input ref={fileRef} type="file" accept="image/png,image/jpeg,image/webp,image/avif,image/gif" className="hidden" onChange={handleLogoUpload} />
-            </div>
-          </div>
-        </div>
-
-        {/* General settings */}
-        <div className="bg-white rounded-xl p-6 shadow-sm">
-          <h2 className="font-semibold text-gray-700 border-b border-gray-100 pb-3 mb-4">Allgemeine Einstellungen</h2>
-          <div className="space-y-4">
-            {fields.map(f => (
-              <div key={f.key}>
-                <label className="label">{f.label}</label>
-                <input
-                  value={settings[f.key] || ''}
-                  onChange={e => update(f.key, e.target.value)}
-                  className="input-field"
-                  placeholder={f.placeholder}
-                />
-              </div>
-            ))}
-          </div>
-
-          {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm mt-4">
-              {error}
-            </div>
-          )}
-          {saved && (
-            <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm mt-4">
-              ✓ Einstellungen wurden gespeichert! Die Website wird automatisch aktualisiert.
-            </div>
-          )}
-
-          <button onClick={save} disabled={saving} className="btn-primary px-8 py-3 mt-4 disabled:opacity-50">
-            {saving ? 'Speichern...' : '✓ Einstellungen speichern'}
-          </button>
-        </div>
-
-        {/* Password change */}
-        <div className="bg-white rounded-xl p-6 shadow-sm">
-          <h2 className="font-semibold text-gray-700 border-b border-gray-100 pb-3 mb-4">Passwort ändern</h2>
-          <div className="space-y-4">
-            <div>
-              <label className="label">Aktuelles Passwort</label>
-              <input
-                type="password"
-                value={pwForm.current}
-                onChange={e => setPwForm(p => ({ ...p, current: e.target.value }))}
-                className="input-field"
-                placeholder="••••••••"
-              />
-            </div>
-            <div>
-              <label className="label">Neues Passwort</label>
-              <input
-                type="password"
-                value={pwForm.next}
-                onChange={e => setPwForm(p => ({ ...p, next: e.target.value }))}
-                className="input-field"
-                placeholder="Mindestens 8 Zeichen"
-              />
-            </div>
-            <div>
-              <label className="label">Neues Passwort bestätigen</label>
-              <input
-                type="password"
-                value={pwForm.confirm}
-                onChange={e => setPwForm(p => ({ ...p, confirm: e.target.value }))}
-                className="input-field"
-                placeholder="••••••••"
-              />
-            </div>
-
-            {pwError && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
-                {pwError}
-              </div>
-            )}
-            {pwMsg && (
-              <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg text-sm">
-                {pwMsg}
-              </div>
-            )}
-
-            <button onClick={changePassword} disabled={pwSaving} className="btn-primary px-8 py-3 disabled:opacity-50">
-              {pwSaving ? 'Wird geändert...' : 'Passwort ändern'}
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  );
+  useEffect(() => { fetch('/api/admin/settings').then(response => response.json()).then(items => { if (Array.isArray(items)) setSettings(Object.fromEntries(items.map(item => [item.key,item.value]))); }); }, []);
+  async function saveSettings(keys: readonly (readonly string[])[]) {
+    setError(''); setMessage('');
+    const payload = Object.fromEntries(keys.map(([key]) => [key, settings[key] || '']));
+    const response = await fetch('/api/admin/settings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+    if (!response.ok) { const result = await response.json(); setError(result.error || 'Speichern fehlgeschlagen.'); return; }
+    setMessage('Einstellungen wurden gespeichert.');
+  }
+  const legalReady = ['legal_company_name','legal_representative','legal_street','legal_zip','legal_city','legal_tax_number'].every(key => settings[key]?.trim());
+  return <><AdminPageHeader title="Einstellungen" description="Unternehmensdaten, Kalkulationsschutz und Vorlagen werden zentral und nachvollziehbar verwaltet." /><div className="admin-tabs">{sections.map(([key,label]) => <button key={key} className={tab === key ? 'active' : ''} onClick={() => { setTab(key); setMessage(''); setError(''); }}>{label}</button>)}</div>
+    {message ? <div className="mb-5 text-sm text-emerald-700">{message}</div> : null}{error ? <div className="mb-5 text-sm text-red-600">{error}</div> : null}
+    {tab === 'unternehmen' ? <div className="admin-grid"><AdminPanel title="Unternehmens- und Vertragsdaten" description="Diese Angaben erscheinen auf Angeboten, Verträgen und Protokollen."><div className="admin-form"><div className="admin-form-grid">{companyFields.map(([key,label]) => <SettingField key={key} label={label} value={settings[key] || ''} onChange={value => setSettings(current => ({ ...current, [key]: value }))} />)}</div><button className="admin-button" onClick={() => saveSettings(companyFields)}><Save size={15} /> Unternehmensdaten speichern</button></div></AdminPanel><AdminPanel title="Dokumentfreigabe"><div className="admin-form">{legalReady ? <div className="flex gap-3 text-emerald-700"><CheckCircle2 size={20} /><div><strong className="text-sm">Pflichtdaten vollständig</strong><p className="mt-1 text-xs leading-5 text-slate-500">Die rechtliche Vorlagenprüfung bleibt dennoch separat erforderlich.</p></div></div> : <div className="flex gap-3 text-amber-700"><AlertTriangle size={20} /><div><strong className="text-sm">Pflichtdaten unvollständig</strong><p className="mt-1 text-xs leading-5 text-slate-500">Finale Vertragsfreigaben bleiben gesperrt.</p></div></div>}<div className="admin-field"><label>Vorlagen rechtlich geprüft</label><select value={settings.legal_templates_approved || 'false'} onChange={event => setSettings(current => ({ ...current, legal_templates_approved: event.target.value }))}><option value="false">Nein - Entwurfsstatus erzwingen</option><option value="true">Ja - fachliche Prüfung dokumentiert</option></select></div><button className="admin-button admin-button-secondary" onClick={() => saveSettings([['legal_templates_approved']])}><ShieldCheck size={15} /> Freigabestatus speichern</button></div></AdminPanel></div> : null}
+    {tab === 'kalkulation' ? <AdminPanel title="Globale Kalkulationsstandards" description="38 € und 20 % sind technische Untergrenzen und können nicht unterschritten werden."><div className="admin-form"><div className="admin-form-grid">{pricingFields.map(([key,label,fallback]) => <SettingField key={key} label={label} type="number" value={settings[key] || fallback} onChange={value => setSettings(current => ({ ...current, [key]: value }))} />)}</div><div className="flex gap-2"><AdminStatus tone="success">Mindest-Verrechnungssatz 38 €</AdminStatus><AdminStatus tone="success">Mindestmarge 20 %</AdminStatus></div><button className="admin-button" onClick={() => saveSettings(pricingFields)}><Save size={15} /> Standards speichern</button></div></AdminPanel> : null}
+    {tab === 'leistungen' ? <AdminPanel title="Leistungsstandards" description="Leistungswerte dienen als Startpunkt. Jede Objektkalkulation bleibt individuell.">{loading ? <EmptyState title="Standards werden geladen" text="Einen Moment bitte." /> : <div className="admin-table-wrap"><table className="admin-table"><thead><tr><th>Dienstleistung</th><th>Einheit</th><th>Leistungswert / Std.</th><th>Tariflohn</th><th>Material</th><th>Rüstzeit</th><th></th></tr></thead><tbody>{data.priceSettings.map(item => <PriceRow key={item.id} item={item} save={create} />)}</tbody></table></div>}</AdminPanel> : null}
+    {tab === 'dokumente' ? <AdminPanel title="Vorlagen je Dienstleistung" description="Verträge, Angebote, Leistungsverzeichnisse, Objekt-Checklisten, SOPs und Zusatzleistungskataloge.">{loading ? <EmptyState title="Vorlagen werden geladen" text="Einen Moment bitte." /> : <div className="admin-list">{data.templates.map(template => <TemplateRow key={template.id} template={template} save={create} />)}</div>}</AdminPanel> : null}
+    {tab === 'kommunikation' ? <AdminPanel title="Vorlagen für Kundenkommunikation" description="Fertige Texte mit Platzhaltern für wiederkehrende Abläufe.">{loading ? <EmptyState title="Vorlagen werden geladen" text="Einen Moment bitte." /> : <div className="admin-list">{data.communication.map(template => <CommunicationRow key={template.id} template={template} save={create} />)}</div>}</AdminPanel> : null}
+    {tab === 'sicherheit' ? <div className="admin-grid"><AdminPanel title="Zugriffsschutz"><div className="admin-form"><div className="flex gap-3"><ShieldCheck className="text-emerald-600" size={22} /><div><strong className="text-sm">Admin-Rolle erforderlich</strong><p className="mt-1 text-xs leading-5 text-slate-500">CRM, Kalkulationen, interne Preise und Dokumente werden ausschließlich über geschützte Admin-Routen geladen.</p></div></div><AdminStatus tone="success">Rollenprüfung aktiv</AdminStatus></div></AdminPanel><AdminPanel title="Passwort ändern"><PasswordForm /></AdminPanel></div> : null}
+  </>;
 }
+
+function SettingField({ label, value, onChange, type = 'text' }: { label: string; value: string; onChange: (value:string) => void; type?: string }) { return <div className="admin-field"><label>{label}</label><input type={type} value={value} onChange={event => onChange(event.target.value)} /></div>; }
+function PriceRow({ item, save }: { item: any; save: (payload: Record<string, unknown>) => Promise<any> }) { const [value,setValue] = useState(item); const [saved,setSaved] = useState(false); return <tr><td><strong>{value.title}</strong></td><td>{value.unit}</td><td><input className="w-20 border rounded-md p-2" type="number" value={value.performancePerHour} onChange={event => setValue({ ...value, performancePerHour: Number(event.target.value) })} /></td><td><input className="w-20 border rounded-md p-2" type="number" value={value.wagePerHour} onChange={event => setValue({ ...value, wagePerHour: Number(event.target.value) })} /></td><td><input className="w-16 border rounded-md p-2" type="number" value={value.materialPercent} onChange={event => setValue({ ...value, materialPercent: Number(event.target.value) })} /> %</td><td><input className="w-16 border rounded-md p-2" type="number" value={value.setupMinutes} onChange={event => setValue({ ...value, setupMinutes: Number(event.target.value) })} /> Min.</td><td><button className="admin-button admin-button-secondary" onClick={async () => { await save({ action: 'priceSetting', ...value }); setSaved(true); }}>{saved ? 'Gespeichert' : 'Speichern'}</button></td></tr>; }
+function TemplateRow({ template, save }: { template:any; save:(payload:Record<string,unknown>)=>Promise<any> }) { const [open,setOpen]=useState(false); const [content,setContent]=useState(template.content); return <div className="py-3 border-b last:border-0"><div className="flex items-center justify-between gap-4"><div><strong className="text-sm text-slate-700">{template.title}</strong><small className="block mt-1 text-slate-400">{template.category} · {template.legalApproved ? 'rechtlich freigegeben' : 'Entwurf'}</small></div><button className="admin-button admin-button-secondary" onClick={() => setOpen(value => !value)}>{open ? 'Schließen' : 'Bearbeiten'}</button></div>{open ? <div className="admin-form px-0 pb-0"><div className="admin-field"><label>Vorlagentext</label><textarea className="min-h-[260px]" value={content} onChange={event => setContent(event.target.value)} /></div><button className="admin-button" onClick={() => save({ action:'documentTemplate', id:template.id, title:template.title, content, active:template.active, legalApproved:template.legalApproved })}>Vorlage speichern</button></div> : null}</div>; }
+function CommunicationRow({ template, save }: { template:any; save:(payload:Record<string,unknown>)=>Promise<any> }) { const [open,setOpen]=useState(false); const [subject,setSubject]=useState(template.subject); const [content,setContent]=useState(template.content); return <div className="py-3 border-b last:border-0"><div className="flex justify-between gap-4"><div><strong className="text-sm text-slate-700">{template.title}</strong><small className="block mt-1 text-slate-400">{template.subject}</small></div><button className="admin-button admin-button-secondary" onClick={() => setOpen(value=>!value)}>{open?'Schließen':'Bearbeiten'}</button></div>{open?<div className="admin-form px-0 pb-0"><div className="admin-field"><label>Betreff</label><input value={subject} onChange={event=>setSubject(event.target.value)}/></div><div className="admin-field"><label>Text</label><textarea value={content} onChange={event=>setContent(event.target.value)}/></div><button className="admin-button" onClick={()=>save({action:'communicationTemplate',id:template.id,title:template.title,subject,content,active:template.active})}>Text speichern</button></div>:null}</div>; }
+function PasswordForm() { const [form,setForm]=useState({current:'',next:'',confirm:''}); const [message,setMessage]=useState(''); async function submit(event:React.FormEvent){event.preventDefault(); if(form.next!==form.confirm){setMessage('Die neuen Passwörter stimmen nicht überein.');return;} const response=await fetch('/api/admin/change-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({currentPassword:form.current,newPassword:form.next})}); const result=await response.json(); setMessage(response.ok?'Passwort wurde geändert.':result.error||'Änderung fehlgeschlagen.');} return <form className="admin-form" onSubmit={submit}><div className="admin-field"><label>Aktuelles Passwort</label><input type="password" value={form.current} onChange={event=>setForm({...form,current:event.target.value})}/></div><div className="admin-field"><label>Neues Passwort</label><input type="password" minLength={8} value={form.next} onChange={event=>setForm({...form,next:event.target.value})}/></div><div className="admin-field"><label>Neues Passwort bestätigen</label><input type="password" value={form.confirm} onChange={event=>setForm({...form,confirm:event.target.value})}/></div>{message?<p className="text-xs text-slate-600">{message}</p>:null}<button className="admin-button">Passwort ändern</button></form>; }

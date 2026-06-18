@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Kostenlose Haustechnik-Checkliste für Hausverwaltungen | Huwa',
+  title: 'Kostenlose Checklisten für Hausverwaltungen & Eigentümer | Huwa',
   description:
-    'Jetzt kostenlos herunterladen: Die 12-Punkte Haustechnik-Checkliste für Hausverwaltungen und Eigentümergemeinschaften in Neuwied und Koblenz.',
+    'Kostenlose PDF-Checklisten für Haustechnik, Objektübergabe, Qualitätskontrolle, Winterdienst und Gartenpflege herunterladen.',
   alternates: { canonical: `${siteConfig.url}/checkliste` },
   robots: { index: true, follow: true },
 };

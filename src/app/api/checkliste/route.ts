@@ -5,88 +5,27 @@ import { sendNotificationMail, sendDirectMail } from '@/lib/mail';
 import { siteConfig } from '@/lib/site';
 import { escapeHtml } from '@/lib/html';
 import { publicFormRateLimit } from '@/lib/rate-limit';
+import { publicDownloadCatalog } from '@/lib/operations-catalog';
+import { createDownloadToken } from '@/lib/download-token';
 
-const checklisteSchema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  company: z.string().optional(),
-  privacy: z.literal(true),
-  newsletter: z.boolean().optional(),
-});
+const schema = z.object({ name: z.string().min(2), email: z.string().email(), company: z.string().optional(), documentKey: z.string().min(1), source: z.string().optional(), privacy: z.literal(true), newsletter: z.boolean().optional() });
 
 export async function POST(request: Request) {
-  const limited = publicFormRateLimit(request, 'checkliste');
-  if (limited) return limited;
-
+  const limited = publicFormRateLimit(request, 'checkliste'); if (limited) return limited;
   try {
-    const body = await request.json();
-    const parsed = checklisteSchema.safeParse(body);
-
-    if (!parsed.success) {
-      return NextResponse.json(
-        { error: parsed.error.errors[0]?.message || 'Ungültige Eingabe.' },
-        { status: 400 },
-      );
-    }
-
-    const { name, email, newsletter } = parsed.data;
-
-    // Upsert into NewsletterSubscriber — store the lead regardless of newsletter opt-in
-    await prisma.newsletterSubscriber.upsert({
-      where: { email },
-      update: {},
-      create: { email },
-    });
-
-    // Send confirmation to user
-    await sendDirectMail({
-      to: email,
-      subject: 'Ihre kostenlose Haustechnik-Checkliste von Huwa',
-      html: `
-        <div style="font-family: Arial; color: #1a2e4a;">
-          <h2>Hallo ${escapeHtml(name)},</h2>
-          <p>vielen Dank für Ihr Interesse! Hier ist Ihre kostenlose Checkliste:</p>
-          <p>
-            <a href="${siteConfig.url}/downloads/haustechnik-checkliste.html"
-               style="background: #0C2340; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
-              Checkliste öffnen &amp; drucken
-            </a>
-          </p>
-          <p style="color: #666; font-size: 14px;">
-            Tipp: Im Browser über Datei → Drucken → "Als PDF speichern" können Sie die Checkliste als PDF speichern.
-          </p>
-          <hr>
-          <p style="font-size: 13px; color: #888;">
-            Huwa Gebäudereinigung &amp; Hausmeisterdienste | ${siteConfig.phone} | ${siteConfig.email}
-          </p>
-        </div>
-      `,
-    });
-
-    // Send admin notification
-    const adminHtml = `
-      <div style="font-family: Arial; color: #1a2e4a;">
-        <h2 style="color:#1a2e4a;">Neuer Checklisten-Download</h2>
-        <table style="border-collapse:collapse;">
-          <tr><td style="padding:4px 12px 4px 0;"><strong>Name:</strong></td><td>${escapeHtml(name)}</td></tr>
-          <tr><td style="padding:4px 12px 4px 0;"><strong>E-Mail:</strong></td><td>${escapeHtml(email)}</td></tr>
-          <tr><td style="padding:4px 12px 4px 0;"><strong>Newsletter:</strong></td><td>${newsletter ? 'Ja' : 'Nein'}</td></tr>
-        </table>
-      </div>
-    `;
-
-    await sendNotificationMail({
-      subject: `Checklisten-Download: ${name} (${email})`,
-      html: adminHtml,
-      replyTo: email,
-    });
-
-    return NextResponse.json({ ok: true });
-  } catch (error) {
-    console.error('[api/checkliste]', error);
-    return NextResponse.json(
-      { error: 'Serverfehler. Bitte versuchen Sie es später erneut.' },
-      { status: 500 },
-    );
-  }
+    const parsed = schema.safeParse(await request.json());
+    if (!parsed.success) return NextResponse.json({ error: parsed.error.errors[0]?.message || 'Ungültige Eingabe.' }, { status: 400 });
+    const data = parsed.data;
+    const document = publicDownloadCatalog.find(item => item.key === data.documentKey);
+    if (!document) return NextResponse.json({ error: 'Unbekannte Checkliste.' }, { status: 400 });
+    await prisma.downloadLead.create({ data: { name: data.name, company: data.company || null, email: data.email, documentKey: data.documentKey, source: data.source || 'downloadbibliothek', newsletter: Boolean(data.newsletter) } });
+    if (data.newsletter) await prisma.newsletterSubscriber.upsert({ where: { email: data.email }, update: {}, create: { email: data.email } });
+    const token = createDownloadToken(data.documentKey, data.email);
+    const downloadUrl = `${siteConfig.url}/api/downloads/checklist/${data.documentKey}?token=${encodeURIComponent(token)}`;
+    await Promise.all([
+      sendDirectMail({ to: data.email, subject: `Ihre Checkliste: ${document.title}`, html: `<div style="font-family:Arial;color:#172033"><h2>Hallo ${escapeHtml(data.name)},</h2><p>vielen Dank für Ihr Interesse. Ihre Checkliste steht sieben Tage lang bereit.</p><p><a href="${downloadUrl}" style="background:#1768e5;color:white;padding:12px 20px;text-decoration:none;border-radius:6px">Checkliste als PDF herunterladen</a></p><p>Huwa Gebäudereinigung &amp; Hausmeisterdienste</p></div>` }),
+      sendNotificationMail({ subject: `Checklisten-Download: ${document.title}`, replyTo: data.email, html: `<p><strong>${escapeHtml(data.name)}</strong> (${escapeHtml(data.company || 'ohne Firma')}) hat „${escapeHtml(document.title)}“ angefordert.</p><p>${escapeHtml(data.email)}</p>` }),
+    ]);
+    return NextResponse.json({ ok: true, downloadUrl: `/api/downloads/checklist/${data.documentKey}?token=${encodeURIComponent(token)}` });
+  } catch (error) { console.error('[api/checkliste]', error); return NextResponse.json({ error: 'Serverfehler. Bitte versuchen Sie es später erneut.' }, { status: 500 }); }
 }
