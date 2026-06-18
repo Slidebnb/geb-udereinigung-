@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Gebäudereinigung Neuwied | Huwa – Ihr lokaler Partner',
@@ -39,7 +40,22 @@ const services = [
   { icon: '❄️', title: 'Winterdienst',         desc: 'Räumen und Streuen auf Zufahrten, Gehwegen und Parkplätzen – auch früh morgens und am Wochenende.' },
 ];
 
-export default function GebaudereinigungNeuwied() {
+export default async function GebaudereinigungNeuwied() {
+  const reviewSummary = await prisma.testimonial.aggregate({
+    where: { published: true },
+    _avg: { rating: true },
+    _count: { id: true },
+  }).catch(() => null);
+  const stats = [
+    { val: '100+', label: 'Kunden in Neuwied' },
+    { val: '6', label: 'Jahre Erfahrung' },
+    ...(reviewSummary?._avg.rating && reviewSummary._count.id > 0
+      ? [{
+          val: `${reviewSummary._avg.rating.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}★`,
+          label: `${reviewSummary._count.id} Kundenbewertungen`,
+        }]
+      : []),
+  ];
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
@@ -83,7 +99,7 @@ export default function GebaudereinigungNeuwied() {
               Jeder Auftrag wird von einem festen Ansprechpartner begleitet – keine Call-Center, kein Weiterverbinden. Direkt, persönlich, verlässlich.
             </p>
             <div className="mt-8 grid sm:grid-cols-3 gap-5">
-              {[{ val: '100+', label: 'Kunden in Neuwied' }, { val: '3+', label: 'Jahre vor Ort' }, { val: '4.9★', label: 'Bewertung' }].map(s => (
+              {stats.map(s => (
                 <div key={s.label} className="card p-5 text-center">
                   <div className="text-3xl font-black text-primary mb-1">{s.val}</div>
                   <div className="text-slate-500 text-xs font-medium">{s.label}</div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site';
 import { getSettings } from '@/lib/get-settings';
+import { prisma } from '@/lib/prisma';
 import Hero from '@/components/home/Hero';
 import Services from '@/components/home/Services';
 import WhyUs from '@/components/home/WhyUs';
@@ -12,6 +13,8 @@ import type { ServicesData } from '@/components/home/Services';
 import type { WhyUsData } from '@/components/home/WhyUs';
 import type { CTAData } from '@/components/home/CTABanner';
 import { quoteUrl } from '@/lib/quote-url';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
@@ -41,14 +44,54 @@ const localBusinessSchema = {
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '07:00', closes: '18:00' },
     { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday'], opens: '08:00', closes: '14:00' },
   ],
-  aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.9', reviewCount: '100', bestRating: '5' },
   priceRange: '€€',
   areaServed: siteConfig.serviceAreas,
   sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
 };
 
 export default async function HomePage() {
-  const settings = await getSettings();
+  const [settings, testimonials] = await Promise.all([
+    getSettings(),
+    prisma.testimonial.findMany({
+      where: { published: true },
+      orderBy: { createdAt: 'desc' },
+      take: 4,
+      select: {
+        id: true,
+        name: true,
+        role: true,
+        company: true,
+        content: true,
+        rating: true,
+        location: true,
+      },
+    }).catch(() => []),
+  ]);
+
+  const averageRating = testimonials.length > 0
+    ? testimonials.reduce((sum, testimonial) => sum + testimonial.rating, 0) / testimonials.length
+    : null;
+  const localBusinessWithReviews = {
+    ...localBusinessSchema,
+    ...(averageRating !== null ? {
+      aggregateRating: {
+        '@type': 'AggregateRating',
+        ratingValue: averageRating.toFixed(1),
+        reviewCount: testimonials.length,
+        bestRating: '5',
+      },
+      review: testimonials.map((testimonial) => ({
+        '@type': 'Review',
+        author: { '@type': 'Person', name: testimonial.name },
+        reviewBody: testimonial.content,
+        reviewRating: {
+          '@type': 'Rating',
+          ratingValue: testimonial.rating,
+          bestRating: '5',
+        },
+      })),
+    } : {}),
+  };
 
   function parseSection<T>(key: string): Partial<T> {
     const raw = settings[key];
@@ -63,11 +106,11 @@ export default async function HomePage() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessWithReviews) }} />
       <Hero data={heroData} />
       <Services data={servicesData} />
       <WhyUs data={whyUsData} />
-      <Testimonials />
+      <Testimonials reviews={testimonials} />
 
       {/* Beliebte Leistungen in Ihrer Nähe */}
       <section className="section-padding bg-slate-50">

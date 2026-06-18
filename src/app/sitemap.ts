@@ -20,7 +20,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/winterdienst-anmeldung-2026`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.92 },
     { url: `${base}/gartenpflege-anmeldung-2026`, lastModified: TODAY, changeFrequency: 'weekly', priority: 0.92 },
     { url: `${base}/checkliste`,        lastModified: TODAY, changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${base}/galerie`,           lastModified: TODAY, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${base}/blog`,              lastModified: TODAY, changeFrequency: 'weekly',  priority: 0.6 },
     { url: `${base}/faq`,               lastModified: TODAY, changeFrequency: 'monthly', priority: 0.65 },
     { url: `${base}/impressum`,         lastModified: TODAY, changeFrequency: 'yearly',  priority: 0.2 },

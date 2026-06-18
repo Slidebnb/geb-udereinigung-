@@ -119,7 +119,7 @@ export default function EinstellungenPage() {
     { key: 'address', label: 'Adresse', placeholder: 'Musterstraße 12, 40210 Düsseldorf' },
     { key: 'opening_hours', label: 'Öffnungszeiten Woche', placeholder: 'Mo–Fr 07:00–18:00 Uhr' },
     { key: 'opening_hours_sat', label: 'Öffnungszeiten Samstag', placeholder: 'Sa 08:00–14:00 Uhr' },
-    { key: 'google_rating', label: 'Google-Bewertung', placeholder: '4.9' },
+    { key: 'google_rating', label: 'Bewertung (Legacy)', placeholder: '5.0' },
     { key: 'review_count', label: 'Anzahl Bewertungen', placeholder: 'Nur eintragen, wenn belegbar' },
     { key: 'years_experience', label: 'Jahre Erfahrung', placeholder: 'Nur eintragen, wenn belegbar' },
     { key: 'clients_count', label: 'Kundenanzahl', placeholder: 'Nur eintragen, wenn belegbar' },

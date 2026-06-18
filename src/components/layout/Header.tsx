@@ -20,9 +20,13 @@ const services = [
   { name: 'Gartenarbeiten',   href: '/leistungen/gartenarbeiten',   icon: '🌿' },
 ];
 
-interface HeaderProps { settings?: SiteSettings; }
+interface HeaderProps {
+  settings?: SiteSettings;
+  reviewRating?: number | null;
+  reviewCount?: number;
+}
 
-export default function Header({ settings = {} }: HeaderProps) {
+export default function Header({ settings = {}, reviewRating = null, reviewCount = 0 }: HeaderProps) {
   const [open,         setOpen]         = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled,     setScrolled]     = useState(false);
@@ -57,7 +61,11 @@ export default function Header({ settings = {} }: HeaderProps) {
           </div>
           <div className="flex items-center gap-3 text-xs text-blue-200/70">
             <span>{openingHours}</span>
-            <span className="hidden sm:inline text-primary font-semibold">★ {settings.google_rating || '4.9'}/5 Google</span>
+            {reviewRating !== null && reviewCount > 0 ? (
+              <span className="hidden sm:inline text-primary font-semibold">
+                ★ {reviewRating.toLocaleString('de-DE', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}/5 Kundenbewertungen
+              </span>
+            ) : null}
           </div>
         </div>
       </div>
@@ -107,7 +115,7 @@ export default function Header({ settings = {} }: HeaderProps) {
             </div>
           </div>
 
-          {[['Über uns','/ueber-uns'],['Galerie','/galerie'],['Blog','/blog'],['FAQ','/faq'],['Saison 2026/27','/winterdienst-anmeldung-2026'],['Kontakt','/kontakt']].map(([label,href]) => (
+          {[['Über uns','/ueber-uns'],['Blog','/blog'],['FAQ','/faq'],['Saison 2026/27','/winterdienst-anmeldung-2026'],['Kontakt','/kontakt']].map(([label,href]) => (
             <Link key={href} href={href} className="font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
               {label}
             </Link>
@@ -148,7 +156,7 @@ export default function Header({ settings = {} }: HeaderProps) {
                 ))}
               </div>
             )}
-            {[['Über uns','/ueber-uns'],['Galerie','/galerie'],['Blog','/blog'],['FAQ','/faq'],['Winterdienst 2026/2027','/winterdienst-anmeldung-2026'],['Gartenpflege 2026/2027','/gartenpflege-anmeldung-2026'],['Kontakt','/kontakt'],['Preisrechner','/preisrechner']].map(([label,href]) => (
+            {[['Über uns','/ueber-uns'],['Blog','/blog'],['FAQ','/faq'],['Winterdienst 2026/2027','/winterdienst-anmeldung-2026'],['Gartenpflege 2026/2027','/gartenpflege-anmeldung-2026'],['Kontakt','/kontakt'],['Preisrechner','/preisrechner']].map(([label,href]) => (
               <Link key={href} href={href} className="block py-3 px-2 font-semibold text-gray-700 border-t border-gray-50 hover:text-primary transition-colors" onClick={() => setOpen(false)}>{label}</Link>
             ))}
             <div className="mt-4 px-2 flex flex-col gap-3">

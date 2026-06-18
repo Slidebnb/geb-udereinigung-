@@ -3,6 +3,7 @@ import Breadcrumb from './Breadcrumb';
 import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
 import { quoteUrl } from '@/lib/quote-url';
+import { prisma } from '@/lib/prisma';
 
 interface ServicePageProps {
   icon: string;
@@ -17,8 +18,13 @@ interface ServicePageProps {
   cityLinks?: { href: string; label: string }[];
 }
 
-export default function ServicePage({ icon, title, subtitle, description, benefits, features, faq, breadcrumb, schema, cityLinks }: ServicePageProps) {
+export default async function ServicePage({ icon, title, subtitle, description, benefits, features, faq, breadcrumb, schema, cityLinks }: ServicePageProps) {
   const offerHref = quoteUrl({ service: title, source: 'service-page' });
+  const latestReview = await prisma.testimonial.findFirst({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    select: { name: true, content: true, rating: true, location: true },
+  }).catch(() => null);
 
   return (
     <>
@@ -93,17 +99,16 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
               </a>
             </div>
 
-            {/* Review */}
-            <div className="card p-6">
+            {latestReview ? <div className="card p-6">
               <div className="flex items-center gap-1.5 mb-3">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                  <svg key={i} className={`w-4 h-4 ${i < latestReview.rating ? 'text-yellow-400' : 'text-gray-200'}`} fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                 ))}
-                <span className="font-bold text-dark text-sm ml-1">4.9 / 5</span>
+                <span className="font-bold text-dark text-sm ml-1">{latestReview.rating.toFixed(1).replace('.', ',')} / 5</span>
               </div>
-              <p className="text-sm text-gray-600 italic leading-relaxed">„Absolut zufrieden! Pünktlich, gründlich und zu einem fairen Festpreis. Immer wieder gerne!"</p>
-              <p className="text-xs text-gray-400 mt-2">— Kundin aus Neuwied, Google</p>
-            </div>
+              <p className="text-sm text-gray-600 italic leading-relaxed">„{latestReview.content}“</p>
+              <p className="text-xs text-gray-400 mt-2">— {latestReview.name}{latestReview.location ? `, ${latestReview.location}` : ''}</p>
+            </div> : null}
           </div>
         </div>
       </section>

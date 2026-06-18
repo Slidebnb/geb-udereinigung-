@@ -23,19 +23,6 @@ async function main() {
     console.warn('Skipping admin seed because SEED_ADMIN_EMAIL or SEED_ADMIN_PASSWORD is missing.');
   }
 
-  // Testimonials
-  const testimonials = [
-    { name: 'Hausverwaltung', role: 'Wohnanlage', content: 'Geschätzt werden vor allem feste Absprachen, schnelle Rückmeldung und zuverlässige Ausführung im Objekt.', rating: 5, location: 'Koblenz' },
-    { name: 'Gewerbekunde', role: 'Büro & Praxis', content: 'Bei regelmäßiger Reinigung zählen planbare Termine, klare Zuständigkeiten und direkte Erreichbarkeit.', rating: 5, location: 'Neuwied' },
-    { name: 'Privatkunde', role: 'Einzelauftrag', content: 'Bei einmaligen Reinigungen sind eine klare Einschätzung vorab und eine saubere Übergabe besonders wichtig.', rating: 5, location: 'Bendorf' },
-  ];
-
-  if ((await prisma.testimonial.count()) === 0) {
-    for (const t of testimonials) {
-      await prisma.testimonial.create({ data: t });
-    }
-  }
-
   // Blog posts
   const posts = [
     {
@@ -149,7 +136,7 @@ Kontaktieren Sie uns für ein individuelles Angebot – wir beraten Sie kostenlo
     { key: 'phone', value: '02601 9131820' },
     { key: 'address', value: 'Mittelweg 24, 56566 Neuwied' },
     { key: 'whatsapp', value: '492601913182' },
-    { key: 'google_rating', value: '4.9' },
+    { key: 'google_rating', value: '5.0' },
     { key: 'review_count', value: '' },
     { key: 'years_experience', value: '6' },
     { key: 'clients_count', value: '100+' },
