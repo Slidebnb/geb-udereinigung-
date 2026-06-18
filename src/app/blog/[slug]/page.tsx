@@ -16,7 +16,7 @@ interface Props {
 
 async function getPost(slug: string) {
   try {
-    return await prisma.blogPost.findUnique({ where: { slug } });
+    return await prisma.blogPost.findFirst({ where: { slug, published: true } });
   } catch {
     return null;
   }
@@ -34,16 +34,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: 'article',
       title: post.metaTitle || post.title,
       description: post.metaDesc || post.excerpt,
-      images: post.coverImage ? [post.coverImage] : undefined,
+      url: `${siteConfig.url}/blog/${post.slug}`,
+      images: post.coverImage ? [post.coverImage] : ['/opengraph-image'],
       publishedTime: post.publishedAt.toISOString(),
     },
+    twitter: { card: 'summary_large_image', title: post.metaTitle || post.title, description: post.metaDesc || post.excerpt, images: post.coverImage ? [post.coverImage] : ['/opengraph-image'] },
   };
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
   const post = await getPost(slug);
-  if (!post || !post.published) notFound();
+  if (!post) notFound();
 
   let related: { id: string; title: string; slug: string; excerpt: string }[] = [];
   try {
@@ -66,7 +68,7 @@ export default async function BlogPostPage({ params }: Props) {
     publisher: {
       '@type': 'Organization',
       name: siteConfig.legalName,
-      logo: { '@type': 'ImageObject', url: `${siteConfig.url}/logo.png` },
+      logo: { '@type': 'ImageObject', url: `${siteConfig.url}/logo.svg` },
     },
     datePublished: post.publishedAt.toISOString(),
     dateModified: post.updatedAt.toISOString(),

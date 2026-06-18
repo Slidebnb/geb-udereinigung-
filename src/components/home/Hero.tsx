@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { siteConfig } from '@/lib/site';
 import { quoteUrl } from '@/lib/quote-url';
+import { whatsappUrl } from '@/lib/whatsapp';
 import HeroBg from './HeroCanvas';
 
 export interface HeroData {
@@ -160,7 +161,7 @@ export default function Hero({ data }: { data?: HeroData }) {
               {siteConfig.phone}
             </a>
             <a
-              href={`https://wa.me/${siteConfig.whatsapp}?text=Hallo%2C%20ich%20m%C3%B6chte%20ein%20kostenloses%20Angebot%20anfragen.`}
+              href={whatsappUrl('Hallo, ich möchte ein kostenloses Angebot anfragen.')}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-white text-base px-8 py-4 text-center"

@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Allgemeine Geschäftsbedingungen (AGB)',
   description: 'Allgemeine Geschäftsbedingungen der Huwa Gebäudereinigung & Hausmeisterdienste GmbH für Reinigungs- und Hausmeisterdienstleistungen.',
-  robots: { index: false, follow: true },
+  robots: { index: true, follow: true },
   alternates: { canonical: `${siteConfig.url}/agb` },
 };
 

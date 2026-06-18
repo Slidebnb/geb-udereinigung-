@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Impressum',
   description: 'Impressum und Anbieterkennzeichnung der Huwa Gebäudereinigung & Hausmeisterdienste.',
-  robots: { index: false, follow: true },
+  robots: { index: true, follow: true },
   alternates: { canonical: `${siteConfig.url}/impressum` },
 };
 

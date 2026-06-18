@@ -30,7 +30,7 @@ Create `.env` in the project root:
 
 ```env
 # App
-NEXT_PUBLIC_SITE_URL=https://www.huwa-gebaeudedienste.de
+NEXT_PUBLIC_SITE_URL=https://huwa-gebaeudedienste.de
 DATABASE_URL=file:./dev.db
 
 # NextAuth
@@ -86,12 +86,12 @@ pm2 startup  # follow instructions to auto-start on reboot
 server {
     listen 80;
     server_name www.huwa-gebaeudedienste.de huwa-gebaeudedienste.de;
-    return 301 https://www.huwa-gebaeudedienste.de$request_uri;
+    return 301 https://huwa-gebaeudedienste.de$request_uri;
 }
 
 server {
     listen 443 ssl http2;
-    server_name www.huwa-gebaeudedienste.de;
+    server_name huwa-gebaeudedienste.de www.huwa-gebaeudedienste.de;
 
     ssl_certificate     /etc/letsencrypt/live/www.huwa-gebaeudedienste.de/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/www.huwa-gebaeudedienste.de/privkey.pem;

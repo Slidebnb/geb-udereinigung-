@@ -31,7 +31,7 @@ const schema = {
       postalCode: '56566',
       addressCountry: 'DE',
     },
-    telephone: '+492601913182',
+    telephone: '+4926019131820',
     url: siteConfig.url,
   },
   areaServed: [

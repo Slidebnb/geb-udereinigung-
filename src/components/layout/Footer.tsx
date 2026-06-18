@@ -1,9 +1,18 @@
 import Link from 'next/link';
 import { siteConfig } from '@/lib/site';
 import { getSettings, getPhone, getEmail, getCompanyName } from '@/lib/get-settings';
+import { prisma } from '@/lib/prisma';
 
 export default async function Footer() {
-  const settings  = await getSettings();
+  const [settings, latestPosts] = await Promise.all([
+    getSettings(),
+    prisma.blogPost.findMany({
+      where: { published: true },
+      select: { slug: true, title: true },
+      orderBy: { publishedAt: 'desc' },
+      take: 3,
+    }).catch(() => []),
+  ]);
   const phone     = getPhone(settings);
   const email     = getEmail(settings);
   const companyName = getCompanyName(settings);
@@ -77,6 +86,7 @@ export default async function Footer() {
             {[
               ['Über uns',         '/ueber-uns'],
               ['Blog & Ratgeber',  '/blog'],
+              ['Seitenübersicht',  '/sitemap'],
               ['FAQ',              '/faq'],
               ['Preisrechner',      '/preisrechner'],
               ['Kontakt',          '/kontakt'],
@@ -90,6 +100,16 @@ export default async function Footer() {
               </li>
             ))}
           </ul>
+          {latestPosts.length > 0 && (
+            <div className="mt-7 pt-6 border-t border-white/10">
+              <h5 className="text-white/60 font-semibold mb-3 text-xs uppercase">Neue Ratgeber</h5>
+              <ul className="space-y-2">
+                {latestPosts.map((post) => (
+                  <li key={post.slug}><Link href={`/blog/${post.slug}`} className="text-blue-300/50 hover:text-primary text-xs leading-relaxed transition-colors">{post.title}</Link></li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         {/* Contact */}

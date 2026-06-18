@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Datenschutzerklärung',
   description: 'Datenschutzerklärung der Huwa Gebäudereinigung & Hausmeisterdienste GmbH gemäß DSGVO. Informationen zur Verarbeitung Ihrer personenbezogenen Daten.',
-  robots: { index: false, follow: true },
+  robots: { index: true, follow: true },
   alternates: { canonical: `${siteConfig.url}/datenschutz` },
 };
 

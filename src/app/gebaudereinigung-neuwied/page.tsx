@@ -47,7 +47,7 @@ export default async function GebaudereinigungNeuwied() {
     _count: { id: true },
   }).catch(() => null);
   const stats = [
-    { val: '100+', label: 'Kunden in Neuwied' },
+    { val: '100+', label: 'Kunden insgesamt' },
     { val: '6', label: 'Jahre Erfahrung' },
     ...(reviewSummary?._avg.rating && reviewSummary._count.id > 0
       ? [{

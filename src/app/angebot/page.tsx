@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 const schema = z.object({
   name: z.string().min(2, 'Pflichtfeld'),
@@ -124,7 +125,7 @@ export default function AngebotPage() {
           <div className="flex flex-col sm:flex-row justify-center gap-3">
             <a href={`tel:${siteConfig.phone}`} className="btn-white">Direkt anrufen</a>
             <a
-              href={`https://wa.me/${siteConfig.whatsapp}?text=Hallo%2C%20ich%20habe%20gerade%20eine%20Angebotsanfrage%20gesendet.`}
+              href={whatsappUrl('Hallo, ich habe gerade eine Angebotsanfrage gesendet.')}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary"
@@ -287,7 +288,7 @@ export default function AngebotPage() {
                     <div className="flex flex-col sm:flex-row justify-center gap-2">
                       <a href={`tel:${siteConfig.phone}`} className="btn-secondary justify-center">Anrufen</a>
                       <a
-                        href={`https://wa.me/${siteConfig.whatsapp}?text=Hallo%2C%20ich%20m%C3%B6chte%20ein%20Angebot%20anfragen.`}
+                        href={whatsappUrl('Hallo, ich möchte ein Angebot anfragen.')}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="btn-primary justify-center"

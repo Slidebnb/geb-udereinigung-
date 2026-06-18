@@ -18,7 +18,7 @@ const jakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
-  title: { default: `${siteConfig.name} | Professionelle Reinigung`, template: `%s | ${siteConfig.shortName}` },
+  title: { default: `${siteConfig.name} | Professionelle Reinigung`, template: '%s' },
   description: siteConfig.description,
   keywords: ['Gebäudereinigung', 'Hausmeisterdienste', 'Büroreinigung', 'Winterdienst', 'Neuwied', 'Koblenz', 'Bendorf', 'Reinigungsunternehmen'],
   authors: [{ name: siteConfig.name }],
@@ -30,8 +30,11 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Huwa Gebäudedienste' }],
   },
-  twitter: { card: 'summary_large_image', title: siteConfig.name, description: siteConfig.description },
+  twitter: { card: 'summary_large_image', title: siteConfig.name, description: siteConfig.description, images: ['/opengraph-image'] },
+  manifest: '/manifest.webmanifest',
+  icons: { icon: '/icon.svg', apple: '/icon.svg' },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 };
 
@@ -41,7 +44,7 @@ const organizationSchema = {
   '@id': `${siteConfig.url}/#organization`,
   name: siteConfig.name,
   url: siteConfig.url,
-  logo: `${siteConfig.url}/logo.png`,
+  logo: `${siteConfig.url}/logo.svg`,
   telephone: siteConfig.phone,
   email: siteConfig.email,
   address: {

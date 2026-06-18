@@ -29,7 +29,13 @@ jobs:
             git pull --ff-only origin main
             rm -rf node_modules
             npm ci
+            mkdir -p backups
+            if [ -f prisma/dev.db ]; then
+              cp prisma/dev.db "backups/dev.db.$(date +%Y%m%d-%H%M%S)"
+              find backups -type f -name 'dev.db.*' -mtime +30 -delete
+            fi
             npx prisma db push --skip-generate
+            npm run seo:backfill
             rm -rf .next
             npm run build
             pm2 restart huwa-web

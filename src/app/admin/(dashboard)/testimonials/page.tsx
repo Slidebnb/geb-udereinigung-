@@ -57,7 +57,7 @@ export default function TestimonialsPage() {
             </div>
             <div>
               <label className="label">Ort</label>
-              <input value={form.location} onChange={e => setForm(f => ({ ...f, location: e.target.value }))} className="input-field" placeholder="Düsseldorf" />
+              <input value={form.location} onChange={e => setForm(f => ({ ...f, location: e.target.value }))} className="input-field" placeholder="Neuwied" />
             </div>
             <div>
               <label className="label">Bewertung</label>

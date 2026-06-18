@@ -215,7 +215,7 @@ export default async function HomePage() {
           <div className="grid md:grid-cols-3 gap-5">
             {[
               { title: 'Büroreinigung: Warum Sauberkeit am Arbeitsplatz entscheidend ist', slug: 'professionelle-bueroeinigung-sauberkeit-am-arbeitsplatz', cat: 'Büroreinigung', date: '2024-11-10' },
-              { title: 'Winterdienst: Was Eigentümer und Vermieter wissen müssen', slug: 'winterdienst-2024-2025-pflichten-eigentuemer-vermieter', cat: 'Winterdienst', date: '2024-10-20' },
+              { title: 'Winterdienst 2026/2027: Pflichten für Eigentümer und Vermieter', slug: 'winterdienst-2026-2027-pflichten-eigentuemer-vermieter', cat: 'Winterdienst', date: '2026-06-18' },
               { title: 'Grundreinigung vs. Unterhaltsreinigung: Was ist der Unterschied?', slug: 'grundreinigung-vs-unterhaltsreinigung-unterschiede', cat: 'Reinigungswissen', date: '2024-09-15' },
             ].map(post => (
               <Link key={post.slug} href={`/blog/${post.slug}`} className="card p-6 group hover:border-primary/30 transition-all duration-200">

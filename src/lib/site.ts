@@ -1,13 +1,15 @@
+import { WHATSAPP_NUMBER } from '@/lib/whatsapp';
+
 export const siteConfig = {
   name: 'Huwa Gebäudereinigung & Hausmeisterdienste',
   shortName: 'Huwa Reinigung',
   legalName: 'Huwa Gebäudereinigung & Hausmeisterdienste',
   description:
     'Huwa Gebäudereinigung & Hausmeisterdienste – Ihr zuverlässiger Partner für professionelle Gebäudereinigung, Büroreinigung, Glasreinigung, Hausmeisterdienste und Winterdienst in Neuwied, Koblenz und Bendorf. Kostenloses Angebot anfordern!',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.huwa-gebaeudedienste.de',
+  url: 'https://huwa-gebaeudedienste.de',
   locale: 'de_DE',
   phone: process.env.NEXT_PUBLIC_PHONE || '02601 9131820',
-  whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '492601913182',
+  whatsapp: WHATSAPP_NUMBER,
   email: 'info@huwa-gebaeudedienste.de',
   address: {
     street: 'Mittelweg 24',

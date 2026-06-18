@@ -1,9 +1,9 @@
 'use client';
 
-import { siteConfig } from '@/lib/site';
+import { whatsappUrl } from '@/lib/whatsapp';
 
 export default function WhatsAppButton() {
-  const url = `https://wa.me/${siteConfig.whatsapp}?text=Hallo%2C%20ich%20interessiere%20mich%20f%C3%BCr%20Ihre%20Reinigungsdienstleistungen.`;
+  const url = whatsappUrl('Hallo, ich interessiere mich für Ihre Reinigungsdienstleistungen.');
   return (
     <a
       href={url}

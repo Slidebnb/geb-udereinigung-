@@ -211,7 +211,7 @@ export default function ProtokollDetailPage() {
 
         {/* Footer */}
         <div className="mt-8 pt-4 border-t border-gray-100 text-xs text-gray-400 text-center">
-          Huwa Gebäudereinigung & Hausmeisterdienste · Mittelweg 24, 56566 Neuwied · 02601 9131820 · www.huwa-gebaeudedienste.de
+          Huwa Gebäudereinigung & Hausmeisterdienste · Mittelweg 24, 56566 Neuwied · 02601 9131820 · huwa-gebaeudedienste.de
         </div>
       </div>
 

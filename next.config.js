@@ -14,6 +14,21 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.huwa-gebaeudedienste.de' }],
+        destination: 'https://huwa-gebaeudedienste.de/:path*',
+        permanent: true,
+      },
+      {
+        source: '/blog/winterdienst-2024-2025-pflichten-eigentuemer-vermieter',
+        destination: '/blog/winterdienst-2026-2027-pflichten-eigentuemer-vermieter',
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

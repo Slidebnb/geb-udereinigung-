@@ -135,7 +135,7 @@ Kontaktieren Sie uns für ein individuelles Angebot – wir beraten Sie kostenlo
     { key: 'contact_email', value: 'info@huwa-gebaeudedienste.de' },
     { key: 'phone', value: '02601 9131820' },
     { key: 'address', value: 'Mittelweg 24, 56566 Neuwied' },
-    { key: 'whatsapp', value: '492601913182' },
+    { key: 'whatsapp', value: '4915117864090' },
     { key: 'google_rating', value: '5.0' },
     { key: 'review_count', value: '' },
     { key: 'years_experience', value: '6' },

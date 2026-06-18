@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import { permanentRedirect } from 'next/navigation';
 
 export default function WinterdienstAnmeldung2025Redirect() {
-  redirect('/winterdienst-anmeldung-2026');
+  permanentRedirect('/winterdienst-anmeldung-2026');
 }

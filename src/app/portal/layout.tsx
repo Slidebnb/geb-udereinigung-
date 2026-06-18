@@ -4,6 +4,7 @@ import { authOptions } from '@/lib/auth';
 import PortalSidebar from '@/components/portal/PortalSidebar';
 
 export const metadata = {
+  robots: { index: false, follow: false },
   title: 'Kunden-Portal – Huwa Gebäudereinigung',
 };
 
