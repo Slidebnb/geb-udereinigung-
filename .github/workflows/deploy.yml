@@ -37,7 +37,18 @@ jobs:
             npx prisma db push --skip-generate
             npm run operations:backfill
             npm run seo:backfill
+            PREVIOUS_STATIC="$(mktemp -d)"
+            trap 'rm -rf "$PREVIOUS_STATIC"' EXIT
+            if [ -d .next/static ]; then
+              cp -a .next/static/. "$PREVIOUS_STATIC"/
+            fi
             rm -rf .next
             npm run build
+            mkdir -p .next/static
+            cp -an "$PREVIOUS_STATIC"/. .next/static/
+            find .next/static -type f -mtime +7 -delete
+            find .next/static -depth -type d -empty -delete
+            rm -rf "$PREVIOUS_STATIC"
+            trap - EXIT
             pm2 restart huwa-web
             echo "✅ Deployment erfolgreich: $(date)"
