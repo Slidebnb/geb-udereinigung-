@@ -8,45 +8,68 @@ import type { TrustedClient } from '@/lib/trusted-clients';
 export default function KundenlogosPage() {
   const [clients, setClients] = useState<TrustedClient[]>([]);
   const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [busyAction, setBusyAction] = useState<string | null>(null);
   const [message, setMessage] = useState('');
 
   const load = useCallback(async () => {
-    const response = await fetch('/api/admin/trusted-clients');
-    const data = await response.json();
-    if (response.ok) setClients(data);
-    else setMessage(data.error || 'Kundenlogos konnten nicht geladen werden.');
-    setLoading(false);
+    try {
+      const response = await fetch('/api/admin/trusted-clients');
+      const data = await response.json().catch(() => null);
+      if (response.ok && Array.isArray(data)) setClients(data);
+      else setMessage(data?.error || 'Kundenlogos konnten nicht geladen werden.');
+    } catch {
+      setMessage('Kundenlogos konnten nicht geladen werden. Bitte laden Sie die Seite neu.');
+    } finally {
+      setLoading(false);
+    }
   }, []);
   useEffect(() => { load(); }, [load]);
 
   async function create(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setSaving(true); setMessage('');
-    const response = await fetch('/api/admin/trusted-clients', { method: 'POST', body: new FormData(event.currentTarget) });
-    const data = await response.json();
-    if (response.ok) { setClients(data); event.currentTarget.reset(); setMessage('Kundenlogo wurde veröffentlicht.'); }
-    else setMessage(data.error || 'Kundenlogo konnte nicht gespeichert werden.');
-    setSaving(false);
+    const form = event.currentTarget;
+    setUploading(true); setMessage('');
+    try {
+      const response = await fetch('/api/admin/trusted-clients', { method: 'POST', body: new FormData(form) });
+      const data = await response.json().catch(() => null);
+      if (response.ok && Array.isArray(data)) { setClients(data); form.reset(); setMessage('Kundenlogo wurde veröffentlicht und optimiert.'); }
+      else setMessage(data?.error || 'Kundenlogo konnte nicht gespeichert werden.');
+    } catch {
+      setMessage('Upload fehlgeschlagen. Bitte prüfen Sie die Verbindung und versuchen Sie es erneut.');
+    } finally {
+      setUploading(false);
+    }
   }
 
-  async function persist(next: TrustedClient[]) {
-    setClients(next); setSaving(true); setMessage('');
-    const response = await fetch('/api/admin/trusted-clients', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(next) });
-    const data = await response.json();
-    if (response.ok) { setClients(data); setMessage('Reihenfolge und Sichtbarkeit wurden gespeichert.'); }
-    else { setMessage(data.error || 'Änderung konnte nicht gespeichert werden.'); await load(); }
-    setSaving(false);
+  async function persist(next: TrustedClient[], action: string) {
+    setClients(next); setBusyAction(action); setMessage('');
+    try {
+      const response = await fetch('/api/admin/trusted-clients', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(next) });
+      const data = await response.json().catch(() => null);
+      if (response.ok && Array.isArray(data)) { setClients(data); setMessage('Reihenfolge und Sichtbarkeit wurden gespeichert.'); }
+      else { setMessage(data?.error || 'Änderung konnte nicht gespeichert werden.'); await load(); }
+    } catch {
+      setMessage('Änderung konnte nicht gespeichert werden. Bitte versuchen Sie es erneut.');
+      await load();
+    } finally {
+      setBusyAction(null);
+    }
   }
 
   async function remove(id: string) {
     if (!window.confirm('Dieses Kundenlogo wirklich entfernen?')) return;
-    setSaving(true); setMessage('');
-    const response = await fetch(`/api/admin/trusted-clients?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
-    const data = await response.json();
-    if (response.ok) { setClients(data); setMessage('Kundenlogo wurde entfernt.'); }
-    else setMessage(data.error || 'Kundenlogo konnte nicht entfernt werden.');
-    setSaving(false);
+    setBusyAction(`delete-${id}`); setMessage('');
+    try {
+      const response = await fetch(`/api/admin/trusted-clients?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+      const data = await response.json().catch(() => null);
+      if (response.ok && Array.isArray(data)) { setClients(data); setMessage('Kundenlogo wurde entfernt.'); }
+      else setMessage(data?.error || 'Kundenlogo konnte nicht entfernt werden.');
+    } catch {
+      setMessage('Kundenlogo konnte nicht entfernt werden. Bitte versuchen Sie es erneut.');
+    } finally {
+      setBusyAction(null);
+    }
   }
 
   function move(index: number, direction: -1 | 1) {
@@ -54,7 +77,7 @@ export default function KundenlogosPage() {
     if (target < 0 || target >= clients.length) return;
     const next = [...clients];
     [next[index], next[target]] = [next[target], next[index]];
-    persist(next);
+    persist(next, `move-${clients[index].id}`);
   }
 
   return (
@@ -66,7 +89,7 @@ export default function KundenlogosPage() {
             <div className="admin-field"><label>Unternehmensname *</label><input name="name" required maxLength={120} placeholder="Name des Kundenunternehmens" /></div>
             <div className="admin-field"><label>Webseite (optional)</label><input name="website" type="url" placeholder="https://..." /></div>
             <div className="admin-field"><label>Logo *</label><input name="file" type="file" required accept="image/*,.heic,.heif,.avif,.tif,.tiff,.svg" /><small>Gängige Raster- und Vektorformate werden automatisch komprimiert.</small></div>
-            <button className="admin-button" disabled={saving}><Upload size={16} /> {saving ? 'Wird optimiert' : 'Logo hochladen'}</button>
+            <button className="admin-button" disabled={uploading}><Upload size={16} /> {uploading ? 'Wird optimiert' : 'Logo hochladen'}</button>
             {message ? <p className="text-sm text-slate-600" role="status">{message}</p> : null}
           </form>
         </AdminPanel>
@@ -86,10 +109,10 @@ export default function KundenlogosPage() {
                   <div className="trusted-client-admin-logo"><img src={client.logoUrl} alt={`${client.name} Logo`} /></div>
                   <div className="min-w-0 flex-1"><strong>{client.name}</strong><small>{client.website || 'Keine Webseite hinterlegt'}</small></div>
                   <div className="trusted-client-admin-actions">
-                    <button type="button" className="admin-icon-button" onClick={() => move(index, -1)} disabled={saving || index === 0} title="Nach oben"><ArrowUp size={16} /></button>
-                    <button type="button" className="admin-icon-button" onClick={() => move(index, 1)} disabled={saving || index === clients.length - 1} title="Nach unten"><ArrowDown size={16} /></button>
-                    <button type="button" className="admin-button admin-button-secondary" onClick={() => persist(clients.map(item => item.id === client.id ? { ...item, published: !item.published } : item))} disabled={saving}>{client.published ? <Eye size={16} /> : <EyeOff size={16} />}{client.published ? 'Sichtbar' : 'Ausgeblendet'}</button>
-                    <button type="button" className="admin-icon-button admin-icon-button-danger" onClick={() => remove(client.id)} disabled={saving} title="Entfernen"><Trash2 size={16} /></button>
+                    <button type="button" className="admin-icon-button" onClick={() => move(index, -1)} disabled={busyAction !== null || index === 0} title="Nach oben"><ArrowUp size={16} /></button>
+                    <button type="button" className="admin-icon-button" onClick={() => move(index, 1)} disabled={busyAction !== null || index === clients.length - 1} title="Nach unten"><ArrowDown size={16} /></button>
+                    <button type="button" className={`admin-button admin-button-secondary client-visibility-toggle ${client.published ? 'is-active' : ''}`} aria-pressed={client.published} onClick={() => persist(clients.map(item => item.id === client.id ? { ...item, published: !item.published } : item), `visibility-${client.id}`)} disabled={busyAction !== null}>{client.published ? <Eye size={16} /> : <EyeOff size={16} />}{busyAction === `visibility-${client.id}` ? 'Speichert' : client.published ? 'Auf Startseite' : 'Ausgeblendet'}</button>
+                    <button type="button" className="admin-icon-button admin-icon-button-danger" onClick={() => remove(client.id)} disabled={busyAction !== null} title="Logo löschen"><Trash2 size={16} /></button>
                   </div>
                 </div>
               ))}

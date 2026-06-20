@@ -309,6 +309,8 @@
 .trusted-client-admin-logo { display: grid; width: 112px; height: 58px; flex: 0 0 112px; place-items: center; padding: 7px; border: 1px solid #dfe7f0; border-radius: 6px; background: #fff; }
 .trusted-client-admin-logo img { max-width: 100%; max-height: 44px; object-fit: contain; }
 .trusted-client-admin-actions { display: flex; align-items: center; gap: 8px; }
+.client-visibility-toggle { min-width: 132px; justify-content: center; }
+.client-visibility-toggle.is-active { color: #087443; border-color: #9bd7bb; background: #f0fbf5; }
 .admin-icon-button { display: inline-grid; width: 34px; height: 34px; place-items: center; border: 1px solid #d9e2ec; border-radius: 6px; color: #475569; background: #fff; }
 .admin-icon-button:hover:not(:disabled) { color: #0b66c3; border-color: #9fc5ea; background: #f4f9fe; }
 .admin-icon-button:disabled { cursor: not-allowed; opacity: .35; }
