@@ -56,7 +56,7 @@ export async function POST(request: Request) {
   await writeFile(path.join(UPLOAD_DIR, filename), optimized.buffer, { flag: 'wx' });
   try {
     const clients = await readClients();
-    const saved = await saveClients([...clients, { id, name, logoUrl: `/uploads/${filename}`, website, published: true }]);
+    const saved = await saveClients([...clients, { id, name, logoUrl: `/uploads/${filename}`, website, published: true, backdrop: optimized.backdrop }]);
     return NextResponse.json(saved, {
       status: 201,
       headers: {

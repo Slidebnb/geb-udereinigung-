@@ -14,9 +14,9 @@ export default function TrustedClients({ clients }: { clients: TrustedClient[] }
           <div className="trusted-clients-track">
             {items.map((client, index) => {
               const duplicate = index >= published.length;
-              const logo = <img src={client.logoUrl} alt={duplicate ? '' : `${client.name} Logo`} loading="lazy" />;
+              const logo = <img src={client.logoUrl} alt={duplicate ? '' : `${client.name} Logo`} loading={duplicate ? 'lazy' : 'eager'} decoding="async" />;
               return (
-                <div className="trusted-client-logo" key={`${client.id}-${index}`} aria-hidden={duplicate || undefined}>
+                <div className={`trusted-client-logo trusted-client-logo-${client.backdrop}`} key={`${client.id}-${index}`} aria-hidden={duplicate || undefined}>
                   {client.website && !duplicate ? <a href={client.website} target="_blank" rel="noopener noreferrer" aria-label={`${client.name} Webseite öffnen`}>{logo}</a> : logo}
                 </div>
               );

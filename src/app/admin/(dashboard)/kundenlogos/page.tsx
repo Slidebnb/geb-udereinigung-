@@ -106,9 +106,10 @@ export default function KundenlogosPage() {
             <div className="admin-list">
               {clients.map((client, index) => (
                 <div className="trusted-client-admin-row" key={client.id}>
-                  <div className="trusted-client-admin-logo"><img src={client.logoUrl} alt={`${client.name} Logo`} /></div>
+                  <div className={`trusted-client-admin-logo trusted-client-logo-${client.backdrop}`}><img src={client.logoUrl} alt={`${client.name} Logo`} /></div>
                   <div className="min-w-0 flex-1"><strong>{client.name}</strong><small>{client.website || 'Keine Webseite hinterlegt'}</small></div>
                   <div className="trusted-client-admin-actions">
+                    <label className="trusted-client-backdrop"><span>Hintergrund</span><select value={client.backdrop} onChange={event => persist(clients.map(item => item.id === client.id ? { ...item, backdrop: event.target.value as TrustedClient['backdrop'] } : item), `backdrop-${client.id}`)} disabled={busyAction !== null}><option value="auto">Automatisch</option><option value="light">Hell</option><option value="dark">Dunkel</option></select></label>
                     <button type="button" className="admin-icon-button" onClick={() => move(index, -1)} disabled={busyAction !== null || index === 0} title="Nach oben"><ArrowUp size={16} /></button>
                     <button type="button" className="admin-icon-button" onClick={() => move(index, 1)} disabled={busyAction !== null || index === clients.length - 1} title="Nach unten"><ArrowDown size={16} /></button>
                     <button type="button" className={`admin-button admin-button-secondary client-visibility-toggle ${client.published ? 'is-active' : ''}`} aria-pressed={client.published} onClick={() => persist(clients.map(item => item.id === client.id ? { ...item, published: !item.published } : item), `visibility-${client.id}`)} disabled={busyAction !== null}>{client.published ? <Eye size={16} /> : <EyeOff size={16} />}{busyAction === `visibility-${client.id}` ? 'Speichert' : client.published ? 'Auf Startseite' : 'Ausgeblendet'}</button>

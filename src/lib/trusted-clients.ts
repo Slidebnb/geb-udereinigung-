@@ -6,6 +6,7 @@ export const trustedClientSchema = z.object({
   logoUrl: z.string().trim().startsWith('/uploads/client-logo-'),
   website: z.union([z.string().trim().url().max(300), z.literal('')]).default(''),
   published: z.boolean().default(true),
+  backdrop: z.enum(['auto', 'light', 'dark']).default('auto'),
 });
 
 export const trustedClientsSchema = z.array(trustedClientSchema).max(40);

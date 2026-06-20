@@ -24,10 +24,22 @@ export async function processClientLogo(input: Buffer) {
     .webp({ quality: 82, alphaQuality: 90, effort: 4, smartSubsample: true })
     .toBuffer();
 
+  const { data: pixels, info } = await sharp(output).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  let weightedLuminance = 0;
+  let alphaWeight = 0;
+  for (let index = 0; index < pixels.length; index += info.channels) {
+    const alpha = pixels[index + 3] / 255;
+    if (alpha < 0.08) continue;
+    weightedLuminance += (pixels[index] * 0.2126 + pixels[index + 1] * 0.7152 + pixels[index + 2] * 0.0722) * alpha;
+    alphaWeight += alpha;
+  }
+  const averageLuminance = alphaWeight ? weightedLuminance / alphaWeight : 128;
+
   return {
     buffer: output,
     sourceFormat: metadata.format,
     sourceSize: input.length,
     outputSize: output.length,
+    backdrop: averageLuminance >= 165 ? 'dark' as const : 'light' as const,
   };
 }
