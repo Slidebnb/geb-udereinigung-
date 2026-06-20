@@ -61,12 +61,12 @@ export default function KundenlogosPage() {
     <>
       <AdminPageHeader title="Kundenlogos" description="Veröffentlichen Sie ausschließlich echte Kundenunternehmen, deren Logo auf der Startseite gezeigt werden darf." />
       <div className="admin-grid">
-        <AdminPanel title="Unternehmen hinzufügen" description="PNG, JPG oder WebP bis 2 MB. Transparente Logos wirken in der Leiste am saubersten.">
+        <AdminPanel title="Unternehmen hinzufügen" description="Bilddateien bis 20 MB werden automatisch ausgerichtet, verkleinert und als optimiertes WebP gespeichert.">
           <form className="admin-form p-5" onSubmit={create}>
             <div className="admin-field"><label>Unternehmensname *</label><input name="name" required maxLength={120} placeholder="Name des Kundenunternehmens" /></div>
             <div className="admin-field"><label>Webseite (optional)</label><input name="website" type="url" placeholder="https://..." /></div>
-            <div className="admin-field"><label>Logo *</label><input name="file" type="file" required accept="image/png,image/jpeg,image/webp" /></div>
-            <button className="admin-button" disabled={saving}><Upload size={16} /> {saving ? 'Wird gespeichert' : 'Logo hochladen'}</button>
+            <div className="admin-field"><label>Logo *</label><input name="file" type="file" required accept="image/*,.heic,.heif,.avif,.tif,.tiff,.svg" /><small>Gängige Raster- und Vektorformate werden automatisch komprimiert.</small></div>
+            <button className="admin-button" disabled={saving}><Upload size={16} /> {saving ? 'Wird optimiert' : 'Logo hochladen'}</button>
             {message ? <p className="text-sm text-slate-600" role="status">{message}</p> : null}
           </form>
         </AdminPanel>

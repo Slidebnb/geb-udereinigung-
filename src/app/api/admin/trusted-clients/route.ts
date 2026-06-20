@@ -6,22 +6,12 @@ import { NextResponse } from 'next/server';
 import { isAdmin } from '@/lib/admin-guard';
 import { prisma } from '@/lib/prisma';
 import { parseTrustedClients, trustedClientsSchema } from '@/lib/trusted-clients';
+import { processClientLogo } from '@/lib/client-logo-image';
 
 const SETTING_KEY = 'trusted_clients';
 const UPLOAD_DIR = path.join(process.cwd(), 'storage', 'client-logos');
 const LEGACY_UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
-const imageTypes = new Map([
-  ['image/png', 'png'],
-  ['image/jpeg', 'jpg'],
-  ['image/webp', 'webp'],
-]);
-
-function hasValidSignature(buffer: Buffer, extension: string) {
-  if (extension === 'png') return buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]));
-  if (extension === 'jpg') return buffer[0] === 0xff && buffer[1] === 0xd8 && buffer[2] === 0xff;
-  if (extension === 'webp') return buffer.subarray(0, 4).toString('ascii') === 'RIFF' && buffer.subarray(8, 12).toString('ascii') === 'WEBP';
-  return false;
-}
+const MAX_UPLOAD_SIZE = 20 * 1024 * 1024;
 
 async function readClients() {
   const setting = await prisma.setting.findUnique({ where: { key: SETTING_KEY } });
@@ -51,22 +41,30 @@ export async function POST(request: Request) {
   const name = String(formData.get('name') || '').trim();
   const website = String(formData.get('website') || '').trim();
   if (!(file instanceof File) || !name) return NextResponse.json({ error: 'Unternehmensname und Logo sind erforderlich.' }, { status: 400 });
-  if (file.size < 16 || file.size > 2 * 1024 * 1024) return NextResponse.json({ error: 'Das Logo darf maximal 2 MB groß sein.' }, { status: 400 });
+  if (file.size < 1 || file.size > MAX_UPLOAD_SIZE) return NextResponse.json({ error: 'Das Bild darf maximal 20 MB groß sein.' }, { status: 400 });
 
-  const extension = imageTypes.get(file.type);
-  const sourceExtension = file.name.split('.').pop()?.toLowerCase() === 'jpeg' ? 'jpg' : file.name.split('.').pop()?.toLowerCase();
-  if (!extension || sourceExtension !== extension) return NextResponse.json({ error: 'Erlaubt sind PNG, JPG und WebP. SVG ist aus Sicherheitsgründen nicht erlaubt.' }, { status: 400 });
-  const buffer = Buffer.from(await file.arrayBuffer());
-  if (!hasValidSignature(buffer, extension)) return NextResponse.json({ error: 'Der tatsächliche Dateiinhalt entspricht keinem erlaubten Bildformat.' }, { status: 400 });
+  let optimized: Awaited<ReturnType<typeof processClientLogo>>;
+  try {
+    optimized = await processClientLogo(Buffer.from(await file.arrayBuffer()));
+  } catch {
+    return NextResponse.json({ error: 'Das Bild konnte nicht gelesen werden. Bitte verwenden Sie eine gültige Bilddatei bis 20 MB.' }, { status: 400 });
+  }
 
   const id = randomUUID();
-  const filename = `client-logo-${id}.${extension}`;
+  const filename = `client-logo-${id}.webp`;
   await mkdir(UPLOAD_DIR, { recursive: true });
-  await writeFile(path.join(UPLOAD_DIR, filename), buffer, { flag: 'wx' });
+  await writeFile(path.join(UPLOAD_DIR, filename), optimized.buffer, { flag: 'wx' });
   try {
     const clients = await readClients();
     const saved = await saveClients([...clients, { id, name, logoUrl: `/uploads/${filename}`, website, published: true }]);
-    return NextResponse.json(saved, { status: 201 });
+    return NextResponse.json(saved, {
+      status: 201,
+      headers: {
+        'X-Image-Source-Format': optimized.sourceFormat,
+        'X-Image-Original-Bytes': String(optimized.sourceSize),
+        'X-Image-Optimized-Bytes': String(optimized.outputSize),
+      },
+    });
   } catch (error) {
     await unlink(path.join(UPLOAD_DIR, filename)).catch(() => undefined);
     const message = error instanceof Error ? error.message : 'Kundenlogo konnte nicht gespeichert werden.';
