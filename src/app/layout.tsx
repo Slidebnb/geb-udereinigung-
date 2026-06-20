@@ -65,7 +65,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={`${inter.variable} ${jakarta.variable}`}>
+    <html lang="de" className={`${inter.variable} ${jakarta.variable}`} data-scroll-behavior="smooth">
       <body className="flex flex-col min-h-screen">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />

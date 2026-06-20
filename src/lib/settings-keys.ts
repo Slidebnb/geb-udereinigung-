@@ -11,6 +11,7 @@ export const ALLOWED_SETTING_KEYS = new Set([
   'opening_hours',
   'opening_hours_sat',
   'logo_url',
+  'trusted_clients',
   'hp_hero',
   'hp_services',
   'hp_whyus',

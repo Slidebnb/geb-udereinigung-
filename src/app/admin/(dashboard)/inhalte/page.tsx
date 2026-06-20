@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { FileText, Home, MessageSquareQuote, Sparkles } from 'lucide-react';
+import { Building2, FileText, Home, MessageSquareQuote, Sparkles } from 'lucide-react';
 import { AdminPageHeader, AdminPanel } from '@/components/admin/AdminUi';
 
 const areas = [
@@ -7,6 +7,7 @@ const areas = [
   { href: '/admin/blog', title: 'Blog & Ratgeber', description: 'Artikel erstellen, bearbeiten und veröffentlichen.', icon: FileText },
   { href: '/admin/blog/ki-erstellen', title: 'Artikelassistent', description: 'Redaktionelle Entwürfe vorbereiten und anschließend prüfen.', icon: Sparkles },
   { href: '/admin/testimonials', title: 'Kundenstimmen', description: 'Echte freigegebene Bewertungen verwalten.', icon: MessageSquareQuote },
+  { href: '/admin/kundenlogos', title: 'Kundenlogos', description: 'Echte Kundenunternehmen und die bewegte Logo-Leiste verwalten.', icon: Building2 },
 ];
 
 export default function InhaltePage() {

@@ -8,11 +8,13 @@ import Services from '@/components/home/Services';
 import WhyUs from '@/components/home/WhyUs';
 import Testimonials from '@/components/home/Testimonials';
 import CTABanner from '@/components/home/CTABanner';
+import TrustedClients from '@/components/home/TrustedClients';
 import type { HeroData } from '@/components/home/Hero';
 import type { ServicesData } from '@/components/home/Services';
 import type { WhyUsData } from '@/components/home/WhyUs';
 import type { CTAData } from '@/components/home/CTABanner';
 import { quoteUrl } from '@/lib/quote-url';
+import { parseTrustedClients } from '@/lib/trusted-clients';
 
 export const revalidate = 60;
 
@@ -103,11 +105,13 @@ export default async function HomePage() {
   const servicesData = parseSection<ServicesData>('hp_services');
   const whyUsData    = parseSection<WhyUsData>('hp_whyus');
   const ctaData      = parseSection<CTAData>('hp_cta');
+  const trustedClients = parseTrustedClients(settings.trusted_clients);
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessWithReviews) }} />
       <Hero data={heroData} />
+      <TrustedClients clients={trustedClients} />
       <Services data={servicesData} />
       <WhyUs data={whyUsData} />
       <Testimonials reviews={testimonials} />
