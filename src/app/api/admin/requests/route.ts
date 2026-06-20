@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { isAdmin } from '@/lib/admin-guard';
+import { z } from 'zod';
+
+const requestType = z.enum(['contact', 'quote']);
+const requestStatus = z.enum(['neu', 'in_bearbeitung', 'kontaktiert', 'erledigt']);
 
 export async function GET() {
   if (!(await isAdmin())) {
@@ -20,10 +24,11 @@ export async function PATCH(request: Request) {
     return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
   }
 
-  const { id, type, status } = await request.json();
-  if (!id || !type || !status) {
+  const parsed = z.object({ id: z.string().min(1), type: requestType, status: requestStatus }).safeParse(await request.json());
+  if (!parsed.success) {
     return NextResponse.json({ error: 'Ungültige Anfrage.' }, { status: 400 });
   }
+  const { id, type, status } = parsed.data;
 
   if (type === 'contact') {
     await prisma.contactRequest.update({ where: { id }, data: { status } });
@@ -41,10 +46,11 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
   }
 
-  const { id, type } = await request.json();
-  if (!id || !type) {
+  const parsed = z.object({ id: z.string().min(1), type: requestType }).safeParse(await request.json());
+  if (!parsed.success) {
     return NextResponse.json({ error: 'Ungültige Anfrage.' }, { status: 400 });
   }
+  const { id, type } = parsed.data;
 
   if (type === 'contact') {
     await prisma.contactRequest.delete({ where: { id } });

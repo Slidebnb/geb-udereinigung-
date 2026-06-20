@@ -340,7 +340,7 @@ model ContactRequest {
   phone     String?
   subject   String?
   message   String
-  status    String   @default("neu") // neu | gelesen | bearbeitet
+  status    String   @default("neu") // neu | in_bearbeitung | kontaktiert | erledigt
   mailSent  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -358,7 +358,7 @@ model QuoteRequest {
   estimatedMin Int?
   estimatedMax Int?
   message      String?
-  status       String   @default("neu") // neu | gelesen | bearbeitet
+  status       String   @default("neu") // neu | in_bearbeitung | kontaktiert | erledigt
   mailSent     Boolean  @default(false)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

@@ -34,6 +34,9 @@ export const ALLOWED_SETTING_KEYS = new Set([
   'legal_bic',
   'legal_bank_name',
   'legal_signature_name',
+  'legal_page_agb',
+  'legal_page_datenschutz',
+  'legal_page_impressum',
 ]);
 
 export function isAllowedSettingKey(key: string): boolean {

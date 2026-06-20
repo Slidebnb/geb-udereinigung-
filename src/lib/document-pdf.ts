@@ -72,12 +72,6 @@ export async function createDocumentPdf(data: PdfData) {
   page.drawText(data.number, { x: 350, y: PAGE_HEIGHT - 79, size: 10, font: regular, color: rgb(0.82, 0.88, 0.96) });
   y = PAGE_HEIGHT - 145;
 
-  if (data.status !== 'final') {
-    page.drawRectangle({ x: MARGIN, y: y - 5, width: PAGE_WIDTH - MARGIN * 2, height: 28, color: rgb(1, 0.95, 0.82) });
-    page.drawText('ENTWURF - NOCH NICHT RECHTLICH FREIGEGEBEN', { x: MARGIN + 12, y: y + 5, size: 9, font: bold, color: rgb(0.65, 0.34, 0.02) });
-    y -= 48;
-  }
-
   line(data.title, { size: 20, font: bold, gap: 30 });
   line(`Kunde: ${data.customer.company || data.customer.name}`, { font: bold });
   line(`${data.customer.name}${data.customer.street ? ` | ${data.customer.street}, ${data.customer.zip || ''} ${data.customer.city || ''}` : ''}`, { color: rgb(0.35, 0.4, 0.48), gap: 22 });

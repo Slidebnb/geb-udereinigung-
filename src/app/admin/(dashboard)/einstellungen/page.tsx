@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react';
 import { AlertTriangle, CheckCircle2, Save, ShieldCheck } from 'lucide-react';
 import { AdminPageHeader, AdminPanel, AdminStatus, EmptyState } from '@/components/admin/AdminUi';
 import { useOperations } from '@/components/admin/useOperations';
+import LegalTextEditor from '@/components/admin/LegalTextEditor';
 
 const sections = [
-  ['unternehmen', 'Unternehmen'], ['kalkulation', 'Kalkulation'], ['leistungen', 'Leistungsstandards'], ['dokumente', 'Dokumentvorlagen'], ['kommunikation', 'Kommunikation'], ['sicherheit', 'Benutzer & Sicherheit'],
+  ['unternehmen', 'Unternehmen'], ['kalkulation', 'Kalkulation'], ['leistungen', 'Leistungsstandards'], ['dokumente', 'Dokumentvorlagen'], ['rechtstexte', 'Rechtstexte'], ['kommunikation', 'Kommunikation'], ['sicherheit', 'Benutzer & Sicherheit'],
 ] as const;
 
 const companyFields = [
@@ -32,6 +33,14 @@ export default function EinstellungenPage() {
     if (!response.ok) { const result = await response.json(); setError(result.error || 'Speichern fehlgeschlagen.'); return; }
     setMessage('Einstellungen wurden gespeichert.');
   }
+
+  async function saveLegalText(key: 'legal_page_agb' | 'legal_page_datenschutz' | 'legal_page_impressum', value: string) {
+    setError(''); setMessage('');
+    const response = await fetch('/api/admin/settings', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ [key]: value }) });
+    if (!response.ok) { const result = await response.json(); setError(result.error || 'Speichern fehlgeschlagen.'); return; }
+    setSettings(current => ({ ...current, [key]: value }));
+    setMessage('Rechtstext wurde gespeichert und veröffentlicht.');
+  }
   const legalReady = ['legal_company_name','legal_representative','legal_street','legal_zip','legal_city','legal_tax_number'].every(key => settings[key]?.trim());
   return <><AdminPageHeader title="Einstellungen" description="Unternehmensdaten, Kalkulationsschutz und Vorlagen werden zentral und nachvollziehbar verwaltet." /><div className="admin-tabs">{sections.map(([key,label]) => <button key={key} className={tab === key ? 'active' : ''} onClick={() => { setTab(key); setMessage(''); setError(''); }}>{label}</button>)}</div>
     {message ? <div className="mb-5 text-sm text-emerald-700">{message}</div> : null}{error ? <div className="mb-5 text-sm text-red-600">{error}</div> : null}
@@ -39,6 +48,7 @@ export default function EinstellungenPage() {
     {tab === 'kalkulation' ? <AdminPanel title="Globale Kalkulationsstandards" description="38 € und 20 % sind technische Untergrenzen und können nicht unterschritten werden."><div className="admin-form"><div className="admin-form-grid">{pricingFields.map(([key,label,fallback]) => <SettingField key={key} label={label} type="number" value={settings[key] || fallback} onChange={value => setSettings(current => ({ ...current, [key]: value }))} />)}</div><div className="flex gap-2"><AdminStatus tone="success">Mindest-Verrechnungssatz 38 €</AdminStatus><AdminStatus tone="success">Mindestmarge 20 %</AdminStatus></div><button className="admin-button" onClick={() => saveSettings(pricingFields)}><Save size={15} /> Standards speichern</button></div></AdminPanel> : null}
     {tab === 'leistungen' ? <AdminPanel title="Leistungsstandards" description="Jeder Wert besitzt eine nachvollziehbare Grundlage. Speichern dokumentiert den Prüfzeitpunkt und erhöht die Version.">{loading ? <EmptyState title="Standards werden geladen" text="Einen Moment bitte." /> : <div className="grid xl:grid-cols-2 gap-5 p-5">{data.priceSettings.map(item => <PriceCard key={item.id} item={item} save={create} />)}</div>}</AdminPanel> : null}
     {tab === 'dokumente' ? <AdminPanel title="Vorlagen je Dienstleistung" description="Verträge, Angebote, Leistungsverzeichnisse, Objekt-Checklisten, SOPs und Zusatzleistungskataloge.">{loading ? <EmptyState title="Vorlagen werden geladen" text="Einen Moment bitte." /> : <div className="admin-list">{data.templates.map(template => <TemplateRow key={template.id} template={template} save={create} />)}</div>}</AdminPanel> : null}
+    {tab === 'rechtstexte' ? <AdminPanel title="Öffentliche Rechtstexte" description="Änderungen werden nach dem Speichern auf der jeweiligen öffentlichen Seite veröffentlicht."><LegalTextEditor values={settings} onChange={(key, value) => setSettings(current => ({ ...current, [key]: value }))} onSave={saveLegalText} /></AdminPanel> : null}
     {tab === 'kommunikation' ? <AdminPanel title="Vorlagen für Kundenkommunikation" description="Fertige Texte mit Platzhaltern für wiederkehrende Abläufe.">{loading ? <EmptyState title="Vorlagen werden geladen" text="Einen Moment bitte." /> : <div className="admin-list">{data.communication.map(template => <CommunicationRow key={template.id} template={template} save={create} />)}</div>}</AdminPanel> : null}
     {tab === 'sicherheit' ? <div className="admin-grid"><AdminPanel title="Zugriffsschutz"><div className="admin-form"><div className="flex gap-3"><ShieldCheck className="text-emerald-600" size={22} /><div><strong className="text-sm">Admin-Rolle erforderlich</strong><p className="mt-1 text-xs leading-5 text-slate-500">CRM, Kalkulationen, interne Preise und Dokumente werden ausschließlich über geschützte Admin-Routen geladen.</p></div></div><AdminStatus tone="success">Rollenprüfung aktiv</AdminStatus></div></AdminPanel><AdminPanel title="Passwort ändern"><PasswordForm /></AdminPanel></div> : null}
   </>;

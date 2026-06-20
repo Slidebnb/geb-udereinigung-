@@ -71,7 +71,7 @@ export const communicationTemplates = [
 
 export function defaultTemplateContent(category: string, serviceTitle: string) {
   if (category === 'vertrag') {
-    return `DIENSTLEISTUNGSVERTRAG - ENTWURF
+    return `DIENSTLEISTUNGSVERTRAG
 
 1. Vertragsparteien
 Auftragnehmer und Auftraggeber ergeben sich aus dem Dokumentkopf.
@@ -92,7 +92,7 @@ Beanstandungen werden nachvollziehbar dokumentiert und innerhalb einer angemesse
 Beginn, Laufzeit, Verlängerung und Kündigungsfrist ergeben sich aus den individuellen Vertragsdaten.
 
 7. Haftung, Datenschutz und Schlussbestimmungen
-Es gelten die freigegebenen Vertragsbedingungen und Anlagen. Dieser Text ist bis zur fachlichen Prüfung ausschließlich ein Arbeitsentwurf.`;
+Es gelten die vereinbarten Vertragsbedingungen und Anlagen.`;
   }
 
   if (category === 'leistungsverzeichnis') {

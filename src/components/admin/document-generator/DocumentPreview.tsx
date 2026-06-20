@@ -23,7 +23,7 @@ export function DocumentPreview({ body, editing, onEditingChange, onBodyChange, 
           <textarea className="generator-editor" value={body} onChange={event => onBodyChange(event.target.value)} aria-label="Dokumenttext bearbeiten" />
         ) : (
           <article className="generator-paper">
-            <header>{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/brand/huwa-logo.png" alt="Huwa" /><div><FileText size={18} /><span>ENTWURF</span></div></header>
+            <header>{/* eslint-disable-next-line @next/next/no-img-element */}<img src="/brand/huwa-logo.png" alt="Huwa" /><div><FileText size={18} /><span>DOKUMENTVORSCHAU</span></div></header>
             <div className="generator-paper-content">
               {body.split('\n').map((line, index) => {
                 const isTitle = index < 2;

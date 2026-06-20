@@ -8,7 +8,8 @@ import { prisma } from '@/lib/prisma';
 import { parseTrustedClients, trustedClientsSchema } from '@/lib/trusted-clients';
 
 const SETTING_KEY = 'trusted_clients';
-const UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
+const UPLOAD_DIR = path.join(process.cwd(), 'storage', 'client-logos');
+const LEGACY_UPLOAD_DIR = path.join(process.cwd(), 'public', 'uploads');
 const imageTypes = new Map([
   ['image/png', 'png'],
   ['image/jpeg', 'jpg'],
@@ -91,6 +92,11 @@ export async function DELETE(request: Request) {
   if (!removed) return NextResponse.json({ error: 'Kundenlogo nicht gefunden.' }, { status: 404 });
   const saved = await saveClients(clients.filter(client => client.id !== id));
   const filename = path.basename(removed.logoUrl);
-  if (filename.startsWith('client-logo-')) await unlink(path.join(UPLOAD_DIR, filename)).catch(() => undefined);
+  if (filename.startsWith('client-logo-')) {
+    await Promise.all([
+      unlink(path.join(UPLOAD_DIR, filename)).catch(() => undefined),
+      unlink(path.join(LEGACY_UPLOAD_DIR, filename)).catch(() => undefined),
+    ]);
+  }
   return NextResponse.json(saved);
 }
