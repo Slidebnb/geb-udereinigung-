@@ -6,6 +6,8 @@ import { nextNumber } from '@/lib/numbering';
 import { calculateConfiguredServicePrice } from '@/lib/configured-pricing';
 import { defaultTemplateContent, serviceCatalog, type ServiceKey } from '@/lib/operations-catalog';
 import { normalizeCalculatorAnswers } from '@/lib/service-calculator-config';
+import { buildDocument } from '@/lib/document-generator/document-builder';
+import type { GeneratorSelection } from '@/lib/document-generator/types';
 
 export async function GET() {
   if (!(await isAdmin())) return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
@@ -27,6 +29,20 @@ export async function GET() {
 }
 
 const baseString = z.string().trim().min(1);
+const generatorSelectionSchema = z.object({
+  documentType: z.enum(['checkliste', 'vertrag', 'leistungsverzeichnis', 'angebotstext', 'arbeitsanweisung', 'uebergabeprotokoll', 'objektmappe']),
+  title: baseString.max(180),
+  customerName: baseString.max(240),
+  objectName: baseString.max(240),
+  objectAddress: baseString.max(400),
+  objectType: z.enum(['mehrfamilienhaus', 'buero', 'praxis', 'gewerbeobjekt', 'halle', 'kita-schule', 'aussenanlage', 'privatobjekt']),
+  frequency: z.enum(['taeglich', 'woechentlich', 'vierzehntaegig', 'monatlich', 'nach-bedarf', 'einmalig']),
+  serviceKeys: z.array(baseString).min(1).max(12),
+  selectedOptions: z.record(z.array(baseString).max(30)),
+  features: z.array(z.string().trim().min(1).max(100)).max(20),
+  executionTimes: z.string().trim().max(300).optional(),
+  notes: z.string().trim().max(5000).optional(),
+});
 
 export async function POST(request: Request) {
   if (!(await isAdmin())) return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
@@ -76,6 +92,45 @@ export async function POST(request: Request) {
       const content = template?.content || defaultTemplateContent(data.type, service?.title || 'Objektdokumentation');
       const snapshot = JSON.stringify({ content, templateKey, templateUpdatedAt: template?.updatedAt?.toISOString() || null, notes: data.notes || null, createdAt: new Date().toISOString() });
       const document = await prisma.objectDocument.create({ data: { objectId: data.objectId, type: data.type, title: data.title, serviceKey: data.serviceKey || null, snapshot, documentNumber: await nextNumber('document') } });
+      return NextResponse.json(document, { status: 201 });
+    }
+    if (action === 'modularDocument') {
+      const data = z.object({
+        customerId: baseString,
+        objectId: baseString,
+        selection: generatorSelectionSchema,
+        content: baseString.max(100000),
+      }).parse(body);
+      const object = await prisma.serviceObject.findFirst({ where: { id: data.objectId, customerId: data.customerId }, include: { customer: true } });
+      if (!object) return NextResponse.json({ error: 'Das ausgewählte Objekt gehört nicht zum Auftraggeber oder wurde nicht gefunden.' }, { status: 404 });
+      const normalizedSelection: GeneratorSelection = {
+        ...data.selection,
+        customerName: object.customer.company || object.customer.name,
+        objectName: object.name,
+        objectAddress: `${object.street}, ${object.zip} ${object.city}`,
+        serviceKeys: [...new Set(data.selection.serviceKeys)],
+        features: [...new Set(data.selection.features)],
+      };
+      const generated = buildDocument(normalizedSelection);
+      const snapshot = JSON.stringify({
+        generator: 'modular-service-document',
+        generatorVersion: 1,
+        selection: normalizedSelection,
+        generatedContent: generated.body,
+        content: data.content,
+        serviceTitles: generated.serviceTitles,
+        createdAt: new Date().toISOString(),
+      });
+      const document = await prisma.objectDocument.create({
+        data: {
+          objectId: object.id,
+          type: normalizedSelection.documentType,
+          title: normalizedSelection.title,
+          serviceKey: normalizedSelection.serviceKeys.length === 1 ? normalizedSelection.serviceKeys[0] : null,
+          snapshot,
+          documentNumber: await nextNumber('document'),
+        },
+      });
       return NextResponse.json(document, { status: 201 });
     }
     if (action === 'deadline') {

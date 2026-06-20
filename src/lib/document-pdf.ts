@@ -102,9 +102,12 @@ export async function createDocumentPdf(data: PdfData) {
     line(textLine || ' ', { size: heading ? 11 : 9.5, font: heading ? bold : regular, gap: heading ? 19 : 14 });
   }
 
-  y -= 12;
-  line('Ort, Datum: ______________________________', { gap: 28 });
-  line('Auftraggeber: ___________________________    Auftragnehmer: ___________________________', { size: 9 });
+  const hasSignatureSection = /\b(UNTERSCHRIFTEN|FREIGABE)\b/i.test(data.body);
+  if (!hasSignatureSection) {
+    y -= 12;
+    line('Ort, Datum: ______________________________', { gap: 28 });
+    line('Auftraggeber: ___________________________    Auftragnehmer: ___________________________', { size: 9 });
+  }
   footer();
   return pdf.save();
 }

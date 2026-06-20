@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { BarChart3, Calculator, ClipboardList, FileText, FolderKanban, Inbox, LayoutDashboard, Package, Settings, Users, X } from 'lucide-react';
+import { BarChart3, Calculator, ClipboardList, FileCog, FileText, FolderKanban, Inbox, LayoutDashboard, Package, Settings, Users, X } from 'lucide-react';
 
 const nav = [
   { href: '/admin', label: 'Übersicht', icon: LayoutDashboard },
@@ -10,6 +10,7 @@ const nav = [
   { href: '/admin/kunden', label: 'Kunden & Objekte', icon: Users },
   { href: '/admin/kalkulation', label: 'Kalkulation', icon: Calculator },
   { href: '/admin/dokumente', label: 'Angebote & Verträge', icon: FileText },
+  { href: '/admin/generator', label: 'Dokument-Generator', icon: FileCog },
   { href: '/admin/objektdokumente', label: 'Objektdokumente', icon: ClipboardList },
   { href: '/admin/inventar', label: 'Material & Geräte', icon: Package },
   { href: '/admin/inhalte', label: 'Inhalte', icon: FolderKanban },

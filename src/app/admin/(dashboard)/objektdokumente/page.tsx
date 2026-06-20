@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Download, FileText, FolderOpen } from 'lucide-react';
+import { ArrowRight, Download, FileCog, FileText, FolderOpen } from 'lucide-react';
 import { AdminPageHeader, AdminPanel, AdminStatus, EmptyState } from '@/components/admin/AdminUi';
 import { useOperations } from '@/components/admin/useOperations';
 import { objectDocumentTypes, serviceCatalog } from '@/lib/operations-catalog';
@@ -36,7 +36,7 @@ export default function ObjektdokumentePage() {
   );
 
   return <>
-    <AdminPageHeader title="Objektdokumente" description="Fachvorlagen, Leistungsverzeichnisse, Checklisten und unveränderliche PDF-Nachweise je Objekt." />
+    <AdminPageHeader title="Objektdokumente" description="Fachvorlagen, Leistungsverzeichnisse, Checklisten und unveränderliche PDF-Nachweise je Objekt." action={<Link className="admin-button" href="/admin/generator"><FileCog size={16} /> Neues Dokument</Link>} />
 
     <AdminPanel title="Vorlagenbestand" description="Wählen Sie eine Dienstleistung. Die Objektakte verbindet die Fachvorlage anschließend mit den echten Kunden-, Objekt- und Leistungsdaten.">
       <div className="admin-form p-5 pb-0">

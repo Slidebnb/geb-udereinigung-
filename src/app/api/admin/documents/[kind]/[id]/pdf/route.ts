@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { isAdmin } from '@/lib/admin-guard';
 import { createDocumentPdf } from '@/lib/document-pdf';
 import { defaultTemplateContent, serviceCatalog } from '@/lib/operations-catalog';
+import { documentTypes } from '@/lib/document-generator/document-types';
 
 export async function GET(_request: Request, { params }: { params: Promise<{ kind: string; id: string }> }) {
   if (!(await isAdmin())) return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
@@ -31,7 +32,12 @@ export async function GET(_request: Request, { params }: { params: Promise<{ kin
     if (!item) return NextResponse.json({ error: 'Dokument nicht gefunden.' }, { status: 404 });
     const snapshot = JSON.parse(item.snapshot || '{}');
     const notes = snapshot.notes ? `\n\nOBJEKTBEZOGENE ERGÄNZUNGEN\n${snapshot.notes}` : '';
-    payload = { documentType: item.type, number: item.documentNumber, title: item.title, status: item.status, customer: item.object.customer, object: item.object, body: `${snapshot.content || defaultTemplateContent(item.type, item.serviceKey || 'Objekt')}${notes}`, company };
+    const typeTitle = documentTypes.find(type => type.key === item.type)?.title || item.type;
+    const storedContent = snapshot.content || defaultTemplateContent(item.type, item.serviceKey || 'Objekt');
+    const body = snapshot.generator === 'modular-service-document'
+      ? storedContent.split('\n').slice(2).join('\n').trim()
+      : `${storedContent}${notes}`;
+    payload = { documentType: typeTitle, number: item.documentNumber, title: item.title, status: item.status, customer: item.object.customer, object: item.object, body, company };
   }
   const bytes = await createDocumentPdf(payload);
   return new NextResponse(Buffer.from(bytes), { headers: { 'Content-Type': 'application/pdf', 'Content-Disposition': `inline; filename="${payload.number}.pdf"`, 'Cache-Control': 'private, no-store' } });

@@ -2,6 +2,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { createDocumentPdf } from '../src/lib/document-pdf';
 import { createChecklistPdf } from '../src/lib/checklist-pdf';
 import { defaultTemplateContent } from '../src/lib/operations-catalog';
+import { buildDocument } from '../src/lib/document-generator/document-builder';
 
 async function main() {
   await mkdir('tmp/pdfs', { recursive: true });
@@ -22,6 +23,14 @@ async function main() {
     company: { name: 'Huwa Gebäudereinigung & Hausmeisterdienste', representative: 'Familie Huwa', street: 'Mittelweg 24', zip: '56566', city: 'Neuwied' },
   }));
   await writeFile('tmp/pdfs/checklist-smoke.pdf', await createChecklistPdf('qualitaetskontrolle'));
+  const modular = buildDocument({
+    documentType: 'leistungsverzeichnis', title: 'Leistungsverzeichnis Wohnanlage Rheinblick', customerName: 'Musterverwaltung GmbH', objectName: 'Wohnanlage Rheinblick', objectAddress: 'Musterstraße 10, 56564 Neuwied', objectType: 'mehrfamilienhaus', frequency: 'woechentlich', serviceKeys: ['gebaeudereinigung', 'hausmeisterdienst', 'gartenpflege'], selectedOptions: { gebaeudereinigung: ['boden', 'sanitaer'], hausmeisterdienst: ['sichtkontrolle', 'muelltonnen'], gartenpflege: ['rasen', 'hecken'] }, features: ['Treppenhaus', 'Grünflächen'], executionTimes: 'Montag bis Freitag nach Abstimmung', notes: 'Zusatzleistungen nur nach Freigabe.',
+  });
+  await writeFile('tmp/pdfs/modular-document-smoke.pdf', await createDocumentPdf({
+    documentType: 'Leistungsverzeichnis', number: 'DOK-2026-0099', title: modular.title, status: 'entwurf',
+    customer: { name: 'Max Mustermann', company: 'Musterverwaltung GmbH' }, object: { name: 'Wohnanlage Rheinblick', street: 'Musterstraße 10', zip: '56564', city: 'Neuwied' },
+    body: modular.body.split('\n').slice(2).join('\n').trim(), company: { name: 'Huwa Gebäudereinigung & Hausmeisterdienste', representative: 'Familie Huwa', street: 'Mittelweg 24', zip: '56566', city: 'Neuwied' },
+  }));
   console.log('PDF smoke files created.');
 }
 

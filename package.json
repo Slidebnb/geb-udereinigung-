@@ -14,7 +14,8 @@
     "seo:audit": "node scripts/seo-audit.mjs",
     "operations:backfill": "tsx prisma/operations-backfill.ts",
     "test:pricing": "tsx scripts/pricing-test.ts",
-    "test:pdf": "tsx scripts/pdf-smoke.ts"
+    "test:pdf": "tsx scripts/pdf-smoke.ts",
+    "test:documents": "tsx scripts/document-generator-test.ts"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
