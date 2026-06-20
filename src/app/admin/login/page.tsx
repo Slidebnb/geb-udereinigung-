@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { signIn, useSession } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { siteConfig } from '@/lib/site';
 
 export default function AdminLoginPage() {
   const { data: session } = useSession();
@@ -34,7 +35,8 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-primary rounded-xl flex items-center justify-center text-accent text-2xl font-bold mx-auto mb-4">H</div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={siteConfig.logoPath} alt="Huwa Gebäudereinigung & Hausmeisterdienste" className="h-28 w-auto rounded-lg bg-[#071525] px-3 py-2 object-contain mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gray-800">Admin-Bereich</h1>
           <p className="text-gray-500 text-sm mt-1">Huwa Gebäudereinigung</p>
         </div>

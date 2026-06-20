@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
+import { siteConfig } from '@/lib/site';
 
 const nav = [
   { href: '/portal', label: 'Dashboard', icon: '📊' },
@@ -23,7 +24,8 @@ export default function PortalSidebar({ user }: PortalSidebarProps) {
   return (
     <aside className="w-60 bg-[#0C2340] text-white flex flex-col shrink-0 min-h-screen">
       <div className="p-5 border-b border-[#1B3E62]">
-        <div className="font-bold text-lg text-[#4BB8F5]">HUWA</div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={siteConfig.logoPath} alt="Huwa Gebäudereinigung & Hausmeisterdienste" className="h-20 w-auto object-contain" />
         <div className="text-blue-300 text-xs mt-0.5">Kunden-Portal</div>
       </div>
 

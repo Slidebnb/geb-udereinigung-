@@ -1,4 +1,6 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
 const checklists: Record<string, { title: string; intro: string; groups: { title: string; items: string[] }[] }> = {
   haustechnik: { title: '12-Punkte Haustechnik-Checkliste', intro: 'Regelmäßige Sichtprüfung für Hausverwaltungen, WEGs und Eigentümer.', groups: [
@@ -32,11 +34,11 @@ export async function createChecklistPdf(key: string) {
   const pdf = await PDFDocument.create();
   const regular = await pdf.embedFont(StandardFonts.Helvetica);
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
+  const logo = await pdf.embedPng(await readFile(path.join(process.cwd(), 'public', 'brand', 'huwa-logo.png')));
   const page = pdf.addPage([595.28, 841.89]);
   const { height } = page.getSize();
   page.drawRectangle({ x: 0, y: height - 112, width: 595.28, height: 112, color: rgb(0.03,0.13,0.24) });
-  page.drawText('HUWA', { x: 50, y: height - 62, size: 27, font: bold, color: rgb(1,1,1) });
-  page.drawText('GEBÄUDEDIENSTE', { x: 50, y: height - 79, size: 8, font: bold, color: rgb(.7,.82,1) });
+  page.drawImage(logo, { x: 50, y: height - 101, width: 80, height: 74.5 });
   let y = height - 150;
   page.drawText(content.title, { x: 50, y, size: 20, font: bold, color: rgb(.05,.12,.22) }); y -= 28;
   page.drawText(content.intro, { x: 50, y, size: 9.5, font: regular, color: rgb(.35,.4,.48) }); y -= 34;

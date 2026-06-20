@@ -1,4 +1,6 @@
 import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
 type PdfData = {
   documentType: string;
@@ -43,6 +45,7 @@ export async function createDocumentPdf(data: PdfData) {
   const pdf = await PDFDocument.create();
   const regular = await pdf.embedFont(StandardFonts.Helvetica);
   const bold = await pdf.embedFont(StandardFonts.HelveticaBold);
+  const logo = await pdf.embedPng(await readFile(path.join(process.cwd(), 'public', 'brand', 'huwa-logo.png')));
   let page = pdf.addPage([PAGE_WIDTH, PAGE_HEIGHT]);
   let y = PAGE_HEIGHT - MARGIN;
 
@@ -64,8 +67,7 @@ export async function createDocumentPdf(data: PdfData) {
   };
 
   page.drawRectangle({ x: 0, y: PAGE_HEIGHT - 112, width: PAGE_WIDTH, height: 112, color: rgb(0.035, 0.16, 0.31) });
-  page.drawText('HUWA', { x: MARGIN, y: PAGE_HEIGHT - 63, size: 27, font: bold, color: rgb(1, 1, 1) });
-  page.drawText('GEBÄUDEDIENSTE', { x: MARGIN, y: PAGE_HEIGHT - 80, size: 8, font: bold, color: rgb(0.68, 0.82, 1) });
+  page.drawImage(logo, { x: MARGIN, y: PAGE_HEIGHT - 101, width: 80, height: 74.5 });
   page.drawText(data.documentType.toUpperCase(), { x: 350, y: PAGE_HEIGHT - 60, size: 11, font: bold, color: rgb(1, 1, 1) });
   page.drawText(data.number, { x: 350, y: PAGE_HEIGHT - 79, size: 10, font: regular, color: rgb(0.82, 0.88, 0.96) });
   y = PAGE_HEIGHT - 145;

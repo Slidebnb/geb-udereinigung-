@@ -32,7 +32,6 @@ export default function Header({ settings = {}, reviewRating = null, reviewCount
 
   const phone       = settings.phone || siteConfig.phone;
   const companyName = settings.site_title || siteConfig.name;
-  const logoUrl     = settings.logo_url || '';
   const openingHours = settings.opening_hours || 'Mo–Fr 07:00–18:00 Uhr';
 
   useEffect(() => {
@@ -72,22 +71,8 @@ export default function Header({ settings = {}, reviewRating = null, reviewCount
       {/* Main nav */}
       <nav className="container mx-auto flex items-center justify-between py-3">
         <Link href="/" className="flex items-center gap-3 group">
-          {logoUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={logoUrl} alt={companyName} className="h-10 w-auto object-contain" />
-          ) : (
-            <div className="flex items-center gap-2">
-              {/* HUWA Logo SVG replica */}
-              <svg width="42" height="38" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 2L6 16h6v18h18V16h6L21 2z" fill="#4BB8F5" opacity="0.9"/>
-                <path d="M21 2L30 11l8 5-7-7-10-7z" fill="#2DC94E"/>
-              </svg>
-              <div>
-                <div className="font-black text-dark text-xl leading-none tracking-wide">HUWA</div>
-                <div className="text-[10px] text-gray-400 leading-none tracking-widest uppercase">Gebäudereinigung</div>
-              </div>
-            </div>
-          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={siteConfig.logoPath} alt={companyName} className="h-14 w-auto rounded-md bg-[#071525] px-2.5 py-1.5 object-contain shadow-sm" />
         </Link>
 
         {/* Desktop nav */}

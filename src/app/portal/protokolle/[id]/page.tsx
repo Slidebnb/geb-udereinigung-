@@ -103,17 +103,8 @@ export default function ProtokollDetailPage() {
         {/* Logo Header */}
         <div className="flex items-start justify-between mb-8 pb-6 border-b-2 border-[#0C2340]">
           <div className="flex items-center gap-4">
-            {/* SVG Logo */}
-            <div className="w-14 h-14 rounded-xl bg-[#0C2340] flex items-center justify-center flex-shrink-0">
-              <svg width="36" height="36" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 8h4v7h6V8h4v16h-4v-6h-6v6H6V8z" fill="#4BB8F5"/>
-                <path d="M22 8h1.5l2.5 5 2.5-5H30v16h-3.5v-8l-2 4h-1l-2-4v8H18V8h4z" fill="white" opacity="0.85"/>
-              </svg>
-            </div>
-            <div>
-              <div className="text-xl font-bold text-[#0C2340]">Huwa <span className="text-[#4BB8F5]">Gebäudedienste</span></div>
-              <div className="text-xs text-gray-500 tracking-wide uppercase mt-0.5">Gebäudereinigung & Hausmeisterdienste</div>
-            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/brand/huwa-logo.png" alt="Huwa Gebäudereinigung & Hausmeisterdienste" className="h-20 w-auto rounded-md bg-[#071525] px-2 py-1 object-contain" />
           </div>
           <div className="text-right text-xs text-gray-500">
             <div className="font-bold text-[#0C2340] text-sm mb-1">Reinigungsprotokoll</div>

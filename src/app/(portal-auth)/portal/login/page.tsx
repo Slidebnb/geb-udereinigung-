@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { siteConfig } from '@/lib/site';
 
 export default function PortalLoginPage() {
   const router = useRouter();
@@ -41,9 +42,8 @@ export default function PortalLoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#0C2340] mb-4">
-            <span className="text-2xl">🏢</span>
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={siteConfig.logoPath} alt="Huwa Gebäudereinigung & Hausmeisterdienste" className="h-28 w-auto rounded-lg bg-[#071525] px-3 py-2 object-contain mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-[#0C2340]">Kunden-Login</h1>
           <p className="text-gray-500 text-sm mt-1">Huwa Gebäudereinigung &amp; Hausmeisterdienste</p>
         </div>

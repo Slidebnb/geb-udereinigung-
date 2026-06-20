@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: siteConfig.name, description: siteConfig.description, images: ['/opengraph-image'] },
   manifest: '/manifest.webmanifest',
-  icons: { icon: '/icon.svg', apple: '/icon.svg' },
+  icons: { icon: siteConfig.logoPath, apple: siteConfig.logoPath },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
 };
 
@@ -42,7 +42,7 @@ const organizationSchema = {
   '@id': `${siteConfig.url}/#organization`,
   name: siteConfig.name,
   url: siteConfig.url,
-  logo: `${siteConfig.url}/logo.svg`,
+  logo: siteConfig.logoUrl,
   telephone: siteConfig.phone,
   email: siteConfig.email,
   address: {

@@ -128,7 +128,8 @@
 .admin-brand strong { display: block; color: white; font-size: 20px; line-height: 1; }
 .admin-brand span { display: block; color: #88a7c9; font-size: 9px; margin-top: 5px; letter-spacing: .12em; }
 .admin-brand button { margin-left: auto; color: #b9cbe0; }
-.admin-mark { width: 34px; height: 34px; border-radius: 7px; display: grid; place-items: center; background: #1768e5; color: white; }
+.admin-mark { width: 44px; height: 44px; border-radius: 7px; display: grid; place-items: center; background: #071525 url('/brand/huwa-logo.png') center / contain no-repeat; color: white; }
+.admin-mark svg { display: none; }
 .admin-sidebar nav { padding: 20px 13px; display: grid; gap: 5px; overflow-y: auto; }
 .admin-sidebar nav a { height: 44px; display: flex; align-items: center; gap: 12px; padding: 0 13px; border-radius: 7px; color: #b9cbe0; font-size: 13px; font-weight: 600; transition: .18s ease; }
 .admin-sidebar nav a:hover { color: white; background: rgba(255,255,255,.06); }

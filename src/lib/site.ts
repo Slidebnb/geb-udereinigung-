@@ -7,6 +7,8 @@ export const siteConfig = {
   description:
     'Huwa Gebäudereinigung & Hausmeisterdienste – Ihr zuverlässiger Partner für professionelle Gebäudereinigung, Büroreinigung, Glasreinigung, Hausmeisterdienste und Winterdienst in Neuwied, Koblenz und Bendorf. Kostenloses Angebot anfordern!',
   url: 'https://huwa-gebaeudedienste.de',
+  logoPath: '/brand/huwa-logo.png',
+  logoUrl: 'https://huwa-gebaeudedienste.de/brand/huwa-logo.png',
   locale: 'de_DE',
   phone: process.env.NEXT_PUBLIC_PHONE || '02601 9131820',
   whatsapp: WHATSAPP_NUMBER,

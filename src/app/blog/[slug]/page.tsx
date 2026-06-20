@@ -68,7 +68,7 @@ export default async function BlogPostPage({ params }: Props) {
     publisher: {
       '@type': 'Organization',
       name: siteConfig.legalName,
-      logo: { '@type': 'ImageObject', url: `${siteConfig.url}/logo.svg` },
+      logo: { '@type': 'ImageObject', url: siteConfig.logoUrl },
     },
     datePublished: post.publishedAt.toISOString(),
     dateModified: post.updatedAt.toISOString(),
