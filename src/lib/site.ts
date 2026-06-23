@@ -5,7 +5,7 @@ export const siteConfig = {
   shortName: 'Huwa Reinigung',
   legalName: 'Huwa Gebäudereinigung & Hausmeisterdienste',
   description:
-    'Huwa Gebäudereinigung & Hausmeisterdienste – Ihr zuverlässiger Partner für professionelle Gebäudereinigung, Büroreinigung, Glasreinigung, Hausmeisterdienste und Winterdienst in Neuwied, Koblenz und Bendorf. Kostenloses Angebot anfordern!',
+    'Huwa Gebäudereinigung & Hausmeisterdienste – Ihr zuverlässiger Partner für professionelle Gebäudereinigung, Büroreinigung, Glasreinigung, Hausmeisterdienste und Winterdienst in Neuwied, Koblenz, Westerwald und Haiger. Kostenloses Angebot anfordern!',
   url: 'https://huwa-gebaeudedienste.de',
   logoPath: '/brand/huwa-logo.png',
   logoUrl: 'https://huwa-gebaeudedienste.de/brand/huwa-logo.png',
@@ -42,6 +42,13 @@ export const siteConfig = {
     'Bad Neuenahr-Ahrweiler',
     'Lahnstein',
     'Boppard',
+    'Höhr-Grenzhausen',
+    'Haiger',
+    'Vallendar',
+    'Nauort',
+    'Westerwald',
+    'Puderbach',
+    'Dierdorf',
   ],
   foundingYear: 2020,
 };

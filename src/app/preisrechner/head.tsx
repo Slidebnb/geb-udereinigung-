@@ -2,7 +2,7 @@ import { siteConfig } from '@/lib/site';
 
 export default function Head() {
   const title = 'Preisrechner Gebäudereinigung Neuwied | Reinigungskosten schätzen';
-  const description = 'Kosten für Gebäudereinigung, Büroreinigung, Treppenhausreinigung, Glasreinigung und Gartenpflege online schätzen. Für Neuwied, Koblenz und Bendorf.';
+  const description = 'Kosten für Gebäudereinigung, Büroreinigung, Treppenhausreinigung, Glasreinigung und Gartenpflege online schätzen. Für Neuwied, Koblenz, Westerwald und Haiger.';
   const url = `${siteConfig.url}/preisrechner`;
   const schema = {
     '@context': 'https://schema.org',

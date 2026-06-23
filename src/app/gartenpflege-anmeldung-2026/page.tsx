@@ -144,7 +144,7 @@ export default function GartenpflegeAnmeldung2026Page() {
             </h1>
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed mb-6">
               Professionelle Grünpflege für Wohnanlagen, Gewerbeobjekte und private Gärten in
-              Neuwied, Koblenz und Bendorf. Wählen Sie Ihre Wunschleistungen – wir erstellen ein
+              Neuwied, Koblenz, Westerwald und Haiger. Wählen Sie Ihre Wunschleistungen – wir erstellen ein
               maßgeschneidertes Saisonangebot für Heckenschnitt, Rasenpflege und Grünanlagen.
             </p>
             <div className="inline-flex items-center gap-2 bg-green/10 border border-green/30 rounded-full px-5 py-2.5 text-green text-sm font-semibold">

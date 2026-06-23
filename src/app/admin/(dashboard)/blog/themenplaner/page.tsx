@@ -17,7 +17,7 @@ const LEISTUNGEN = [
   'Gartenarbeiten',
 ];
 
-const ORTE = ['Alle', 'Neuwied', 'Koblenz', 'Bendorf', 'Andernach', 'Mayen', 'Allgemein'];
+const ORTE = ['Alle', 'Neuwied', 'Koblenz', 'Bendorf', 'Andernach', 'Mayen', 'Höhr-Grenzhausen', 'Haiger', 'Vallendar', 'Nauort', 'Westerwald', 'Puderbach', 'Dierdorf', 'Allgemein'];
 
 const ARTIKELTYPEN = [
   'Alle',

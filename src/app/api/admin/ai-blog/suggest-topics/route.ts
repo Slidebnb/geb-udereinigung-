@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 Firmenname: Huwa Gebäudereinigung & Hausmeisterdienste
 
 ${leistung ? `Fokus auf Leistung: ${leistung}` : 'Verschiedene Leistungen: Gebäudereinigung, Büroreinigung, Treppenhausreinigung, Glasreinigung, Grundreinigung, Hausmeisterdienste'}
-${ort ? `Fokus auf Ort: ${ort}` : 'Verschiedene Orte im Raum Neuwied, Koblenz, Bendorf, Andernach'}
+${ort ? `Fokus auf Ort: ${ort}` : 'Verschiedene Orte im Raum Neuwied, Koblenz, Bendorf, Westerwald, Haiger, Höhr-Grenzhausen, Vallendar, Puderbach und Dierdorf'}
 ${artikeltyp ? `Artikeltyp: ${artikeltyp}` : 'Verschiedene Artikeltypen: Ratgeber, Kosten-Artikel, FAQ, Lokaler Ratgeber'}
 
 Jeder Vorschlag soll ein gutes SEO-Potenzial haben und lokalen Bezug zur Region haben.

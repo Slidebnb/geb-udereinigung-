@@ -34,7 +34,7 @@ export interface ServicesData {
 const defaultServices: Required<ServicesData> = {
   headline: '10 Leistungsbereiche',
   subtitle:
-    'Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice – Ihr verlässlicher Partner in Neuwied, Koblenz und Bendorf.',
+    'Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice – Ihr verlässlicher Partner in Neuwied, Koblenz, Westerwald und Haiger.',
   items: [
     { icon: 'building2', title: 'Gebäudereinigung',    desc: 'Professionelle Reinigung aller Gebäudetypen – innen und außen.',        href: '/leistungen/gebaeudereinigung' },
     { icon: 'briefcase', title: 'Büroreinigung',        desc: 'Saubere Arbeitsumgebung für mehr Produktivität und Wohlbefinden.',      href: '/leistungen/bueroeinigung' },

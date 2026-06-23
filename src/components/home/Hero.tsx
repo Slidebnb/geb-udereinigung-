@@ -39,7 +39,7 @@ const defaultHero: Required<HeroData> = {
   h2: 'Gebäudereinigung',
   h3: '& Hausmeisterdienste',
   subtitle:
-    'Kostenloses Angebot für Hausverwaltungen, Gewerbe, Büros und Wohnanlagen in Neuwied, Koblenz und Bendorf – mit persönlicher Rückmeldung innerhalb von 24 Stunden.',
+    'Kostenloses Angebot für Hausverwaltungen, Gewerbe, Büros und Wohnanlagen in Neuwied, Koblenz, Westerwald und Haiger – mit persönlicher Rückmeldung innerhalb von 24 Stunden.',
   stats: [
     { val: '100+', label: 'Kunden' },
     { val: '6', label: 'Jahre Erfahrung' },

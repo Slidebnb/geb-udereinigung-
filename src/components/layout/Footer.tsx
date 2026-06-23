@@ -31,7 +31,7 @@ export default async function Footer() {
             <img src={siteConfig.logoPath} alt={companyName} className="h-24 w-auto object-contain" />
           </Link>
           <p className="text-blue-300/50 text-sm leading-relaxed mb-6 max-w-xs">
-            Ihr zuverlässiger Partner für professionelle Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Seit {siteConfig.foundingYear}.
+            Ihr zuverlässiger Partner für professionelle Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz, Westerwald und Haiger. Seit {siteConfig.foundingYear}.
           </p>
           <div className="flex gap-3">
             <a href={siteConfig.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook"

@@ -24,7 +24,7 @@ Artikel-Titel: ${post.title}
 Artikel-Inhalt: ${contentPreview}
 
 Regeln:
-- Lokal ausgerichtet (Neuwied, Koblenz, Bendorf)
+- Lokal ausgerichtet (Neuwied, Koblenz, Westerwald, Haiger und umliegende Einsatzorte)
 - Professionell, keine Fake-Versprechen
 - Caption max 300 Zeichen + Hashtags
 - CTA: "Kostenloses Angebot anfordern"

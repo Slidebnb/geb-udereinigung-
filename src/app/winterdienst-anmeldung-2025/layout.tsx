@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Winterdienst 2026/2027 anmelden | Huwa Gebäudedienste',
   description:
-    'Jetzt für den Winterdienst 2026/2027 in Neuwied, Koblenz und Bendorf anmelden. Saisonvertrag, Räum- und Streupflicht, Dokumentation inklusive.',
+    'Jetzt für den Winterdienst 2026/2027 in Neuwied, Koblenz, Westerwald und Haiger anmelden. Saisonvertrag, Räum- und Streupflicht, Dokumentation inklusive.',
   alternates: { canonical: `${siteConfig.url}/winterdienst-anmeldung-2026` },
 };
 

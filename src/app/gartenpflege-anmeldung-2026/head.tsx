@@ -2,7 +2,7 @@ import { siteConfig } from '@/lib/site';
 
 export default function Head() {
   const title = 'Gartenpflege 2026/2027 anmelden | Heckenschneiden & Grünpflege';
-  const description = 'Gartenpflege 2026/2027 frühzeitig anmelden: Heckenschneiden, Rasenmähen, Laubentfernung, Beetpflege und Grünpflege für Neuwied, Koblenz und Bendorf.';
+  const description = 'Gartenpflege 2026/2027 frühzeitig anmelden: Heckenschneiden, Rasenmähen, Laubentfernung, Beetpflege und Grünpflege für Neuwied, Koblenz, Westerwald und Haiger.';
   const url = `${siteConfig.url}/gartenpflege-anmeldung-2026`;
   const faq = [
     {

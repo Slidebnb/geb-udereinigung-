@@ -16,7 +16,7 @@ const LEISTUNGEN = [
   'Gartenarbeiten',
 ];
 
-const ORTE = ['Neuwied', 'Koblenz', 'Bendorf', 'Andernach', 'Mayen', 'Allgemein'];
+const ORTE = ['Neuwied', 'Koblenz', 'Bendorf', 'Andernach', 'Mayen', 'Höhr-Grenzhausen', 'Haiger', 'Vallendar', 'Nauort', 'Westerwald', 'Puderbach', 'Dierdorf', 'Allgemein'];
 
 const ZIELGRUPPEN = [
   'Hausverwaltungen',

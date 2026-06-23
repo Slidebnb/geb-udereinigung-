@@ -47,6 +47,13 @@ const cityContext: Record<string, string> = {
   boppard: 'In Boppard richten wir die Betreuung an Objektart, Nutzung und den gewünschten Einsatzzeiten aus.',
   lahnstein: 'Für Kunden in Lahnstein planen wir wiederkehrende und saisonale Leistungen transparent nach tatsächlichem Bedarf.',
   mayen: 'In Mayen erhalten Eigentümer, Verwaltungen und Betriebe eine persönliche Abstimmung vor dem ersten Einsatz.',
+  'hoehr-grenzhausen': 'Höhr-Grenzhausen liegt in unserem erweiterten Einsatzgebiet im Westerwald; wir stimmen regelmäßige und saisonale Leistungen objektbezogen ab.',
+  haiger: 'Haiger wird durch unsere familiäre Anbindung vor Ort mit abgedeckt; Anfragen prüfen wir persönlich nach Objekt, Umfang und sinnvoller Tourenplanung.',
+  vallendar: 'In Vallendar betreuen wir Wohnanlagen, Gewerbeobjekte und Hausverwaltungen mit kurzen Wegen aus dem Raum Koblenz und Neuwied.',
+  nauort: 'Für Nauort planen wir Reinigungs-, Hausmeister- und Winterdienstleistungen passend zur Objektlage im Westerwald.',
+  westerwald: 'Im Westerwald bündeln wir Anfragen aus der Region und prüfen die passende Einsatzplanung je nach Objekt und gewünschtem Leistungsumfang.',
+  puderbach: 'Puderbach gehört zu unserem erweiterten regionalen Einsatzgebiet; besonders wiederkehrende Objektbetreuung und Winterdienst lassen sich gut planen.',
+  dierdorf: 'In Dierdorf stimmen wir Gebäudereinigung, Hausmeisterservice und saisonale Leistungen transparent nach Objektbedarf ab.',
 };
 
 export function generateStaticParams() {
@@ -161,7 +168,9 @@ export default async function CityServicePage({ params }: { params: Params }) {
           <div>
             <div className="section-label">Leistung nach Bedarf</div>
             <h2 className="mt-4 mb-6">Saubere Abläufe für Ihr Objekt in {route.city.name}</h2>
-            <p className="text-slate-600 leading-relaxed mb-4">{cityContext[route.city.slug]}</p>
+            <p className="text-slate-600 leading-relaxed mb-4">
+              {cityContext[route.city.slug] ?? `Für Kunden in ${route.city.name} stimmen wir Umfang, Intervalle und Zugangszeiten individuell nach Objektbedarf ab.`}
+            </p>
             <p className="text-slate-600 leading-relaxed mb-8">
               Vor dem Start klären wir Flächen, gewünschte Intervalle und besondere Anforderungen. So erhalten Sie {copy.benefit}, statt eines unklaren Pauschalpakets.
             </p>

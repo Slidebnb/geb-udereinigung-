@@ -6,7 +6,7 @@ import { siteConfig } from '@/lib/site';
 export const metadata: Metadata = {
   alternates: { canonical: `${siteConfig.url}/ueber-uns` },
   title: 'Über uns | Huwa Gebäudereinigung & Hausmeisterdienste',
-  description: `Seit ${siteConfig.foundingYear} Ihr zuverlässiger Partner für Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Erfahren Sie mehr über unser Unternehmen.`,
+  description: `Seit ${siteConfig.foundingYear} Ihr zuverlässiger Partner für Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz, Westerwald und Haiger. Erfahren Sie mehr über unser Unternehmen.`,
 };
 
 const values = [
@@ -45,7 +45,7 @@ export default function UeberUnsPage() {
                 Huwa Gebäudereinigung & Hausmeisterdienste ist ein familiengeführtes Unternehmen aus Neuwied. Im Mittelpunkt stehen klare Absprachen, verlässliche Ausführung und ein direkter Kontakt zu den Menschen, die Verantwortung tragen.
               </p>
               <p>
-                Seit {siteConfig.foundingYear} betreuen wir Kunden im Raum Neuwied, Koblenz, Bendorf und Umgebung. Mit 6 Jahren Erfahrung und über 100 Kunden wissen wir, worauf es bei sauberer, verlässlicher Objektbetreuung ankommt.
+                Seit {siteConfig.foundingYear} betreuen wir Kunden im Raum Neuwied, Koblenz, Bendorf, Westerwald und nach Absprache auch in Haiger. Mit 6 Jahren Erfahrung und über 100 Kunden wissen wir, worauf es bei sauberer, verlässlicher Objektbetreuung ankommt.
               </p>
               <p>
                 Was uns wichtig ist: sauber arbeiten, erreichbar bleiben und keine Versprechen machen, die wir nicht halten können. Deshalb setzen wir auf persönliche Betreuung statt anonyme Abwicklung.

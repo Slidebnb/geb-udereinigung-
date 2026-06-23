@@ -37,7 +37,7 @@ const defaultWhyUs: Required<WhyUsData> = {
     { icon: 'clock',       title: 'Pünktlich & Zuverlässig',  desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
     { icon: 'trophy',      title: 'Saubere Qualität',          desc: 'Klare Absprachen, strukturierte Abläufe und kontrollierte Ergebnisse nach jedem Einsatz.' },
     { icon: 'banknote',    title: 'Faire Festpreise',           desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
-    { icon: 'mappin',      title: 'Regional verwurzelt',        desc: 'In Neuwied, Koblenz und Bendorf aktiv – mit kurzen Wegen und persönlicher Betreuung.' },
+    { icon: 'mappin',      title: 'Regional verwurzelt',        desc: 'In Neuwied, Koblenz, Westerwald und Haiger aktiv – mit kurzen Wegen und persönlicher Betreuung.' },
     { icon: 'phone',       title: 'Direkter Ansprechpartner',   desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
     { icon: 'shieldcheck', title: 'Seriös & verbindlich',       desc: 'Diskrete Abwicklung, saubere Dokumentation und verlässliche Kommunikation.' },
   ],

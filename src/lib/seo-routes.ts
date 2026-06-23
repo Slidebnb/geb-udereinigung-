@@ -16,6 +16,13 @@ export const cities = [
   { name: 'Boppard', slug: 'boppard' },
   { name: 'Lahnstein', slug: 'lahnstein' },
   { name: 'Mayen', slug: 'mayen' },
+  { name: 'Höhr-Grenzhausen', slug: 'hoehr-grenzhausen' },
+  { name: 'Haiger', slug: 'haiger' },
+  { name: 'Vallendar', slug: 'vallendar' },
+  { name: 'Nauort', slug: 'nauort' },
+  { name: 'Westerwald', slug: 'westerwald' },
+  { name: 'Puderbach', slug: 'puderbach' },
+  { name: 'Dierdorf', slug: 'dierdorf' },
 ] as const;
 
 export const localServices = [

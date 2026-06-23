@@ -1,8 +1,8 @@
 import { siteConfig } from '@/lib/site';
 
 export default function Head() {
-  const title = 'Winterdienst 2026/2027 anmelden | Neuwied, Koblenz, Bendorf';
-  const description = 'Winterdienst 2026/2027 frühzeitig sichern: Räumdienst und Streudienst für Hausverwaltungen, Gewerbe, Parkplätze und Gehwege in Neuwied, Koblenz und Bendorf.';
+  const title = 'Winterdienst 2026/2027 anmelden | Neuwied, Koblenz, Westerwald';
+  const description = 'Winterdienst 2026/2027 frühzeitig sichern: Räumdienst und Streudienst für Hausverwaltungen, Gewerbe, Parkplätze und Gehwege in Neuwied, Koblenz, Westerwald und Haiger.';
   const url = `${siteConfig.url}/winterdienst-anmeldung-2026`;
   const faq = [
     {

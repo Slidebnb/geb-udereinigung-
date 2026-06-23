@@ -133,7 +133,7 @@ export default function GartenpflegePage() {
             <div className="section-label mb-4">Frühjahr/Sommer 2025</div>
             <h1 className="text-white mb-4 leading-tight">
               Gartenpflege in{' '}
-              <span className="gradient-text">Neuwied, Koblenz & Bendorf</span>
+              <span className="gradient-text">Neuwied, Koblenz, Westerwald & Haiger</span>
             </h1>
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed">
               Professionelle Grünpflege für Wohnanlagen, Gewerbeobjekte und private Gärten. Wählen

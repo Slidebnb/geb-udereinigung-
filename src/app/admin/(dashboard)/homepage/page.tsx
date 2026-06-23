@@ -22,7 +22,7 @@ const DEFAULT_HERO: HeroState = {
   h1:       'Professionelle',
   h2:       'Gebäudereinigung',
   h3:       '& Hausmeister',
-  subtitle: 'Sauberkeit auf höchstem Niveau – für Büros, Wohnhäuser und Gewerbe in Neuwied, Koblenz & Bendorf. Zuverlässig, gründlich, fair.',
+  subtitle: 'Sauberkeit auf höchstem Niveau – für Büros, Wohnhäuser und Gewerbe in Neuwied, Koblenz, Westerwald & Haiger. Zuverlässig, gründlich, fair.',
   stats:    [{ val: '100+', label: 'Kunden' }, { val: '6', label: 'Jahre Erfahrung' }, { val: '24 h', label: 'Rückmeldung' }],
   services: [
     { icon: '🏢', title: 'Gebäudereinigung' }, { icon: '💼', title: 'Büroreinigung' },
@@ -34,7 +34,7 @@ const DEFAULT_HERO: HeroState = {
 
 const DEFAULT_SERVICES: ServicesState = {
   headline: '10 Leistungsbereiche',
-  subtitle: 'Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice – Ihr verlässlicher Partner in Neuwied, Koblenz und Bendorf.',
+  subtitle: 'Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice – Ihr verlässlicher Partner in Neuwied, Koblenz, Westerwald und Haiger.',
   items: [
     { icon: '🏢', title: 'Gebäudereinigung',    desc: 'Professionelle Reinigung aller Gebäudetypen – innen und außen.',       href: '/leistungen/gebaeudereinigung' },
     { icon: '💼', title: 'Büroreinigung',        desc: 'Saubere Arbeitsumgebung für mehr Produktivität und Wohlbefinden.',     href: '/leistungen/bueroeinigung' },
@@ -57,7 +57,7 @@ const DEFAULT_WHYUS: WhyUsState = {
     { icon: '⏰', title: 'Pünktlich & Zuverlässig',    desc: 'Wir erscheinen zur vereinbarten Zeit – ohne Ausreden. Darauf können Sie sich verlassen.' },
     { icon: '🏆', title: 'Saubere Qualität',            desc: 'Klare Absprachen, strukturierte Abläufe und kontrollierte Ergebnisse nach jedem Einsatz.' },
     { icon: '💰', title: 'Faire Festpreise',             desc: 'Transparente Kalkulation, keine versteckten Kosten. Ihr Angebot gilt – genau wie vereinbart.' },
-    { icon: '🌍', title: 'Regional verwurzelt',          desc: 'In Neuwied, Koblenz und Bendorf aktiv – mit kurzen Wegen und persönlicher Betreuung.' },
+    { icon: '🌍', title: 'Regional verwurzelt',          desc: 'In Neuwied, Koblenz, Westerwald und Haiger aktiv – mit kurzen Wegen und persönlicher Betreuung.' },
     { icon: '📞', title: 'Direkter Ansprechpartner',     desc: 'Kein Call-Center, kein Ticket-System. Sie erreichen uns direkt und persönlich.' },
     { icon: '🔒', title: 'Seriös & verbindlich',         desc: 'Diskrete Abwicklung, saubere Dokumentation und verlässliche Kommunikation.' },
   ],

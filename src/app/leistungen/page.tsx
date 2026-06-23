@@ -7,7 +7,7 @@ import { siteConfig } from '@/lib/site';
 export const metadata: Metadata = {
   alternates: { canonical: `${siteConfig.url}/leistungen` },
   title: 'Alle Leistungen | Huwa Gebäudereinigung & Hausmeisterdienste',
-  description: 'Entdecken Sie alle Reinigungsleistungen von Huwa: Büroreinigung, Glasreinigung, Grundreinigung, Hausmeisterdienste, Winterdienst und mehr – in Neuwied, Koblenz & Bendorf.',
+  description: 'Entdecken Sie alle Reinigungsleistungen von Huwa: Büroreinigung, Glasreinigung, Grundreinigung, Hausmeisterdienste, Winterdienst und mehr – in Neuwied, Koblenz, Westerwald und Haiger.',
 };
 
 const services = [
@@ -34,7 +34,7 @@ export default function LeistungenPage() {
             <div className="section-label mb-4">Unsere Leistungen</div>
             <h1 className="text-white mb-4">Alles aus einer Hand –<br /><span className="gradient-text">10 Leistungsbereiche</span></h1>
             <p className="text-slate-300 text-lg md:text-xl leading-relaxed">
-              Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice. Ihr verlässlicher Partner in Neuwied, Koblenz und Bendorf.
+              Von der täglichen Unterhaltsreinigung bis zum kompletten Hausmeisterservice. Ihr verlässlicher Partner in Neuwied, Koblenz, Westerwald und Haiger.
             </p>
           </div>
         </div>

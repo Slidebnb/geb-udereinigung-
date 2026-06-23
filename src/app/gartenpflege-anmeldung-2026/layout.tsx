@@ -5,12 +5,12 @@ import Script from 'next/script';
 export const metadata: Metadata = {
   title: 'Gartenpflege 2026/2027 anmelden | Hecken, Rasen & mehr | Huwa Neuwied',
   description:
-    'Jetzt für die Gartenpflege-Saison 2026/2027 in Neuwied, Koblenz und Bendorf anmelden. Hecken schneiden, Rasen mähen, Unkraut entfernen, Laub und mehr – Saisonvertrag sichern.',
-  keywords: ['Gartenpflege 2026/2027', 'Hecken schneiden Neuwied', 'Rasenmähen Koblenz', 'Unkraut entfernen Bendorf', 'Gartenservice Neuwied', 'Gartenpflege Saisonvertrag'],
+    'Jetzt für die Gartenpflege-Saison 2026/2027 in Neuwied, Koblenz, Westerwald und Haiger anmelden. Hecken schneiden, Rasen mähen, Unkraut entfernen, Laub und mehr – Saisonvertrag sichern.',
+  keywords: ['Gartenpflege 2026/2027', 'Hecken schneiden Neuwied', 'Rasenmähen Koblenz', 'Gartenpflege Westerwald', 'Gartenservice Haiger', 'Gartenpflege Saisonvertrag'],
   alternates: { canonical: `${siteConfig.url}/gartenpflege-anmeldung-2026` },
   openGraph: {
     title: 'Gartenpflege Saison 2026/2027 anmelden | Hecken, Rasen, Unkraut | Huwa Neuwied',
-    description: 'Saisonvertrag sichern: Hecken schneiden, Rasenmähen, Unkraut entfernen und mehr in Neuwied, Koblenz und Bendorf.',
+    description: 'Saisonvertrag sichern: Hecken schneiden, Rasenmähen, Unkraut entfernen und mehr in Neuwied, Koblenz, Westerwald und Haiger.',
     url: `${siteConfig.url}/gartenpflege-anmeldung-2026`,
     type: 'website',
   },
@@ -20,7 +20,7 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Gartenpflege Saisonvertrag 2026/2027',
-  description: 'Professionelle Gartenpflege in Neuwied, Koblenz und Bendorf. Hecken schneiden, Rasenmähen, Unkraut entfernen, Laubentfernung und mehr – Saisonvertrag 2026/2027.',
+  description: 'Professionelle Gartenpflege in Neuwied, Koblenz, Westerwald und Haiger. Hecken schneiden, Rasenmähen, Unkraut entfernen, Laubentfernung und mehr – Saisonvertrag 2026/2027.',
   provider: {
     '@type': 'LocalBusiness',
     name: 'Huwa Gebäudereinigung & Hausmeisterdienste',
@@ -34,11 +34,10 @@ const schema = {
     telephone: '+4926019131820',
     url: siteConfig.url,
   },
-  areaServed: [
-    { '@type': 'City', name: 'Neuwied' },
-    { '@type': 'City', name: 'Koblenz' },
-    { '@type': 'City', name: 'Bendorf' },
-  ],
+  areaServed: siteConfig.serviceAreas.map((name) => ({
+    '@type': name === 'Westerwald' ? 'AdministrativeArea' : 'City',
+    name,
+  })),
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Gartenpflege-Leistungen 2026/2027',

@@ -27,9 +27,9 @@ export const services: ServiceData[] = [
     shortTitle: 'Gebäudereinigung',
     icon: 'building',
     tagline: 'Professionelle Gebäudereinigung für saubere Objekte rund um die Uhr',
-    metaTitle: 'Gebäudereinigung Neuwied, Koblenz & Bendorf | Huwa',
+    metaTitle: 'Gebäudereinigung Neuwied, Koblenz & Westerwald | Huwa',
     metaDescription:
-      'Professionelle Gebäudereinigung in Neuwied, Koblenz und Bendorf. Zuverlässig, gründlich, Festpreis. Kostenloses Angebot anfordern!',
+      'Professionelle Gebäudereinigung in Neuwied, Koblenz, Westerwald und Haiger. Zuverlässig, gründlich, Festpreis. Kostenloses Angebot anfordern!',
     heroDescription:
       'Von Wohnanlagen über Bürogebäude bis hin zu Industriehallen – wir sorgen für nachhaltige Sauberkeit in Ihrem gesamten Objekt. Geschultes Personal, geprüfte Reinigungsmittel und ein durchdachtes Hygienekonzept.',
     intro:
@@ -78,9 +78,9 @@ export const services: ServiceData[] = [
     shortTitle: 'Büroreinigung',
     icon: 'office',
     tagline: 'Saubere Büros für produktive und gesunde Arbeitsplätze',
-    metaTitle: 'Büroreinigung Neuwied & Koblenz | Huwa Gebäudereinigung',
+    metaTitle: 'Büroreinigung Neuwied, Koblenz & Westerwald | Huwa Gebäudereinigung',
     metaDescription:
-      'Zuverlässige Büroreinigung in Neuwied, Koblenz und Bendorf. Für Büros, Praxen und Kanzleien. Kostenloses Angebot anfordern!',
+      'Zuverlässige Büroreinigung in Neuwied, Koblenz, Westerwald und Haiger. Für Büros, Praxen und Kanzleien. Kostenloses Angebot anfordern!',
     heroDescription:
       'Ein sauberes Büro steigert die Produktivität, schützt die Gesundheit Ihrer Mitarbeiter und hinterlässt bei Kunden einen professionellen Eindruck. Wir reinigen diskret außerhalb Ihrer Arbeitszeiten.',
     intro:
@@ -117,9 +117,9 @@ export const services: ServiceData[] = [
     shortTitle: 'Treppenhausreinigung',
     icon: 'stairs',
     tagline: 'Gepflegte Treppenhäuser für einen einladenden ersten Eindruck',
-    metaTitle: 'Treppenhausreinigung Neuwied & Koblenz | Huwa',
+    metaTitle: 'Treppenhausreinigung Neuwied, Koblenz & Westerwald | Huwa',
     metaDescription:
-      'Regelmäßige Treppenhausreinigung für Hausverwaltungen und WEGs in Neuwied, Koblenz und Bendorf. Festpreisangebot anfordern!',
+      'Regelmäßige Treppenhausreinigung für Hausverwaltungen und WEGs in Neuwied, Koblenz, Westerwald und Haiger. Festpreisangebot anfordern!',
     heroDescription:
       'Das Treppenhaus ist die Visitenkarte jedes Wohnhauses. Wir sorgen mit einem festen Reinigungsplan für dauerhaft saubere Treppen, Flure, Geländer und Eingangsbereiche.',
     intro:
@@ -158,7 +158,7 @@ export const services: ServiceData[] = [
     tagline: 'Streifenfreie Fenster und glänzende Glasfassaden',
     metaTitle: 'Glasreinigung & Fensterreinigung Neuwied | Huwa',
     metaDescription:
-      'Professionelle Glas- und Fensterreinigung in Neuwied, Koblenz und Bendorf. Streifenfrei, auch in der Höhe. Kostenloses Angebot!',
+      'Professionelle Glas- und Fensterreinigung in Neuwied, Koblenz, Westerwald und Haiger. Streifenfrei, auch in der Höhe. Kostenloses Angebot!',
     heroDescription:
       'Klare Sicht und strahlender Glanz: Wir reinigen Fenster, Glasfassaden, Wintergärten und Schaufenster streifenfrei – mit modernster Technik auch in schwer erreichbaren Höhen.',
     intro:
@@ -195,9 +195,9 @@ export const services: ServiceData[] = [
     shortTitle: 'Grundreinigung',
     icon: 'sparkle',
     tagline: 'Intensive Tiefenreinigung für strahlende Sauberkeit',
-    metaTitle: 'Grundreinigung Neuwied & Koblenz | Huwa Gebäudereinigung',
+    metaTitle: 'Grundreinigung Neuwied, Koblenz & Westerwald | Huwa Gebäudereinigung',
     metaDescription:
-      'Intensive Grundreinigung in Neuwied, Koblenz und Bendorf. Tiefenreinigung für Böden, Sanitär & mehr. Kostenloses Angebot!',
+      'Intensive Grundreinigung in Neuwied, Koblenz, Westerwald und Haiger. Tiefenreinigung für Böden, Sanitär & mehr. Kostenloses Angebot!',
     heroDescription:
       'Wenn die normale Unterhaltsreinigung nicht mehr ausreicht, sorgt unsere Grundreinigung für strahlende Sauberkeit bis in die letzte Ecke – ideal nach Renovierungen, vor Einzügen oder zur Saison.',
     intro:
@@ -235,9 +235,9 @@ export const services: ServiceData[] = [
     shortTitle: 'Unterhaltsreinigung',
     icon: 'broom',
     tagline: 'Regelmäßige Pflege für dauerhaft saubere Räume',
-    metaTitle: 'Unterhaltsreinigung Neuwied & Koblenz | Huwa',
+    metaTitle: 'Unterhaltsreinigung Neuwied, Koblenz & Westerwald | Huwa',
     metaDescription:
-      'Zuverlässige Unterhaltsreinigung in Neuwied, Koblenz und Bendorf. Regelmäßige Pflege nach festem Plan. Festpreisangebot anfordern!',
+      'Zuverlässige Unterhaltsreinigung in Neuwied, Koblenz, Westerwald und Haiger. Regelmäßige Pflege nach festem Plan. Festpreisangebot anfordern!',
     heroDescription:
       'Die Unterhaltsreinigung hält Ihre Räume dauerhaft sauber und gepflegt. Mit einem festen Reinigungsplan und einem eingespielten Team sorgen wir für gleichbleibend hohe Hygiene.',
     intro:
@@ -276,7 +276,7 @@ export const services: ServiceData[] = [
     tagline: 'Saubere Übergabe nach Bau und Renovierung',
     metaTitle: 'Baureinigung & Bauendreinigung Neuwied | Huwa',
     metaDescription:
-      'Professionelle Baureinigung in Neuwied, Koblenz und Bendorf. Besenrein bis bezugsfertig. Kostenloses Angebot anfordern!',
+      'Professionelle Baureinigung in Neuwied, Koblenz, Westerwald und Haiger. Besenrein bis bezugsfertig. Kostenloses Angebot anfordern!',
     heroDescription:
       'Nach dem Bau folgt der Feinschliff: Wir übernehmen Bauzwischen- und Bauendreinigung, damit Ihr Objekt termingerecht und bezugsfertig übergeben werden kann.',
     intro:
@@ -314,9 +314,9 @@ export const services: ServiceData[] = [
     shortTitle: 'Hausmeisterdienste',
     icon: 'tools',
     tagline: 'Rundum-Betreuung für Ihre Immobilie',
-    metaTitle: 'Hausmeisterdienste Neuwied & Koblenz | Huwa',
+    metaTitle: 'Hausmeisterdienste Neuwied, Koblenz & Westerwald | Huwa',
     metaDescription:
-      'Zuverlässige Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Wartung, Pflege & Reparaturen aus einer Hand. Angebot anfordern!',
+      'Zuverlässige Hausmeisterdienste in Neuwied, Koblenz, Westerwald und Haiger. Wartung, Pflege & Reparaturen aus einer Hand. Angebot anfordern!',
     heroDescription:
       'Unsere Hausmeisterdienste halten Ihre Immobilie in Schuss: von kleinen Reparaturen über die Pflege der Außenanlagen bis zur Überwachung technischer Anlagen – zuverlässig und aus einer Hand.',
     intro:
@@ -353,9 +353,9 @@ export const services: ServiceData[] = [
     shortTitle: 'Winterdienst',
     icon: 'snow',
     tagline: 'Sichere Wege bei Schnee und Eis',
-    metaTitle: 'Winterdienst Neuwied & Koblenz | Huwa Räumdienst',
+    metaTitle: 'Winterdienst Neuwied, Koblenz & Westerwald | Huwa Räumdienst',
     metaDescription:
-      'Zuverlässiger Winterdienst in Neuwied, Koblenz und Bendorf. Räum- und Streudienst zur Erfüllung der Verkehrssicherungspflicht. Jetzt anfragen!',
+      'Zuverlässiger Winterdienst in Neuwied, Koblenz, Westerwald und Haiger. Räum- und Streudienst zur Erfüllung der Verkehrssicherungspflicht. Jetzt anfragen!',
     heroDescription:
       'Schnee und Eis bedeuten Verantwortung. Wir übernehmen Ihren Räum- und Streudienst – pünktlich, dokumentiert und rechtssicher zur Erfüllung Ihrer Verkehrssicherungspflicht.',
     intro:
@@ -394,7 +394,7 @@ export const services: ServiceData[] = [
     tagline: 'Gepflegte Grünanlagen das ganze Jahr',
     metaTitle: 'Gartenarbeiten & Grünpflege Neuwied | Huwa',
     metaDescription:
-      'Professionelle Gartenarbeiten und Grünpflege in Neuwied, Koblenz und Bendorf. Rasen, Hecken, Laub & mehr. Angebot anfordern!',
+      'Professionelle Gartenarbeiten und Grünpflege in Neuwied, Koblenz, Westerwald und Haiger. Rasen, Hecken, Laub & mehr. Angebot anfordern!',
     heroDescription:
       'Gepflegte Außenanlagen werten jede Immobilie auf. Wir übernehmen die regelmäßige Grünpflege: Rasenmähen, Heckenschnitt, Laubentfernung und mehr – das ganze Jahr.',
     intro:

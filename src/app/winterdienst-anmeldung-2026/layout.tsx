@@ -5,12 +5,12 @@ import Script from 'next/script';
 export const metadata: Metadata = {
   title: 'Winterdienst 2026/2027 – Jetzt anmelden | Huwa Gebäudereinigung',
   description:
-    'Jetzt für den Winterdienst 2026/2027 in Neuwied, Koblenz und Bendorf anmelden. Saisonvertrag, Räum- und Streupflicht, lückenlose Dokumentation inklusive. Früh anmelden – begrenzte Kapazität.',
-  keywords: ['Winterdienst 2026', 'Winterdienst Neuwied', 'Räumdienst Koblenz', 'Streudienst Bendorf', 'Saisonvertrag Winterdienst', 'Räum- und Streupflicht'],
+    'Jetzt für den Winterdienst 2026/2027 in Neuwied, Koblenz, Westerwald und Haiger anmelden. Saisonvertrag, Räum- und Streupflicht, lückenlose Dokumentation inklusive. Früh anmelden – begrenzte Kapazität.',
+  keywords: ['Winterdienst 2026', 'Winterdienst Neuwied', 'Räumdienst Koblenz', 'Winterdienst Westerwald', 'Winterdienst Haiger', 'Saisonvertrag Winterdienst', 'Räum- und Streupflicht'],
   alternates: { canonical: `${siteConfig.url}/winterdienst-anmeldung-2026` },
   openGraph: {
     title: 'Winterdienst 2026/2027 jetzt anmelden | Huwa Gebäudereinigung Neuwied',
-    description: 'Saisonvertrag sichern: Räumung, Streuung und lückenlose Dokumentation für Ihre Objekte in Neuwied, Koblenz und Bendorf.',
+    description: 'Saisonvertrag sichern: Räumung, Streuung und lückenlose Dokumentation für Ihre Objekte in Neuwied, Koblenz, Westerwald und Haiger.',
     url: `${siteConfig.url}/winterdienst-anmeldung-2026`,
     type: 'website',
   },
@@ -20,7 +20,7 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
   name: 'Winterdienst Saisonvertrag 2026/2027',
-  description: 'Professioneller Winterdienst in Neuwied, Koblenz und Bendorf. Räumung und Streuung mit lückenloser Dokumentation – Saisonvertrag 2026/2027.',
+  description: 'Professioneller Winterdienst in Neuwied, Koblenz, Westerwald und Haiger. Räumung und Streuung mit lückenloser Dokumentation – Saisonvertrag 2026/2027.',
   provider: {
     '@type': 'LocalBusiness',
     name: 'Huwa Gebäudereinigung & Hausmeisterdienste',
@@ -34,11 +34,10 @@ const schema = {
     telephone: '+4926019131820',
     url: siteConfig.url,
   },
-  areaServed: [
-    { '@type': 'City', name: 'Neuwied' },
-    { '@type': 'City', name: 'Koblenz' },
-    { '@type': 'City', name: 'Bendorf' },
-  ],
+  areaServed: siteConfig.serviceAreas.map((name) => ({
+    '@type': name === 'Westerwald' ? 'AdministrativeArea' : 'City',
+    name,
+  })),
   availableChannel: {
     '@type': 'ServiceChannel',
     serviceUrl: `${siteConfig.url}/winterdienst-anmeldung-2026`,

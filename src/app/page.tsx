@@ -164,7 +164,7 @@ export default async function HomePage() {
           <div className="section-label mx-auto w-fit">Einzugsgebiet</div>
           <h2 className="mt-4 mb-3">Wir kommen zu Ihnen –<br /><span className="gradient-text">regional & zuverlässig</span></h2>
           <p className="text-gray-500 max-w-xl mx-auto mb-10 text-lg">
-            Im gesamten Raum Neuwied, Koblenz und Bendorf sowie umliegenden Gemeinden.
+            Im Raum Neuwied, Koblenz, Bendorf, Westerwald und nach Absprache auch in Haiger.
           </p>
           <div className="flex flex-wrap justify-center gap-3 mb-8">
             {siteConfig.serviceAreas.map(city => (
@@ -186,7 +186,7 @@ export default async function HomePage() {
             <div className="section-label mx-auto w-fit">Saison 2026/2027</div>
             <h2 className="mt-4">Früh anmelden für <span className="gradient-text">Winterdienst & Gartenpflege</span></h2>
             <p className="text-gray-500 max-w-2xl mx-auto mt-3">
-              Sichern Sie sich frühzeitig Kapazitäten für Räum- und Streudienst, Heckenschneiden, Rasenmähen und regelmäßige Grünpflege in Neuwied, Koblenz und Bendorf.
+              Sichern Sie sich frühzeitig Kapazitäten für Räum- und Streudienst, Heckenschneiden, Rasenmähen und regelmäßige Grünpflege in Neuwied, Koblenz, Westerwald und Haiger.
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-5">

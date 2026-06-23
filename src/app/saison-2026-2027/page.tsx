@@ -7,7 +7,7 @@ import { siteConfig } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Saison 2026/2027 anmelden | Winterdienst & Gartenpflege | Huwa',
   description:
-    'Saison 2026/2027 frühzeitig planen: Winterdienst oder Gartenpflege in Neuwied, Koblenz, Bendorf und Umgebung anmelden. Passende Saisonleistung auswählen.',
+    'Saison 2026/2027 frühzeitig planen: Winterdienst oder Gartenpflege in Neuwied, Koblenz, Westerwald und Haiger anmelden. Passende Saisonleistung auswählen.',
   alternates: { canonical: `${siteConfig.url}/saison-2026-2027` },
   openGraph: {
     title: 'Saison 2026/2027: Winterdienst oder Gartenpflege anmelden',
