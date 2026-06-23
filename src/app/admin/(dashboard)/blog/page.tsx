@@ -23,6 +23,14 @@ export default async function AdminBlogPage() {
         <div className="space-y-3">
           {posts.map((post: any) => (
             <div key={post.id} className="bg-white rounded-xl p-5 shadow-sm flex items-start gap-4">
+              <div className="h-20 w-28 shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-gray-50">
+                {post.coverImage ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={post.coverImage} alt="" className="h-full w-full object-cover" />
+                ) : (
+                  <div className="flex h-full w-full items-center justify-center text-xs font-semibold text-gray-400">Kein Bild</div>
+                )}
+              </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1">
                   <span className="text-xs bg-primary-50 text-primary px-2 py-0.5 rounded-full">{post.category}</span>

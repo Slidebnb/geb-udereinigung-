@@ -4,6 +4,7 @@ import { isAdmin } from '@/lib/admin-guard';
 import { z } from 'zod';
 
 const requestType = z.enum(['contact', 'quote']);
+const deletableRequestType = z.enum(['contact', 'quote', 'download']);
 const requestStatus = z.enum(['neu', 'in_bearbeitung', 'kontaktiert', 'erledigt']);
 
 export async function GET() {
@@ -11,12 +12,13 @@ export async function GET() {
     return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
   }
 
-  const [contacts, quotes] = await Promise.all([
+  const [contacts, quotes, downloads] = await Promise.all([
     prisma.contactRequest.findMany({ orderBy: { createdAt: 'desc' } }),
     prisma.quoteRequest.findMany({ orderBy: { createdAt: 'desc' } }),
+    prisma.downloadLead.findMany({ orderBy: { createdAt: 'desc' } }),
   ]);
 
-  return NextResponse.json({ contacts, quotes });
+  return NextResponse.json({ contacts, quotes, downloads });
 }
 
 export async function PATCH(request: Request) {
@@ -46,7 +48,7 @@ export async function DELETE(request: Request) {
     return NextResponse.json({ error: 'Nicht autorisiert.' }, { status: 401 });
   }
 
-  const parsed = z.object({ id: z.string().min(1), type: requestType }).safeParse(await request.json());
+  const parsed = z.object({ id: z.string().min(1), type: deletableRequestType }).safeParse(await request.json());
   if (!parsed.success) {
     return NextResponse.json({ error: 'Ungültige Anfrage.' }, { status: 400 });
   }
@@ -56,6 +58,8 @@ export async function DELETE(request: Request) {
     await prisma.contactRequest.delete({ where: { id } });
   } else if (type === 'quote') {
     await prisma.quoteRequest.delete({ where: { id } });
+  } else if (type === 'download') {
+    await prisma.downloadLead.delete({ where: { id } });
   } else {
     return NextResponse.json({ error: 'Unbekannter Typ.' }, { status: 400 });
   }

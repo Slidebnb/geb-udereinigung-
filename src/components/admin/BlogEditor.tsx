@@ -22,9 +22,28 @@ export default function BlogEditor({ post }: { post: PostData }) {
   const [form, setForm] = useState(post);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [error, setError] = useState('');
 
   const update = (key: keyof PostData, value: string | boolean) => setForm((f) => ({ ...f, [key]: value }));
+
+  const uploadCoverImage = async (file: File | null) => {
+    if (!file) return;
+    setUploadingImage(true);
+    setError('');
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      const res = await fetch('/api/admin/blog/upload', { method: 'POST', body: formData });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Titelbild konnte nicht hochgeladen werden.');
+      update('coverImage', data.url);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Titelbild konnte nicht hochgeladen werden.');
+    } finally {
+      setUploadingImage(false);
+    }
+  };
 
   const save = async () => {
     if (!form.title || !form.content) {
@@ -87,9 +106,39 @@ export default function BlogEditor({ post }: { post: PostData }) {
               <label className="label">Slug (URL)</label>
               <input value={form.slug} onChange={(e) => update('slug', e.target.value)} className="input-field font-mono text-sm" />
             </div>
-            <div>
-              <label className="label">Titelbild-URL</label>
-              <input value={form.coverImage} onChange={(e) => update('coverImage', e.target.value)} className="input-field text-sm" placeholder="https://…" />
+            <div className="space-y-3">
+              <label className="label">Titelbild</label>
+              {form.coverImage ? (
+                <div className="overflow-hidden rounded-xl border border-gray-200 bg-gray-50">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={form.coverImage} alt="Aktuelles Titelbild" className="h-56 w-full object-cover" />
+                </div>
+              ) : (
+                <div className="flex h-40 items-center justify-center rounded-xl border border-dashed border-gray-300 bg-gray-50 text-sm text-gray-500">
+                  Noch kein Titelbild hinterlegt
+                </div>
+              )}
+              <div className="flex flex-wrap items-center gap-3">
+                <label className="inline-flex cursor-pointer items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-800">
+                  {uploadingImage ? 'Wird hochgeladen...' : 'Bild hochladen'}
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/webp,image/avif,image/gif"
+                    className="sr-only"
+                    disabled={uploadingImage}
+                    onChange={(e) => uploadCoverImage(e.target.files?.[0] || null)}
+                  />
+                </label>
+                {form.coverImage ? (
+                  <button type="button" onClick={() => update('coverImage', '')} className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50">
+                    Bild entfernen
+                  </button>
+                ) : null}
+              </div>
+              <div>
+                <label className="label">Bild-URL als Fallback</label>
+                <input value={form.coverImage} onChange={(e) => update('coverImage', e.target.value)} className="input-field text-sm" placeholder="https://..." />
+              </div>
             </div>
             <div>
               <label className="label">Kurzbeschreibung *</label>

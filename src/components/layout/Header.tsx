@@ -69,10 +69,10 @@ export default function Header({ settings = {}, reviewRating = null, reviewCount
       </div>
 
       {/* Main nav */}
-      <nav className="container mx-auto flex items-center justify-between py-3">
+      <nav className="container mx-auto flex items-center justify-between py-2.5">
         <Link href="/" className="flex items-center gap-3 group">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={siteConfig.logoPath} alt={companyName} className="h-14 w-auto rounded-md bg-[#071525] px-2.5 py-1.5 object-contain shadow-sm" />
+          <img src={siteConfig.logoPath} alt={companyName} className="h-16 lg:h-[68px] w-auto object-contain drop-shadow-sm" />
         </Link>
 
         {/* Desktop nav */}
@@ -83,16 +83,16 @@ export default function Header({ settings = {}, reviewRating = null, reviewCount
               Leistungen
               <svg className="w-4 h-4 group-hover:rotate-180 transition-transform duration-200" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"/></svg>
             </button>
-            <div className="absolute top-full left-0 bg-white shadow-card-hover rounded-2xl border border-gray-100/80 p-3 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
+            <div className="absolute top-full left-0 bg-white shadow-card-hover rounded-2xl border border-gray-100/80 p-4 w-[540px] max-w-[calc(100vw-2rem)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 mt-1">
               <Link href="/leistungen" className="flex items-center justify-between px-3 py-2.5 rounded-xl bg-gradient-brand text-white font-semibold text-sm mb-2">
                 Alle Leistungen
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7"/></svg>
               </Link>
-              <div className="grid grid-cols-2 gap-1">
+              <div className="grid grid-cols-2 gap-2">
                 {services.map(s => (
-                  <Link key={s.href} href={s.href} className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
-                    <span className="text-base">{s.icon}</span>
-                    <span className="font-medium">{s.name}</span>
+                  <Link key={s.href} href={s.href} className="grid min-h-[46px] grid-cols-[24px_minmax(0,1fr)] items-center gap-3 px-3 py-3 text-sm leading-snug text-gray-600 hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
+                    <span className="text-base leading-none">{s.icon}</span>
+                    <span className="font-medium whitespace-normal break-words">{s.name}</span>
                   </Link>
                 ))}
               </div>
