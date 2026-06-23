@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Calculator, CheckCircle2, ClipboardCheck, Refres
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import {
   buildPublicCalculatorSnapshot,
+  formatCalculatorValue,
   getCalculatorConfig,
   getCalculatorFieldIssues,
   getQuoteContext,
@@ -20,6 +21,18 @@ import type { ServiceKey } from '@/lib/operations-catalog';
 const euro = (value: number) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);
 
 type PublicEstimate = { min: number; max: number; period: string; summary?: string; snapshot?: string };
+type CalculatorTransfer = {
+  serviceKey: ServiceKey;
+  serviceTitle: string;
+  answers: CalculatorAnswers;
+  estimate: PublicEstimate | null;
+  publicSnapshot: string;
+  area: string;
+  frequency: string;
+  createdAt: string;
+};
+
+const CALCULATOR_TRANSFER_PREFIX = 'huwa:preisrechner:';
 
 export default function PriceCalculatorClient({ initialEstimate }: { initialEstimate: PublicEstimate | null }) {
   const [serviceKey, setServiceKey] = useState<ServiceKey>('unterhalt');
@@ -89,11 +102,13 @@ export default function PriceCalculatorClient({ initialEstimate }: { initialEsti
   const fields = config.fields.filter(field => field.group === step);
   const quoteHref = useMemo(() => {
     const quoteContext = getQuoteContext(serviceKey, answers);
+    const transferId = `${serviceKey}-${Date.now().toString(36)}`;
     const params = new URLSearchParams({
       service: config.title,
       source: 'preisrechner',
       calculatorServiceKey: serviceKey,
       calculatorPeriod: estimate?.period || config.resultPeriod,
+      calculatorTransferId: transferId,
     });
     if (quoteContext.area) params.set('area', quoteContext.area);
     if (quoteContext.frequency) params.set('frequency', quoteContext.frequency);
@@ -105,6 +120,33 @@ export default function PriceCalculatorClient({ initialEstimate }: { initialEsti
     }
     return `/angebot?${params.toString()}`;
   }, [answers, config.resultPeriod, config.title, estimate, serviceKey]);
+
+  const saveCalculatorTransfer = () => {
+    if (typeof window === 'undefined') return;
+    const url = new URL(quoteHref, window.location.origin);
+    const transferId = url.searchParams.get('calculatorTransferId');
+    if (!transferId) return;
+
+    const quoteContext = getQuoteContext(serviceKey, answers);
+    const fullPublicSnapshot = config.fields
+      .map(field => `${field.label}: ${formatCalculatorValue(field, answers[field.key] ?? '')}`)
+      .join(' | ');
+    const transfer: CalculatorTransfer = {
+      serviceKey,
+      serviceTitle: config.title,
+      answers,
+      estimate,
+      publicSnapshot: fullPublicSnapshot || estimate?.snapshot || buildPublicCalculatorSnapshot(serviceKey, answers),
+      area: quoteContext.area,
+      frequency: quoteContext.frequency,
+      createdAt: new Date().toISOString(),
+    };
+    try {
+      sessionStorage.setItem(`${CALCULATOR_TRANSFER_PREFIX}${transferId}`, JSON.stringify(transfer));
+    } catch {
+      // The URL still carries the essential fallback values if browser storage is unavailable.
+    }
+  };
 
   return (
     <>
@@ -189,7 +231,7 @@ export default function PriceCalculatorClient({ initialEstimate }: { initialEsti
                     Weiter <ArrowRight size={16} />
                   </button>
                 ) : (
-                  <Link className={`btn-primary rounded-lg ${!estimate ? 'pointer-events-none opacity-50' : ''}`} href={quoteHref}>
+                  <Link className={`btn-primary rounded-lg ${!estimate ? 'pointer-events-none opacity-50' : ''}`} href={quoteHref} onClick={saveCalculatorTransfer}>
                     Angebot anfragen <ArrowRight size={16} />
                   </Link>
                 )}
@@ -229,7 +271,7 @@ export default function PriceCalculatorClient({ initialEstimate }: { initialEsti
               <p className="mt-5 text-sm leading-6 text-slate-500">
                 Die Spanne ist unverbindlich bis zur Objektprüfung. Sie sehen hier nur den für Kunden relevanten Pauschalkorridor.
               </p>
-              <Link href={quoteHref} aria-disabled={!estimate} className={`btn-primary mt-7 w-full justify-center rounded-lg ${!estimate ? 'pointer-events-none opacity-50' : ''}`}>
+              <Link href={quoteHref} aria-disabled={!estimate} className={`btn-primary mt-7 w-full justify-center rounded-lg ${!estimate ? 'pointer-events-none opacity-50' : ''}`} onClick={saveCalculatorTransfer}>
                 Verbindliches Angebot anfragen <ArrowRight size={17} />
               </Link>
             </div>

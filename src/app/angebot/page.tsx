@@ -10,6 +10,8 @@ import { siteConfig } from '@/lib/site';
 import { whatsappUrl } from '@/lib/whatsapp';
 import { serviceCalculatorConfigs } from '@/lib/service-calculator-config';
 
+const CALCULATOR_TRANSFER_PREFIX = 'huwa:preisrechner:';
+
 const schema = z.object({
   name: z.string().min(2, 'Pflichtfeld'),
   email: z.string().email('Ungültige E-Mail'),
@@ -26,6 +28,13 @@ const schema = z.object({
 });
 
 type FormData = z.infer<typeof schema>;
+type CalculatorTransfer = {
+  serviceTitle?: string;
+  estimate?: { min: number; max: number; period: string; summary?: string; snapshot?: string } | null;
+  publicSnapshot?: string;
+  area?: string;
+  frequency?: string;
+};
 
 const services = [
   ...new Set([
@@ -41,7 +50,7 @@ export default function AngebotPage() {
   const [step, setStep] = useState(1);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
-  const [context, setContext] = useState<{ city?: string; source?: string; calculatorPeriod?: string; calculatorSummary?: string; calculatorSnapshot?: string }>({});
+  const [context, setContext] = useState<{ city?: string; source?: string; calculatorPeriod?: string; calculatorSummary?: string; calculatorSnapshot?: string; calculatorService?: string }>({});
 
   const { register, handleSubmit, watch, trigger, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -49,6 +58,8 @@ export default function AngebotPage() {
   });
 
   const selectedService = watch('service');
+  const selectedFrequency = watch('frequency');
+  const predefinedFrequencies = ['einmalig', 'woechentlich', 'zweimal-woechentlich', 'taeglich', 'monatlich', 'saisonal'];
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -62,21 +73,34 @@ export default function AngebotPage() {
     const calculatorPeriod = params.get('calculatorPeriod');
     const calculatorSummary = params.get('calculatorSummary');
     const calculatorSnapshot = params.get('calculatorSnapshot');
+    const calculatorTransferId = params.get('calculatorTransferId');
+    let transfer: CalculatorTransfer | null = null;
+
+    if (calculatorTransferId) {
+      try {
+        const raw = sessionStorage.getItem(`${CALCULATOR_TRANSFER_PREFIX}${calculatorTransferId}`);
+        transfer = raw ? JSON.parse(raw) as CalculatorTransfer : null;
+      } catch {
+        transfer = null;
+      }
+    }
 
     if (service && services.includes(service)) {
       setValue('service', service, { shouldDirty: true, shouldValidate: true });
+    } else if (transfer?.serviceTitle && services.includes(transfer.serviceTitle)) {
+      setValue('service', transfer.serviceTitle, { shouldDirty: true, shouldValidate: true });
     }
-    if (area) {
-      setValue('area', area, { shouldDirty: true });
+    if (transfer?.area || area) {
+      setValue('area', transfer?.area || area || '', { shouldDirty: true });
     }
-    if (frequency) {
-      setValue('frequency', frequency, { shouldDirty: true });
+    if (transfer?.frequency || frequency) {
+      setValue('frequency', transfer?.frequency || frequency || '', { shouldDirty: true });
     }
-    if (estimatedMin) {
-      setValue('estimatedMin', Number(estimatedMin));
+    if (transfer?.estimate?.min || estimatedMin) {
+      setValue('estimatedMin', Number(transfer?.estimate?.min ?? estimatedMin));
     }
-    if (estimatedMax) {
-      setValue('estimatedMax', Number(estimatedMax));
+    if (transfer?.estimate?.max || estimatedMax) {
+      setValue('estimatedMax', Number(transfer?.estimate?.max ?? estimatedMax));
     }
     if (city) {
       setContext(prev => ({ ...prev, city }));
@@ -84,12 +108,13 @@ export default function AngebotPage() {
     if (source) {
       setContext(prev => ({ ...prev, source }));
     }
-    if (calculatorPeriod || calculatorSummary || calculatorSnapshot) {
+    if (calculatorPeriod || calculatorSummary || calculatorSnapshot || transfer) {
       setContext(prev => ({
         ...prev,
-        calculatorPeriod: calculatorPeriod || undefined,
-        calculatorSummary: calculatorSummary || undefined,
-        calculatorSnapshot: calculatorSnapshot || undefined,
+        calculatorPeriod: transfer?.estimate?.period || calculatorPeriod || undefined,
+        calculatorSummary: transfer?.estimate?.summary || calculatorSummary || undefined,
+        calculatorSnapshot: transfer?.publicSnapshot || transfer?.estimate?.snapshot || calculatorSnapshot || undefined,
+        calculatorService: transfer?.serviceTitle || service || undefined,
       }));
     }
   }, [setValue]);
@@ -107,7 +132,7 @@ export default function AngebotPage() {
       context.source ? `Quelle: ${context.source}` : '',
       data.estimatedMin && data.estimatedMax ? `Preisrechner-Schätzung: ${data.estimatedMin}–${data.estimatedMax} EUR netto${context.calculatorPeriod ? ` pro ${context.calculatorPeriod}` : ''}` : '',
       context.calculatorSummary ? `Rechner-Grundlage: ${context.calculatorSummary}` : '',
-      context.calculatorSnapshot ? `Öffentliche Rechnerangaben: ${context.calculatorSnapshot}` : '',
+      context.calculatorSnapshot ? `Aus Preisrechner übernommen: ${context.calculatorSnapshot}` : '',
     ].filter(Boolean);
     const payload = {
       ...data,
@@ -238,6 +263,20 @@ export default function AngebotPage() {
                       Anfrage für Region: <span className="font-semibold text-primary">{context.city}</span>
                     </div>
                   )}
+                  {context.calculatorSnapshot && (
+                    <div className="rounded-xl bg-blue-50 border border-blue-100 px-4 py-4 text-sm text-slate-700">
+                      <div className="font-semibold text-blue-900">Aus dem Preisrechner übernommen</div>
+                      <p className="mt-2 leading-6">
+                        {context.calculatorService ? `${context.calculatorService}: ` : ''}
+                        {context.calculatorSnapshot}
+                      </p>
+                      {watch('estimatedMin') && watch('estimatedMax') ? (
+                        <p className="mt-2 text-xs font-semibold text-blue-800">
+                          Geschätzte Spanne: {watch('estimatedMin')} bis {watch('estimatedMax')} EUR netto{context.calculatorPeriod ? ` pro ${context.calculatorPeriod}` : ''}
+                        </p>
+                      ) : null}
+                    </div>
+                  )}
                   <div>
                     <label className="label">Fläche (ca. m²)</label>
                     <input {...register('area')} className="input-field" placeholder="z.B. 150 m²" />
@@ -246,6 +285,9 @@ export default function AngebotPage() {
                     <label className="label">Gewünschte Häufigkeit</label>
                     <select {...register('frequency')} className="input-field">
                       <option value="">Bitte wählen...</option>
+                      {selectedFrequency && !predefinedFrequencies.includes(selectedFrequency) ? (
+                        <option value={selectedFrequency}>{selectedFrequency}</option>
+                      ) : null}
                       <option value="einmalig">Einmalig</option>
                       <option value="woechentlich">Wöchentlich</option>
                       <option value="zweimal-woechentlich">2x wöchentlich</option>
