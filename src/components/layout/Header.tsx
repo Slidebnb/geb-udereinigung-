@@ -99,7 +99,7 @@ export default function Header({ settings = {}, reviewRating = null, reviewCount
             </div>
           </div>
 
-          {[['Über uns','/ueber-uns'],['Blog','/blog'],['FAQ','/faq'],['Saison 2026/27','/winterdienst-anmeldung-2026'],['Kontakt','/kontakt']].map(([label,href]) => (
+          {[['Über uns','/ueber-uns'],['Blog','/blog'],['FAQ','/faq'],['Saison 2026/27','/saison-2026-2027'],['Kontakt','/kontakt']].map(([label,href]) => (
             <Link key={href} href={href} className="font-semibold text-gray-700 hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-primary/5">
               {label}
             </Link>
@@ -140,7 +140,7 @@ export default function Header({ settings = {}, reviewRating = null, reviewCount
                 ))}
               </div>
             )}
-            {[['Über uns','/ueber-uns'],['Blog','/blog'],['FAQ','/faq'],['Winterdienst 2026/2027','/winterdienst-anmeldung-2026'],['Gartenpflege 2026/2027','/gartenpflege-anmeldung-2026'],['Kontakt','/kontakt'],['Preisrechner','/preisrechner']].map(([label,href]) => (
+            {[['Über uns','/ueber-uns'],['Blog','/blog'],['FAQ','/faq'],['Saison 2026/2027','/saison-2026-2027'],['Kontakt','/kontakt'],['Preisrechner','/preisrechner']].map(([label,href]) => (
               <Link key={href} href={href} className="block py-3 px-2 font-semibold text-gray-700 border-t border-gray-50 hover:text-primary transition-colors" onClick={() => setOpen(false)}>{label}</Link>
             ))}
             <div className="mt-4 px-2 flex flex-col gap-3">

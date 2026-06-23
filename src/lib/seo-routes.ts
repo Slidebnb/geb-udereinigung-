@@ -34,6 +34,7 @@ export const coreSeoRoutes: SeoRoute[] = [
   { path: '/kontakt', label: 'Kontakt', changeFrequency: 'monthly', priority: 0.75 },
   { path: '/preisrechner', label: 'Preisrechner', changeFrequency: 'weekly', priority: 0.85 },
   { path: '/gartenpflege', label: 'Gartenpflege', changeFrequency: 'monthly', priority: 0.75 },
+  { path: '/saison-2026-2027', label: 'Saison 2026/2027', changeFrequency: 'weekly', priority: 0.92 },
   { path: '/winterdienst-anmeldung-2026', label: 'Winterdienst 2026/2027', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/gartenpflege-anmeldung-2026', label: 'Gartenpflege 2026/2027', changeFrequency: 'weekly', priority: 0.9 },
   { path: '/checkliste', label: 'Haustechnik-Checkliste', changeFrequency: 'monthly', priority: 0.6 },
