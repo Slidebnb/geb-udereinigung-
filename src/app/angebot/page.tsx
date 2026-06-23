@@ -8,6 +8,7 @@ import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
 import { whatsappUrl } from '@/lib/whatsapp';
+import { serviceCalculatorConfigs } from '@/lib/service-calculator-config';
 
 const schema = z.object({
   name: z.string().min(2, 'Pflichtfeld'),
@@ -27,16 +28,20 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const services = [
-  'Gebäudereinigung', 'Büroreinigung', 'Treppenhausreinigung',
-  'Glasreinigung', 'Grundreinigung', 'Unterhaltsreinigung',
-  'Baureinigung', 'Hausmeisterdienste', 'Winterdienst', 'Gartenarbeiten', 'Mehrere Leistungen',
+  ...new Set([
+    'Gebäudereinigung',
+    ...serviceCalculatorConfigs.map(service => service.title),
+    'Hausmeisterdienste',
+    'Gartenarbeiten',
+    'Mehrere Leistungen',
+  ]),
 ];
 
 export default function AngebotPage() {
   const [step, setStep] = useState(1);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState('');
-  const [context, setContext] = useState<{ city?: string; source?: string }>({});
+  const [context, setContext] = useState<{ city?: string; source?: string; calculatorPeriod?: string; calculatorSummary?: string; calculatorSnapshot?: string }>({});
 
   const { register, handleSubmit, watch, trigger, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -54,6 +59,9 @@ export default function AngebotPage() {
     const frequency = params.get('frequency');
     const estimatedMin = params.get('estimatedMin');
     const estimatedMax = params.get('estimatedMax');
+    const calculatorPeriod = params.get('calculatorPeriod');
+    const calculatorSummary = params.get('calculatorSummary');
+    const calculatorSnapshot = params.get('calculatorSnapshot');
 
     if (service && services.includes(service)) {
       setValue('service', service, { shouldDirty: true, shouldValidate: true });
@@ -76,6 +84,14 @@ export default function AngebotPage() {
     if (source) {
       setContext(prev => ({ ...prev, source }));
     }
+    if (calculatorPeriod || calculatorSummary || calculatorSnapshot) {
+      setContext(prev => ({
+        ...prev,
+        calculatorPeriod: calculatorPeriod || undefined,
+        calculatorSummary: calculatorSummary || undefined,
+        calculatorSnapshot: calculatorSnapshot || undefined,
+      }));
+    }
   }, [setValue]);
 
   const nextStep = async () => {
@@ -89,7 +105,9 @@ export default function AngebotPage() {
     const contextLines = [
       context.city ? `Ort/Region: ${context.city}` : '',
       context.source ? `Quelle: ${context.source}` : '',
-      data.estimatedMin && data.estimatedMax ? `Preisrechner-Schätzung: ${data.estimatedMin}–${data.estimatedMax} EUR` : '',
+      data.estimatedMin && data.estimatedMax ? `Preisrechner-Schätzung: ${data.estimatedMin}–${data.estimatedMax} EUR netto${context.calculatorPeriod ? ` pro ${context.calculatorPeriod}` : ''}` : '',
+      context.calculatorSummary ? `Rechner-Grundlage: ${context.calculatorSummary}` : '',
+      context.calculatorSnapshot ? `Öffentliche Rechnerangaben: ${context.calculatorSnapshot}` : '',
     ].filter(Boolean);
     const payload = {
       ...data,

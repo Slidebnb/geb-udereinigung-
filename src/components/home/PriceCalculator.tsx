@@ -2,98 +2,64 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { quoteUrl } from '@/lib/quote-url';
+import { ArrowRight, Calculator, CheckCircle2 } from 'lucide-react';
+import { serviceCalculatorConfigs } from '@/lib/service-calculator-config';
 
-const services = [
-  { value: 'bueroeinigung', label: 'Büroreinigung', baseMin: 0.8, baseMax: 1.4 },
-  { value: 'treppenhausreinigung', label: 'Treppenhausreinigung', baseMin: 0.6, baseMax: 1.0 },
-  { value: 'gebaeudereinigung', label: 'Gebäudereinigung', baseMin: 0.9, baseMax: 1.6 },
-  { value: 'grundreinigung', label: 'Grundreinigung', baseMin: 1.5, baseMax: 2.8 },
-  { value: 'glasreinigung', label: 'Glasreinigung', baseMin: 3.0, baseMax: 6.0 },
-  { value: 'unterhaltsreinigung', label: 'Unterhaltsreinigung', baseMin: 0.7, baseMax: 1.2 },
-  { value: 'baureinigung', label: 'Baureinigung', baseMin: 1.8, baseMax: 3.5 },
-];
-
-const frequencies = [
-  { value: 'einmalig', label: 'Einmalig', discount: 1.0 },
-  { value: 'woechentlich', label: 'Wöchentlich', discount: 0.85 },
-  { value: 'zweimal', label: 'Zweimal pro Woche', discount: 0.8 },
-  { value: 'taeglich', label: 'Täglich', discount: 0.75 },
-];
+const featuredServices = serviceCalculatorConfigs.filter(service =>
+  ['unterhalt', 'buero', 'treppenhaus', 'glas', 'winter', 'garten'].includes(service.key)
+);
 
 export default function PriceCalculator() {
-  const [service, setService] = useState('bueroeinigung');
-  const [area, setArea] = useState(100);
-  const [frequency, setFrequency] = useState('woechentlich');
-  const [result, setResult] = useState<{ min: number; max: number } | null>(null);
-
-  const calculate = () => {
-    const s = services.find(x => x.value === service)!;
-    const f = frequencies.find(x => x.value === frequency)!;
-    setResult({
-      min: Math.round(s.baseMin * area * f.discount),
-      max: Math.round(s.baseMax * area * f.discount),
-    });
-  };
-  const selectedService = services.find(x => x.value === service) ?? services[0];
+  const [serviceKey, setServiceKey] = useState(featuredServices[0]?.key ?? 'unterhalt');
+  const selected = serviceCalculatorConfigs.find(service => service.key === serviceKey) ?? serviceCalculatorConfigs[0];
 
   return (
-    <section className="section-padding bg-primary">
+    <section className="section-padding bg-[#071f3b]">
       <div className="container mx-auto">
-        <div className="text-center mb-10">
-          <span className="badge bg-accent/20 text-accent mb-3">Preisrechner</span>
-          <h2 className="text-white mb-3">Was kostet meine Reinigung?</h2>
-          <p className="text-blue-200 max-w-xl mx-auto">
-            Berechnen Sie eine erste Preisschätzung. Das genaue Angebot erhalten Sie nach kostenloser Besichtigung.
-          </p>
-        </div>
-
-        <div className="max-w-3xl mx-auto bg-white rounded-2xl p-6 md:p-8 shadow-2xl">
-          <div className="grid md:grid-cols-3 gap-6 mb-6">
-            <div>
-              <label className="label">Leistung</label>
-              <select className="input-field" value={service} onChange={e => setService(e.target.value)}>
-                {services.map(s => <option key={s.value} value={s.value}>{s.label}</option>)}
-              </select>
+        <div className="max-w-5xl mx-auto grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-center">
+          <div>
+            <div className="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-white mb-5">
+              <Calculator size={22} />
             </div>
-            <div>
-              <label className="label">Fläche: {area} m²</label>
-              <input
-                type="range" min={20} max={2000} step={10}
-                value={area}
-                onChange={e => setArea(Number(e.target.value))}
-                className="w-full accent-primary mt-3"
-              />
-              <div className="flex justify-between text-xs text-gray-400 mt-1"><span>20 m²</span><span>2.000 m²</span></div>
-            </div>
-            <div>
-              <label className="label">Häufigkeit</label>
-              <select className="input-field" value={frequency} onChange={e => setFrequency(e.target.value)}>
-                {frequencies.map(f => <option key={f.value} value={f.value}>{f.label}</option>)}
-              </select>
+            <h2 className="text-white mb-4">Preis erst sauber einschätzen, dann Angebot anfragen</h2>
+            <p className="text-blue-100 leading-8">
+              Der Rechner nutzt je Dienstleistung eigene Fragen und zeigt nur eine unverbindliche Pauschalspanne bis zur Objektprüfung.
+            </p>
+            <div className="mt-6 grid gap-3 text-sm text-blue-100">
+              {['Dienstleistungsspezifische Angaben', 'Keine erfundenen Pauschalpreise', 'Anfrage übernimmt die Rechnerdaten'].map(item => (
+                <span key={item} className="flex items-center gap-2">
+                  <CheckCircle2 size={17} className="text-emerald-400 shrink-0" />
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
 
-          <button onClick={calculate} className="w-full btn-primary justify-center py-4 text-base mb-6">
-            Preis berechnen
-          </button>
-
-          {result && (
-            <div className="bg-primary-50 border border-primary-200 rounded-xl p-6 text-center">
-              <p className="text-gray-600 mb-2">Geschätzter Preis pro Reinigung:</p>
-              <p className="text-4xl font-bold text-primary mb-1">
-                {result.min}€ – {result.max}€
-              </p>
-              <p className="text-xs text-gray-500 mb-4">Alle Preise netto zzgl. MwSt. Richtwert ohne Verbindlichkeit.</p>
-              <Link href={quoteUrl({ service: selectedService.label, source: 'price-calculator' })} className="btn-primary">Verbindliches Angebot anfragen</Link>
+          <div className="bg-white rounded-lg p-6 md:p-8 shadow-2xl">
+            <label className="label">Welche Leistung möchten Sie einschätzen?</label>
+            <div className="mt-4 grid sm:grid-cols-2 gap-3">
+              {featuredServices.map(service => (
+                <button
+                  key={service.key}
+                  type="button"
+                  onClick={() => setServiceKey(service.key)}
+                  className={`text-left rounded-lg border p-4 transition-colors ${serviceKey === service.key ? 'border-primary bg-primary-50 text-primary' : 'border-gray-200 hover:border-primary-200 text-gray-700'}`}
+                >
+                  <span className="block text-sm font-semibold">{service.title}</span>
+                  <span className="mt-1 block text-xs text-gray-500">{service.resultPeriod}</span>
+                </button>
+              ))}
             </div>
-          )}
 
-          {!result && (
-            <p className="text-center text-sm text-gray-500">
-              ℹ️ Diese Berechnung dient als erste Orientierung. Das genaue Angebot erhalten Sie nach kostenloser Beratung.
-            </p>
-          )}
+            <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-5">
+              <strong className="text-sm text-slate-900">{selected.title}</strong>
+              <p className="mt-2 text-sm leading-6 text-slate-600">{selected.intro}</p>
+            </div>
+
+            <Link href={`/preisrechner?serviceKey=${selected.key}`} className="btn-primary mt-6 w-full justify-center py-4">
+              Richtwert berechnen <ArrowRight size={18} />
+            </Link>
+          </div>
         </div>
       </div>
     </section>
