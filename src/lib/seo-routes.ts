@@ -40,6 +40,7 @@ export const coreSeoRoutes: SeoRoute[] = [
   { path: '/angebot', label: 'Angebot anfragen', changeFrequency: 'monthly', priority: 0.85 },
   { path: '/kontakt', label: 'Kontakt', changeFrequency: 'monthly', priority: 0.75 },
   { path: '/preisrechner', label: 'Preisrechner', changeFrequency: 'weekly', priority: 0.85 },
+  { path: '/leistungsuebersicht-download', label: 'Leistungsübersicht PDF', changeFrequency: 'monthly', priority: 0.72 },
   { path: '/gartenpflege', label: 'Gartenpflege', changeFrequency: 'monthly', priority: 0.75 },
   { path: '/saison-2026-2027', label: 'Saison 2026/2027', changeFrequency: 'weekly', priority: 0.92 },
   { path: '/winterdienst-anmeldung-2026', label: 'Winterdienst 2026/2027', changeFrequency: 'weekly', priority: 0.9 },

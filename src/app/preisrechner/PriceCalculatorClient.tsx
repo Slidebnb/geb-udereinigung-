@@ -271,6 +271,9 @@ export default function PriceCalculatorClient({ initialEstimate }: { initialEsti
               <p className="mt-5 text-sm leading-6 text-slate-500">
                 Die Spanne ist unverbindlich bis zur Objektprüfung. Sie sehen hier nur den für Kunden relevanten Pauschalkorridor.
               </p>
+              <Link href="/leistungsuebersicht-download" className="mt-4 block text-sm font-semibold text-blue-700 hover:underline">
+                Leistungsübersicht als PDF herunterladen
+              </Link>
               <Link href={quoteHref} aria-disabled={!estimate} className={`btn-primary mt-7 w-full justify-center rounded-lg ${!estimate ? 'pointer-events-none opacity-50' : ''}`} onClick={saveCalculatorTransfer}>
                 Verbindliches Angebot anfragen <ArrowRight size={17} />
               </Link>

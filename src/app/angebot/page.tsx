@@ -214,6 +214,10 @@ export default function AngebotPage() {
               <Link href="/preisrechner" className="text-primary font-semibold hover:underline">
                 Zum Preisrechner →
               </Link>
+              <span className="mx-2 text-gray-300">|</span>
+              <Link href="/leistungsuebersicht-download" className="text-primary font-semibold hover:underline">
+                Leistungsübersicht PDF
+              </Link>
             </p>
           </div>
 

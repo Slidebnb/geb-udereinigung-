@@ -64,6 +64,20 @@ export default function LeistungenPage() {
         </div>
       </section>
 
+      <section className="py-12 bg-slate-50 border-y border-slate-100">
+        <div className="container mx-auto grid md:grid-cols-[1fr_auto] gap-5 items-center">
+          <div>
+            <h2 className="!text-2xl !tracking-normal">Alle Leistungsbereiche als PDF</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600">
+              Laden Sie unsere kompakte Leistungsübersicht für Gebäudereinigung, Hausmeisterservice, Gartenpflege, Winterdienst und Objektbetreuung herunter.
+            </p>
+          </div>
+          <Link href="/leistungsuebersicht-download" className="btn-primary justify-center whitespace-nowrap">
+            Leistungsübersicht herunterladen
+          </Link>
+        </div>
+      </section>
+
       <CTABanner />
     </>
   );

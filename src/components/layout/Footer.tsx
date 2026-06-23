@@ -83,6 +83,7 @@ export default async function Footer() {
               ['Seitenübersicht',  '/sitemap'],
               ['FAQ',              '/faq'],
               ['Preisrechner',      '/preisrechner'],
+              ['Leistungsübersicht PDF', '/leistungsuebersicht-download'],
               ['Kontakt',          '/kontakt'],
               ['Angebot anfragen', '/angebot'],
               ['Impressum',        '/impressum'],
