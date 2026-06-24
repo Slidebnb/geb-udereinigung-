@@ -26,6 +26,26 @@ const checklists: Record<string, { title: string; intro: string; groups: { title
     { title: 'Sommer', items: ['Mähintervalle an Wachstum anpassen', 'Hecken- und Artenschutzzeiten beachten', 'Unkraut, Bewässerung und Verkehrssicherheit prüfen'] },
     { title: 'Herbst', items: ['Laubmanagement abstimmen', 'Letzten Schnitt und Rückschnitt planen', 'Flächen und Geräte winterfest vorbereiten'] },
   ] },
+  lv_treppenhausreinigung: { title: 'Leistungsverzeichnis Treppenhausreinigung', intro: 'Vorlage fuer Hausverwaltungen, WEGs und Vermieter zur klaren Leistungsbeschreibung.', groups: [
+    { title: 'Objektangaben', items: ['Objektadresse, Ansprechpartner und Zugangsdaten erfassen', 'Anzahl Eingaenge, Etagen, Aufzuege und Nebenflaechen festhalten', 'Leistungszeiten und Sperrzeiten abstimmen'] },
+    { title: 'Regelleistungen', items: ['Treppenlaeufe, Podeste und Eingangsbereiche reinigen', 'Handlaeufe, Gelaender und Griffbereiche reinigen', 'Keller, Gemeinschaftsflaechen und Aufzug nach Vereinbarung aufnehmen'] },
+    { title: 'Intervall und Nachweis', items: ['Reinigungsintervall eindeutig festlegen', 'Sonderleistungen separat benennen', 'Qualitaetskontrolle und Ansprechpartner dokumentieren'] },
+  ] },
+  winterdienst_dokumentation: { title: 'Winterdienst-Dokumentation', intro: 'Einsatznachweis fuer Raeum- und Streudienst in der Saison 2026/2027.', groups: [
+    { title: 'Einsatzdaten', items: ['Datum, Uhrzeit, Wetter und Temperatur dokumentieren', 'Kontrollfahrt, Raeumung oder Streueinsatz markieren', 'Beteiligte Person oder Team festhalten'] },
+    { title: 'Flaechen und Material', items: ['Gehwege, Zufahrten, Eingaenge und Parkflaechen benennen', 'Streumittelart und ungefaehre Menge erfassen', 'Nicht erreichbare Bereiche oder Hindernisse dokumentieren'] },
+    { title: 'Nachweis', items: ['Fotos bei Besonderheiten erstellen', 'Folgeeinsatz oder Nachkontrolle notieren', 'Unterschrift oder Freigabe einholen'] },
+  ] },
+  objektuebergabe_checkliste: { title: 'Objektuebergabe Checkliste', intro: 'Objektstart sauber vorbereiten: Zustaende, Zugaenge und offene Punkte erfassen.', groups: [
+    { title: 'Stammdaten', items: ['Ansprechpartner, Telefonnummern und E-Mail-Adressen bestaetigen', 'Objektbereiche, Flaechen und Sonderbereiche abgleichen', 'Reinigungs- oder Betreuungsstart festlegen'] },
+    { title: 'Zugang und Zustand', items: ['Schluessel, Transponder, Codes und Alarmhinweise dokumentieren', 'Vorschaeden und sichtbare Maengel fotografieren', 'Wasser, Strom, Lagerort und Entsorgungspunkte zeigen'] },
+    { title: 'Freigabe', items: ['Leistungsverzeichnis gemeinsam pruefen', 'Offene Punkte mit Verantwortlichkeit notieren', 'Erste Qualitaetskontrolle terminieren'] },
+  ] },
+  reinigungsplan_buero: { title: 'Reinigungsplan Buero', intro: 'Raeume, Aufgaben und Intervalle fuer eine klare Bueroreinigung festlegen.', groups: [
+    { title: 'Raeume und Bereiche', items: ['Arbeitsplaetze, Flure und Besprechungsraeume erfassen', 'Sanitaerbereiche und Teekuechen gesondert aufnehmen', 'Abfallstellen und Verbrauchsmaterial festlegen'] },
+    { title: 'Intervalle', items: ['Taegliche, woechentliche und monatliche Aufgaben trennen', 'Reinigungszeiten ausserhalb des Betriebs abstimmen', 'Periodische Sonderarbeiten separat markieren'] },
+    { title: 'Qualitaet', items: ['Meldeweg fuer Rueckfragen festlegen', 'Kontrollpunkte fuer Sichtpruefung definieren', 'Anpassungen im laufenden Betrieb dokumentieren'] },
+  ] },
 };
 
 export async function createChecklistPdf(key: string) {

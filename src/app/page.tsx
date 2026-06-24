@@ -15,6 +15,7 @@ import type { WhyUsData } from '@/components/home/WhyUs';
 import type { CTAData } from '@/components/home/CTABanner';
 import { quoteUrl } from '@/lib/quote-url';
 import { parseTrustedClients } from '@/lib/trusted-clients';
+import CallbackForm from '@/components/lead/CallbackForm';
 
 export const revalidate = 60;
 
@@ -247,6 +248,17 @@ export default async function HomePage() {
             <Link href="/leistungsuebersicht-download" className="btn-primary whitespace-nowrap justify-center">Leistungsübersicht PDF</Link>
             <Link href="/checkliste" className="btn-outline whitespace-nowrap justify-center">Checklisten</Link>
           </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-white">
+        <div className="container mx-auto grid gap-8 lg:grid-cols-[1fr_430px] lg:items-center">
+          <div>
+            <div className="section-label">Schnelle Rueckmeldung</div>
+            <h2 className="mt-4 mb-4">Lieber kurz telefonieren?</h2>
+            <p className="max-w-2xl text-gray-500 leading-7">Wenn Sie noch nicht wissen, welches Formular passt, reicht ein Rueckrufwunsch. Wir klaeren Leistung, Objekt und naechsten Schritt persoenlich.</p>
+          </div>
+          <CallbackForm source="startseite" compact />
         </div>
       </section>
 

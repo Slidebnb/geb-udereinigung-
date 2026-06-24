@@ -10,6 +10,7 @@ import {
   localServices,
 } from '@/lib/seo-routes';
 import { siteConfig } from '@/lib/site';
+import { getLocationHub } from '@/lib/growth-content';
 
 type Params = Promise<{ cityService: string }>;
 
@@ -84,6 +85,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
   if (!route || !generatedCityRoutes.some((item) => item.path === `/${cityService}`)) notFound();
 
   const copy = serviceCopy[route.service.key];
+  const locationHub = getLocationHub(route.city.slug);
   const offerHref = `/angebot?service=${encodeURIComponent(route.service.offerValue)}&city=${encodeURIComponent(route.city.name)}&source=regional-page`;
   const faqs = [
     {
@@ -225,6 +227,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
         <div className="container mx-auto">
           <h2 className="text-xl mb-5">Weitere Leistungen in {route.city.name}</h2>
           <div className="flex flex-wrap gap-3">{related.map((item) => <Link key={item.href} href={item.href} className="btn-outline text-sm">{item.label}</Link>)}</div>
+          {locationHub ? <Link href={locationHub.path} className="mt-5 inline-flex text-sm font-semibold text-primary hover:underline">Alle GebÃ¤udedienste in {route.city.name} ansehen</Link> : null}
         </div>
       </section>
 

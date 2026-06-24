@@ -9,6 +9,7 @@ import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
 import { whatsappUrl } from '@/lib/whatsapp';
 import { serviceCalculatorConfigs } from '@/lib/service-calculator-config';
+import CallbackForm from '@/components/lead/CallbackForm';
 
 const CALCULATOR_TRANSFER_PREFIX = 'huwa:preisrechner:';
 
@@ -378,6 +379,10 @@ export default function AngebotPage() {
               )}
             </div>
           </form>
+
+          <div className="mt-8">
+            <CallbackForm source="angebot" compact defaultService={selectedService || ''} />
+          </div>
 
           <div className="mt-6 text-center text-sm text-gray-500">
             🔒 Ihre Daten werden vertraulich behandelt. Kein Spam, kein Verkauf Ihrer Daten.

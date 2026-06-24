@@ -17,6 +17,7 @@ import {
   type CalculatorValue,
 } from '@/lib/service-calculator-config';
 import type { ServiceKey } from '@/lib/operations-catalog';
+import CallbackForm from '@/components/lead/CallbackForm';
 
 const euro = (value: number) => new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(value);
 
@@ -277,6 +278,9 @@ export default function PriceCalculatorClient({ initialEstimate }: { initialEsti
               <Link href={quoteHref} aria-disabled={!estimate} className={`btn-primary mt-7 w-full justify-center rounded-lg ${!estimate ? 'pointer-events-none opacity-50' : ''}`} onClick={saveCalculatorTransfer}>
                 Verbindliches Angebot anfragen <ArrowRight size={17} />
               </Link>
+              <div className="mt-5">
+                <CallbackForm source="preisrechner" compact defaultService={config.title} />
+              </div>
             </div>
             <div className="px-6 md:px-8 py-5 bg-slate-50 border-t border-slate-200 space-y-3 text-xs leading-5 text-slate-500">
               <span className="flex gap-2"><CheckCircle2 size={16} className="text-emerald-600 shrink-0" /> {config.trustNote}</span>

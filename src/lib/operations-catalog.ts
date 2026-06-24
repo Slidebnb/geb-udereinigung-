@@ -56,6 +56,30 @@ export const publicDownloadCatalog = [
     description: 'Die wichtigsten Pflegearbeiten von März bis November planen.',
     href: '/downloads/gartenpflege-checkliste.html',
   },
+  {
+    key: 'lv_treppenhausreinigung',
+    title: 'Leistungsverzeichnis Treppenhausreinigung',
+    description: 'Leistungsumfang, Intervalle und Nebenflaechen fuer Hausverwaltungen und WEGs sauber festhalten.',
+    href: '/leistungsverzeichnis-treppenhausreinigung-vorlage',
+  },
+  {
+    key: 'winterdienst_dokumentation',
+    title: 'Winterdienst-Dokumentation',
+    description: 'Einsatz, Wetter, Flaechen, Streumittel und Besonderheiten nachvollziehbar dokumentieren.',
+    href: '/winterdienst-dokumentation-vorlage',
+  },
+  {
+    key: 'objektuebergabe_checkliste',
+    title: 'Objektuebergabe-Checkliste',
+    description: 'Zugaenge, Schluessel, Ansprechpartner, Zustaende und offene Punkte beim Objektstart erfassen.',
+    href: '/objektuebergabe-checkliste-pdf',
+  },
+  {
+    key: 'reinigungsplan_buero',
+    title: 'Reinigungsplan Buero',
+    description: 'Raeume, Aufgaben, Intervalle und Qualitaetskontrollen fuer die Bueroreinigung planen.',
+    href: '/reinigungsplan-buero-vorlage',
+  },
 ] as const;
 
 export const communicationTemplates = [

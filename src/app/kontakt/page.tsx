@@ -8,6 +8,7 @@ import { z } from 'zod';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { siteConfig } from '@/lib/site';
 import { WHATSAPP_DISPLAY, whatsappUrl } from '@/lib/whatsapp';
+import CallbackForm from '@/components/lead/CallbackForm';
 
 const schema = z.object({
   name:    z.string().min(2, 'Bitte geben Sie Ihren Namen ein'),
@@ -107,6 +108,7 @@ export default function KontaktPage() {
                 <div className="text-gray-500 text-xs">{WHATSAPP_DISPLAY} · schnelle Rückmeldung im Tagesgeschäft</div>
               </div>
             </a>
+            <CallbackForm source="kontakt-sidebar" compact />
           </div>
 
           {/* Form */}

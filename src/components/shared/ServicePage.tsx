@@ -20,6 +20,7 @@ interface ServicePageProps {
 
 export default async function ServicePage({ icon, title, subtitle, description, benefits, features, faq, breadcrumb, schema, cityLinks }: ServicePageProps) {
   const offerHref = quoteUrl({ service: title, source: 'service-page' });
+  const relatedCostHref = title.includes('Treppenhaus') ? '/treppenhausreinigung-kosten' : title.includes('BÃ¼ro') ? '/bueroeinigung-kosten' : title.includes('Glas') ? '/glasreinigung-kosten' : title.includes('Winter') ? '/winterdienst-kosten' : '/gebaeudereinigung-kosten';
   const latestReview = await prisma.testimonial.findFirst({
     where: { published: true },
     orderBy: { createdAt: 'desc' },
@@ -97,6 +98,15 @@ export default async function ServicePage({ icon, title, subtitle, description, 
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
                 {siteConfig.phone}
               </a>
+            </div>
+
+            <div className="card p-6">
+              <h3 className="mb-4 text-lg">Weitere Entscheidungshilfen</h3>
+              <div className="space-y-3">
+                <Link href={relatedCostHref} className="block rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-primary/30 hover:text-primary">Kosten & Preisfaktoren</Link>
+                <Link href="/fallstudien" className="block rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-primary/30 hover:text-primary">Anonyme Fallstudien</Link>
+                <Link href="/leistungsverzeichnis-treppenhausreinigung-vorlage" className="block rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition-colors hover:border-primary/30 hover:text-primary">Vorlagen & Checklisten</Link>
+              </div>
             </div>
 
             {latestReview ? <div className="card p-6">

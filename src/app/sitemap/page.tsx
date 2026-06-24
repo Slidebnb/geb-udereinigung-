@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { prisma } from '@/lib/prisma';
-import { citySeoRoutes, coreSeoRoutes, serviceSeoRoutes } from '@/lib/seo-routes';
+import { caseStudySeoRoutes, citySeoRoutes, coreSeoRoutes, costSeoRoutes, downloadSeoRoutes, locationHubSeoRoutes, serviceSeoRoutes } from '@/lib/seo-routes';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -29,6 +29,10 @@ export default async function HtmlSitemapPage() {
   const groups = [
     { title: 'Unternehmen & Kontakt', routes: coreSeoRoutes.filter((route) => route.path !== '/sitemap') },
     { title: 'Leistungen', routes: serviceSeoRoutes },
+    { title: 'Kosten & Preisinfos', routes: costSeoRoutes },
+    { title: 'Kostenlose Vorlagen', routes: downloadSeoRoutes },
+    { title: 'Standorte', routes: locationHubSeoRoutes },
+    { title: 'Fallstudien', routes: caseStudySeoRoutes },
     { title: 'Leistungen nach Einsatzort', routes: citySeoRoutes },
   ];
 
