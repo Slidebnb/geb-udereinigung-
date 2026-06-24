@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import BlogContentPreview from '@/components/admin/BlogContentPreview';
 
 interface PostData {
   id: string;
@@ -20,12 +21,13 @@ interface PostData {
 export default function BlogEditor({ post }: { post: PostData }) {
   const router = useRouter();
   const [form, setForm] = useState(post);
+  const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit');
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [error, setError] = useState('');
 
-  const update = (key: keyof PostData, value: string | boolean) => setForm((f) => ({ ...f, [key]: value }));
+  const update = (key: keyof PostData, value: string | boolean) => setForm((current) => ({ ...current, [key]: value }));
 
   const uploadCoverImage = async (file: File | null) => {
     if (!file) return;
@@ -91,7 +93,7 @@ export default function BlogEditor({ post }: { post: PostData }) {
         <button onClick={() => router.back()} className="text-gray-500 hover:text-gray-800 transition-colors">← Zurück</button>
         <h1 className="text-2xl font-bold text-gray-800">Artikel bearbeiten</h1>
         <button onClick={remove} disabled={deleting} className="ml-auto text-sm text-red-600 hover:text-red-800 disabled:opacity-50">
-          {deleting ? 'Wird gelöscht…' : '🗑 Löschen'}
+          {deleting ? 'Wird gelöscht...' : 'Löschen'}
         </button>
       </div>
 
@@ -145,8 +147,21 @@ export default function BlogEditor({ post }: { post: PostData }) {
               <textarea value={form.excerpt} onChange={(e) => update('excerpt', e.target.value)} rows={3} className="input-field resize-none" />
             </div>
             <div>
-              <label className="label">Inhalt * (Markdown)</label>
-              <textarea value={form.content} onChange={(e) => update('content', e.target.value)} rows={20} className="input-field resize-none font-mono text-sm" />
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                <div>
+                  <label className="label mb-0">Artikelinhalt *</label>
+                  <p className="text-xs text-slate-500">Markdown verwenden: ## Überschrift, - Liste, [Linktext](/angebot). HTML wird beim Speichern automatisch bereinigt.</p>
+                </div>
+                <div className="admin-tabs mb-0">
+                  <button type="button" className={activeTab === 'edit' ? 'active' : ''} onClick={() => setActiveTab('edit')}>Bearbeiten</button>
+                  <button type="button" className={activeTab === 'preview' ? 'active' : ''} onClick={() => setActiveTab('preview')}>Vorschau</button>
+                </div>
+              </div>
+              {activeTab === 'edit' ? (
+                <textarea value={form.content} onChange={(e) => update('content', e.target.value)} rows={22} className="input-field resize-none font-mono text-sm" />
+              ) : (
+                <BlogContentPreview content={form.content} />
+              )}
             </div>
           </div>
         </div>
@@ -157,8 +172,8 @@ export default function BlogEditor({ post }: { post: PostData }) {
             <div>
               <label className="label">Kategorie</label>
               <select value={form.category} onChange={(e) => update('category', e.target.value)} className="input-field">
-                {['Reinigungswissen', 'Büroreinigung', 'Winterdienst', 'Hausmeister', 'Tipps & Tricks', 'Ratgeber', 'Reinigung'].map((c) => (
-                  <option key={c} value={c}>{c}</option>
+                {['Reinigungswissen', 'Büroreinigung', 'Winterdienst', 'Hausmeister', 'Tipps & Tricks', 'Ratgeber', 'Reinigung'].map((category) => (
+                  <option key={category} value={category}>{category}</option>
                 ))}
               </select>
             </div>
@@ -179,17 +194,19 @@ export default function BlogEditor({ post }: { post: PostData }) {
             <div>
               <label className="label">Meta-Titel</label>
               <input value={form.metaTitle} onChange={(e) => update('metaTitle', e.target.value)} className="input-field text-sm" />
+              <p className="text-xs text-gray-400 mt-1">{form.metaTitle.length}/60 Zeichen</p>
             </div>
             <div>
               <label className="label">Meta-Beschreibung</label>
               <textarea value={form.metaDesc} onChange={(e) => update('metaDesc', e.target.value)} rows={3} className="input-field resize-none text-sm" />
+              <p className="text-xs text-gray-400 mt-1">{form.metaDesc.length}/160 Zeichen</p>
             </div>
           </div>
 
-          {error && <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div>}
+          {error ? <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">{error}</div> : null}
 
           <button onClick={save} disabled={saving} className="btn-primary w-full justify-center py-3 disabled:opacity-50">
-            {saving ? 'Wird gespeichert…' : '✓ Änderungen speichern'}
+            {saving ? 'Wird gespeichert...' : 'Änderungen speichern'}
           </button>
         </div>
       </div>

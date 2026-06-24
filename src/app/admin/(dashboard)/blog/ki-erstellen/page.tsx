@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import BlogContentPreview from '@/components/admin/BlogContentPreview';
 
 const LEISTUNGEN = [
   'Gebäudereinigung',
@@ -401,7 +402,7 @@ export default function KiBlogPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1.5">Inhalt (HTML)</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1.5">Inhalt (Markdown, kein HTML)</label>
                 <textarea
                   value={article.content}
                   onChange={e => setArticle(prev => ({ ...prev, content: e.target.value }))}
@@ -410,6 +411,8 @@ export default function KiBlogPage() {
                   disabled={state === 'saving'}
                 />
               </div>
+
+              <BlogContentPreview content={article.content} />
 
               {article.coverImageSuggestion && (
                 <div className="bg-gray-50 rounded-lg px-4 py-3">

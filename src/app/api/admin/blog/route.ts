@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { isAdmin } from '@/lib/admin-guard';
 import { blogPostSchema } from '@/lib/validations';
+import { normalizeBlogContent } from '@/lib/blog-content';
 
 export async function GET() {
   if (!(await isAdmin())) {
@@ -31,7 +32,7 @@ export async function POST(request: Request) {
       title: parsed.data.title,
       slug: parsed.data.slug,
       excerpt: parsed.data.excerpt,
-      content: parsed.data.content,
+      content: normalizeBlogContent(parsed.data.content),
       coverImage: parsed.data.coverImage || null,
       author: parsed.data.author || 'Huwa Team',
       category: parsed.data.category || 'Reinigung',
@@ -62,7 +63,7 @@ export async function PUT(request: Request) {
       title: parsed.data.title,
       slug: parsed.data.slug,
       excerpt: parsed.data.excerpt,
-      content: parsed.data.content,
+      content: normalizeBlogContent(parsed.data.content),
       coverImage: parsed.data.coverImage || null,
       author: parsed.data.author || 'Huwa Team',
       category: parsed.data.category || 'Reinigung',

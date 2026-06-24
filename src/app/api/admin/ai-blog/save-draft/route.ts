@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { isAdmin } from '@/lib/admin-guard';
+import { normalizeBlogContent } from '@/lib/blog-content';
 
 export async function POST(req: Request) {
   if (!(await isAdmin())) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -26,7 +27,7 @@ export async function POST(req: Request) {
         title,
         slug,
         excerpt,
-        content,
+        content: normalizeBlogContent(content || ''),
         metaTitle: metaTitle || title,
         metaDesc: metaDesc || excerpt,
         category: category || 'Ratgeber',

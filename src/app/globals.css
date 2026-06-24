@@ -98,6 +98,51 @@
     background: linear-gradient(90deg, transparent, #1E5FD8 30%, #059669 70%, transparent);
   }
   .prose-content { @apply leading-relaxed; }
+  .blog-article-shell { background: linear-gradient(180deg, #f4f8ff 0%, #ffffff 440px); }
+  .blog-hero { @apply border-b border-slate-200/80 py-10 md:py-14; }
+  .blog-hero h1 { @apply max-w-4xl text-slate-950; }
+  .blog-hero-lead { @apply mt-5 max-w-3xl text-lg leading-8 text-slate-600; }
+  .blog-meta { @apply mt-6 flex flex-wrap items-center gap-3 text-sm text-slate-500; }
+  .blog-cover { @apply mt-10 overflow-hidden rounded-[28px] border border-slate-200 bg-slate-100 shadow-[0_24px_80px_rgba(15,34,64,0.14)]; }
+  .blog-cover img { @apply h-[300px] w-full object-cover md:h-[460px]; }
+  .blog-layout { @apply grid gap-10 lg:grid-cols-[minmax(0,760px)_300px] lg:items-start lg:justify-center; }
+  .blog-article-card { @apply rounded-[28px] border border-slate-200 bg-white p-6 shadow-[0_18px_70px_rgba(15,34,64,0.08)] md:p-10; }
+  .blog-sidebar { @apply hidden lg:grid sticky top-28 gap-4; }
+  .blog-side-card { @apply rounded-2xl border border-slate-200 bg-white p-5 shadow-sm; }
+  .blog-side-card h2 { @apply text-base text-slate-950; }
+  .blog-side-card p { @apply mt-2 text-sm leading-6 text-slate-600; }
+  .prose-content h2 { @apply mb-4 mt-12 border-t border-slate-200 pt-9 text-2xl font-bold leading-tight text-slate-950 md:text-3xl; }
+  .prose-content h2:first-child { @apply mt-0 border-t-0 pt-0; }
+  .prose-content h3 { @apply mb-3 mt-8 text-xl font-bold leading-tight text-slate-900 md:text-2xl; }
+  .prose-content h4 { @apply mb-2 mt-6 text-lg font-bold leading-tight text-slate-800; }
+  .prose-content p { @apply mb-6 text-[17px] leading-8; color: #475569; }
+  .prose-content a { @apply font-semibold text-primary underline decoration-primary/25 underline-offset-4 transition-colors hover:text-green hover:decoration-green/40; }
+  .prose-content strong { @apply font-bold text-slate-950; }
+  .prose-content em { @apply text-slate-700; }
+  .prose-content blockquote { @apply my-8 rounded-2xl border-l-4 border-primary bg-primary-50 px-6 py-5 text-lg font-semibold leading-8 text-slate-800; }
+  .prose-content .blog-list, .prose-content .blog-ordered-list { @apply mb-7 grid gap-3 pl-6 text-[17px] leading-8 text-slate-700; }
+  .prose-content .blog-list { @apply list-disc; }
+  .prose-content .blog-ordered-list { @apply list-decimal; }
+  .blog-inline-cta { @apply my-10 rounded-3xl bg-slate-950 p-7 text-white shadow-[0_20px_60px_rgba(15,23,42,0.22)]; }
+  .blog-inline-cta h2 { @apply m-0 border-0 p-0 text-2xl text-white; }
+  .blog-inline-cta p { @apply mb-5 mt-3 text-base leading-7 text-slate-300; }
+  .blog-card-grid { @apply grid gap-6 md:grid-cols-2 lg:grid-cols-3; }
+  .blog-card { @apply overflow-hidden rounded-[24px] border border-slate-200 bg-white shadow-[0_10px_34px_rgba(15,34,64,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_50px_rgba(15,34,64,0.14)]; }
+  .blog-card-image { @apply relative h-52 overflow-hidden bg-gradient-to-br from-primary-50 via-white to-green/10; }
+  .blog-card-image img { @apply h-full w-full object-cover transition-transform duration-500; }
+  .blog-card:hover .blog-card-image img { transform: scale(1.05); }
+  .blog-card:hover h3 { color: #1E5FD8; }
+  .blog-card-body { @apply p-6; }
+  .blog-admin-preview { overflow: hidden; border: 1px solid #dbe4ed; border-radius: 12px; background: #e8eef5; }
+  .blog-admin-preview-toolbar { min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 16px; border-bottom: 1px solid #dbe4ed; background: white; }
+  .blog-admin-preview-toolbar strong, .blog-admin-preview-toolbar span { display: block; }
+  .blog-admin-preview-toolbar strong { color: #17243a; font-size: 13px; }
+  .blog-admin-preview-toolbar span { margin-top: 3px; color: #7b8798; font-size: 10px; }
+  .blog-admin-preview-toolbar p { display: inline-flex; align-items: center; gap: 6px; color: #9a5b00; font-size: 11px; font-weight: 700; }
+  .blog-admin-preview-paper { min-height: 520px; margin: 16px; padding: 32px; border-radius: 8px; background: white; box-shadow: 0 8px 24px rgba(31,48,75,.12); }
+  .blog-admin-preview-paper .prose-content h2 { font-size: 24px; }
+  .blog-admin-preview-paper .prose-content h3 { font-size: 19px; }
+  .blog-admin-preview-paper .prose-content p, .blog-admin-preview-paper .prose-content li { font-size: 14px; line-height: 1.75; }
 }
 
 /* ── Hero orb animations ── */
