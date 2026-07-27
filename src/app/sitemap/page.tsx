@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import { prisma } from '@/lib/prisma';
-import { caseStudySeoRoutes, citySeoRoutes, coreSeoRoutes, costSeoRoutes, downloadSeoRoutes, locationHubSeoRoutes, serviceSeoRoutes } from '@/lib/seo-routes';
+import { caseStudySeoRoutes, citySeoRoutes, coreSeoRoutes, costSeoRoutes, downloadSeoRoutes, industrySolutionSeoRoutes, locationHubSeoRoutes, serviceSeoRoutes } from '@/lib/seo-routes';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
@@ -33,6 +33,7 @@ export default async function HtmlSitemapPage() {
     { title: 'Kostenlose Vorlagen', routes: downloadSeoRoutes },
     { title: 'Standorte', routes: locationHubSeoRoutes },
     { title: 'Fallstudien', routes: caseStudySeoRoutes },
+    { title: 'Branchenlösungen', routes: industrySolutionSeoRoutes },
     { title: 'Leistungen nach Einsatzort', routes: citySeoRoutes },
   ];
 

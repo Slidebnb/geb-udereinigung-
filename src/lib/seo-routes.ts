@@ -1,5 +1,6 @@
 import { getAllServiceSlugs } from '@/lib/services';
 import { caseStudies, costPages, downloadLandingPages, locationHubs } from '@/lib/growth-content';
+import { industrySolutions } from '@/lib/industry-solutions';
 
 export type SeoRoute = {
   path: string;
@@ -102,7 +103,26 @@ export const locationHubSeoRoutes: SeoRoute[] = locationHubs.map((hub) => ({
   priority: 0.8,
 }));
 
-export const publicSeoRoutes = [...coreSeoRoutes, ...serviceSeoRoutes, ...citySeoRoutes, ...downloadSeoRoutes, ...costSeoRoutes, ...caseStudySeoRoutes, ...locationHubSeoRoutes];
+export const industrySolutionSeoRoutes: SeoRoute[] = [
+  { path: '/branchenloesungen', label: 'Branchenlösungen', changeFrequency: 'monthly', priority: 0.82 },
+  ...industrySolutions.map((solution) => ({
+    path: `/branchenloesungen/${solution.slug}`,
+    label: solution.title,
+    changeFrequency: 'monthly' as const,
+    priority: 0.78,
+  })),
+];
+
+export const publicSeoRoutes = [
+  ...coreSeoRoutes,
+  ...serviceSeoRoutes,
+  ...citySeoRoutes,
+  ...downloadSeoRoutes,
+  ...costSeoRoutes,
+  ...caseStudySeoRoutes,
+  ...locationHubSeoRoutes,
+  ...industrySolutionSeoRoutes,
+];
 
 const existingCityRoutes = new Set(
   localServices.flatMap((service) =>

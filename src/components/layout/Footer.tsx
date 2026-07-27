@@ -84,6 +84,7 @@ export default async function Footer() {
               ['FAQ',              '/faq'],
               ['Preisrechner',      '/preisrechner'],
               ['Kosten & Preise', '/gebaeudereinigung-kosten'],
+              ['Branchenlösungen', '/branchenloesungen'],
               ['Vorlagen & Checklisten', '/leistungsverzeichnis-treppenhausreinigung-vorlage'],
               ['Fallstudien', '/fallstudien'],
               ['Standorte', '/standorte/neuwied'],
