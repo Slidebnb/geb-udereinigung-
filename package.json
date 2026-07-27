@@ -12,6 +12,7 @@
     "db:seed": "prisma db seed",
     "seo:backfill": "tsx prisma/seo-backfill.ts",
     "seo:audit": "node scripts/seo-audit.mjs",
+    "test:robots": "node scripts/robots-test.mjs",
     "operations:backfill": "tsx prisma/operations-backfill.ts",
     "test:pricing": "tsx scripts/pricing-test.ts",
     "test:pdf": "tsx scripts/pdf-smoke.ts",
