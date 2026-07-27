@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import Breadcrumb from '@/components/shared/Breadcrumb';
 import CTABanner from '@/components/home/CTABanner';
 import { siteConfig } from '@/lib/site';
@@ -75,6 +76,17 @@ export default function LeistungenPage() {
           <Link href="/leistungsuebersicht-download" className="btn-primary justify-center whitespace-nowrap">
             Leistungsübersicht herunterladen
           </Link>
+        </div>
+      </section>
+
+      <section className="section-padding bg-white">
+        <div className="container mx-auto grid gap-6 rounded-3xl border border-slate-200 bg-slate-50 p-8 md:grid-cols-[1fr_auto] md:items-center md:p-10">
+          <div>
+            <p className="section-label mb-3">Für jedes Objekt passend</p>
+            <h2 className="!text-2xl !tracking-normal">Branchenlösungen für besondere Anforderungen</h2>
+            <p className="mt-3 max-w-2xl text-sm leading-6 text-slate-600">Arztpraxis, Kanzlei, Hotel, Kita, Lager oder Pflegeeinrichtung: Entdecken Sie Leistungsbausteine, die zu den Abläufen Ihres Betriebs passen.</p>
+          </div>
+          <Link href="/branchenloesungen" className="btn-outline justify-center whitespace-nowrap">Branchenlösungen ansehen <ArrowRight size={16} /></Link>
         </div>
       </section>
 
