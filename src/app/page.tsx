@@ -17,7 +17,9 @@ import { quoteUrl } from '@/lib/quote-url';
 import { parseTrustedClients } from '@/lib/trusted-clients';
 import CallbackForm from '@/components/lead/CallbackForm';
 
-export const revalidate = 60;
+// Die Startseite liest Einstellungen, Kundenstimmen und Logos aus der Datenbank.
+// Dynamisches Rendering verhindert, dass ein veralteter prerendered-404 gecacht bleibt.
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
