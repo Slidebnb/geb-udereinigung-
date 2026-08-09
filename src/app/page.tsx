@@ -25,12 +25,25 @@ export const metadata: Metadata = {
   title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
   description: siteConfig.description,
   alternates: { canonical: siteConfig.url },
+  openGraph: {
+    type: 'website',
+    url: siteConfig.url,
+    title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
+    description: siteConfig.description,
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Huwa Gebäudedienste' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
+    description: siteConfig.description,
+    images: ['/opengraph-image'],
+  },
 };
 
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  '@id': siteConfig.url,
+  '@id': `${siteConfig.url}/#localbusiness`,
   name: siteConfig.name,
   description: siteConfig.description,
   url: siteConfig.url,
@@ -136,6 +149,10 @@ export default async function HomePage() {
               { href: '/bueroeinigung-neuwied', label: 'Büroreinigung Neuwied', sub: 'Täglich oder wöchentlich', service: 'Büroreinigung', city: 'Neuwied' },
               { href: '/hausmeisterservice-neuwied', label: 'Hausmeisterservice Neuwied', sub: 'Rundum-Betreuung', service: 'Hausmeisterdienste', city: 'Neuwied' },
               { href: '/winterdienst-neuwied', label: 'Winterdienst Neuwied', sub: 'Räum- & Streudienst', service: 'Winterdienst', city: 'Neuwied' },
+              { href: '/gebaudereinigung-bendorf', label: 'Gebäudereinigung Bendorf', sub: 'Für Gewerbe & Wohnanlagen', service: 'Gebäudereinigung', city: 'Bendorf' },
+              { href: '/hausmeisterservice-vallendar', label: 'Hausmeisterservice Vallendar', sub: 'Objektbetreuung vor Ort', service: 'Hausmeisterdienste', city: 'Vallendar' },
+              { href: '/winterdienst-westerwald', label: 'Winterdienst Westerwald', sub: 'Saison 2026/2027', service: 'Winterdienst', city: 'Westerwald' },
+              { href: '/bueroeinigung-hoehr-grenzhausen', label: 'Büroreinigung Höhr-Grenzhausen', sub: 'Regelmäßig & planbar', service: 'Büroreinigung', city: 'Höhr-Grenzhausen' },
             ].map(item => (
               <div key={item.href} className="card p-5 hover:border-primary/30 hover:shadow-md transition-all group">
                 <Link href={item.href} className="block">

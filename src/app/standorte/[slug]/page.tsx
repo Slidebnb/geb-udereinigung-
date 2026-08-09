@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const hub = getLocationHub(slug);
   if (!hub) return {};
   return {
-    title: `${hub.title} | Huwa Gebaeudedienste`,
+    title: `${hub.title} | Huwa Gebäudedienste`,
     description: hub.description,
     alternates: { canonical: `${siteConfig.url}${hub.path}` },
     openGraph: { title: hub.title, description: hub.description, url: `${siteConfig.url}${hub.path}`, images: ['/opengraph-image'] },
@@ -35,6 +35,7 @@ export default async function StandortPage({ params }: { params: Params }) {
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
+    '@id': `${siteConfig.url}/#localbusiness`,
     name: siteConfig.name,
     url: `${siteConfig.url}${hub.path}`,
     areaServed: hub.name,
@@ -56,7 +57,7 @@ export default async function StandortPage({ params }: { params: Params }) {
           <Breadcrumb dark items={[{ label: 'Standorte' }, { label: hub.name }]} />
           <div className="mt-8 max-w-3xl">
             <div className="flex items-center gap-2 text-primary"><MapPin size={18} /> Einsatzgebiet</div>
-            <h1 className="mt-4 !text-4xl md:!text-5xl !tracking-normal">Gebaeudereinigung und Objektbetreuung in {hub.name}</h1>
+            <h1 className="mt-4 !text-4xl md:!text-5xl !tracking-normal">Gebäudereinigung und Objektbetreuung in {hub.name}</h1>
             <p className="mt-5 text-lg leading-8 text-slate-300">{hub.description}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link href={quoteHref} className="btn-primary">Kostenloses Angebot</Link>
@@ -74,16 +75,16 @@ export default async function StandortPage({ params }: { params: Params }) {
               {hub.services.map((service) => (
                 <Link key={service.href} href={service.href} className="card p-5 transition-all hover:border-primary/30 hover:shadow-md">
                   <h3 className="!text-lg !tracking-normal">{service.label}</h3>
-                  <p className="mt-2 text-sm leading-6 text-slate-500">Regionale Seite mit Leistungsumfang, FAQ und direktem Angebotslink fuer {hub.name}.</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">Leistungsumfang, häufige Fragen und direkter Angebotslink für {hub.name}.</p>
                   <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-primary">Mehr erfahren <ArrowRight size={15} /></span>
                 </Link>
               ))}
             </div>
             <div className="mt-8 rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
               <h2 className="!text-2xl !tracking-normal">Warum lokal abstimmen?</h2>
-              <p className="mt-4 text-sm leading-7 text-slate-600">Objektart, Tourenplanung, Saisonbedarf und Zugangszeiten unterscheiden sich je Standort. Deshalb klaeren wir vor einem Angebot, welche Leistungen fuer Ihr Objekt in {hub.name} sinnvoll sind.</p>
+              <p className="mt-4 text-sm leading-7 text-slate-600">Objektart, Tourenplanung, Saisonbedarf und Zugangszeiten unterscheiden sich je Standort. Deshalb klären wir vor einem Angebot, welche Leistungen für Ihr Objekt in {hub.name} sinnvoll sind.</p>
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="/leistungsuebersicht-download" className="btn-outline">Leistungsuebersicht PDF</Link>
+                <Link href="/leistungsuebersicht-download" className="btn-outline">Leistungsübersicht PDF</Link>
                 <Link href="/fallstudien" className="btn-outline">Fallstudien ansehen</Link>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { getAllServiceSlugs } from '@/lib/services';
 import { caseStudies, costPages, downloadLandingPages, locationHubs } from '@/lib/growth-content';
 import { industrySolutions } from '@/lib/industry-solutions';
+import { seoLocations, seoLocalServices } from '@/lib/seo-locations';
 
 export type SeoRoute = {
   path: string;
@@ -9,31 +10,8 @@ export type SeoRoute = {
   priority: number;
 };
 
-export const cities = [
-  { name: 'Neuwied', slug: 'neuwied' },
-  { name: 'Koblenz', slug: 'koblenz' },
-  { name: 'Bendorf', slug: 'bendorf' },
-  { name: 'Andernach', slug: 'andernach' },
-  { name: 'Bad Neuenahr-Ahrweiler', slug: 'bad-neuenahr-ahrweiler' },
-  { name: 'Boppard', slug: 'boppard' },
-  { name: 'Lahnstein', slug: 'lahnstein' },
-  { name: 'Mayen', slug: 'mayen' },
-  { name: 'Höhr-Grenzhausen', slug: 'hoehr-grenzhausen' },
-  { name: 'Haiger', slug: 'haiger' },
-  { name: 'Vallendar', slug: 'vallendar' },
-  { name: 'Nauort', slug: 'nauort' },
-  { name: 'Westerwald', slug: 'westerwald' },
-  { name: 'Puderbach', slug: 'puderbach' },
-  { name: 'Dierdorf', slug: 'dierdorf' },
-] as const;
-
-export const localServices = [
-  { key: 'gebaudereinigung', label: 'Gebäudereinigung', offerValue: 'Gebäudereinigung' },
-  { key: 'bueroeinigung', label: 'Büroreinigung', offerValue: 'Büroreinigung' },
-  { key: 'treppenhausreinigung', label: 'Treppenhausreinigung', offerValue: 'Treppenhausreinigung' },
-  { key: 'hausmeisterservice', label: 'Hausmeisterservice', offerValue: 'Hausmeisterdienste' },
-  { key: 'winterdienst', label: 'Winterdienst', offerValue: 'Winterdienst' },
-] as const;
+export const cities = seoLocations;
+export const localServices = seoLocalServices;
 
 export const coreSeoRoutes: SeoRoute[] = [
   { path: '/', label: 'Startseite', changeFrequency: 'weekly', priority: 1 },

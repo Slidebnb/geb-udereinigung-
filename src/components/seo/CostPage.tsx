@@ -18,7 +18,7 @@ export default async function CostPage({ page }: { page: CostPageData }) {
   const faqs = [
     ['Warum gibt es keine festen Standardpreise?', 'Weil Objektgroesse, Nutzung, Intervall und Zugaenglichkeit den Aufwand deutlich veraendern koennen.'],
     ['Ist die Online-Schaetzung verbindlich?', 'Nein. Sie ist eine Orientierung bis zur Objektpruefung und Angebotsabstimmung.'],
-    ['Wie bekomme ich einen genauen Preis?', 'Senden Sie eine Anfrage mit Objektangaben oder fordern Sie einen Rueckruf an.'],
+    ['Wie bekomme ich einen genauen Preis?', 'Senden Sie eine Anfrage mit Objektangaben oder fordern Sie einen Rückruf an.'],
   ];
   const faqSchema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map(([question, answer]) => ({ '@type': 'Question', name: question, acceptedAnswer: { '@type': 'Answer', text: answer } })) };
 
@@ -67,7 +67,7 @@ export default async function CostPage({ page }: { page: CostPageData }) {
             <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
               <h2 className="!text-2xl !tracking-normal">Realistisch statt Blindpreis</h2>
               <p className="mt-4 text-sm leading-7 text-slate-600">{page.example}</p>
-              <p className="mt-4 text-sm leading-7 text-slate-600">Eine genaue Pauschale entsteht erst, wenn Flaechen, Zugaenge, Intervall und besondere Anforderungen bekannt sind. Deshalb ist die Online-Schaetzung ein guter Start, aber kein verbindliches Angebot.</p>
+              <p className="mt-4 text-sm leading-7 text-slate-600">Eine genaue Pauschale entsteht erst, wenn Flächen, Zugänge, Intervall und besondere Anforderungen bekannt sind. Deshalb ist die Online-Schätzung ein guter Start, aber kein verbindliches Angebot.</p>
             </div>
             <div>
               <h2 className="mb-5 !text-2xl !tracking-normal">Haeufige Fragen</h2>

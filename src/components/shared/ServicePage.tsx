@@ -34,7 +34,7 @@ export default async function ServicePage({ icon, title, subtitle, description, 
       {/* Hero */}
       <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
         <div className="container mx-auto relative z-10">
-          <Breadcrumb items={[{ label: 'Leistungen', href: '/leistungen' }, { label: breadcrumb }]} dark />
+          <Breadcrumb items={[{ label: 'Leistungen', href: '/leistungen' }, { label: breadcrumb }]} dark schema={false} />
           <div className="mt-8 max-w-3xl">
             <div className="text-6xl mb-5">{icon}</div>
             <h1 className="text-white mb-4 leading-tight">{title}</h1>

@@ -8,7 +8,7 @@ const page = getCostPage('glasreinigung-kosten')!;
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: `${page.title} | Huwa Gebaeudedienste`,
+    title: `${page.title} | Huwa Gebäudedienste`,
   description: page.description,
   alternates: { canonical: `${siteConfig.url}/${page.slug}` },
   openGraph: { title: page.title, description: page.description, url: `${siteConfig.url}/${page.slug}`, images: ['/opengraph-image'] },

@@ -32,8 +32,12 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', title: siteConfig.name, description: siteConfig.description, images: ['/opengraph-image'] },
   manifest: '/manifest.webmanifest',
-  icons: { icon: siteConfig.logoPath, apple: siteConfig.logoPath },
-  robots: { index: true, follow: true, googleBot: { index: true, follow: true } },
+  icons: { icon: '/icon.svg', apple: '/icon.svg' },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
+  },
 };
 
 const organizationSchema = {

@@ -150,7 +150,7 @@ export default async function CityServicePage({ params }: { params: Params }) {
 
       <section className="relative overflow-hidden bg-dark py-20 md:py-28">
         <div className="container mx-auto relative z-10">
-          <Breadcrumb items={[{ label: 'Leistungen', href: '/leistungen' }, { label: `${route.service.label} ${route.city.name}` }]} dark />
+          <Breadcrumb items={[{ label: 'Leistungen', href: '/leistungen' }, { label: `${route.service.label} ${route.city.name}` }]} dark schema={false} />
           <div className="mt-8 max-w-3xl">
             <div className="section-label mb-4">Regional für Sie im Einsatz</div>
             <h1 className="text-white mb-5">{route.service.label} <span className="gradient-text">{route.city.name}</span></h1>

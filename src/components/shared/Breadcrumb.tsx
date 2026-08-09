@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import { siteConfig } from '@/lib/site';
 
 interface Crumb { label: string; href?: string; }
 
-export default function Breadcrumb({ items, dark = false }: { items: Crumb[]; dark?: boolean }) {
+export default function Breadcrumb({ items, dark = false, schema = true }: { items: Crumb[]; dark?: boolean; schema?: boolean }) {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -10,7 +11,7 @@ export default function Breadcrumb({ items, dark = false }: { items: Crumb[]; da
       '@type': 'ListItem',
       position: i + 1,
       name: item.label,
-      ...(item.href ? { item: `${process.env.NEXT_PUBLIC_SITE_URL}${item.href}` } : {}),
+      ...(item.href ? { item: `${siteConfig.url}${item.href}` } : {}),
     })),
   };
 
@@ -21,7 +22,7 @@ export default function Breadcrumb({ items, dark = false }: { items: Crumb[]; da
 
   return (
     <nav aria-label="Breadcrumb">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      {schema ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /> : null}
       <ol className={`flex flex-wrap items-center gap-2 text-sm ${base}`}>
         <li><Link href="/" className={`${hover} transition-colors`}>Startseite</Link></li>
         {items.map((item, i) => (

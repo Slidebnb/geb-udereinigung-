@@ -64,7 +64,7 @@ export default async function BranchenloesungDetailPage({ params }: { params: Pa
       {jsonLd.map((item, index) => <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(item) }} />)}
       <section className="relative overflow-hidden bg-dark py-16 text-white md:py-24">
         <div className="container relative z-10 mx-auto">
-          <Breadcrumb dark items={[{ label: 'Branchenlösungen', href: '/branchenloesungen' }, { label: solution.shortTitle }]} />
+          <Breadcrumb dark schema={false} items={[{ label: 'Branchenlösungen', href: '/branchenloesungen' }, { label: solution.shortTitle }]} />
           <div className="mt-9 grid items-center gap-10 lg:grid-cols-[1.05fr_.95fr]">
             <div className="max-w-3xl">
               <div className="section-label mb-5">Branchenspezifische Gebäudedienste</div>

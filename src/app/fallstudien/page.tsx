@@ -6,10 +6,10 @@ import { caseStudies } from '@/lib/growth-content';
 import { siteConfig } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'Fallstudien Gebaeudereinigung & Objektbetreuung | Huwa',
-  description: 'Anonyme Projektbeispiele von Huwa: Treppenhausreinigung, Bueroreinigung und Winterdienst fuer Wohnanlagen und Gewerbe.',
+  title: 'Fallstudien Gebäudereinigung & Objektbetreuung | Huwa',
+  description: 'Anonyme Projektbeispiele von Huwa: Treppenhausreinigung, Büroreinigung und Winterdienst für Wohnanlagen und Gewerbe.',
   alternates: { canonical: `${siteConfig.url}/fallstudien` },
-  openGraph: { title: 'Fallstudien | Huwa Gebaeudedienste', description: 'Anonyme Projektbeispiele fuer Reinigung, Objektbetreuung und Winterdienst.', url: `${siteConfig.url}/fallstudien`, images: ['/opengraph-image'] },
+  openGraph: { title: 'Fallstudien | Huwa Gebäudedienste', description: 'Anonyme Projektbeispiele für Reinigung, Objektbetreuung und Winterdienst.', url: `${siteConfig.url}/fallstudien`, images: ['/opengraph-image'] },
 };
 
 export default function FallstudienPage() {
@@ -19,7 +19,7 @@ export default function FallstudienPage() {
         <div className="container mx-auto">
           <Breadcrumb dark items={[{ label: 'Fallstudien' }]} />
           <h1 className="mt-8">Fallstudien und Projektbeispiele</h1>
-          <p className="mt-4 max-w-2xl text-slate-300">Anonyme Beispiele aus typischen Objektanfragen. Ohne Kundennamen, ohne erfundene Logos, dafuer mit nachvollziehbarem Ablauf.</p>
+          <p className="mt-4 max-w-2xl text-slate-300">Anonyme Beispiele aus typischen Objektanfragen. Ohne Kundennamen und ohne erfundene Logos, dafür mit nachvollziehbarem Ablauf.</p>
         </div>
       </section>
       <section className="section-padding bg-slate-50">

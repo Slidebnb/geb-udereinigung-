@@ -1,4 +1,5 @@
 import { WHATSAPP_NUMBER } from '@/lib/whatsapp';
+import { seoLocations } from '@/lib/seo-locations';
 
 export const siteConfig = {
   name: 'Huwa Gebäudereinigung & Hausmeisterdienste',
@@ -33,23 +34,7 @@ export const siteConfig = {
     facebook: 'https://facebook.com/huwareinigung',
     instagram: 'https://instagram.com/huwareinigung',
   },
-  serviceAreas: [
-    'Neuwied',
-    'Koblenz',
-    'Bendorf',
-    'Andernach',
-    'Mayen',
-    'Bad Neuenahr-Ahrweiler',
-    'Lahnstein',
-    'Boppard',
-    'Höhr-Grenzhausen',
-    'Haiger',
-    'Vallendar',
-    'Nauort',
-    'Westerwald',
-    'Puderbach',
-    'Dierdorf',
-  ],
+  serviceAreas: seoLocations.map((location) => location.name),
   foundingYear: 2020,
 };
 
