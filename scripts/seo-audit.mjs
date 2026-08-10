@@ -25,7 +25,7 @@ for (const url of urls) {
   const description = match(html, /<meta name="description" content="([^"]*)"/i);
   const canonical = match(html, /<link rel="canonical" href="([^"]*)"/i);
   const robots = match(html, /<meta name="robots" content="([^"]*)"/i);
-  const expectedCanonical = `${canonicalOrigin}${target.pathname === '/' ? '' : target.pathname}${target.search}`;
+  const expectedCanonical = `${canonicalOrigin}${target.pathname === '/' ? '/' : target.pathname}${target.search}`;
 
   if (response.status !== 200) errors.push(`${target.pathname}: HTTP ${response.status}`);
   if (!title) errors.push(`${target.pathname}: title missing`);

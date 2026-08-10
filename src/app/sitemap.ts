@@ -5,7 +5,7 @@ import { siteConfig } from '@/lib/site';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const publicPages: MetadataRoute.Sitemap = publicSeoRoutes.map((route) => ({
-    url: route.path === '/' ? siteConfig.url : new URL(route.path, siteConfig.url).toString(),
+    url: route.path === '/' ? `${siteConfig.url}/` : new URL(route.path, siteConfig.url).toString(),
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));

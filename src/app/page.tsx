@@ -24,10 +24,10 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
   description: siteConfig.description,
-  alternates: { canonical: siteConfig.url },
+  alternates: { canonical: `${siteConfig.url}/` },
   openGraph: {
     type: 'website',
-    url: siteConfig.url,
+    url: `${siteConfig.url}/`,
     title: `${siteConfig.name} | Professionelle Gebäudereinigung in Neuwied & Koblenz`,
     description: siteConfig.description,
     images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Huwa Gebäudedienste' }],
