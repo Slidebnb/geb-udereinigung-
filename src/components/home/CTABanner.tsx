@@ -1,13 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { siteConfig } from '@/lib/site';
 import { quoteUrl } from '@/lib/quote-url';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export interface CTAData {
   headline?: string;
@@ -25,20 +20,8 @@ const defaultCTA: Required<CTAData> = {
 
 export default function CTABanner({ data }: { data?: CTAData }) {
   const d = { ...defaultCTA, ...data };
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from('.cta-content', {
-        y: 30, duration: 0.8,
-        scrollTrigger: { trigger: ref.current, start: 'top 80%', once: true },
-      });
-    }, ref);
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={ref} className="section-padding relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
+    <section className="section-padding relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #0C2340 0%, #1B3E62 100%)' }}>
       <div className="cta-content relative z-10 container mx-auto text-center">
         <div className="section-label mx-auto w-fit mb-6">Jetzt starten</div>
         <h2 className="text-white mb-4 max-w-3xl mx-auto">

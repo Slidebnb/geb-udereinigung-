@@ -1,16 +1,11 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import {
   Building2, Briefcase, AppWindow, Sparkles, RefreshCw,
   HardHat, Home, Wrench, Snowflake, Leaf, type LucideIcon,
 } from 'lucide-react';
 import { quoteUrl } from '@/lib/quote-url';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const serviceIconMap: Record<string, LucideIcon> = {
   building2: Building2,
@@ -51,28 +46,11 @@ const defaultServices: Required<ServicesData> = {
 
 export default function Services({ data }: { data?: ServicesData }) {
   const d = { ...defaultServices, ...data };
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const titleRef   = useRef<HTMLDivElement>(null);
-  const gridRef    = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(titleRef.current, {
-        y: 40, duration: 0.8,
-        scrollTrigger: { trigger: titleRef.current, start: 'top 85%', once: true },
-      });
-      gsap.from('.service-card', {
-        y: 50, scale: 0.97, duration: 0.5, stagger: 0.06,
-        scrollTrigger: { trigger: gridRef.current, start: 'top 80%', once: true },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
-    <section ref={sectionRef} className="section-padding" style={{ backgroundColor: '#F8F7F4' }}>
+    <section className="section-padding" style={{ backgroundColor: '#F8F7F4' }}>
       <div className="container mx-auto">
-        <div ref={titleRef} className="text-center mb-16">
+        <div className="text-center mb-16">
           <div className="section-label mx-auto w-fit">Unsere Leistungen</div>
           <h2 className="mb-4">
             Alles aus einer Hand –{' '}
@@ -81,7 +59,7 @@ export default function Services({ data }: { data?: ServicesData }) {
           <p className="text-slate-500 max-w-xl mx-auto text-lg">{d.subtitle}</p>
         </div>
 
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {d.items.map((s, idx) => {
             const accent = idx % 2 === 0;
             const Icon = serviceIconMap[s.icon] ?? Building2;

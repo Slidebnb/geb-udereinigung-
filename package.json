@@ -15,6 +15,7 @@
     "seo:structured-data": "node scripts/seo-structured-data-audit.mjs",
     "seo:content-contract": "tsx scripts/seo-contract-test.ts",
     "seo:local-pages": "tsx scripts/seo-local-pages-test.ts",
+    "test:performance-contract": "tsx scripts/performance-contract-test.ts",
     "test:robots": "node scripts/robots-test.mjs",
     "test:industry-solutions": "tsx scripts/industry-solutions-test.ts",
     "test:seo-contract": "tsx scripts/seo-contract-test.ts",

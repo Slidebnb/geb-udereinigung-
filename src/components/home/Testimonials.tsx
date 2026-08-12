@@ -1,10 +1,5 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 export interface TestimonialData {
   id: string;
@@ -21,29 +16,6 @@ interface TestimonialsProps {
 }
 
 export default function Testimonials({ reviews }: TestimonialsProps) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (reviews.length === 0) return;
-
-    const ctx = gsap.context(() => {
-      gsap.from('.testimonial-title', {
-        y: 30,
-        duration: 0.7,
-        scrollTrigger: { trigger: '.testimonial-title', start: 'top 85%', once: true },
-      });
-      gsap.from('.testimonial-card', {
-        y: 40,
-        scale: 0.97,
-        duration: 0.6,
-        stagger: 0.12,
-        scrollTrigger: { trigger: cardsRef.current, start: 'top 80%', once: true },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, [reviews.length]);
-
   if (reviews.length === 0) return null;
 
   const averageRating = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
@@ -53,7 +25,7 @@ export default function Testimonials({ reviews }: TestimonialsProps) {
   });
 
   return (
-    <section ref={sectionRef} className="section-padding bg-white">
+    <section className="section-padding bg-white">
       <div className="container mx-auto">
         <div className="testimonial-title text-center mb-12">
           <div className="section-label mx-auto w-fit">Kundenstimmen</div>
@@ -71,7 +43,7 @@ export default function Testimonials({ reviews }: TestimonialsProps) {
           </div>
         </div>
 
-        <div ref={cardsRef} className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-5 max-w-5xl mx-auto">
           {reviews.map((review) => {
             const details = [review.role, review.company, review.location].filter(Boolean).join(' · ');
             const rating = Math.max(0, Math.min(5, review.rating));

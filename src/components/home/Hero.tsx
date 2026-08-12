@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
+import { useMemo } from 'react';
 import {
   Building2, Briefcase, AppWindow, Home, HardHat,
   Wrench, Snowflake, Leaf, ShieldCheck, Clock, MapPin, UserCheck, type LucideIcon,
@@ -65,22 +64,7 @@ const trustItems = [
 ];
 
 export default function Hero({ data }: { data?: HeroData }) {
-  const d = { ...defaultHero, ...data };
-
-  const headlineRef = useRef<HTMLDivElement>(null);
-  const subRef      = useRef<HTMLParagraphElement>(null);
-  const ctaRef      = useRef<HTMLDivElement>(null);
-  const badgeRef    = useRef<HTMLDivElement>(null);
-  const statsRef    = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    tl.from(badgeRef.current,    { opacity: 0, y: 15, duration: 0.5 })
-      .from(headlineRef.current, { opacity: 0, y: 30, duration: 0.7 }, '-=0.2')
-      .from(subRef.current,      { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
-      .from(ctaRef.current,      { opacity: 0, y: 15, duration: 0.5 }, '-=0.3')
-      .from(statsRef.current,    { opacity: 0, y: 15, duration: 0.5 }, '-=0.2');
-  }, []);
+  const d = useMemo(() => ({ ...defaultHero, ...data }), [data]);
 
   return (
     <section
@@ -113,7 +97,7 @@ export default function Hero({ data }: { data?: HeroData }) {
       <div className="relative z-20 container mx-auto py-24 md:py-32 grid lg:grid-cols-2 gap-16 items-center">
         <div>
           {/* Badge */}
-          <div ref={badgeRef} className="inline-flex items-center gap-2 mb-8">
+          <div className="inline-flex items-center gap-2 mb-8">
             <span className="inline-flex items-center gap-2.5 bg-white/10 border border-white/15 text-white/70 px-4 py-2 rounded-full text-sm font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-green-400 flex-shrink-0" />
               {d.badge}
@@ -121,7 +105,7 @@ export default function Hero({ data }: { data?: HeroData }) {
           </div>
 
           {/* Headline */}
-          <div ref={headlineRef} className="mb-7">
+          <div className="mb-7">
             <p className="text-primary text-sm font-bold font-display uppercase tracking-[0.22em] mb-3">
               {d.h1}
             </p>
@@ -133,7 +117,7 @@ export default function Hero({ data }: { data?: HeroData }) {
             </h1>
           </div>
 
-          <p ref={subRef} className="text-slate-300 text-lg leading-relaxed max-w-lg mb-10">
+          <p className="text-slate-300 text-lg leading-relaxed max-w-lg mb-10">
             {d.subtitle}
           </p>
 
@@ -147,7 +131,7 @@ export default function Hero({ data }: { data?: HeroData }) {
           </div>
 
           {/* CTAs */}
-          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-3 mb-14">
+          <div className="flex flex-col sm:flex-row gap-3 mb-14">
             <Link href={quoteUrl({ source: 'hero' })} className="btn-primary text-base px-8 py-4 text-center">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
@@ -171,7 +155,7 @@ export default function Hero({ data }: { data?: HeroData }) {
           </div>
 
           {/* Stats */}
-          <div ref={statsRef} className="flex flex-wrap gap-8">
+          <div className="flex flex-wrap gap-8">
             {d.stats.map(({ val, label }) => (
               <div key={label} className="flex flex-col">
                 <span className="text-3xl font-extrabold font-display text-white leading-none">{val}</span>

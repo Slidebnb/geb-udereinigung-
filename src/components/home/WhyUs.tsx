@@ -1,11 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Clock, Trophy, Banknote, MapPin, Phone, ShieldCheck, type LucideIcon } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const reasonIconMap: Record<string, LucideIcon> = {
   clock:       Clock,
@@ -47,41 +42,11 @@ const statColors = ['#1E5FD8', '#059669', '#1E5FD8', '#059669'];
 
 export default function WhyUs({ data }: { data?: WhyUsData }) {
   const d = { ...defaultWhyUs, ...data };
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const statsRef   = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      d.stats.forEach((s, i) => {
-        const el = document.querySelector(`.stat-val-${i}`);
-        if (!el) return;
-        const obj = { val: s.val };
-        el.textContent = s.val + s.suffix;
-        gsap.fromTo(obj, { val: 0 }, {
-          val: s.val, duration: 2, ease: 'power2.out', snap: { val: 1 },
-          scrollTrigger: { trigger: statsRef.current, start: 'top 80%', once: true },
-          onStart() { obj.val = 0; },
-          onUpdate() { el.textContent = Math.round(obj.val) + s.suffix; },
-        });
-      });
-      gsap.from('.why-card', {
-        y: 40, duration: 0.6, stagger: 0.1,
-        scrollTrigger: { trigger: '.why-grid', start: 'top 80%', once: true },
-      });
-      gsap.from('.why-title', {
-        y: 30, duration: 0.7,
-        scrollTrigger: { trigger: '.why-title', start: 'top 85%', once: true },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
-    <section ref={sectionRef} className="section-padding bg-white">
+    <section className="section-padding bg-white">
       <div className="container mx-auto">
         {/* Animated stats */}
-        <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-20">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-20">
           {d.stats.map((s, i) => (
             <div
               key={s.label}
