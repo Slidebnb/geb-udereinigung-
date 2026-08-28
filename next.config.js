@@ -27,6 +27,15 @@ const nextConfig = {
         destination: '/blog/winterdienst-2026-2027-pflichten-eigentuemer-vermieter',
         permanent: true,
       },
+      { source: '/unsere-leistungen', destination: '/leistungen', permanent: true },
+      { source: '/anfrage', destination: '/angebot', permanent: true },
+      { source: '/reinigungneuwied', destination: '/gebaudereinigung-neuwied', permanent: true },
+      { source: '/bueroreinigung-neuwied', destination: '/bueroeinigung-neuwied', permanent: true },
+      { source: '/bueroreinigung-koblenz', destination: '/bueroeinigung-koblenz', permanent: true },
+      { source: '/bueroreinigung-andernach', destination: '/bueroeinigung-andernach', permanent: true },
+      { source: '/bueroreinigung-bendorf', destination: '/bueroeinigung-bendorf', permanent: true },
+      { source: '/bueroreinigung-hoehr-grenzhausen', destination: '/bueroeinigung-hoehr-grenzhausen', permanent: true },
+      { source: '/galerie', destination: '/', permanent: true },
     ];
   },
   async headers() {

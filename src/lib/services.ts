@@ -241,7 +241,7 @@ export const services: ServiceData[] = [
     heroDescription:
       'Die Unterhaltsreinigung hält Ihre Räume dauerhaft sauber und gepflegt. Mit einem festen Reinigungsplan und einem eingespielten Team sorgen wir für gleichbleibend hohe Hygiene.',
     intro:
-      'Die regelmäßige Unterhaltsreinigung ist die Basis für dauerhafte Sauberkeit. Wir reinigen wiederkehrend nach einem abgestimmten Plan – ob täglich, mehrmals pro Woche oder wöchentlich. So bleiben Böden, Oberflächen und Sanitärbereiche stets in einwandfreiem Zustand.',
+      'Die regelmäßige Unterhaltsreinigung ist die Basis für dauerhafte Sauberkeit. Wir reinigen wiederkehrend nach einem abgestimmten Plan – ob täglich, mehrmals pro Woche oder wöchentlich. So bleiben Böden, Oberflächen und Sanitärbereiche stets in einwandfreiem Zustand. Vor dem Start klären wir Objektart, Flächen, Nutzungszeiten und gewünschte Intervalle und halten den Umfang in einem nachvollziehbaren Leistungsverzeichnis fest.',
     benefits: [
       'Individueller Reinigungsplan nach Ihren Anforderungen',
       'Festes Team, das Ihr Objekt kennt',
@@ -263,6 +263,8 @@ export const services: ServiceData[] = [
     ],
     faqs: [
       { question: 'Welche Intervalle sind möglich?', answer: 'Von täglich über mehrmals wöchentlich bis wöchentlich – ganz nach Ihrem Bedarf.' },
+      { question: 'Was gehört zur Unterhaltsreinigung?', answer: 'Je nach Objekt gehören dazu zum Beispiel Bodenpflege, Oberflächen, Sanitärbereiche, Küchen- und Eingangsbereiche sowie die vereinbarte Abfallentsorgung. Der konkrete Umfang wird vor Beginn gemeinsam festgelegt.' },
+      { question: 'Was ist der Unterschied zwischen Unterhaltsreinigung und Grundreinigung?', answer: 'Die Unterhaltsreinigung hält ein Objekt regelmäßig sauber. Eine Grundreinigung geht darüber hinaus und entfernt stärkere Verschmutzungen, alte Pflegefilme oder Ablagerungen. Beide Leistungen können sinnvoll kombiniert werden.' },
       { question: 'Bekomme ich immer dasselbe Reinigungspersonal?', answer: 'Ja, wir setzen feste Teams ein, die Ihr Objekt und Ihre Wünsche kennen.' },
       { question: 'Kann ich Leistungen anpassen?', answer: 'Selbstverständlich. Das Leistungsverzeichnis lässt sich jederzeit an veränderte Anforderungen anpassen.' },
     ],

@@ -13,6 +13,7 @@
     "seo:backfill": "tsx prisma/seo-backfill.ts",
     "seo:audit": "node scripts/seo-audit.mjs",
     "seo:structured-data": "node scripts/seo-structured-data-audit.mjs",
+    "test:seo-legacy-routes": "node scripts/seo-legacy-routes-test.mjs",
     "seo:content-contract": "tsx scripts/seo-contract-test.ts",
     "seo:local-pages": "tsx scripts/seo-local-pages-test.ts",
     "test:performance-contract": "tsx scripts/performance-contract-test.ts",
