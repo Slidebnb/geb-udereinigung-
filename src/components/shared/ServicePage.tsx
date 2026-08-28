@@ -12,13 +12,14 @@ interface ServicePageProps {
   description: string;
   benefits: string[];
   features: { title: string; desc: string }[];
+  process: { step: string; title: string; description: string }[];
   faq: { q: string; a: string }[];
   breadcrumb: string;
   schema: object;
   cityLinks?: { href: string; label: string }[];
 }
 
-export default async function ServicePage({ icon, title, subtitle, description, benefits, features, faq, breadcrumb, schema, cityLinks }: ServicePageProps) {
+export default async function ServicePage({ icon, title, subtitle, description, benefits, features, process, faq, breadcrumb, schema, cityLinks }: ServicePageProps) {
   const offerHref = quoteUrl({ service: title, source: 'service-page' });
   const relatedCostHref = title.includes('Treppenhaus') ? '/treppenhausreinigung-kosten' : title.includes('BÃ¼ro') ? '/bueroeinigung-kosten' : title.includes('Glas') ? '/glasreinigung-kosten' : title.includes('Winter') ? '/winterdienst-kosten' : '/gebaeudereinigung-kosten';
   const latestReview = await prisma.testimonial.findFirst({
@@ -71,6 +72,25 @@ export default async function ServicePage({ icon, title, subtitle, description, 
                   <p className="text-sm text-gray-500 leading-relaxed">{f.desc}</p>
                 </div>
               ))}
+            </div>
+
+            <div className="mt-14 border-t border-slate-200 pt-10">
+              <div className="max-w-2xl">
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-primary">Klar geplant, zuverlässig umgesetzt</p>
+                <h2 className="mt-3 mb-4 text-2xl md:text-3xl">So läuft Ihre {title} ab</h2>
+                <p className="text-gray-600 leading-relaxed">Von der ersten Objektaufnahme bis zur laufenden Qualitätskontrolle stimmen wir den Leistungsumfang transparent mit Ihnen ab.</p>
+              </div>
+              <div className="mt-8 grid gap-4 md:grid-cols-2">
+                {process.map((item) => (
+                  <div key={item.step} className="flex gap-4 rounded-xl border border-slate-200 bg-slate-50/70 p-5">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">{item.step}</span>
+                    <div>
+                      <h3 className="text-base font-bold text-dark">{item.title}</h3>
+                      <p className="mt-1 text-sm leading-relaxed text-gray-600">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 

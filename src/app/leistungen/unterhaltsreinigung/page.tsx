@@ -29,6 +29,7 @@ export default function UnterhaltsreinigungPage() {
       description={s.intro}
       benefits={s.benefits}
       features={s.features.map(f => ({ title: f.title, desc: f.description }))}
+      process={s.process}
       faq={s.faqs.map(f => ({ q: f.question, a: f.answer }))}
       breadcrumb={s.shortTitle}
       schema={schema}
