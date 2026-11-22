@@ -46,10 +46,15 @@ const config: Config = {
         accent: {
           DEFAULT: '#2DC94E',
         },
+        gold: {
+          DEFAULT: '#C9A84C',
+          light: '#E8C96A',
+          dark: '#A07830',
+        },
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-manrope)', 'system-ui', 'sans-serif'],
       },
       container: {
         center: true,

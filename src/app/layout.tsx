@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Manrope } from 'next/font/google';
 import './globals.css';
 import { siteConfig } from '@/lib/site';
 import Header from '@/components/layout/HeaderWrapper';
@@ -9,7 +9,7 @@ import MobileCTABar from '@/components/shared/MobileCTABar';
 import CookieBanner from '@/components/shared/CookieBanner';
 import GoogleTag from '@/components/tracking/GoogleTag';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap', weight: ['400','500','600','700','800'] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -60,7 +60,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={inter.variable}>
+    <html lang="de" className={manrope.variable}>
       <body className="flex flex-col min-h-screen">
         <GoogleTag />
         <Header />

@@ -123,6 +123,39 @@
   .prose-html article { @apply block; }
 }
 
+/* ── Dark-section card ── */
+.card-dark {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  @apply rounded-2xl transition-all duration-500;
+}
+.card-dark:hover {
+  border-color: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+}
+
+/* ── Scroll reveal (JS handles the actual animation via inline styles) ── */
+.reveal { opacity: 0; transform: translateY(32px); }
+
+/* ── Dark btn variants ── */
+.btn-gold {
+  @apply inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-lg
+         bg-gold text-dark shadow-sm
+         hover:bg-gold-light
+         transition-all duration-300;
+}
+.btn-ghost {
+  @apply inline-flex items-center gap-2 font-semibold px-7 py-3.5 rounded-lg
+         border border-white/20 text-white/80
+         hover:border-white/40 hover:text-white hover:bg-white/5
+         transition-all duration-300;
+}
+
+/* ── Section utilities ── */
+.section-dark    { @apply py-24 md:py-32 bg-[#131209]; }
+.section-darker  { @apply py-24 md:py-32 bg-[#0D1008]; }
+.section-mid     { @apply py-24 md:py-32 bg-[#1a1a14]; }
+
 /* ── Hero orb animations ── */
 @keyframes orb-float-1 {
   0%, 100% { transform: translate(0, 0) scale(1); }
