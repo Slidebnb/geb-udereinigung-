@@ -408,7 +408,7 @@ export default async function HomePage() {
         </div>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30" aria-hidden="true">
+        <div className="absolute bottom-24 lg:bottom-8 left-1/2 -translate-x-1/2 hidden sm:flex flex-col items-center gap-2 opacity-30" aria-hidden="true">
           <div className="w-5 h-8 rounded-full border border-white/30 flex items-start justify-center pt-1.5">
             <div className="w-1 h-2 rounded-full bg-white/50 animate-bounce" />
           </div>
@@ -418,15 +418,15 @@ export default async function HomePage() {
       {/* ─────────── 2. TRUST STRIP ─────────── */}
       <section className="bg-[#0D1008] border-y border-white/6 py-5" aria-label="Vertrauensmerkmale">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="flex flex-wrap justify-center items-center">
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap sm:justify-center sm:items-center divide-y divide-white/8 sm:divide-y-0">
             {TRUST_ITEMS.map(({ value, label }, i) => (
-              <div key={label} className="flex items-center">
-                <div className="px-6 py-3 text-center">
+              <div key={label} className="flex items-center sm:contents">
+                <div className="px-6 py-4 sm:py-3 text-center w-full sm:w-auto">
                   <div className="text-white font-extrabold text-xl leading-none tracking-tight">{value}</div>
                   <div className="text-white/35 text-xs mt-0.5 leading-tight">{label}</div>
                 </div>
                 {i < TRUST_ITEMS.length - 1 && (
-                  <div className="w-px h-10 bg-white/8 self-center" aria-hidden="true" />
+                  <div className="hidden sm:block w-px h-10 bg-white/8 self-center" aria-hidden="true" />
                 )}
               </div>
             ))}
@@ -522,7 +522,7 @@ export default async function HomePage() {
               'Ihr Objekt verdient Reinigung,',
               'die wirklich funktioniert.',
             ]}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight"
+            className="text-2xl md:text-4xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight"
           />
         </div>
       </section>

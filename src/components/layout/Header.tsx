@@ -92,7 +92,7 @@ export default function Header({ settings = {} }: HeaderProps) {
           <button
             onClick={() => setOpen(!open)}
             aria-label={open ? 'Menü schließen' : 'Menü öffnen'}
-            className="lg:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5"
+            className="lg:hidden relative w-11 h-11 flex flex-col items-center justify-center gap-1.5"
           >
             <span
               className={`block w-6 h-0.5 bg-white transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] origin-center ${
@@ -158,7 +158,7 @@ export default function Header({ settings = {} }: HeaderProps) {
                   key={href}
                   href={href}
                   onClick={() => setOpen(false)}
-                  className="text-sm text-white/60 hover:text-primary py-2 transition-colors"
+                  className="text-sm text-white/60 hover:text-primary py-3 transition-colors"
                 >
                   {label}
                 </Link>

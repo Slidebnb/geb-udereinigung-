@@ -76,7 +76,7 @@ export default function AngebotForm() {
           ))}
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="card p-8 space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="card p-5 sm:p-8 space-y-6">
           {step === 1 && (
             <div>
               <h2 className="mb-2">Welche Leistung benötigen Sie?</h2>

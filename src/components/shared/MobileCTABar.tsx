@@ -18,7 +18,7 @@ export default function MobileCTABar() {
         visible ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0 pointer-events-none'
       }`}
     >
-      <div className="flex shadow-2xl border-t border-white/10" style={{ background: 'linear-gradient(90deg, #0C2340 0%, #1B3E62 100%)' }}>
+      <div className="flex shadow-2xl border-t border-white/10" style={{ background: 'linear-gradient(90deg, #0C2340 0%, #1B3E62 100%)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <a
           href={`tel:${siteConfig.phone}`}
           className="flex-1 flex items-center justify-center gap-2 py-4 text-white text-sm font-bold border-r border-white/10 active:bg-white/10"

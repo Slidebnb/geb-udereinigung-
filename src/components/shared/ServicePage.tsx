@@ -53,7 +53,7 @@ export default function ServicePage({ icon, title, subtitle, description, benefi
 
       {/* Main content */}
       <section className="section-padding bg-white">
-        <div className="container mx-auto grid lg:grid-cols-3 gap-12">
+        <div className="container mx-auto grid md:grid-cols-3 gap-12">
           <div className="lg:col-span-2">
             <h2 className="mb-6">Was beinhaltet unsere {title}?</h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
