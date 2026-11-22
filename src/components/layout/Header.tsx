@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import HuwaLogo from '@/components/shared/HuwaLogo';
 import type { SiteSettings } from '@/lib/get-settings';
 import { getPhone } from '@/lib/get-settings';
 import { siteConfig } from '@/lib/site';
@@ -53,15 +54,8 @@ export default function Header({ settings = {} }: HeaderProps) {
         <div className="container mx-auto flex items-center justify-between h-20 px-4 md:px-6">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group flex-shrink-0" onClick={() => setOpen(false)}>
-            <svg width="38" height="34" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 2L6 16h6v18h18V16h6L21 2z" fill="#4BB8F5" opacity="0.95"/>
-              <path d="M21 2L30 11l8 5-7-7-10-7z" fill="#2DC94E"/>
-            </svg>
-            <div>
-              <div className="font-extrabold text-white text-lg leading-none tracking-widest">HUWA</div>
-              <div className="text-[9px] text-white/40 leading-none tracking-[0.2em] uppercase mt-0.5">Gebäudereinigung</div>
-            </div>
+          <Link href="/" className="flex-shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg" onClick={() => setOpen(false)}>
+            <HuwaLogo iconSize={38} />
           </Link>
 
           {/* Desktop nav */}
