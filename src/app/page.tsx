@@ -435,13 +435,13 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────── 3. SERVICES ─────────── */}
-      <section className="section-mid">
+      <section className="py-24 md:py-32 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <ScrollReveal className="mb-14">
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-primary block mb-3">
               Unsere Leistungen
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white" style={{ maxWidth: '520px', textWrap: 'balance' }}>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900" style={{ maxWidth: '520px', textWrap: 'balance' }}>
               Alles aus einer Hand für gewerbliche Objekte.
             </h2>
           </ScrollReveal>
@@ -451,14 +451,14 @@ export default async function HomePage() {
               <ScrollReveal key={title} delay={i * 80}>
                 <Link
                   href={href}
-                  className="card-dark group flex flex-col gap-4 p-6 h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-[#1a1a14] rounded-2xl"
+                  className="card group flex flex-col gap-4 p-6 h-full cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded-2xl"
                 >
                   <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary group-hover:bg-primary/20 transition-all duration-300">
                     {icon}
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-white font-bold text-lg mb-2">{title}</h3>
-                    <p className="text-white/50 text-sm leading-relaxed">{desc}</p>
+                    <h3 className="text-slate-900 font-bold text-lg mb-2">{title}</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
                   </div>
                   <div className="flex items-center gap-1.5 text-primary text-sm font-semibold">
                     Mehr erfahren
@@ -472,7 +472,7 @@ export default async function HomePage() {
           </div>
 
           <ScrollReveal className="mt-8 text-center" delay={320}>
-            <Link href="/leistungen" className="btn-ghost inline-flex cursor-pointer">
+            <Link href="/leistungen" className="btn-outline inline-flex cursor-pointer">
               Alle Leistungen ansehen
             </Link>
           </ScrollReveal>
@@ -480,16 +480,16 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────── 4. FÜR WEN ─────────── */}
-      <section className="section-dark">
+      <section className="py-24 md:py-32 bg-slate-50">
         <div className="container mx-auto px-4 md:px-6">
           <ScrollReveal className="mb-14 text-center">
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold block mb-3">
               Unsere Zielgruppe
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white" style={{ maxWidth: '520px', margin: '0 auto', textWrap: 'balance' }}>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900" style={{ maxWidth: '520px', margin: '0 auto', textWrap: 'balance' }}>
               Wir arbeiten ausschließlich für Gewerbekunden.
             </h2>
-            <p className="text-white/50 mt-4 max-w-xl mx-auto leading-relaxed">
+            <p className="text-slate-500 mt-4 max-w-xl mx-auto leading-relaxed">
               Kein Privathaushalt. Das erlaubt uns die Qualität und Zuverlässigkeit,
               die gewerbliche Kunden erwarten.
             </p>
@@ -498,13 +498,13 @@ export default async function HomePage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {TARGET_GROUPS.map(({ icon, label, desc }, i) => (
               <ScrollReveal key={label} delay={i * 80}>
-                <div className="card-dark p-6 h-full flex flex-col gap-4">
+                <div className="card rounded-2xl p-6 h-full flex flex-col gap-4">
                   <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold">
                     {icon}
                   </div>
                   <div>
-                    <div className="text-white font-semibold mb-1">{label}</div>
-                    <div className="text-white/40 text-sm leading-relaxed">{desc}</div>
+                    <div className="text-slate-900 font-semibold mb-1">{label}</div>
+                    <div className="text-slate-500 text-sm leading-relaxed">{desc}</div>
                   </div>
                 </div>
               </ScrollReveal>
@@ -528,13 +528,13 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────── 6. WARUM HUWA ─────────── */}
-      <section className="section-mid">
+      <section className="py-24 md:py-32 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <ScrollReveal className="mb-16">
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-primary block mb-3">
               Unsere Versprechen
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white" style={{ maxWidth: '480px', textWrap: 'balance' }}>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900" style={{ maxWidth: '480px', textWrap: 'balance' }}>
               Warum Hausverwaltungen auf Huwa vertrauen.
             </h2>
           </ScrollReveal>
@@ -546,7 +546,7 @@ export default async function HomePage() {
                   <div
                     className="text-7xl font-extrabold leading-none mb-6 select-none"
                     style={{
-                      background: 'linear-gradient(180deg, rgba(201,168,76,0.35) 0%, rgba(201,168,76,0) 100%)',
+                      background: 'linear-gradient(180deg, rgba(75,184,245,0.3) 0%, rgba(75,184,245,0) 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
@@ -555,8 +555,8 @@ export default async function HomePage() {
                   >
                     {num}
                   </div>
-                  <h3 className="text-white font-bold text-xl mb-3">{title}</h3>
-                  <p className="text-white/50 leading-relaxed">{desc}</p>
+                  <h3 className="text-slate-900 font-bold text-xl mb-3">{title}</h3>
+                  <p className="text-slate-500 leading-relaxed">{desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -565,13 +565,13 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────── 7. WIE ES FUNKTIONIERT ─────────── */}
-      <section className="section-dark" id="wie-es-funktioniert">
+      <section className="py-24 md:py-32 bg-slate-50" id="wie-es-funktioniert">
         <div className="container mx-auto px-4 md:px-6">
           <ScrollReveal className="mb-16 text-center">
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-primary block mb-3">
               Einfacher Prozess
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white" style={{ maxWidth: '480px', margin: '0 auto', textWrap: 'balance' }}>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900" style={{ maxWidth: '480px', margin: '0 auto', textWrap: 'balance' }}>
               In 3 Schritten zu Ihrem Reinigungspartner.
             </h2>
           </ScrollReveal>
@@ -583,8 +583,8 @@ export default async function HomePage() {
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/8 border border-primary/20 mb-6">
                     <span className="text-xl font-extrabold text-primary">{num}</span>
                   </div>
-                  <h3 className="text-white font-bold text-xl mb-3">{title}</h3>
-                  <p className="text-white/50 leading-relaxed">{desc}</p>
+                  <h3 className="text-slate-900 font-bold text-xl mb-3">{title}</h3>
+                  <p className="text-slate-500 leading-relaxed">{desc}</p>
                 </div>
               </ScrollReveal>
             ))}
@@ -601,13 +601,13 @@ export default async function HomePage() {
 
       {/* ─────────── 8. TESTIMONIALS (aus DB) ─────────── */}
       {testimonials.length > 0 && (
-        <section className="section-mid">
+        <section className="py-24 md:py-32 bg-white">
           <div className="container mx-auto px-4 md:px-6">
             <ScrollReveal className="mb-14">
               <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold block mb-3">
                 Referenzen
               </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
                 Was Kunden sagen.
               </h2>
             </ScrollReveal>
@@ -615,21 +615,21 @@ export default async function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {testimonials.map((t, i) => (
                 <ScrollReveal key={t.id} delay={i * 70}>
-                  <article className="card-dark p-6 h-full flex flex-col gap-4">
+                  <article className="card rounded-2xl p-6 h-full flex flex-col gap-4">
                     <div className="flex gap-0.5" aria-label={`${t.rating} von 5 Sternen`}>
                       {Array.from({ length: 5 }).map((_, j) => (
-                        <svg key={j} className={`w-4 h-4 ${j < t.rating ? 'text-gold' : 'text-white/15'}`} fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                        <svg key={j} className={`w-4 h-4 ${j < t.rating ? 'text-gold' : 'text-slate-200'}`} fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                           <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                         </svg>
                       ))}
                     </div>
-                    <blockquote className="text-white/70 text-sm leading-relaxed flex-1">
+                    <blockquote className="text-slate-600 text-sm leading-relaxed flex-1">
                       &ldquo;{t.content}&rdquo;
                     </blockquote>
                     <footer>
-                      <div className="text-white font-semibold text-sm">{t.name}</div>
+                      <div className="text-slate-900 font-semibold text-sm">{t.name}</div>
                       {(t.role || t.company) && (
-                        <div className="text-white/35 text-xs">{[t.role, t.company].filter(Boolean).join(', ')}</div>
+                        <div className="text-slate-400 text-xs">{[t.role, t.company].filter(Boolean).join(', ')}</div>
                       )}
                     </footer>
                   </article>
@@ -641,13 +641,13 @@ export default async function HomePage() {
       )}
 
       {/* ─────────── 9. FAQ ─────────── */}
-      <section className="section-dark" id="faq">
+      <section className="py-24 md:py-32 bg-slate-50" id="faq">
         <div className="container mx-auto px-4 md:px-6 max-w-3xl">
           <ScrollReveal className="mb-14">
             <span className="text-xs font-semibold uppercase tracking-[0.15em] text-primary block mb-3">
               Häufige Fragen
             </span>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-white" style={{ textWrap: 'balance' }}>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900" style={{ textWrap: 'balance' }}>
               Antworten auf Ihre Fragen.
             </h2>
           </ScrollReveal>
@@ -655,8 +655,8 @@ export default async function HomePage() {
           <div className="space-y-3">
             {FAQS.map(({ q, a }, i) => (
               <ScrollReveal key={q} delay={i * 55}>
-                <details className="card-dark group">
-                  <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none text-white font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-2xl">
+                <details className="card group">
+                  <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none select-none text-slate-900 font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-xl">
                     {q}
                     <svg
                       className="w-5 h-5 text-primary flex-shrink-0 group-open:rotate-180 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
@@ -665,7 +665,7 @@ export default async function HomePage() {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"/>
                     </svg>
                   </summary>
-                  <p className="px-5 pb-5 text-white/55 leading-relaxed text-sm border-t border-white/6 pt-4">{a}</p>
+                  <p className="px-5 pb-5 text-slate-500 leading-relaxed text-sm border-t border-slate-100 pt-4">{a}</p>
                 </details>
               </ScrollReveal>
             ))}
@@ -674,7 +674,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────── 10. FINAL CTA ─────────── */}
-      <section className="section-mid" id="kontakt">
+      <section className="py-24 md:py-32 bg-[#0C2340]" id="kontakt">
         <div className="container mx-auto px-4 md:px-6">
           <div
             className="relative rounded-3xl overflow-hidden p-8 md:p-14 text-center"
