@@ -11,7 +11,7 @@ import HeroAnimator from '@/components/home/HeroAnimator';
 export const metadata: Metadata = {
   title: 'Professionelle Gebäudereinigung für Gewerbekunden | Huwa',
   description:
-    'Festpreisgarantie für Hausverwaltungen, WEGs und Facility Manager in Neuwied, Koblenz und Region. Eigene Festangestellte. Kein Subunternehmer. Jetzt Objekt anfragen.',
+    'Festpreisgarantie für Hausverwaltungen, WEGs und Facility Manager in Neuwied, Koblenz und Region. Direkter Ansprechpartner. Jetzt Objekt anfragen.',
   alternates: { canonical: siteConfig.url },
 };
 
@@ -35,13 +35,11 @@ const localBusinessSchema = {
   areaServed: siteConfig.serviceAreas,
 };
 
-// Higgsfield-generated images (Huwa brand colors)
-const HERO_IMAGE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_3F1PPLyR68v2hfxAZzx5dp8ltFX/hf_20261122_081701_b096c0fb-5f8b-4544-99cb-e488a50135a5.png';
-const OFFICE_EXTERIOR_IMAGE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_3F1PPLyR68v2hfxAZzx5dp8ltFX/hf_20261122_082715_8c781ab6-a46c-4160-b089-ee1d6bdb0157.png';
-const OFFICE_INTERIOR_IMAGE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_3F1PPLyR68v2hfxAZzx5dp8ltFX/hf_20261122_082719_6f1ff621-3096-4db7-ada9-6ee4d9dd7aa6.png';
+// Higgsfield UI-Grafiken (abstrakte Hintergründe, keine Fotos)
+const HERO_BG_IMAGE =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_3F1PPLyR68v2hfxAZzx5dp8ltFX/hf_20261122_093336_b01717f7-d692-47a2-9844-1c2cfd76a201.png';
+const SECTION_ACCENT_IMAGE =
+  'https://d8j0ntlcm91z4.cloudfront.net/user_3F1PPLyR68v2hfxAZzx5dp8ltFX/hf_20261122_093341_a93d5410-72d8-49a3-814d-20a99167673c.png';
 
 const SERVICES = [
   {
@@ -94,9 +92,9 @@ const TARGET_GROUPS = [
 ];
 
 const TRUST_ITEMS = [
-  { value: 'Seit 2023', label: 'in der Region' },
+  { value: 'Seit 2023', label: 'in der Region tätig' },
   { value: 'Festpreis', label: 'garantiert schriftlich' },
-  { value: '0', label: 'Subunternehmer' },
+  { value: '24 h', label: 'Reaktionszeit' },
   { value: '1', label: 'fester Ansprechpartner' },
 ];
 
@@ -108,8 +106,8 @@ const USPS = [
   },
   {
     num: '02',
-    title: 'Eigene Festangestellte',
-    desc: 'Keine Leiharbeiter, keine Subunternehmer. Unser Team kennt Ihr Objekt und ist direkt bei uns angestellt.',
+    title: 'Zuverlässige Termine',
+    desc: 'Reinigung zum vereinbarten Zeitpunkt — ohne Absagen, ohne Nachfragen. Sie planen, wir halten ein.',
   },
   {
     num: '03',
@@ -181,12 +179,12 @@ export default async function HomePage() {
         {/* Background image */}
         <div className="absolute inset-0 z-0">
           <Image
-            src={HERO_IMAGE}
-            alt="Modernes Bürogebäude von HUWA betreut"
+            src={HERO_BG_IMAGE}
+            alt=""
             fill
             priority
             className="object-cover object-center"
-            style={{ opacity: 0.25 }}
+            style={{ opacity: 0.3 }}
             sizes="100vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-[#050D1A]/70 via-[#050D1A]/40 to-[#050D1A]" />
@@ -263,7 +261,7 @@ export default async function HomePage() {
             style={{ maxWidth: '560px', textWrap: 'pretty' }}
           >
             Hausverwaltungen, WEGs und Facility Manager in Neuwied und Koblenz vertrauen
-            auf unsere Festpreisgarantie — mit eigenen Festangestellten.
+            auf unsere Festpreisgarantie — mit direktem Ansprechpartner.
           </p>
 
           {/* CTAs */}
@@ -282,7 +280,7 @@ export default async function HomePage() {
 
           {/* Trust micro-badges */}
           <div data-hero-animate className="flex flex-wrap gap-x-6 gap-y-2 mt-10">
-            {['Festpreisgarantie schriftlich', 'Eigene Festangestellte', 'Kein Subunternehmer', 'Direkter Ansprechpartner'].map(item => (
+            {['Festpreisgarantie schriftlich', 'Antwort in 24 Stunden', 'Kostenlose Objektbesichtigung', 'Direkter Ansprechpartner'].map(item => (
               <div key={item} className="flex items-center gap-2 text-sm text-white/40">
                 <svg className="w-4 h-4 text-green flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                   <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd"/>
@@ -387,8 +385,8 @@ export default async function HomePage() {
             <ScrollReveal>
               <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
                 <Image
-                  src={OFFICE_EXTERIOR_IMAGE}
-                  alt="Gepflegtes Bürogebäude"
+                  src={SECTION_ACCENT_IMAGE}
+                  alt=""
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 100vw, 50vw"
@@ -466,22 +464,20 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─────────── 7. INTERIOR IMAGE BREAK ─────────── */}
-      <div className="relative h-72 md:h-96 overflow-hidden" aria-hidden="true">
-        <Image
-          src={OFFICE_INTERIOR_IMAGE}
-          alt=""
-          fill
-          className="object-cover object-center"
-          sizes="100vw"
+      {/* ─────────── 7. ZITAT-BREAK ─────────── */}
+      <div className="relative py-24 md:py-32 overflow-hidden bg-[#0D1008]">
+        <div
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(75,184,245,1) 0%, transparent 70%)',
+          }}
+          aria-hidden="true"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1a1a14] via-transparent to-[#131209]" />
-        <div className="absolute inset-0 bg-[#050D1A]/30" />
-        <div className="absolute inset-0 flex items-center justify-center">
+        <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
           <ScrollReveal>
             <p
-              className="text-center text-2xl md:text-3xl font-extrabold text-white/90 px-4"
-              style={{ textShadow: '0 2px 20px rgba(0,0,0,0.6)', textWrap: 'balance' }}
+              className="text-2xl md:text-3xl font-extrabold text-white/90"
+              style={{ textWrap: 'balance' }}
             >
               Reinheit, die man sieht. Qualität, die bleibt.
             </p>
