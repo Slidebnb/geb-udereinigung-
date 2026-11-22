@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import Image from 'next/image';
 import { siteConfig } from '@/lib/site';
 import { getSettings } from '@/lib/get-settings';
 import { prisma } from '@/lib/prisma';
@@ -9,37 +8,124 @@ import ScrollReveal from '@/components/home/ScrollReveal';
 import HeroAnimator from '@/components/home/HeroAnimator';
 
 export const metadata: Metadata = {
-  title: 'Professionelle Gebäudereinigung für Gewerbekunden | Huwa',
+  title: 'Gebäudereinigung Neuwied & Koblenz für Gewerbekunden | Huwa',
   description:
-    'Festpreisgarantie für Hausverwaltungen, WEGs und Facility Manager in Neuwied, Koblenz und Region. Direkter Ansprechpartner. Jetzt Objekt anfragen.',
+    'Festpreisgarantie für Hausverwaltungen, WEGs und Facility Manager in Neuwied, Koblenz und Region. Direkter Ansprechpartner, kostenlose Objektbesichtigung. Jetzt anfragen.',
   alternates: { canonical: siteConfig.url },
+  openGraph: {
+    type: 'website',
+    locale: 'de_DE',
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: 'Gebäudereinigung Neuwied & Koblenz | Huwa',
+    description:
+      'Festpreisgarantie für Hausverwaltungen, WEGs und Facility Manager. Kostenlose Objektbesichtigung in Neuwied, Koblenz und Region.',
+    images: [{ url: '/og', width: 1200, height: 630, alt: 'Huwa Gebäudereinigung' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Gebäudereinigung Neuwied & Koblenz | Huwa',
+    description: 'Festpreisgarantie für Hausverwaltungen, WEGs und Facility Manager.',
+    images: ['/og'],
+  },
 };
 
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': 'LocalBusiness',
-  '@id': siteConfig.url,
+  '@id': `${siteConfig.url}/#localbusiness`,
   name: siteConfig.name,
   description: metadata.description as string,
   url: siteConfig.url,
   telephone: siteConfig.phone,
   email: siteConfig.email,
+  image: `${siteConfig.url}/logo.png`,
+  sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
   address: {
     '@type': 'PostalAddress',
     streetAddress: siteConfig.address.street,
     postalCode: siteConfig.address.zip,
     addressLocality: siteConfig.address.city,
+    addressRegion: siteConfig.address.region,
     addressCountry: siteConfig.address.country,
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: siteConfig.geo.latitude,
+    longitude: siteConfig.geo.longitude,
+  },
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '07:00',
+      closes: '18:00',
+    },
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Saturday'],
+      opens: '08:00',
+      closes: '14:00',
+    },
+  ],
   priceRange: '€€',
   areaServed: siteConfig.serviceAreas,
 };
 
-// Higgsfield UI-Grafiken (abstrakte Hintergründe, keine Fotos)
-const HERO_BG_IMAGE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_3F1PPLyR68v2hfxAZzx5dp8ltFX/hf_20261122_093336_b01717f7-d692-47a2-9844-1c2cfd76a201.png';
-const SECTION_ACCENT_IMAGE =
-  'https://d8j0ntlcm91z4.cloudfront.net/user_3F1PPLyR68v2hfxAZzx5dp8ltFX/hf_20261122_093341_a93d5410-72d8-49a3-814d-20a99167673c.png';
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Nehmen Sie auch Privathaushalte an?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Nein. Wir fokussieren uns ausschließlich auf gewerbliche Objekte: Hausverwaltungen, WEGs, Bürogebäude und Einzelhandel.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wie läuft eine kostenlose Objektbesichtigung ab?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Wir vereinbaren einen Termin, schauen uns Ihr Objekt gemeinsam an und erstellen danach ein schriftliches Festpreisangebot. Das ist für Sie völlig kostenfrei und unverbindlich.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wie wird der Preis kalkuliert?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Der Preis basiert auf Fläche, Reinigungsrhythmus und Leistungsumfang. Sie erhalten einen Festpreis — keine Stundensätze, keine Überraschungen auf der Rechnung.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Welche Reinigungsrhythmen bieten Sie an?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Täglich, 2x wöchentlich, wöchentlich oder 14-täglich — je nach Ihrem Bedarf. Auch Kombilösungen sind möglich.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'In welchen Regionen sind Sie tätig?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Schwerpunkt Neuwied, Koblenz, Bendorf und Umgebung (Rheinland-Pfalz). Für größere Objekte oder Rahmenverträge sprechen Sie uns an.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Wie schnell können Sie nach Vertragsabschluss starten?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'In der Regel innerhalb von 10 bis 14 Werktagen nach Vertragsunterzeichnung. Bei dringendem Bedarf finden wir oft auch schnellere Lösungen.',
+      },
+    },
+  ],
+};
 
 const SERVICES = [
   {
@@ -85,10 +171,42 @@ const SERVICES = [
 ];
 
 const TARGET_GROUPS = [
-  { label: 'Hausverwaltungen', desc: 'WEG-Verwaltungen und Miethausverwaltungen ab 20 Einheiten.' },
-  { label: 'WEG-Verwalter', desc: 'Gemeinschaftseigentum: Treppenhäuser, Tiefgaragen, Außenanlagen.' },
-  { label: 'Büro & Gewerbe', desc: 'Bürogebäude und Verwaltungsgebäude ab 300 m² Nutzfläche.' },
-  { label: 'Einzelhandel', desc: 'Ladenflächen, Schaufenster und Nebenflächen regelmäßig gepflegt.' },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21"/>
+      </svg>
+    ),
+    label: 'Hausverwaltungen',
+    desc: 'WEG-Verwaltungen und Miethausverwaltungen ab 20 Einheiten.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/>
+      </svg>
+    ),
+    label: 'WEG-Verwalter',
+    desc: 'Gemeinschaftseigentum: Treppenhäuser, Tiefgaragen, Außenanlagen.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z"/>
+      </svg>
+    ),
+    label: 'Büro & Gewerbe',
+    desc: 'Bürogebäude und Verwaltungsgebäude ab 300 m² Nutzfläche.',
+  },
+  {
+    icon: (
+      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24" aria-hidden="true">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 21v-7.5a.75.75 0 01.75-.75h3a.75.75 0 01.75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349m-16.5 11.65V9.35m0 0a3.001 3.001 0 003.75-.615A2.993 2.993 0 009.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 002.25 1.016c.896 0 1.7-.393 2.25-1.016a3.001 3.001 0 003.75.614m-16.5 0a3.004 3.004 0 01-.621-4.72L4.318 3.44A1.5 1.5 0 015.378 3h13.243a1.5 1.5 0 011.06.44l1.19 1.189a3 3 0 01-.621 4.72m-13.5 8.65h3.75a.375.375 0 00.375-.375v-1.5a.375.375 0 00-.375-.375h-3.75a.375.375 0 00-.375.375v1.5c0 .207.168.375.375.375z"/>
+      </svg>
+    ),
+    label: 'Einzelhandel',
+    desc: 'Ladenflächen, Schaufenster und Nebenflächen regelmäßig gepflegt.',
+  },
 ];
 
 const TRUST_ITEMS = [
@@ -166,37 +284,35 @@ export default async function HomePage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      {/* GSAP hero entrance (UI/UX Pro Max: stagger load animation) */}
       <HeroAnimator />
 
       {/* ─────────── 1. HERO ─────────── */}
       <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-[#050D1A]">
-        {/* Background image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={HERO_BG_IMAGE}
-            alt=""
-            fill
-            priority
-            className="object-cover object-center"
-            style={{ opacity: 0.3 }}
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#050D1A]/70 via-[#050D1A]/40 to-[#050D1A]" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#050D1A]/80 via-transparent to-[#050D1A]/50" />
-        </div>
-
         {/* Subtle grid */}
         <div
           className="absolute inset-0 z-0 opacity-[0.03]"
           style={{
             backgroundImage: 'linear-gradient(rgba(75,184,245,1) 1px, transparent 1px), linear-gradient(90deg, rgba(75,184,245,1) 1px, transparent 1px)',
             backgroundSize: '80px 80px',
+          }}
+          aria-hidden="true"
+        />
+        {/* CSS ambient glow — top right */}
+        <div
+          className="absolute top-0 right-0 w-[600px] h-[600px] pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at top right, rgba(75,184,245,0.08) 0%, transparent 65%)',
+          }}
+          aria-hidden="true"
+        />
+        {/* CSS ambient glow — bottom left */}
+        <div
+          className="absolute bottom-0 left-0 w-[400px] h-[400px] pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at bottom left, rgba(45,201,78,0.05) 0%, transparent 65%)',
           }}
           aria-hidden="true"
         />
@@ -213,7 +329,7 @@ export default async function HomePage() {
             </span>
           </div>
 
-          {/* Headline — gradient text B5 */}
+          {/* H1 — Gradient B5, mit Geo */}
           <h1
             data-hero-animate
             className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight mb-6"
@@ -228,7 +344,7 @@ export default async function HomePage() {
                 backgroundClip: 'text',
               }}
             >
-              Professionelle
+              Gebäudereinigung
             </span>
             <span
               className="block"
@@ -239,7 +355,7 @@ export default async function HomePage() {
                 backgroundClip: 'text',
               }}
             >
-              Gebäudereinigung
+              in Neuwied & Koblenz
             </span>
             <span
               className="block"
@@ -260,8 +376,8 @@ export default async function HomePage() {
             className="text-lg md:text-xl text-white/55 mb-10 leading-relaxed"
             style={{ maxWidth: '560px', textWrap: 'pretty' }}
           >
-            Hausverwaltungen, WEGs und Facility Manager in Neuwied und Koblenz vertrauen
-            auf unsere Festpreisgarantie — mit direktem Ansprechpartner.
+            Hausverwaltungen, WEGs und Facility Manager vertrauen auf unsere
+            Festpreisgarantie — mit direktem Ansprechpartner.
           </p>
 
           {/* CTAs */}
@@ -318,21 +434,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─────────── 3. TAGLINE REVEAL (B11 Pflicht) ─────────── */}
-      <section className="section-dark py-32 md:py-44 overflow-hidden">
-        <div className="container mx-auto px-4 md:px-6">
-          <TaglineReveal
-            lines={[
-              'Hausverwaltungen, WEGs und Facility Manager:',
-              'Ihr Objekt verdient Reinigung,',
-              'die wirklich funktioniert.',
-            ]}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight"
-          />
-        </div>
-      </section>
-
-      {/* ─────────── 4. SERVICES ─────────── */}
+      {/* ─────────── 3. SERVICES ─────────── */}
       <section className="section-mid">
         <div className="container mx-auto px-4 md:px-6">
           <ScrollReveal className="mb-14">
@@ -377,53 +479,51 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─────────── 5. FÜR WEN + BILD ─────────── */}
+      {/* ─────────── 4. FÜR WEN ─────────── */}
       <section className="section-dark">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Image */}
-            <ScrollReveal>
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3]">
-                <Image
-                  src={SECTION_ACCENT_IMAGE}
-                  alt=""
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#131209]/60 to-transparent" />
-                <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-[#131209]/90 backdrop-blur-sm rounded-lg px-3 py-2" style={{ border: '1px solid rgba(255,255,255,0.1)' }}>
-                  <svg className="w-4 h-4 text-gold flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clipRule="evenodd"/>
-                  </svg>
-                  <span className="text-white/70 text-xs font-medium">Ausschließlich Gewerbekunden</span>
-                </div>
-              </div>
-            </ScrollReveal>
+          <ScrollReveal className="mb-14 text-center">
+            <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold block mb-3">
+              Unsere Zielgruppe
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-white" style={{ maxWidth: '520px', margin: '0 auto', textWrap: 'balance' }}>
+              Wir arbeiten ausschließlich für Gewerbekunden.
+            </h2>
+            <p className="text-white/50 mt-4 max-w-xl mx-auto leading-relaxed">
+              Kein Privathaushalt. Das erlaubt uns die Qualität und Zuverlässigkeit,
+              die gewerbliche Kunden erwarten.
+            </p>
+          </ScrollReveal>
 
-            {/* Content */}
-            <ScrollReveal delay={120}>
-              <span className="text-xs font-semibold uppercase tracking-[0.15em] text-gold block mb-4">
-                Unsere Zielgruppe
-              </span>
-              <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-6" style={{ textWrap: 'balance' }}>
-                Für wen arbeiten wir?
-              </h2>
-              <p className="text-white/50 mb-8 leading-relaxed">
-                Wir fokussieren uns ausschließlich auf gewerbliche Objekte. Privathaushalt-Anfragen
-                nehmen wir nicht an — das erlaubt uns, die Servicequalität zu liefern,
-                die gewerbliche Kunden erwarten.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {TARGET_GROUPS.map(({ label, desc }) => (
-                  <div key={label} className="card-dark p-4">
-                    <div className="text-white font-semibold text-sm mb-1">{label}</div>
-                    <div className="text-white/40 text-xs leading-relaxed">{desc}</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {TARGET_GROUPS.map(({ icon, label, desc }, i) => (
+              <ScrollReveal key={label} delay={i * 80}>
+                <div className="card-dark p-6 h-full flex flex-col gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center text-gold">
+                    {icon}
                   </div>
-                ))}
-              </div>
-            </ScrollReveal>
+                  <div>
+                    <div className="text-white font-semibold mb-1">{label}</div>
+                    <div className="text-white/40 text-sm leading-relaxed">{desc}</div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─────────── 5. TAGLINE REVEAL (B11 Pflicht) ─────────── */}
+      <section className="section-dark py-32 md:py-44 overflow-hidden">
+        <div className="container mx-auto px-4 md:px-6">
+          <TaglineReveal
+            lines={[
+              'Hausverwaltungen, WEGs und Facility Manager:',
+              'Ihr Objekt verdient Reinigung,',
+              'die wirklich funktioniert.',
+            ]}
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-[1.15] tracking-tight"
+          />
         </div>
       </section>
 
@@ -464,28 +564,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─────────── 7. ZITAT-BREAK ─────────── */}
-      <div className="relative py-24 md:py-32 overflow-hidden bg-[#0D1008]">
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(75,184,245,1) 0%, transparent 70%)',
-          }}
-          aria-hidden="true"
-        />
-        <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
-          <ScrollReveal>
-            <p
-              className="text-2xl md:text-3xl font-extrabold text-white/90"
-              style={{ textWrap: 'balance' }}
-            >
-              Reinheit, die man sieht. Qualität, die bleibt.
-            </p>
-          </ScrollReveal>
-        </div>
-      </div>
-
-      {/* ─────────── 8. WIE ES FUNKTIONIERT ─────────── */}
+      {/* ─────────── 7. WIE ES FUNKTIONIERT ─────────── */}
       <section className="section-dark" id="wie-es-funktioniert">
         <div className="container mx-auto px-4 md:px-6">
           <ScrollReveal className="mb-16 text-center">
@@ -520,7 +599,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─────────── 9. TESTIMONIALS (aus DB) ─────────── */}
+      {/* ─────────── 8. TESTIMONIALS (aus DB) ─────────── */}
       {testimonials.length > 0 && (
         <section className="section-mid">
           <div className="container mx-auto px-4 md:px-6">
@@ -561,7 +640,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* ─────────── 10. FAQ ─────────── */}
+      {/* ─────────── 9. FAQ ─────────── */}
       <section className="section-dark" id="faq">
         <div className="container mx-auto px-4 md:px-6 max-w-3xl">
           <ScrollReveal className="mb-14">
@@ -594,7 +673,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ─────────── 11. FINAL CTA ─────────── */}
+      {/* ─────────── 10. FINAL CTA ─────────── */}
       <section className="section-mid" id="kontakt">
         <div className="container mx-auto px-4 md:px-6">
           <div

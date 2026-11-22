@@ -40,6 +40,7 @@ const organizationSchema = {
   logo: `${siteConfig.url}/logo.png`,
   telephone: siteConfig.phone,
   email: siteConfig.email,
+  sameAs: [siteConfig.social.facebook, siteConfig.social.instagram],
   address: {
     '@type': 'PostalAddress',
     streetAddress: siteConfig.address.street,
