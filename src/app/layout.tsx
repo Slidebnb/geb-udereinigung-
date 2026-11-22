@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
     siteName: siteConfig.name,
+    images: [{ url: '/og', width: 1200, height: 630, alt: 'Huwa Gebäudereinigung' }],
   },
   twitter: { card: 'summary_large_image', title: siteConfig.name, description: siteConfig.description },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true } },

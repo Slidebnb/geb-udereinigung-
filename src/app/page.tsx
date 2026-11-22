@@ -333,7 +333,7 @@ export default async function HomePage() {
           <h1
             data-hero-animate
             className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.08] tracking-tight mb-6"
-            style={{ maxWidth: '700px', textWrap: 'balance' }}
+            style={{ maxWidth: '680px', textWrap: 'balance' }}
           >
             <span
               className="block"
@@ -416,7 +416,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────── 2. TRUST STRIP ─────────── */}
-      <section className="bg-[#0D1008] border-y border-white/6 py-5">
+      <section className="bg-[#0D1008] border-y border-white/6 py-5" aria-label="Vertrauensmerkmale">
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-wrap justify-center items-center">
             {TRUST_ITEMS.map(({ value, label }, i) => (
@@ -544,7 +544,7 @@ export default async function HomePage() {
               <ScrollReveal key={num} delay={i * 100}>
                 <div>
                   <div
-                    className="text-7xl font-black leading-none mb-6 select-none"
+                    className="text-7xl font-extrabold leading-none mb-6 select-none"
                     style={{
                       background: 'linear-gradient(180deg, rgba(201,168,76,0.35) 0%, rgba(201,168,76,0) 100%)',
                       WebkitBackgroundClip: 'text',
@@ -581,7 +581,7 @@ export default async function HomePage() {
               <ScrollReveal key={num} delay={i * 120}>
                 <div className="text-center md:text-left">
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/8 border border-primary/20 mb-6">
-                    <span className="text-xl font-black text-primary">{num}</span>
+                    <span className="text-xl font-extrabold text-primary">{num}</span>
                   </div>
                   <h3 className="text-white font-bold text-xl mb-3">{title}</h3>
                   <p className="text-white/50 leading-relaxed">{desc}</p>

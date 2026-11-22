@@ -28,7 +28,7 @@ export default function ScrollReveal({ children, className = '', delay = 0, y = 
         y,
         duration: 0.65,
         delay: delay / 1000,
-        ease: 'power2.out',
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: el,
           start: 'top 90%',

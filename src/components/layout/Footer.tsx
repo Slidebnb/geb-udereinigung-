@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { siteConfig } from '@/lib/site';
 import { getSettings, getPhone, getEmail, getCompanyName } from '@/lib/get-settings';
 import TrackPhoneLink from '@/components/shared/TrackPhoneLink';
+import HuwaLogo from '@/components/shared/HuwaLogo';
 
 export default async function Footer() {
   const settings  = await getSettings();
@@ -13,20 +14,13 @@ export default async function Footer() {
   const hoursSat  = settings.opening_hours_sat || 'Sa 08:00–14:00 Uhr';
 
   return (
-    <footer style={{ background: 'linear-gradient(180deg, #0C2340 0%, #091B33 100%)' }}>
+    <footer style={{ background: '#0C2340' }}>
       {/* Main grid */}
       <div className="container mx-auto pt-16 pb-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
         {/* Brand */}
         <div className="lg:col-span-1">
-          <Link href="/" className="inline-flex items-center gap-3 mb-6 group">
-            <svg width="40" height="36" viewBox="0 0 42 38" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 2L6 16h6v18h18V16h6L21 2z" fill="#4BB8F5" opacity="0.9"/>
-              <path d="M21 2L30 11l8 5-7-7-10-7z" fill="#2DC94E"/>
-            </svg>
-            <div>
-              <div className="font-black text-white text-xl leading-none tracking-wide">HUWA</div>
-              <div className="text-[10px] text-blue-400/60 leading-none tracking-widest uppercase">Gebäudereinigung</div>
-            </div>
+          <Link href="/" className="inline-flex mb-6 group">
+            <HuwaLogo iconSize={36} showText />
           </Link>
           <p className="text-blue-300/50 text-sm leading-relaxed mb-6 max-w-xs">
             Ihr zuverlässiger Partner für professionelle Gebäudereinigung und Hausmeisterdienste in Neuwied, Koblenz und Bendorf. Seit {siteConfig.foundingYear}.

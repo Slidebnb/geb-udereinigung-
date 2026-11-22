@@ -38,12 +38,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${base}/ueber-uns`,    lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${base}/angebot`,      lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.85 },
     { url: `${base}/kontakt`,      lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${base}/blog`,         lastModified: LAST_SEO_UPDATE, changeFrequency: 'weekly',  priority: 0.7 },
-    { url: `${base}/faq`,          lastModified: LAST_SEO_UPDATE, changeFrequency: 'monthly', priority: 0.65 },
-    { url: `${base}/checkliste`,   lastModified: LAST_SEO_UPDATE, changeFrequency: 'yearly',  priority: 0.5 },
     { url: `${base}/impressum`,    lastModified: LAST_SEO_UPDATE, changeFrequency: 'yearly',  priority: 0.2 },
     { url: `${base}/datenschutz`,  lastModified: LAST_SEO_UPDATE, changeFrequency: 'yearly',  priority: 0.2 },
-    { url: `${base}/agb`,          lastModified: LAST_SEO_UPDATE, changeFrequency: 'yearly',  priority: 0.2 },
   ];
 
   const servicePages: MetadataRoute.Sitemap = getAllServiceSlugs().map(slug => ({

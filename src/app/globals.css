@@ -24,7 +24,9 @@
     @apply inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-lg
            bg-primary text-white shadow-sm
            hover:bg-[#2aa8e8] hover:shadow-md
-           transition-all duration-200;
+           active:scale-[0.98]
+           transition-colors duration-300;
+    transition-timing-function: cubic-bezier(0.22,1,0.36,1);
   }
   .btn-outline {
     @apply inline-flex items-center gap-2 font-bold px-7 py-3.5 rounded-lg
@@ -119,7 +121,7 @@
   .prose-html li { @apply leading-relaxed; }
   .prose-html strong { @apply font-semibold text-gray-800; }
   .prose-html a  { @apply text-primary underline hover:text-primary-800 transition-colors; }
-  .prose-html blockquote { @apply border-l-4 border-primary pl-4 italic text-gray-500 my-6; }
+  .prose-html blockquote { @apply border-l-4 border-primary pl-4 text-gray-500 my-6; }
   .prose-html article { @apply block; }
 }
 
