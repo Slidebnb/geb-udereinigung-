@@ -58,6 +58,11 @@ const websiteSchema = {
   url: siteConfig.url,
   name: siteConfig.name,
   inLanguage: 'de-DE',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: { '@type': 'EntryPoint', urlTemplate: `${siteConfig.url}/leistungen?q={search_term_string}` },
+    'query-input': 'required name=search_term_string',
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
